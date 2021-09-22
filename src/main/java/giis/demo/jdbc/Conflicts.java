@@ -11,9 +11,4 @@ public class Conflicts {
 		this.newConflict = 21343;
 	}
 	
-	public int getNumOfConflicts() {
-		numOfConflicts += newConflict;
-		
-		return numOfConflicts;
-	}
 }
