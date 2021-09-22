@@ -12,6 +12,8 @@ public class Conflicts {
 	}
 	
 	public int getNumOfConflicts() {
+		numOfConflicts += newConflict;
+		
 		return numOfConflicts;
 	}
 }
