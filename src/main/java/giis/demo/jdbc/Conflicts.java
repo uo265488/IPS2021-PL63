@@ -7,7 +7,7 @@ public class Conflicts {
 	private int newConflict;
 	
 	public Conflicts() {
-		this.numOfConflicts = 0;
+		this.numOfConflicts = 22;
 		this.newConflict = 21343;
 	}
 	
