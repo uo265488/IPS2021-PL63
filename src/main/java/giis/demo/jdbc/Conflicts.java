@@ -10,4 +10,8 @@ public class Conflicts {
 		this.numOfConflicts = 0;
 		this.newConflict = 21343;
 	}
+	
+	public int getNumOfConflicts() {
+		return numOfConflicts + 1;
+	}
 }
