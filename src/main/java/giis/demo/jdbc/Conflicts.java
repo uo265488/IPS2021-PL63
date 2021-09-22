@@ -10,6 +10,6 @@ public class Conflicts {
 	}
 	
 	public int getNumOfConflicts() {
-		return numOfConflicts;
+		return numOfConflicts + 1;
 	}
 }
