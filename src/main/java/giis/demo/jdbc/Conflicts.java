@@ -8,4 +8,8 @@ public class Conflicts {
 	public Conflicts() {
 		this.numOfConflicts = 0;
 	}
+	
+	public int getNumOfConflicts() {
+		return numOfConflicts;
+	}
 }
