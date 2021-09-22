@@ -4,8 +4,10 @@ public class Conflicts {
     
 	
 	private int numOfConflicts;
+	private int newConflict;
 	
 	public Conflicts() {
 		this.numOfConflicts = 0;
+		this.newConflict = 21343;
 	}
 }
