@@ -42,7 +42,7 @@ public class DemoJdbc {
 			try {
 				stmt.executeUpdate("drop table if exists test");
 			} catch (SQLException e) {
-				//ignora excepcion, que se causara si la tabla no existe en la bd (p.e. al ejecutar la primera vez)
+				//ignora excepcion, que se causara si la tabla no existe en la bd(p.e. al ejecutar la primera vez)
 			}
 			
 			stmt.executeUpdate("create table test(id int not null, id2 int, text varchar(32))");
