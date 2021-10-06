@@ -1,14 +1,14 @@
-package giis.demo.tkrun.editor.controllers;
+package giis.demo.tkrun.controllers;
 
 import java.util.List;
 
-import giis.demo.tkrun.articulo.ArticuloEntity;
-import giis.demo.tkrun.articulo.model.ArticuloModel;
-import giis.demo.tkrun.editor.model.EditorModel;
-import giis.demo.tkrun.editor.view.EditorView;
-import giis.demo.tkrun.revision.model.RevisionModel;
-import giis.demo.tkrun.revisor.RevisorEntity;
-import giis.demo.tkrun.revisor.model.RevisorModel;
+import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.RevisorEntity;
+import giis.demo.tkrun.models.articulo.ArticuloModel;
+import giis.demo.tkrun.models.editor.EditorModel;
+import giis.demo.tkrun.models.revision.RevisionModel;
+import giis.demo.tkrun.models.revisor.RevisorModel;
+import giis.demo.tkrun.views.EditorView;
 import giis.demo.util.DtoMapper;
 import giis.demo.util.EntityAssembler;
 
@@ -44,6 +44,11 @@ public class EditorController {
 	public List<RevisorEntity> getRevisoresDisponibles() {
 		
 		return EntityAssembler.toRevisorEntityList(model.getRevisoresDisponibles());
+	}
+	
+	public List<ArticuloEntity> getArticulosTomarDecision() {
+		
+		return EntityAssembler.toArticuloEntityList(model.getArticulosTomarDecision());
 	}
 	
 	public boolean asignarRevisoresAlArticulo(List<RevisorEntity> revisores, ArticuloEntity articulo, String fecha) {

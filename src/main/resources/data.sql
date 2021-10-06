@@ -12,3 +12,15 @@ insert into revisores(id,nombre,estado) values
 	(1,'felipe','disponible'),
 	(2,'ernesto','disponible'),
 	(3,'maria','no disponible');
+	
+delete from autores;
+insert into autores(id,nombre,dni) values 
+	(4,'antonio','435135'),
+	(5,'lucia','156723'),
+	(6,'ariadna','810582');
+	
+delete from articulo;
+insert into articulo(id,titulo,primerAutor,otrosAutores,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV,firma,revisado,idAutorPrin) values 
+	(7,'Economia Española','antonio',' ','con el editor', 'La economia española esta en decadencia', 'economia, euro', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, false, 4),
+	(8,'Gasol se retira','lucia','antonio','en revision', 'Gasol anuncia su retirada del baloncesto', 'gasol, leyenda, Barca', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, true, 5),
+	(9,'Poesia clasica','ariadna',' ','publicado', 'explicacion sobre la poesia clasica', 'poesia, españa', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, false, 6);

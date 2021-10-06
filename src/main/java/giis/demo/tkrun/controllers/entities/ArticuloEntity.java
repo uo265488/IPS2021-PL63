@@ -1,4 +1,4 @@
-package giis.demo.tkrun.articulo;
+package giis.demo.tkrun.controllers.entities;
 
 public class ArticuloEntity {
 

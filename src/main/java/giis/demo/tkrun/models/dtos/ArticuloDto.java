@@ -1,4 +1,4 @@
-package giis.demo.tkrun.articulo;
+package giis.demo.tkrun.models.dtos;
 
 public class ArticuloDto {
 

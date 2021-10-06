@@ -3,8 +3,10 @@ package giis.demo.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import giis.demo.tkrun.revisor.RevisorDto;
-import giis.demo.tkrun.revisor.RevisorEntity;
+import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.RevisorEntity;
+import giis.demo.tkrun.models.dtos.ArticuloDto;
+import giis.demo.tkrun.models.dtos.RevisorDto;
 
 public class EntityAssembler {
 
@@ -13,6 +15,14 @@ public class EntityAssembler {
 		List<RevisorEntity> ents = new ArrayList<>();
 		for (RevisorDto rev : revisores) {
 			ents.add(toRevisorEntity(rev));
+		}
+		return ents;
+	}
+	
+	public static List<ArticuloEntity> toArticuloEntityList(List<ArticuloDto> articulos) {
+		List<ArticuloEntity> ents = new ArrayList<>();
+		for (ArticuloDto rev : articulos) {
+			ents.add(toArticuloEntity(rev));
 		}
 		return ents;
 	}
@@ -28,5 +38,15 @@ public class EntityAssembler {
 		return ent;
 	}
 
-	
+	private static ArticuloEntity toArticuloEntity(ArticuloDto art) {
+		ArticuloEntity ent = new ArticuloEntity();
+		
+		ent.setEstado(art.getEstado());
+		ent.setTitulo(art.getTitulo());
+		ent.setPrimerAutor(art.getPrimerAutor());
+		ent.setId(art.getId());
+		
+		
+		return ent;
+	}
 }

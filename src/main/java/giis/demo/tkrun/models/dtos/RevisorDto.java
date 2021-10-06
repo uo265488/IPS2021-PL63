@@ -1,19 +1,19 @@
-package giis.demo.tkrun.revisor;
+package giis.demo.tkrun.models.dtos;
 
-public class RevisorEntity {
+public class RevisorDto {
 
 	private int id;
 	private String nombre;
 	private String estado;
 	
-	public RevisorEntity(int id, String nombre, String estado) {
+	public RevisorDto(int id, String nombre, String estado) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.estado = estado;
 	}
 
-	public RevisorEntity() {}
+	public RevisorDto() {}
 
 	public int getId() {
 		return id;
@@ -41,12 +41,8 @@ public class RevisorEntity {
 
 	@Override
 	public String toString() {
-		return nombre + " - " + id;
+		return "RevisorDto [id=" + id + ", nombre=" + nombre + ", estado=" + estado + "]";
 	}
 	
 	
-	
-	
-	
-
 }

@@ -1,7 +1,7 @@
-package giis.demo.tkrun.articulo.model;
+package giis.demo.tkrun.models.articulo;
 
-import giis.demo.tkrun.articulo.ArticuloDto;
-import giis.demo.tkrun.revisor.RevisorDto;
+import giis.demo.tkrun.models.dtos.ArticuloDto;
+import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.util.Database;
 
 public class ArticuloModel {
