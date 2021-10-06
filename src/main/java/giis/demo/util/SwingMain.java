@@ -8,12 +8,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import giis.demo.tkrun.CarrerasController;
-import giis.demo.tkrun.CarrerasModel;
-import giis.demo.tkrun.CarrerasView;
-import giis.demo.tkrun.editor.controllers.EditorController;
-import giis.demo.tkrun.editor.model.EditorModel;
-import giis.demo.tkrun.editor.view.EditorView;
+import giis.demo.tkrun.controllers.editor.EditorController;
+import giis.demo.tkrun.models.editor.EditorModel;
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las pantallas 

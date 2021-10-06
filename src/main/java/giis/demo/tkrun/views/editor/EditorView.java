@@ -1,4 +1,4 @@
-package giis.demo.tkrun.editor.view;
+package giis.demo.tkrun.views.editor;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -11,9 +11,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import giis.demo.tkrun.articulo.ArticuloEntity;
-import giis.demo.tkrun.editor.controllers.EditorController;
-import giis.demo.tkrun.revisor.RevisorEntity;
+import giis.demo.tkrun.controllers.editor.EditorController;
+import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.RevisorEntity;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;

@@ -1,7 +1,7 @@
-package giis.demo.tkrun.articulo.model;
+package giis.demo.tkrun.models.articulo;
 
-import giis.demo.tkrun.articulo.ArticuloDto;
-import giis.demo.tkrun.revisor.RevisorDto;
+import giis.demo.tkrun.models.dtos.ArticuloDto;
+import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.util.Database;
 
 public class ArticuloModel {
@@ -13,7 +13,7 @@ public class ArticuloModel {
 		String sql = "update articulos set cartaPresentacion = ?, CVAutor = ?, estado=?, ficheroFuente = ?,"
 				+ " firma=?, CVAutor = ?, otrosAutores=?, palabrasClave = ?, primerAutor=?, resumen = ?, titulo=? where id = ?";
 
-		db.executeQueryPojo(RevisorDto.class, sql, articuloDto.getCartaPresentacion(), articuloDto.getCVAutor(),
+		db.executeQueryPojo(ArticuloDto.class, sql, articuloDto.getCartaPresentacion(), articuloDto.getCVAutor(),
 				articuloDto.getEstado(), articuloDto.getFicheroFuente(), articuloDto.getFirma(),
 				articuloDto.getOtrosAutores(), articuloDto.getPalabrasClave(), articuloDto.getPrimerAutor(),
 				articuloDto.getResumen(), articuloDto.getTitulo(), articuloDto.getId());

@@ -1,6 +1,6 @@
-package giis.demo.tkrun.revisor.model;
+package giis.demo.tkrun.models.revisor;
 
-import giis.demo.tkrun.revisor.RevisorDto;
+import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.util.Database;
 
 public class RevisorModel {
