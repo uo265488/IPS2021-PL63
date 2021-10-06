@@ -3,11 +3,11 @@ package giis.demo.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import giis.demo.tkrun.articulo.ArticuloDto;
-import giis.demo.tkrun.articulo.ArticuloEntity;
-import giis.demo.tkrun.revision.RevisionDto;
-import giis.demo.tkrun.revisor.RevisorDto;
-import giis.demo.tkrun.revisor.RevisorEntity;
+import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.RevisorEntity;
+import giis.demo.tkrun.models.dtos.ArticuloDto;
+import giis.demo.tkrun.models.dtos.RevisionDto;
+import giis.demo.tkrun.models.dtos.RevisorDto;
 
 public class DtoMapper {
 
