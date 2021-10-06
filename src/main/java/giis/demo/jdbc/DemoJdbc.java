@@ -44,9 +44,16 @@ public class DemoJdbc {
 			} catch (SQLException e) {
 				//ignora excepcion, que se causara si la tabla no existe en la bd (p.e. al ejecutar la primera vez)
 			}
+			
 			stmt.executeUpdate("create table test(id int not null, id2 int, text varchar(32))");
 			stmt.executeUpdate("insert into test(id,id2,text) values(1,null,'abc')");
 			stmt.executeUpdate("insert into test(id,id2,text) values(2,9999,'xyz')");
+			
+			stmt.executeUpdate("create table revisores(id int not null, nombre varchar(32), estado varchar(32))");
+			stmt.executeUpdate("insert into revisores(id,nombre,estado) values(1,'felipe','disponible')");
+			stmt.executeUpdate("insert into revisores(id,nombre,estado) values(2,'ernesto,'disponible')");
+			stmt.executeUpdate("insert into revisores(id,nombre,estado) values(3,'maria,'ocupado')");
+			
 			stmt.close(); //no olvidar cerrar estos objetos
 			cn.close();
 

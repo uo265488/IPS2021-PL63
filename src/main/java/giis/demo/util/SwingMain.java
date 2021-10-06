@@ -1,12 +1,19 @@
 package giis.demo.util;
 
 import java.awt.EventQueue;
-import javax.swing.JFrame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import giis.demo.tkrun.*;
+import javax.swing.JFrame;
+
+import giis.demo.tkrun.CarrerasController;
+import giis.demo.tkrun.CarrerasModel;
+import giis.demo.tkrun.CarrerasView;
+import giis.demo.tkrun.editor.controllers.EditorController;
+import giis.demo.tkrun.editor.model.EditorModel;
+import giis.demo.tkrun.editor.view.EditorView;
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las pantallas 
@@ -54,8 +61,10 @@ public class SwingMain {
 		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
 		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				CarrerasController controller=new CarrerasController(new CarrerasModel(), new CarrerasView());
-				controller.initController();
+//				CarrerasController controller=new CarrerasController(new CarrerasModel(), new CarrerasView());
+//				controller.initController();
+				
+				EditorController editorController = new EditorController(new EditorModel());
 			}
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
