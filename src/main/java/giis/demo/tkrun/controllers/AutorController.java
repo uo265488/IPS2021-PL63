@@ -40,5 +40,10 @@ public class AutorController {
 		
 		return EntityAssembler.toArticuloEntityList(model.articulosDeUnAutor(id));
 	}
+	
+	public List<ArticuloEntity> getArticulosAceptadosSinVersionDefinitiva(int id) {
+		
+		return EntityAssembler.toArticuloEntityList(model.articulosAceptadosSinVersionDefinitiva(id));
+	}
 
 }

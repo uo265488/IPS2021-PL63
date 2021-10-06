@@ -11,7 +11,7 @@ public class RevisionModel {
 	public void add(RevisionDto revisionDto) {
 		String sql = "insert into revisiones(revisor_id, articulo_id, fecha) values (?,?,?)";
 
-		db.executeQueryPojo(RevisorDto.class, sql, revisionDto.getRevisor().getId(), revisionDto.getArticulo().getId(),
+		db.executeQueryPojo(RevisorDto.class, sql, revisionDto.getRevisor().getId(), revisionDto.getArticulo().getIdArticulo(),
 				revisionDto.getFecha());
 
 	}

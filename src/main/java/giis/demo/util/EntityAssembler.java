@@ -44,7 +44,7 @@ public class EntityAssembler {
 		ent.setEstado(art.getEstado());
 		ent.setTitulo(art.getTitulo());
 		ent.setPrimerAutor(art.getPrimerAutor());
-		ent.setId(art.getId());
+		ent.setIdArticulo(art.getIdArticulo());
 		
 		
 		return ent;

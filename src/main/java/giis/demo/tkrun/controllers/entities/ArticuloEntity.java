@@ -5,40 +5,40 @@ public class ArticuloEntity {
 	private String idArticulo;
 	private String titulo;
 	private String primerAutor;
-	private String otrosAutores; // como almacenar varios autores?????
 	private String resumen;
 	private String palabrasClave;
 	private String ficheroFuente;
 	private String cartaPresentacion;
-	private String CVAutor;
-	private String firma; // para asegurarse d q no hay plagios (string, boolean... da lo mismo)
+	private String CV;
+	private boolean firma; // para asegurarse d q no hay plagios (string, boolean... da lo mismo)
 	private String estado;
+	private boolean revisado;
 
 	public ArticuloEntity() {
 	}
 
-	public ArticuloEntity(String id, String titulo, String primerAutor, String otrosAutores, String resumen,
-			String palabrasClave, String ficheroFuente, String cartaPresentacion, String cVAutor, String firma) {
+	public ArticuloEntity(String id, String titulo, String primerAutor, String resumen,
+			String palabrasClave, String ficheroFuente, String cartaPresentacion, String cVAutor, boolean firma) {
 		// no se pueden hacer validaciones todavia porque se puede rellenar la
 		// informacion en cualquier momento
 
 		this.idArticulo = id;
 		this.titulo = titulo;
 		this.primerAutor = primerAutor;
-		this.otrosAutores = otrosAutores;
 		this.resumen = resumen;
 		this.palabrasClave = palabrasClave;
 		this.ficheroFuente = ficheroFuente;
 		this.cartaPresentacion = cartaPresentacion;
-		CVAutor = cVAutor;
+		CV = cVAutor;
 		this.firma = firma;
+		this.setRevisado(false);
 	}
 
-	public String getId() {
+	public String getIdArticulo() {
 		return idArticulo;
 	}
 
-	public void setId(String id) {
+	public void setIdArticulo(String id) {
 		this.idArticulo = id;
 	}
 
@@ -56,14 +56,6 @@ public class ArticuloEntity {
 
 	public void setPrimerAutor(String primerAutor) {
 		this.primerAutor = primerAutor;
-	}
-
-	public String getOtrosAutores() {
-		return otrosAutores;
-	}
-
-	public void setOtrosAutores(String otrosAutores) {
-		this.otrosAutores = otrosAutores;
 	}
 
 	public String getResumen() {
@@ -98,19 +90,19 @@ public class ArticuloEntity {
 		this.cartaPresentacion = cartaPresentacion;
 	}
 
-	public String getCVAutor() {
-		return CVAutor;
+	public String getCV() {
+		return CV;
 	}
 
-	public void setCVAutor(String cVAutor) {
-		CVAutor = cVAutor;
+	public void setCV(String cVAutor) {
+		CV = cVAutor;
 	}
 
-	public String getFirma() {
+	public boolean getFirma() {
 		return firma;
 	}
 
-	public void setFirma(String firma) {
+	public void setFirma(boolean firma) {
 		this.firma = firma;
 	}
 
@@ -120,5 +112,18 @@ public class ArticuloEntity {
 
 	public String getEstado() {
 		return this.estado;
+	}
+	
+	@Override
+	public String toString() {
+		return "- " + idArticulo + ", titulo: " + titulo + ", primer autor: " + primerAutor;
+	}
+
+	public boolean getRevisado() {
+		return revisado;
+	}
+
+	public void setRevisado(boolean revisado) {
+		this.revisado = revisado;
 	}
 }

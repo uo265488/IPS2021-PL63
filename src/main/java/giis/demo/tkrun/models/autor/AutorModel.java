@@ -24,4 +24,20 @@ public class AutorModel {
 		return articulos;
 		
 	}
+	
+	public List<ArticuloDto> articulosAceptadosSinVersionDefinitiva(int id) {
+		// validaciones (en este caso nada)
+		String sql = "select idArticulo from articulosDeAutores where idAutor = ?";
+		List<ArticuloDeAutorDto> prueba = db.executeQueryPojo(ArticuloDeAutorDto.class, sql, id);
+		List<ArticuloDto> articulos = new ArrayList<ArticuloDto>();
+		sql = "select * from articulo where idArticulo = ? and estado = 'aceptado'";
+		for(ArticuloDeAutorDto idArticulo: prueba) {
+			ArrayList<ArticuloDto> añadir = (ArrayList<ArticuloDto>) db.executeQueryPojo(ArticuloDto.class, sql, idArticulo.getIdArticulo());
+			if(!añadir.isEmpty()) {
+				articulos.add(añadir.get(0));
+			}
+		}
+		return articulos;
+		
+	}
 }

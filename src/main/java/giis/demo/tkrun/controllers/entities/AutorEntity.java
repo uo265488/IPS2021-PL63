@@ -15,11 +15,11 @@ public class AutorEntity {
 
 	public AutorEntity() {}
 
-	public int getId() {
+	public int getIdAutor() {
 		return idAutor;
 	}
 
-	public void setId(int id) {
+	public void setIdAutor(int id) {
 		this.idAutor = id;
 	}
 
