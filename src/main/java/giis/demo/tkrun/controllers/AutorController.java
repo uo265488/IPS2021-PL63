@@ -36,9 +36,9 @@ public class AutorController {
 		
 	//}
 
-	public List<ArticuloEntity> getArticulosPropios(AutorDto autor) {
+	public List<ArticuloEntity> getArticulosPropios(int id) {
 		
-		return EntityAssembler.toArticuloEntityList(model.update(autor));
+		return EntityAssembler.toArticuloEntityList(model.articulosDeUnAutor(id));
 	}
 
 }

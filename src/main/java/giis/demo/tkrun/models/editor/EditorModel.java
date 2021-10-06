@@ -27,7 +27,6 @@ public class EditorModel {
 	public List<ArticuloDto> getArticulosTomarDecision() {
 		// validaciones (en este caso nada)
 		String sql = "SELECT id, titulo, autor, estado from articulos where estado = 'con el editor' and revisado = true";
-
 		return db.executeQueryPojo(ArticuloDto.class, sql);
 
 	}

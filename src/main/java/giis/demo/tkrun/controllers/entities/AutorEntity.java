@@ -2,13 +2,13 @@ package giis.demo.tkrun.controllers.entities;
 
 public class AutorEntity {
 	
-	private int id;
+	private int idAutor;
 	private String nombre;
 	private String dni;
 	
 	public AutorEntity(int id, String nombre, String dni) {
 		super();
-		this.id = id;
+		this.idAutor = id;
 		this.nombre = nombre;
 		this.dni = dni;
 	}
@@ -16,11 +16,11 @@ public class AutorEntity {
 	public AutorEntity() {}
 
 	public int getId() {
-		return id;
+		return idAutor;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.idAutor = id;
 	}
 
 	public String getNombre() {
@@ -41,6 +41,6 @@ public class AutorEntity {
 
 	@Override
 	public String toString() {
-		return nombre + " - " + id;
+		return nombre + " - " + idAutor;
 	}
 }

@@ -8,8 +8,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import giis.demo.tkrun.controllers.AutorController;
 import giis.demo.tkrun.controllers.EditorController;
+import giis.demo.tkrun.models.autor.AutorModel;
 import giis.demo.tkrun.models.editor.EditorModel;
+import giis.demo.tkrun.views.AutorView;
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las pantallas 
@@ -60,7 +63,9 @@ public class SwingMain {
 //				CarrerasController controller=new CarrerasController(new CarrerasModel(), new CarrerasView());
 //				controller.initController();
 				
-				EditorController editorController = new EditorController(new EditorModel());
+				//EditorController editorController = new EditorController(new EditorModel());
+				AutorController autorController = new AutorController(new AutorModel());
+				AutorView vista = new AutorView(autorController);
 			}
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));

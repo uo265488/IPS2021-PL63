@@ -9,7 +9,10 @@ drop table Revisores;
 create table Revisores (id int primary key, nombre varchar(32), estado varchar(32));
 
 drop table Articulo;
-create table Articulo (id int primary key, titulo varchar(32), primerAutor varchar(32), otrosAutores varchar(32), estado varchar(32), resumen varchar(100), palabrasClave varchar(32), ficheroFuente varchar(32), cartaPresentacion varchar(32), CV varchar(32), firma bool, revisado bool, idAutorPrin int foreing key);
+create table Articulo (idArticulo int primary key, titulo varchar(32), primerAutor varchar(32), estado varchar(32), resumen varchar(100), palabrasClave varchar(32), ficheroFuente varchar(32), cartaPresentacion varchar(32), CV varchar(32), firma bool, revisado bool);
 
 drop table Autores;
-create table Autores (id int primary key, nombre varchar(32), dni varchar(32));
+create table Autores (idAutor int primary key, nombre varchar(32), dni varchar(32));
+
+drop table articulosDeAutores;
+create table articulosDeAutores (idArticulo int foreing key, idAutor int foreing key);
