@@ -6,7 +6,6 @@ import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
-import giis.demo.tkrun.controllers.entities.RevisorEntity;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -133,6 +132,8 @@ public class AutorView extends JFrame {
 			btConfirmar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(!getTxId().getText().isEmpty()) {
+						articulosAceptadosSinVersionDefinitiva.clear();
+						rellenarComboBox();
 						int idAutor = Integer.parseInt(getTxId().getText());
 						articulosDelEditor = controller.getArticulosPropios(idAutor);
 						mostrarArticulos();
@@ -162,6 +163,7 @@ public class AutorView extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					articulosAceptadosSinVersionDefinitiva.clear();
 					articulosDelEditor.clear();
+					rellenarComboBox();
 					if(!getTxId().getText().isEmpty()) {
 						int idAutor = Integer.parseInt(getTxId().getText());
 						articulosAceptadosSinVersionDefinitiva = controller.getArticulosAceptadosSinVersionDefinitiva(idAutor);
@@ -176,13 +178,14 @@ public class AutorView extends JFrame {
 	}
 	
 	private void rellenarComboBox() {
+		ArticuloEntity[] vector = new ArticuloEntity[0];
 		if (this.articulosAceptadosSinVersionDefinitiva.size() > 0) {
-			ArticuloEntity[] vector = new ArticuloEntity[this.articulosAceptadosSinVersionDefinitiva.size()];
+			vector = new ArticuloEntity[this.articulosAceptadosSinVersionDefinitiva.size()];
 			for (int i = 0; i < vector.length; i++) {
 				vector[i] = this.articulosAceptadosSinVersionDefinitiva.get(i);
 			}
-			cbArticulosSinPublicar.setModel(new DefaultComboBoxModel<ArticuloEntity>(vector));
 		}
+		cbArticulosSinPublicar.setModel(new DefaultComboBoxModel<ArticuloEntity>(vector));
 	}
 	
 	private JLabel getLbSinPublicar() {

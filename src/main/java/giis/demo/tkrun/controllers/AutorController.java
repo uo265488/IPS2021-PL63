@@ -4,7 +4,6 @@ import java.util.List;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.models.autor.AutorModel;
-import giis.demo.tkrun.models.dtos.AutorDto;
 import giis.demo.util.EntityAssembler;
 
 public class AutorController {
