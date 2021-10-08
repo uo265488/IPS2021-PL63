@@ -8,6 +8,8 @@ import giis.demo.tkrun.controllers.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
 
 public class AutorView extends JFrame {
 
@@ -38,9 +41,11 @@ public class AutorView extends JFrame {
 	private List<ArticuloEntity> articulosAceptadosSinVersionDefinitiva = new ArrayList<ArticuloEntity>();
 	private AutorController controller;
 	private JButton btConfirmar;
-	private JButton btVersionDefinitiva;
+	private JButton btMirarArticulos;
 	private JLabel lbSinPublicar;
 	private JComboBox<ArticuloEntity> cbArticulosSinPublicar;
+	private JCheckBox chCopy;
+	private JButton btnEnviarArticulo;
 
 	///**
 	// * Launch the application.
@@ -79,9 +84,11 @@ public class AutorView extends JFrame {
 		contentPane.add(getTxId());
 		contentPane.add(getScrollPane());
 		contentPane.add(getBtConfirmar());
-		contentPane.add(getBtVersionDefinitiva());
+		contentPane.add(getBtMirarArticulos());
 		contentPane.add(getLbSinPublicar());
 		contentPane.add(getCbArticulosSinPublicar());
+		contentPane.add(getChCopy());
+		contentPane.add(getBtnEnviarArticulo());
 		setVisible(true);
 		setResizable(false);
 	}
@@ -156,10 +163,10 @@ public class AutorView extends JFrame {
 		if(articulosDelEditor.size() == 0)
 			getTpArticulos().setText("No hay artículos en la base de datos para este identificador");
 	}
-	private JButton getBtVersionDefinitiva() {
-		if (btVersionDefinitiva == null) {
-			btVersionDefinitiva = new JButton("Articulos aceptados sin publicar");
-			btVersionDefinitiva.addActionListener(new ActionListener() {
+	private JButton getBtMirarArticulos() {
+		if (btMirarArticulos == null) {
+			btMirarArticulos = new JButton("Articulos aceptados sin publicar");
+			btMirarArticulos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					articulosAceptadosSinVersionDefinitiva.clear();
 					articulosDelEditor.clear();
@@ -168,13 +175,17 @@ public class AutorView extends JFrame {
 						int idAutor = Integer.parseInt(getTxId().getText());
 						articulosAceptadosSinVersionDefinitiva = controller.getArticulosAceptadosSinVersionDefinitiva(idAutor);
 						rellenarComboBox();
+						if(articulosAceptadosSinVersionDefinitiva.size() == 0)
+							getBtnEnviarArticulo().setEnabled(false);
+						else
+							getBtnEnviarArticulo().setEnabled(true);
 					}
 				}
 			});
-			btVersionDefinitiva.setBackground(new Color(224, 255, 255));
-			btVersionDefinitiva.setBounds(413, 110, 272, 23);
+			btMirarArticulos.setBackground(new Color(224, 255, 255));
+			btMirarArticulos.setBounds(413, 110, 272, 23);
 		}
-		return btVersionDefinitiva;
+		return btMirarArticulos;
 	}
 	
 	private void rellenarComboBox() {
@@ -202,5 +213,33 @@ public class AutorView extends JFrame {
 			cbArticulosSinPublicar.setBounds(633, 168, 434, 22);
 		}
 		return cbArticulosSinPublicar;
+	}
+	private JCheckBox getChCopy() {
+		if (chCopy == null) {
+			chCopy = new JCheckBox("Confirme su firma de CopyRight");
+			chCopy.setBounds(610, 396, 208, 23);
+		}
+		return chCopy;
+	}
+	private JButton getBtnEnviarArticulo() {
+		if (btnEnviarArticulo == null) {
+			btnEnviarArticulo = new JButton("Enviar Versión Definitiva");
+			btnEnviarArticulo.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(!getChCopy().isSelected())
+						JOptionPane.showMessageDialog(null, "Tiene que confirmar la firma de CopyRight");
+					else {
+						ArticuloEntity articulo = (ArticuloEntity)getCbArticulosSinPublicar().getSelectedItem();
+						if(articulo != null)
+							controller.getEnviarVersionDefinitiva(Integer.parseInt(articulo.getIdArticulo()));
+					}
+				}
+			});
+			btnEnviarArticulo.setForeground(new Color(255, 255, 255));
+			btnEnviarArticulo.setBackground(new Color(0, 0, 128));
+			btnEnviarArticulo.setBounds(842, 396, 225, 23);
+			btnEnviarArticulo.setEnabled(false);
+		}
+		return btnEnviarArticulo;
 	}
 }

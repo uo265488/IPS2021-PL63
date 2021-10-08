@@ -23,6 +23,10 @@ public class AutorModel {
 				+ "from articulosDeAutores, articulo "
 				+ "where idAutor = ? and articulo.idArticulo = articulosDeAutores.idArticulo and estado = 'aceptado'";
 		return db.executeQueryPojo(ArticuloDto.class, sql, id);
-		
+	}
+	
+	public void enviarVersionDefinitiva(int id) {
+		String sql = "update articulo set firma = true, estado = 'publicado' where idArticulo = ?";
+		db.executeUpdate(sql, id);
 	}
 }

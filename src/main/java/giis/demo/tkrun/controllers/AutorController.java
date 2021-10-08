@@ -44,5 +44,10 @@ public class AutorController {
 		
 		return EntityAssembler.toArticuloEntityList(model.articulosAceptadosSinVersionDefinitiva(id));
 	}
+	
+	public void getEnviarVersionDefinitiva(int id) {
+		
+		model.enviarVersionDefinitiva(id);
+	}
 
 }
