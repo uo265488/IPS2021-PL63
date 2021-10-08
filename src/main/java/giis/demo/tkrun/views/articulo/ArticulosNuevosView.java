@@ -141,7 +141,11 @@ public class ArticulosNuevosView extends JFrame {
 		if (cbArticulos.getSelectedItem() == null) {
 			JOptionPane.showMessageDialog(this, "Primero debes seleccionar un artículo para visualizar.");
 		} else {
-			//mostrar la pantalla de visualizacion de articulos
+			VisualizarArticuloView vistaArticulo = new VisualizarArticuloView((ArticuloEntity)cbArticulos.getSelectedItem());
+			
+			vistaArticulo.setModal(true);
+			vistaArticulo.setLocationRelativeTo(this);
+			vistaArticulo.setVisible(true);
 		}
 		
 	}

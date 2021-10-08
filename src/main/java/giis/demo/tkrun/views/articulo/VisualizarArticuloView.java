@@ -1,6 +1,7 @@
 package giis.demo.tkrun.views.articulo;
 
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,7 +14,7 @@ import javax.swing.JTextArea;
 import java.awt.Checkbox;
 import javax.swing.border.LineBorder;
 
-public class VisualizarArticuloView extends JFrame {
+public class VisualizarArticuloView extends JDialog {
 
 	/**
 	 * 
