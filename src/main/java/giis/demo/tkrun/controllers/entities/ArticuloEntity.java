@@ -11,14 +11,14 @@ public class ArticuloEntity {
 	private String ficheroFuente;
 	private String cartaPresentacion;
 	private String CVAutor;
-	private String firma; // para asegurarse d q no hay plagios (string, boolean... da lo mismo)
+	private boolean firma; // para asegurarse d q no hay plagios (string, boolean... da lo mismo)
 	private String estado;
 
 	public ArticuloEntity() {
 	}
 
 	public ArticuloEntity(String id, String titulo, String primerAutor, String otrosAutores, String resumen,
-			String palabrasClave, String ficheroFuente, String cartaPresentacion, String cVAutor, String firma) {
+			String palabrasClave, String ficheroFuente, String cartaPresentacion, String cVAutor, boolean firma) {
 		// no se pueden hacer validaciones todavia porque se puede rellenar la
 		// informacion en cualquier momento
 
@@ -106,11 +106,11 @@ public class ArticuloEntity {
 		CVAutor = cVAutor;
 	}
 
-	public String getFirma() {
+	public boolean getFirma() {
 		return firma;
 	}
 
-	public void setFirma(String firma) {
+	public void setFirma(boolean firma) {
 		this.firma = firma;
 	}
 
@@ -121,4 +121,11 @@ public class ArticuloEntity {
 	public String getEstado() {
 		return this.estado;
 	}
+
+	@Override
+	public String toString() {
+		return id + " - " + titulo + " - Autor: " + primerAutor;
+	}
+	
+	
 }

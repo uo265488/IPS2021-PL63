@@ -9,6 +9,10 @@ public class ArticuloModel {
 
 	private Database db = new Database();
 
+	/**
+	 * Actualizar articulo en funcion del id
+	 * @param articuloDto
+	 */
 	public void update(ArticuloDto articuloDto) {
 		// validaciones (en este caso nada)
 		String sql = "update articulos set cartaPresentacion = ?, CVAutor = ?, estado=?, ficheroFuente = ?,"
@@ -21,9 +25,25 @@ public class ArticuloModel {
 
 	}
 	
+	/**
+	 * Listado de los articulos nuevos
+	 * @return
+	 */
 	public List<ArticuloDto> listArticulosNuevos() {
-		// TODO Auto-generated method stub
-		return null;
+		// validaciones (en este caso nada)
+		String sql = "select * from articulos where estado=?";
+
+		return db.executeQueryPojo(ArticuloDto.class, sql, "nuevo");
 	}
+
+//	/**
+//	 * Borrar articulo en funcion del id
+//	 * @param articuloDto
+//	 */
+//	public void delete(ArticuloDto articuloDto) {
+//		String sql = "delete from articulos where id=?";
+//		
+//		db.executeQueryPojo(ArticuloDto.class, sql, articuloDto.getId());
+//	}
 
 }

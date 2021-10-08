@@ -1,4 +1,4 @@
-package giis.demo.tkrun.views;
+package giis.demo.tkrun.views.editor;
 
 import java.awt.Color;
 import java.util.ArrayList;

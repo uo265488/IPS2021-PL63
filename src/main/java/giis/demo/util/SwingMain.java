@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 
 import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.models.editor.EditorModel;
-import giis.demo.tkrun.views.EditorView;
+import giis.demo.tkrun.views.editor.EditorView;
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las pantallas 
