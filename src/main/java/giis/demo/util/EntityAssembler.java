@@ -3,8 +3,9 @@ package giis.demo.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import giis.demo.tkrun.revisor.RevisorDto;
-import giis.demo.tkrun.revisor.RevisorEntity;
+import giis.demo.tkrun.controllers.entities.RevisorEntity;
+import giis.demo.tkrun.models.dtos.RevisorDto;
+
 
 public class EntityAssembler {
 
