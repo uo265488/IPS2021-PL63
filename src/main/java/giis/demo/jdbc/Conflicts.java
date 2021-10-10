@@ -10,5 +10,4 @@ public class Conflicts {
 		this.numOfConflicts = 22;
 		this.newConflict = 21343;
 	}
-	
 }

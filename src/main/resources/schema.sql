@@ -5,3 +5,6 @@
 drop table Carreras;
 create table Carreras (id int primary key not null, inicio date not null, fin date not null, fecha date not null, descr varchar(32), check(inicio<=fin), check(fin<fecha));
 
+drop table Revisores;
+create table Revisores (id int primary key, nombre varchar(32), estado varchar(32));
+
