@@ -1,7 +1,5 @@
-package giis.demo.tkrun.revision;
+package giis.demo.tkrun.models.dtos;
 
-import giis.demo.tkrun.articulo.ArticuloDto;
-import giis.demo.tkrun.revisor.RevisorDto;
 
 public class RevisionDto {
 	

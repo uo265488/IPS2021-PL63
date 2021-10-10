@@ -1,8 +1,8 @@
-package giis.demo.tkrun.editor.model;
+package giis.demo.tkrun.models.editor;
 
 import java.util.List;
 
-import giis.demo.tkrun.revisor.RevisorDto;
+import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.util.Database;
 
 public class EditorModel {

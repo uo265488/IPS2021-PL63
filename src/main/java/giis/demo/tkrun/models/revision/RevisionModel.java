@@ -1,7 +1,7 @@
-package giis.demo.tkrun.revision.model;
+package giis.demo.tkrun.models.revision;
 
-import giis.demo.tkrun.revision.RevisionDto;
-import giis.demo.tkrun.revisor.RevisorDto;
+import giis.demo.tkrun.models.dtos.RevisionDto;
+import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.util.Database;
 
 public class RevisionModel {
