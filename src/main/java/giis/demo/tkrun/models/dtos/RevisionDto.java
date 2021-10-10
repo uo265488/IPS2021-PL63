@@ -1,48 +1,52 @@
 package giis.demo.tkrun.models.dtos;
 
 public class RevisionDto {
+	private int idArticulo;
+	private int idRevisor;
+	private String comentariosAutor;
+	private String comentariosEditor;
+	private boolean enviarAlEditor;
 	
-	private RevisorDto revisor;
-	
-	private ArticuloDto articulo;
-	
-	private String fecha;
-
-	public RevisorDto getRevisor() {
-		return revisor;
-	}
-
-	public void setRevisor(RevisorDto revisor) {
-		this.revisor = revisor;
-	}
-
-	public ArticuloDto getArticulo() {
-		return articulo;
-	}
-
-	public void setArticulo(ArticuloDto articulo) {
-		this.articulo = articulo;
-	}
-
-	public String getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-
-	public RevisionDto(RevisorDto revisor, ArticuloDto articulo, String fecha) {
+	public RevisionDto(int idArticulo, int idRevisor, String comentariosAutor, String comentariosEditor, boolean enviarAlEditor) {
 		super();
-		this.revisor = revisor;
-		this.articulo = articulo;
-		this.fecha = fecha;
+		this.idArticulo = idArticulo;
+		this.idRevisor = idRevisor;
+		this.comentariosAutor = comentariosAutor;
+		this.comentariosEditor = comentariosEditor;
+		this.enviarAlEditor = enviarAlEditor;
 	}
-	
-	public RevisionDto() { }
-	
-	
-	
-	
 
+	
+	public RevisionDto() {}
+	
+	public int getIdArticulo() {
+		return idArticulo;
+	}
+	public void setIdArticulo(int idArticulo) {
+		this.idArticulo = idArticulo;
+	}
+	public int getIdRevisor() {
+		return idRevisor;
+	}
+	public void setIdRevisor(int idRevisor) {
+		this.idRevisor = idRevisor;
+	}
+	public String getComentariosAutor() {
+		return comentariosAutor;
+	}
+	public void setComentariosAutor(String comentariosAutor) {
+		this.comentariosAutor = comentariosAutor;
+	}
+	public String getComentariosEditor() {
+		return comentariosEditor;
+	}
+	public void setComentariosEditor(String comentariosEditor) {
+		this.comentariosEditor = comentariosEditor;
+	}
+	public boolean isEnviarAlEditor() {
+		return enviarAlEditor;
+	}
+	public void setEnviarAlEditor(boolean enviarAlEditor) {
+		this.enviarAlEditor = enviarAlEditor;
+	}
 }

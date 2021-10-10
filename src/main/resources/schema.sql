@@ -16,3 +16,6 @@ create table Autores (idAutor int primary key, nombre varchar(32), dni varchar(3
 
 drop table articulosDeAutores;
 create table articulosDeAutores (idArticulo int foreing key, idAutor int foreing key);
+
+drop table revisiones;
+create table revisiones (idArticulo int foreing key, idRevisor int foreing key, comentariosAutor varchar(100), comentariosEditor varchar(100), decision varchar(32), enviarAlEditor bool);

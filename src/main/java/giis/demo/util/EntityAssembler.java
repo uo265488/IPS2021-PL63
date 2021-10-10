@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
+import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 
 public class EntityAssembler {
@@ -23,6 +25,14 @@ public class EntityAssembler {
 		List<ArticuloEntity> ents = new ArrayList<>();
 		for (ArticuloDto rev : articulos) {
 			ents.add(toArticuloEntity(rev));
+		}
+		return ents;
+	}
+	
+	public static List<RevisionEntity> toRevisionEntityList(List<RevisionDto> articulos) {
+		List<RevisionEntity> ents = new ArrayList<>();
+		for (RevisionDto rev : articulos) {
+			ents.add(toRevisionEntity(rev));
 		}
 		return ents;
 	}
@@ -45,6 +55,19 @@ public class EntityAssembler {
 		ent.setTitulo(art.getTitulo());
 		ent.setPrimerAutor(art.getPrimerAutor());
 		ent.setIdArticulo(art.getIdArticulo());
+		
+		
+		return ent;
+	}
+	
+	private static RevisionEntity toRevisionEntity(RevisionDto art) {
+		RevisionEntity ent = new RevisionEntity();
+		
+		ent.setIdRevisor(art.getIdRevisor());
+		ent.setIdArticulo(art.getIdArticulo());
+		ent.setComentariosEditor(art.getComentariosEditor());
+		ent.setComentariosAutor(art.getComentariosAutor());
+		ent.setEnviarAlEditor(art.isEnviarAlEditor());
 		
 		
 		return ent;

@@ -16,7 +16,7 @@ public class EditorController {
 
     private EditorView view;
 	private EditorModel model;
-	private RevisionModel revisionModel;
+	//private RevisionModel revisionModel;
 	private ArticuloModel articuloModel;
 	private RevisorModel revisoresModel;
 	
@@ -59,7 +59,7 @@ public class EditorController {
 		
 		//model.asignarRevisores( DtoMapper.toRevisorDtoList(revisores), articulo);
 		
-		generarRevisiones(revisores, articulo, fecha); //Generamos una revsion con los datos y enviamos el dto al model para añadirlo a la base de datos
+		//generarRevisiones(revisores, articulo, fecha); //Generamos una revsion con los datos y enviamos el dto al model para añadirlo a la base de datos
 		
 		cambiarEstadoArticuloEnRevision(articulo);//cambiar el estado del articulo
 		
@@ -100,12 +100,13 @@ public class EditorController {
 	 * 
 	 * @return
 	 */
-	private void generarRevisiones(List<RevisorEntity> revisores, ArticuloEntity articulo, String fecha) {
-		for( RevisorEntity rev : revisores) {
-			revisionModel.add(DtoMapper.toRevisionDto(rev, articulo, fecha));
-		}
-		
-	}
+	/*
+	 * private void generarRevisiones(List<RevisorEntity> revisores, ArticuloEntity
+	 * articulo, String fecha) { for( RevisorEntity rev : revisores) {
+	 * revisionModel.add(DtoMapper.toRevisionDto(rev, articulo, fecha)); }
+	 * 
+	 * }
+	 */
 
 
 	
