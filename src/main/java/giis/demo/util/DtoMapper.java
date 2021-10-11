@@ -6,7 +6,6 @@ import java.util.List;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
-import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 
 public class DtoMapper {
@@ -46,15 +45,16 @@ public class DtoMapper {
 		return dto;
 	}
 
-	public static RevisionDto toRevisionDto(RevisorEntity rev, ArticuloEntity articulo, String fecha) {
-		RevisionDto dto = new RevisionDto();
-		
-		dto.setRevisor(DtoMapper.toRevisorDto(rev));
-		dto.setArticulo(DtoMapper.toArticuloDto(articulo));
-		dto.setFecha(fecha);
-		
-		return dto;
-		
-	}
+	/*
+	 * public static RevisionDto toRevisionDto(RevisorEntity rev, ArticuloEntity
+	 * articulo, String fecha) { RevisionDto dto = new RevisionDto();
+	 * 
+	 * dto.setRevisor(DtoMapper.toRevisorDto(rev));
+	 * dto.setArticulo(DtoMapper.toArticuloDto(articulo)); dto.setFecha(fecha);
+	 * 
+	 * return dto;
+	 * 
+	 * }
+	 */
 
 }

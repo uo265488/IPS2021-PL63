@@ -35,3 +35,10 @@ insert into articulosDeAutores(idArticulo, idAutor) values
 	(9,6),
 	(10,6),
 	(11,6);
+	
+delete from revisiones;
+insert into revisiones(idArticulo, idRevisor, comentariosAutor, comentariosEditor, decision, enviarAlEditor) values
+	(10, 1, 'Muy buen artículo', 'Debe ser publicado', 'altamente recomendable aceptar', true),
+	(10, 2, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'poco recomendable aceptar', true),
+	(10, 3, 'Buen artículo', 'Aceptable', 'aceptardo', true),
+	(8, 1, '','','',false);

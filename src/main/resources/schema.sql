@@ -18,4 +18,4 @@ drop table articulosDeAutores;
 create table articulosDeAutores (idArticulo int foreing key, idAutor int foreing key);
 
 drop table revisiones;
-create table revisiones (idArticulo int foreing key, idRevisor int foreing key, comentariosAutor varchar(100), comentariosEditor varchar(100), decision varchar(32), enviarAlEditor bool);
+create table revisiones (idArticulo int foreing key, idRevisor int foreing key, comentariosAutor varchar(100), comentariosEditor varchar(100), decision varchar(50), enviarAlEditor bool);

@@ -2,6 +2,7 @@ package giis.demo.tkrun.models.revision;
 
 import java.util.List;
 
+import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.util.Database;
 
@@ -25,12 +26,20 @@ public class RevisionModel {
 		db.executeUpdate(sql, comentariosAutor, comentariosEditor, enviarAlEditor, idArticulo, idRevisor);
 	}
 	
-	public List<RevisionDto> articulosSinRevisar(int idRevisor){
+	public List<RevisionDto> visualizarSinRevisar(int idRevisor){
 		String sql = "select * "
 				+ "from revisiones "
 				+ "where idRevisor = ? and enviarAlEditor = false";
 		
 		return db.executeQueryPojo(RevisionDto.class, sql, idRevisor);
+	}
+	
+	public List<ArticuloDto> articulosSinRevisar(int idRevisor){
+		String sql = "select articulo.idArticulo, titulo "
+				+ "from revisiones, articulo "
+				+ "where idRevisor = ? and enviarAlEditor = false and articulo.idArticulo = revisiones.idArticulo";
+		
+		return db.executeQueryPojo(ArticuloDto.class, sql, idRevisor);
 	}
 
 }

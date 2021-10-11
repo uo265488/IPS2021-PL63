@@ -38,6 +38,11 @@ public class RevisorController {
 		
 		public List<RevisionEntity> getArticulosSinRevisar(int id) {
 			
-			return EntityAssembler.toRevisionEntityList(model.articulosSinRevisar(id));
+			return EntityAssembler.toRevisionEntityList(model.visualizarSinRevisar(id));
+		}
+		
+		public List<ArticuloEntity> getTituloArticulosSinRevisar(int id) {
+			
+			return EntityAssembler.toArticuloEntityList(model.articulosSinRevisar(id));
 		}
 }
