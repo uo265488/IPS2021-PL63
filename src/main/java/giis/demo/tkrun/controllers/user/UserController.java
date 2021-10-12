@@ -19,6 +19,11 @@ public class UserController {
 		this.initView();
 	}
 	
+	public UserController(UserModel m) {
+		this.userModel = m;
+		this.initView();
+	}
+	
 	private void initView() {
 		this.userView = new UserView(this);
 		userView.setVisible(true);

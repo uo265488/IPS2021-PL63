@@ -9,7 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import giis.demo.tkrun.controllers.editor.EditorController;
+import giis.demo.tkrun.controllers.user.UserController;
 import giis.demo.tkrun.models.editor.EditorModel;
+import giis.demo.tkrun.models.user.UserModel;
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las pantallas 
@@ -60,7 +62,8 @@ public class SwingMain {
 //				CarrerasController controller=new CarrerasController(new CarrerasModel(), new CarrerasView());
 //				controller.initController();
 				
-				EditorController editorController = new EditorController(new EditorModel());
+//				EditorController editorController = new EditorController(new EditorModel());
+				UserController userController = new UserController(new UserModel());
 			}
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));

@@ -8,19 +8,20 @@ import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.editor.EditorModel;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.models.revisor.RevisorModel;
+import giis.demo.tkrun.views.editor.EditorPrincipalView;
 import giis.demo.tkrun.views.editor.EditorView;
 import giis.demo.util.DtoMapper;
 import giis.demo.util.EntityAssembler;
 
 public class EditorController {
 
-    private EditorView view;
+    private EditorPrincipalView view;
 	private EditorModel model;
 	private RevisionModel revisionModel;
 	private ArticuloModel articuloModel;
 	private RevisorModel revisoresModel;
 	
-	public EditorController(EditorModel m, EditorView v) {
+	public EditorController(EditorModel m, EditorPrincipalView v) {
 		this.model = m;
 		this.view = v;
 		//no hay inicializacion especifica del modelo, solo de la vista
@@ -34,16 +35,18 @@ public class EditorController {
 	}
 
 	private void initView() {
-
-		this.view = new EditorView(this);
+		this.view = new EditorPrincipalView(this);
 		view.setVisible(true);
-		
-		
+
 	}
 
 	public List<RevisorEntity> getRevisoresDisponibles() {
 		
 		return EntityAssembler.toRevisorEntityList(model.getRevisoresDisponibles());
+	}
+	
+	public List<ArticuloEntity> getArticulos(){
+		return EntityAssembler.toArticuloEntityList(model.getArticulos());
 	}
 	
 	public boolean asignarRevisoresAlArticulo(List<RevisorEntity> revisores, ArticuloEntity articulo, String fecha) {
@@ -101,8 +104,5 @@ public class EditorController {
 		}
 		
 	}
-
-
-	
 	
 }

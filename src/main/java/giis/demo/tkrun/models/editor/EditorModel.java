@@ -2,6 +2,7 @@ package giis.demo.tkrun.models.editor;
 
 import java.util.List;
 
+import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.util.Database;
 
@@ -18,6 +19,12 @@ public class EditorModel {
 
 		return db.executeQueryPojo(RevisorDto.class, sql);
 
+	}
+
+	public List<ArticuloDto> getArticulos() {
+		String sql = "SELECT * from articulos where estado <> 'borrador'";
+
+		return db.executeQueryPojo(ArticuloDto.class, sql);
 	}
 
 }

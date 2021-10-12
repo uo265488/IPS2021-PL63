@@ -1,12 +1,15 @@
 package giis.demo.tkrun.views.editor;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,11 +18,7 @@ import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JButton;
-
-public class EditorView extends JFrame {
+public class EditorView extends JDialog {
 
 	/**
 	 * 
@@ -74,7 +73,7 @@ public class EditorView extends JFrame {
 	 */
 	public void initialize() {
 		setBackground(Color.WHITE);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 511, 309);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -82,8 +81,6 @@ public class EditorView extends JFrame {
 		contentPane.setLayout(null);
 		contentPane.add(getComboBox());
 		contentPane.add(getBtnAsignar());
-		
-		
 	}
 
 	private JComboBox<RevisorEntity> getComboBox() {

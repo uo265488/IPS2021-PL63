@@ -121,4 +121,14 @@ public class ArticuloEntity {
 	public String getEstado() {
 		return this.estado;
 	}
+
+	@Override
+	public String toString() {
+		return "Aid=" + id + ", titulo=" + titulo + ", primerAutor=" + primerAutor + ", otrosAutores="
+				+ otrosAutores + ", resumen=" + resumen + ", palabrasClave=" + palabrasClave + ", ficheroFuente="
+				+ ficheroFuente + ", cartaPresentacion=" + cartaPresentacion + ", CVAutor=" + CVAutor + ", firma="
+				+ firma + ", estado=" + estado;
+	}
+	
+	
 }

@@ -12,3 +12,15 @@ insert into revisores(id,nombre,estado) values
 	(1,'felipe','disponible'),
 	(2,'ernesto','disponible'),
 	(3,'maria','no disponible');
+	
+delete from usuarios;
+insert into usuarios(nombre,tipoUsuario) values
+	('alex', 'autor'),
+	('oscar','revisor'),
+	('javi', 'editor');
+	
+delete from articulos;
+insert into articulos values 
+	('1', 'Ciencia', 'Alex', 'Oscar','borrador', 'Articulo sobre ciencia en general','Ciencia', 'ficheroFuente.docx', 'cartaPresentacionAlex.docx', 'cvAlex.docx', 'firmaAlex.docx'),
+	('2', 'Biología', 'Javi', 'Oscar', 'enviado', 'Articulo sobre biología', 'Biología', 'ficheroFuente.pdf', 'cartaPresentacionJavi.pdf', 'cvJavi.pdf', 'firmaJavi.pdf'),
+	('3', 'Informática', 'Hugo', 'Alex', 'enviado', 'Artículo sobre informática', 'Informática', 'ficheroFuente.txt', 'cartaPresentacionHugo.txt', 'cvHugo.txt', 'firmaHugo.txt');
