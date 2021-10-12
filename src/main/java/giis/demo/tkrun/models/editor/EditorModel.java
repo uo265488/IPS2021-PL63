@@ -15,7 +15,7 @@ public class EditorModel {
 	 */
 	public List<RevisorDto> getRevisoresDisponibles() {
 		// validaciones (en este caso nada)
-		String sql = "SELECT id, nombre, estado from revisores where estado='disponible'";
+		String sql = "SELECT id, nombre, estado from revisores where estado = 'disponible'";
 
 		return db.executeQueryPojo(RevisorDto.class, sql);
 
@@ -26,7 +26,7 @@ public class EditorModel {
 	 */
 	public List<ArticuloDto> getArticulosTomarDecision() {
 		// validaciones (en este caso nada)
-		String sql = "SELECT id, titulo, autor, estado from articulos where estado = 'con el editor' and revisado = true";
+		String sql = "SELECT id, titulo, autor, estado from articulos where estado = 'con el editor' and vecesRevisado <= 1";
 		return db.executeQueryPojo(ArticuloDto.class, sql);
 
 	}

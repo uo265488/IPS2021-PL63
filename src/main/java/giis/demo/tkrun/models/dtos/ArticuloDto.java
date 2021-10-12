@@ -12,12 +12,12 @@ public class ArticuloDto {
 	private String CV;
 	private boolean firma;        //para asegurarse d q no hay plagios (string, boolean... da lo mismo)
 	private String estado;
-	private boolean revisado;
+	private int vecesRevisado;
 	
 	public ArticuloDto() {}
 
 	public ArticuloDto(String id, String titulo, String primerAutor, String resumen,
-			String palabrasClave, String ficheroFuente, String cartaPresentacion, String cVAutor, boolean firma) {
+			String palabrasClave, String ficheroFuente, String cartaPresentacion, String cVAutor, boolean firma, int vecesRevisado) {
 		//no se pueden hacer validaciones todavia porque se puede rellenar la informacion en cualquier momento
 		
 		this.idArticulo = id;
@@ -29,6 +29,7 @@ public class ArticuloDto {
 		this.cartaPresentacion = cartaPresentacion;
 		CV = cVAutor;
 		this.firma = firma;
+		this.vecesRevisado = vecesRevisado;
 	}
 
 	public String getIdArticulo() {
@@ -112,12 +113,12 @@ public class ArticuloDto {
 		return this.estado;
 	}
 
-	public boolean getRevisado() {
-		return revisado;
+	public int getVecesRevisado() {
+		return vecesRevisado;
 	}
 
-	public void setRevisado(boolean revisado) {
-		this.revisado = revisado;
+	public void setVecesRevisado(int vecesRevisado) {
+		this.vecesRevisado = vecesRevisado;
 	}
 	
 	

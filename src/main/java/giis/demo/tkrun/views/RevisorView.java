@@ -1,7 +1,5 @@
 package giis.demo.tkrun.views;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -9,7 +7,6 @@ import javax.swing.border.EmptyBorder;
 import giis.demo.tkrun.controllers.RevisorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
-import giis.demo.tkrun.models.revision.RevisionModel;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

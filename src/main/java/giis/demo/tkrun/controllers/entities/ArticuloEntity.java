@@ -12,13 +12,13 @@ public class ArticuloEntity {
 	private String CV;
 	private boolean firma; // para asegurarse d q no hay plagios (string, boolean... da lo mismo)
 	private String estado;
-	private boolean revisado;
+	private int vecesRevisado;
 
 	public ArticuloEntity() {
 	}
 
 	public ArticuloEntity(String id, String titulo, String primerAutor, String resumen,
-			String palabrasClave, String ficheroFuente, String cartaPresentacion, String cVAutor, boolean firma) {
+			String palabrasClave, String ficheroFuente, String cartaPresentacion, String cVAutor, boolean firma, int vecesRevisado) {
 		// no se pueden hacer validaciones todavia porque se puede rellenar la
 		// informacion en cualquier momento
 
@@ -31,7 +31,7 @@ public class ArticuloEntity {
 		this.cartaPresentacion = cartaPresentacion;
 		CV = cVAutor;
 		this.firma = firma;
-		this.setRevisado(false);
+		this.vecesRevisado = vecesRevisado;
 	}
 
 	public String getIdArticulo() {
@@ -124,11 +124,11 @@ public class ArticuloEntity {
 		return str;
 	}
 
-	public boolean getRevisado() {
-		return revisado;
+	public int getVecesRevisado() {
+		return vecesRevisado;
 	}
 
-	public void setRevisado(boolean revisado) {
-		this.revisado = revisado;
+	public void setVecesRevisado(int vecesRevisado) {
+		this.vecesRevisado = vecesRevisado;
 	}
 }
