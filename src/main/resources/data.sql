@@ -41,4 +41,4 @@ insert into revisiones(idArticulo, idRevisor, comentariosAutor, comentariosEdito
 	(10, 1, 'Muy buen artículo', 'Debe ser publicado', 'altamente recomendable aceptar', true),
 	(10, 2, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'poco recomendable aceptar', true),
 	(10, 3, 'Buen artículo', 'Aceptable', 'aceptardo', true),
-	(8, 1, '','','',false);
+	(8, 1, 'Me esta gustando','','',false);

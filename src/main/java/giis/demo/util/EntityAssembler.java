@@ -60,7 +60,7 @@ public class EntityAssembler {
 		return ent;
 	}
 	
-	private static RevisionEntity toRevisionEntity(RevisionDto art) {
+	public static RevisionEntity toRevisionEntity(RevisionDto art) {
 		RevisionEntity ent = new RevisionEntity();
 		
 		ent.setIdRevisor(art.getIdRevisor());

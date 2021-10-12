@@ -116,7 +116,12 @@ public class ArticuloEntity {
 	
 	@Override
 	public String toString() {
-		return "- " + idArticulo + ", titulo: " + titulo + ", primer autor: " + primerAutor;
+		String str = "- " + idArticulo;
+		if(titulo != null)
+			str += ", titulo: " + titulo;
+		if(primerAutor != null)
+			str += ", primer autor: " + primerAutor;
+		return str;
 	}
 
 	public boolean getRevisado() {

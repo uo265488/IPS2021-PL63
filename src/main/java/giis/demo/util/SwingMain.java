@@ -10,9 +10,12 @@ import javax.swing.JFrame;
 
 import giis.demo.tkrun.controllers.AutorController;
 import giis.demo.tkrun.controllers.EditorController;
+import giis.demo.tkrun.controllers.RevisorController;
 import giis.demo.tkrun.models.autor.AutorModel;
 import giis.demo.tkrun.models.editor.EditorModel;
+import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.views.AutorView;
+import giis.demo.tkrun.views.RevisorView;
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las pantallas 
@@ -64,8 +67,10 @@ public class SwingMain {
 //				controller.initController();
 				
 				//EditorController editorController = new EditorController(new EditorModel());
-				AutorController autorController = new AutorController(new AutorModel());
-				AutorView vista = new AutorView(autorController);
+				//AutorController autorController = new AutorController(new AutorModel());
+				//AutorView vista = new AutorView(autorController);
+				RevisorController revisorController = new RevisorController(new RevisionModel());
+				RevisorView vista = new RevisorView(revisorController);
 			}
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));

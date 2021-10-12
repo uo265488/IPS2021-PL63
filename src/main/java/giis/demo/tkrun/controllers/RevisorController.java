@@ -36,13 +36,18 @@ public class RevisorController {
 			
 		//}
 		
-		public List<RevisionEntity> getArticulosSinRevisar(int id) {
+		public RevisionEntity getArticulosSinRevisar(int id, int idArt) {
 			
-			return EntityAssembler.toRevisionEntityList(model.visualizarSinRevisar(id));
+			return EntityAssembler.toRevisionEntity(model.visualizarSinRevisar(id, idArt));
 		}
 		
 		public List<ArticuloEntity> getTituloArticulosSinRevisar(int id) {
 			
 			return EntityAssembler.toArticuloEntityList(model.articulosSinRevisar(id));
+		}
+		
+		public void actualizarRevision(String comAutor, String comEditor, String decision, boolean enviarAlEditor, int id, int idArt) {
+			
+			model.revisarArticulo(comAutor, comEditor, decision, enviarAlEditor, idArt, id);
 		}
 }

@@ -20,18 +20,18 @@ public class RevisionModel {
 	 * }
 	 */
 	
-	public void revisarArticulo(String comentariosAutor, String comentariosEditor, boolean enviarAlEditor, int idArticulo, int idRevisor) {
+	public void revisarArticulo(String comentariosAutor, String comentariosEditor, String decision, boolean enviarAlEditor, int idArticulo, int idRevisor) {
 		// validaciones (en este caso nada)
-		String sql = "update revision set comentariosAutor = ?, comentariosEditor = ?, enviarAlEditor = ? where idArticulo = ? and idRevisor = ?";
-		db.executeUpdate(sql, comentariosAutor, comentariosEditor, enviarAlEditor, idArticulo, idRevisor);
+		String sql = "update revisiones set comentariosAutor = ?, comentariosEditor = ?, decision = ?, enviarAlEditor = ? where idArticulo = ? and idRevisor = ?";
+		db.executeUpdate(sql, comentariosAutor, comentariosEditor, decision, enviarAlEditor, idArticulo, idRevisor);
 	}
 	
-	public List<RevisionDto> visualizarSinRevisar(int idRevisor){
+	public RevisionDto visualizarSinRevisar(int idRevisor, int idArticulo){
 		String sql = "select * "
 				+ "from revisiones "
-				+ "where idRevisor = ? and enviarAlEditor = false";
+				+ "where idRevisor = ? and enviarAlEditor = false and idArticulo = ?";
 		
-		return db.executeQueryPojo(RevisionDto.class, sql, idRevisor);
+		return db.executeQueryPojo(RevisionDto.class, sql, idRevisor, idArticulo).get(0);
 	}
 	
 	public List<ArticuloDto> articulosSinRevisar(int idRevisor){

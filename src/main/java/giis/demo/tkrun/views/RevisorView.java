@@ -8,9 +8,12 @@ import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.RevisorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.models.revision.RevisionModel;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -48,29 +51,21 @@ public class RevisorView extends JFrame {
 	private JButton btEnviar;
 	private JButton btGuardarCambios;
 	private JButton btVerArticulos;
-	private RevisorController controller = new RevisorController(new RevisionModel());
+	private RevisorController controller;
 	private List<ArticuloEntity> articulosSinRevisar = new ArrayList<ArticuloEntity>();
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RevisorView frame = new RevisorView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private String idArt;
+	private RevisionEntity articuloRevisando;
+	private JButton btCancelar;
 
 	/**
 	 * Create the frame.
 	 */
-	public RevisorView() {
+	public RevisorView(RevisorController controller) {
+		this.controller = controller;
+		inicialice();
+	}
+	
+	private void inicialice() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 757, 539);
 		contentPane = new JPanel();
@@ -92,7 +87,11 @@ public class RevisorView extends JFrame {
 		contentPane.add(getBtEnviar());
 		contentPane.add(getBtGuardarCambios());
 		contentPane.add(getBtVerArticulos());
+		contentPane.add(getBtCancelar());
+		setVisible(true);
+		setResizable(false);
 	}
+	
 	private JLabel getLbRevision() {
 		if (lbRevision == null) {
 			lbRevision = new JLabel("Vista Revisor:");
@@ -138,6 +137,16 @@ public class RevisorView extends JFrame {
 			btSeleccionar = new JButton("Seleccionar");
 			btSeleccionar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					ArticuloEntity art = (ArticuloEntity) chArticulos.getSelectedItem();
+					if(art != null) {
+						idArt = art.getIdArticulo();
+						if(idArt != null) {
+							getTxId().setEnabled(false);
+							articuloRevisando = controller.getArticulosSinRevisar(Integer.parseInt(getTxId().getText()), Integer.parseInt(idArt));
+							getTxAutor().setText(articuloRevisando.getComentariosAutor());
+							getTxEditor().setText(articuloRevisando.getComentariosEditor());
+						}
+					}
 				}
 			});
 			btSeleccionar.setBackground(new Color(165, 42, 42));
@@ -209,15 +218,55 @@ public class RevisorView extends JFrame {
 	private JButton getBtEnviar() {
 		if (btEnviar == null) {
 			btEnviar = new JButton("Enviar Revisión al editor");
+			btEnviar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(idArt != null && pasaCondiciones()) {
+						controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(), 
+								(String)getChDecision().getSelectedItem(), true, Integer.parseInt(getTxId().getText()), Integer.parseInt(idArt));
+						limpiar();
+					}
+				}
+			});
 			btEnviar.setForeground(new Color(255, 255, 255));
 			btEnviar.setBackground(new Color(34, 139, 34));
 			btEnviar.setBounds(10, 421, 209, 23);
 		}
 		return btEnviar;
 	}
+	
+	private boolean pasaCondiciones() {
+		if(getTxAutor().getText().length() > 100) {
+			JOptionPane.showMessageDialog(null, "Debe reducir los comentarios al autor");
+			return false;
+		}
+		if(getTxEditor().getText().length() > 100) {
+			JOptionPane.showMessageDialog(null, "Debe reducir los comentarios al editor");
+			return false;
+		}
+		return true;
+	}
+	
+	private void limpiar() {
+		getTxId().setEnabled(true);
+		articulosSinRevisar.clear();
+		rellenarComboBox();
+		getTxAutor().setText("");
+		getTxEditor().setText("");
+		getTxId().setText("");
+	}
+	
 	private JButton getBtGuardarCambios() {
 		if (btGuardarCambios == null) {
 			btGuardarCambios = new JButton("Guardar Cambios");
+			btGuardarCambios.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(idArt != null && pasaCondiciones()) {
+						controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(), 
+								(String)getChDecision().getSelectedItem(), false, Integer.parseInt(getTxId().getText()), Integer.parseInt(idArt));
+						limpiar();
+					}
+				}
+			});
 			btGuardarCambios.setForeground(new Color(255, 255, 255));
 			btGuardarCambios.setBackground(new Color(0, 0, 139));
 			btGuardarCambios.setBounds(223, 421, 209, 23);
@@ -230,6 +279,7 @@ public class RevisorView extends JFrame {
 			btVerArticulos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					articulosSinRevisar.clear();
+					idArt = null;
 					articulosSinRevisar = controller.getTituloArticulosSinRevisar(Integer.parseInt(getTxId().getText()));
 					rellenarComboBox();
 				}
@@ -250,5 +300,19 @@ public class RevisorView extends JFrame {
 			}
 		}
 		getChArticulos().setModel(new DefaultComboBoxModel<ArticuloEntity>(vector));
+	}
+	private JButton getBtCancelar() {
+		if (btCancelar == null) {
+			btCancelar = new JButton("Cancelar");
+			btCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					limpiar();
+				}
+			});
+			btCancelar.setForeground(Color.WHITE);
+			btCancelar.setBackground(new Color(220, 20, 60));
+			btCancelar.setBounds(132, 455, 185, 23);
+		}
+		return btCancelar;
 	}
 }
