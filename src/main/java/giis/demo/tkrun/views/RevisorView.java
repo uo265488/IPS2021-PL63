@@ -142,6 +142,8 @@ public class RevisorView extends JFrame {
 							articuloRevisando = controller.getArticulosSinRevisar(Integer.parseInt(getTxId().getText()), Integer.parseInt(idArt));
 							getTxAutor().setText(articuloRevisando.getComentariosAutor());
 							getTxEditor().setText(articuloRevisando.getComentariosEditor());
+							getBtEnviar().setEnabled(true);
+							getBtGuardarCambios().setEnabled(true);
 						}
 					}
 				}
@@ -221,9 +223,12 @@ public class RevisorView extends JFrame {
 						controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(), 
 								(String)getChDecision().getSelectedItem(), true, Integer.parseInt(getTxId().getText()), Integer.parseInt(idArt));
 						limpiar();
+						getBtEnviar().setEnabled(false);
+						getBtGuardarCambios().setEnabled(false);
 					}
 				}
 			});
+			btEnviar.setEnabled(false);
 			btEnviar.setForeground(new Color(255, 255, 255));
 			btEnviar.setBackground(new Color(34, 139, 34));
 			btEnviar.setBounds(10, 421, 209, 23);
@@ -261,9 +266,12 @@ public class RevisorView extends JFrame {
 						controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(), 
 								(String)getChDecision().getSelectedItem(), false, Integer.parseInt(getTxId().getText()), Integer.parseInt(idArt));
 						limpiar();
+						getBtEnviar().setEnabled(false);
+						getBtGuardarCambios().setEnabled(false);
 					}
 				}
 			});
+			btGuardarCambios.setEnabled(false);
 			btGuardarCambios.setForeground(new Color(255, 255, 255));
 			btGuardarCambios.setBackground(new Color(0, 0, 139));
 			btGuardarCambios.setBounds(223, 421, 209, 23);
@@ -277,7 +285,8 @@ public class RevisorView extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					articulosSinRevisar.clear();
 					idArt = null;
-					articulosSinRevisar = controller.getTituloArticulosSinRevisar(Integer.parseInt(getTxId().getText()));
+					if(getTxId().getText().strip().length() > 0)
+						articulosSinRevisar = controller.getTituloArticulosSinRevisar(Integer.parseInt(getTxId().getText()));
 					rellenarComboBox();
 				}
 			});
@@ -304,6 +313,8 @@ public class RevisorView extends JFrame {
 			btCancelar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					limpiar();
+					getBtEnviar().setEnabled(false);
+					getBtGuardarCambios().setEnabled(false);
 				}
 			});
 			btCancelar.setForeground(Color.WHITE);

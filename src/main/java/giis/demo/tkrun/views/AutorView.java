@@ -165,7 +165,7 @@ public class AutorView extends JFrame {
 	}
 	private JButton getBtMirarArticulos() {
 		if (btMirarArticulos == null) {
-			btMirarArticulos = new JButton("Articulos aceptados sin publicar");
+			btMirarArticulos = new JButton("Articulos aceptados sin versión definitiva");
 			btMirarArticulos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					articulosAceptadosSinVersionDefinitiva.clear();

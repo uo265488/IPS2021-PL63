@@ -21,12 +21,12 @@ public class AutorModel {
 		// validaciones (en este caso nada)
 		String sql = "select articulo.idArticulo, titulo, primerAutor "
 				+ "from articulosDeAutores, articulo "
-				+ "where idAutor = ? and articulo.idArticulo = articulosDeAutores.idArticulo and estado = 'aceptado'";
+				+ "where idAutor = ? and articulo.idArticulo = articulosDeAutores.idArticulo and estado = 'aceptado' and versionDefinitiva = false";
 		return db.executeQueryPojo(ArticuloDto.class, sql, id);
 	}
 	
 	public void enviarVersionDefinitiva(int id) {
-		String sql = "update articulo set firma = true, estado = 'publicado' where idArticulo = ?";
+		String sql = "update articulo set firma = true, versionDefinitiva = true where idArticulo = ?";
 		db.executeUpdate(sql, id);
 	}
 }
