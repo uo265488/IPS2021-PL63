@@ -50,7 +50,7 @@ public class RevisorView extends JFrame {
 	private JButton btVerArticulos;
 	private RevisorController controller;
 	private List<ArticuloEntity> articulosSinRevisar = new ArrayList<ArticuloEntity>();
-	private String idArt;
+	private int idArt;
 	private RevisionEntity articuloRevisando;
 	private JButton btCancelar;
 
