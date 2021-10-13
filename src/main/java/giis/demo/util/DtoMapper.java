@@ -33,11 +33,11 @@ public class DtoMapper {
 		ArticuloDto dto = new ArticuloDto();
 
 		dto.setCartaPresentacion(articulo.getCartaPresentacion());
-		dto.setCVAutor(articulo.getCVAutor());
+		dto.setCV(articulo.getCV());
 		dto.setEstado(articulo.getEstado());
 		dto.setFicheroFuente(articulo.getFicheroFuente());
-		dto.setFirma(dto.getFirma());
-		dto.setId(articulo.getId());
+		dto.setFirma(dto.isFirma());
+		dto.setIdArticulo(articulo.getIdArticulo());
 		dto.setOtrosAutores(articulo.getOtrosAutores());
 		dto.setPalabrasClave(articulo.getPalabrasClave());
 		dto.setPrimerAutor(articulo.getPrimerAutor());

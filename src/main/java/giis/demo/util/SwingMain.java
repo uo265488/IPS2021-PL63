@@ -92,14 +92,14 @@ public class SwingMain {
 		articulo.setPrimerAutor("Oscar");
 		articulo.setOtrosAutores("Dtoke y papo");
 		articulo.setCartaPresentacion("cartadepresentacion.txt");
-		articulo.setCVAutor("CVdeOscar.css");
+		articulo.setCV("CVdeOscar.css");
 		articulo.setFicheroFuente("ficheroguente.com");
 		articulo.setFirma(true);
 		articulo.setPalabrasClave("Queso - Fernando - Teclado");
 		articulo.setResumen("Cada PL se dividirá en equipos, de 4 alumnos. Los alumnos formarán sus propios equipos,\r\n" + 
 				"aunque el profesor podrá realizar cambios para que se cumplan las cifras anteriores, o cuando\r\n" + 
 				"haya bajas o nuevas incorporaciones");
-		articulo.setId(1);
+		articulo.setIdArticulo(1);
 		
 		return articulo;
 	}

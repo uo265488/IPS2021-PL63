@@ -11,22 +11,24 @@ public class ArticuloModel {
 
 	/**
 	 * Actualizar articulo en funcion del id
+	 * 
 	 * @param articuloDto
 	 */
 	public void update(ArticuloDto articuloDto) {
 		// validaciones (en este caso nada)
-		String sql = "update articulos set cartaPresentacion = ?, CV = ?, estado=?, ficheroFuente = ?,"
-				+ " firma=?, CV = ?,  palabrasClave = ?, primerAutor=?, resumen = ?, titulo=? where idArticulo = ?";
+		String sql = "update articulos set cartaPresentacion = ?, CV = ?, estado=?, ficheroFuente = ?, otrosAutores=?, palabrasClave=?, primerAutor=?, resumen=?, titulo=?, vecesRevisado=?, firma=?, versionDefinitiva=? where idArticulo = ?";
 
-		db.executeUpdate(sql, articuloDto.getCartaPresentacion(), articuloDto.getCVAutor(),
-				articuloDto.getEstado(), articuloDto.getFicheroFuente(), articuloDto.getFirma(),
-				articuloDto.getOtrosAutores(), articuloDto.getPalabrasClave(), articuloDto.getPrimerAutor(),
-				articuloDto.getResumen(), articuloDto.getTitulo(), articuloDto.getId());
+		db.executeUpdate(sql, articuloDto.getCartaPresentacion(), articuloDto.getCV(), articuloDto.getEstado(),
+				articuloDto.getFicheroFuente(), articuloDto.getOtrosAutores(), articuloDto.getPalabrasClave(),
+				articuloDto.getPrimerAutor(), articuloDto.getResumen(), articuloDto.getTitulo(),
+				articuloDto.getVecesRevisado(), articuloDto.isFirma(), articuloDto.isVersionDefinitiva(),
+				articuloDto.getIdArticulo());
 
 	}
-	
+
 	/**
 	 * Listado de los articulos nuevos
+	 * 
 	 * @return
 	 */
 	public List<ArticuloDto> listArticulosNuevos() {

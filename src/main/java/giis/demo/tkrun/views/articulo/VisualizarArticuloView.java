@@ -223,7 +223,7 @@ public class VisualizarArticuloView extends JDialog {
 			txtCV.setBounds(34, 390, 210, 20);
 			txtCV.setColumns(10);
 			
-			txtCV.setText(articulo.getCVAutor());
+			txtCV.setText(articulo.getCV());
 		}
 		return txtCV;
 	}
@@ -270,7 +270,7 @@ public class VisualizarArticuloView extends JDialog {
 	private Checkbox getCheckFirma() {
 		if (checkFirma == null) {
 			checkFirma = new Checkbox("El autor ha confirmado que es el autor del artículo y no ha incurrido en plagio.");
-			checkFirma.setState(articulo.getFirma());
+			checkFirma.setState(articulo.isFirma());
 			checkFirma.setBounds(34, 482, 431, 37);
 			
 		}

@@ -42,11 +42,11 @@ public class EntityAssembler {
 		ArticuloEntity ent = new ArticuloEntity();
 
 		ent.setCartaPresentacion(dto.getCartaPresentacion());
-		ent.setCVAutor(dto.getCVAutor());
+		ent.setCV(dto.getCV());
 		ent.setEstado(dto.getEstado());
 		ent.setFicheroFuente(dto.getFicheroFuente());
-		ent.setFirma(dto.getFirma());
-		ent.setId(dto.getId());
+		ent.setFirma(dto.isFirma());
+		ent.setIdArticulo(dto.getIdArticulo());
 		ent.setOtrosAutores(dto.getOtrosAutores());
 		ent.setPalabrasClave(dto.getPalabrasClave());
 		ent.setPrimerAutor(dto.getPrimerAutor());
@@ -70,7 +70,7 @@ public class EntityAssembler {
 
         ent.setComentarios(rev.getComentarios());
         ent.setFecha(rev.getFecha());
-        ent.setIdArticulo(rev.getArticulo().getId());
+        ent.setIdArticulo(rev.getArticulo().getIdArticulo());
         ent.setIdRevisor(rev.getRevisor().getIdRevisor());
 
 		return ent;

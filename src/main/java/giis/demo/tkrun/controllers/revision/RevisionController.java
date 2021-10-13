@@ -24,6 +24,13 @@ public class RevisionController {
 		return EntityAssembler.toRevisionEntityList(model.getComentariosDeRevisionDeUnArticulo(DtoMapper.toArticuloDto(articulo), DtoMapper.toRevisorDto(revisor)));
 	}
 	
+	/**
+	 * Checkear si el revisor ha enviado sus comentarios
+	 * 
+	 * @param articulo
+	 * @param revisor
+	 * @return
+	 */
 	public boolean checkComentariosDeRevisionEnviados(ArticuloEntity articulo, RevisorEntity revisor) {
 		if ( model.getRevision(DtoMapper.toArticuloDto(articulo), DtoMapper.toRevisorDto(revisor)).getComentarios().isEmpty()) return false;
 		

@@ -19,7 +19,7 @@ public class RevisionModel {
 	public void add(RevisionDto revisionDto) {
 		String sql = "insert into revisiones(idArticulo, idRevisor, fecha) values (?,?,?)";
 
-		db.executeUpdate(sql, revisionDto.getRevisor().getIdRevisor(), revisionDto.getArticulo().getId(),
+		db.executeUpdate(sql, revisionDto.getRevisor().getIdRevisor(), revisionDto.getArticulo().getIdArticulo(),
 				revisionDto.getFecha());
 
 	}
@@ -35,7 +35,7 @@ public class RevisionModel {
 
 		String sql = "select * from revisiones where idArticulo = ? and idRevisor = ?";
 
-		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getId(), revisor.getIdRevisor()).get(0);
+		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo(), revisor.getIdRevisor()).get(0);
 
 	}
 
@@ -48,7 +48,7 @@ public class RevisionModel {
 
 		String sql = "select * from revisiones where idArticulo = ? and idRevisor <> ?";
 		
-		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getId(), revisor.getIdRevisor());
+		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo(), revisor.getIdRevisor());
 	}
 
 }
