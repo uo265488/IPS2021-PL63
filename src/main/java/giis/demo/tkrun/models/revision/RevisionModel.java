@@ -76,9 +76,9 @@ public class RevisionModel {
 	}
 	
 	public List<ArticuloDto> articulosSinRevisar(int idRevisor){
-		String sql = "select articulo.idArticulo, titulo "
-				+ "from revisiones, articulo "
-				+ "where idRevisor = ? and enviarAlEditor = false and articulo.idArticulo = revisiones.idArticulo";
+		String sql = "select articulos.idArticulo, titulo "
+				+ "from revisiones, articulos "
+				+ "where idRevisor = ? and enviarAlEditor = false and articulos.idArticulo = revisiones.idArticulo";
 		
 		return db.executeQueryPojo(ArticuloDto.class, sql, idRevisor);
 

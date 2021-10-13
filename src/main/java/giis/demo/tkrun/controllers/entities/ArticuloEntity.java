@@ -128,7 +128,14 @@ public class ArticuloEntity {
 
 	@Override
 	public String toString() {
-		return idArticulo + " - " + titulo + " - Autor: " + primerAutor;
+		String str = "" + idArticulo;
+		if(titulo != null)
+			str += " - " + titulo;
+		if(primerAutor != null)
+			str += " - Autor: " + primerAutor;
+		if(estado != null)
+			str += " - Estado: " + estado;
+		return str;
 	}
 }
 

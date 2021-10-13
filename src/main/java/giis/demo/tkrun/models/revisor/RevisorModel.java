@@ -27,10 +27,9 @@ public class RevisorModel {
 	 */
 	public List<RevisorDto> getRevisoresDisponibles() {
 		// validaciones (en este caso nada)
-		String sql = "SELECT id, nombre, estado from revisores where estado='disponible'";
+		String sql = "SELECT idRevisor, nombre, estado from revisores where estado='disponible'";
 
 		return db.executeQueryPojo(RevisorDto.class, sql);
 
 	}
-
 }

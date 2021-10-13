@@ -138,6 +138,7 @@ public class AutorView extends JFrame {
 			btConfirmar = new JButton("Visualizar Artículos");
 			btConfirmar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					getBtnEnviarArticulo().setEnabled(false);
 					if(!getTxId().getText().isEmpty()) {
 						articulosAceptadosSinVersionDefinitiva.clear();
 						rellenarComboBox();

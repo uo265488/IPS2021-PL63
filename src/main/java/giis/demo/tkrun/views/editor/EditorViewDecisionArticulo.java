@@ -1,12 +1,21 @@
 package giis.demo.tkrun.views.editor;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import giis.demo.tkrun.controllers.editor.EditorController;
+import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.awt.event.ActionEvent;
 
 public class EditorViewDecisionArticulo extends JFrame {
 
@@ -16,34 +25,37 @@ public class EditorViewDecisionArticulo extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lbTitulo;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EditorViewDecisionArticulo frame = new EditorViewDecisionArticulo();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JLabel lbArticulo;
+	private JComboBox<ArticuloEntity> chArticulos;
+	private JButton btAceptar;
+	private JButton btRechazar;
+	private JButton btCargar;
+	private EditorController controller;
+	private List<ArticuloEntity> articulos;
 
 	/**
 	 * Create the frame.
 	 */
-	public EditorViewDecisionArticulo() {
+	public EditorViewDecisionArticulo(EditorController controller) {
+		this.controller = controller;
+		inicialice();
+	}
+	
+	private void inicialice() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 998, 591);
+		setBounds(100, 100, 916, 345);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		contentPane.add(getLbTitulo());
+		contentPane.add(getLbArticulo());
+		contentPane.add(getChArticulos());
+		contentPane.add(getBtAceptar());
+		contentPane.add(getBtRechazar());
+		contentPane.add(getBtCargar());
+		setVisible(true);
+		setResizable(false);
 	}
 	private JLabel getLbTitulo() {
 		if (lbTitulo == null) {
@@ -52,5 +64,67 @@ public class EditorViewDecisionArticulo extends JFrame {
 			lbTitulo.setBounds(294, 21, 416, 24);
 		}
 		return lbTitulo;
+	}
+	private JLabel getLbArticulo() {
+		if (lbArticulo == null) {
+			lbArticulo = new JLabel("Seleccione el artículo:");
+			lbArticulo.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			lbArticulo.setBounds(75, 107, 207, 24);
+		}
+		return lbArticulo;
+	}
+	private JComboBox<ArticuloEntity> getChArticulos() {
+		if (chArticulos == null) {
+			chArticulos = new JComboBox<ArticuloEntity>();
+			chArticulos.setBounds(294, 112, 274, 22);
+		}
+		return chArticulos;
+	}
+	private JButton getBtAceptar() {
+		if (btAceptar == null) {
+			btAceptar = new JButton("Aceptar");
+			btAceptar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			btAceptar.setBackground(new Color(95, 158, 160));
+			btAceptar.setForeground(new Color(0, 0, 0));
+			btAceptar.setBounds(258, 209, 106, 23);
+		}
+		return btAceptar;
+	}
+	private JButton getBtRechazar() {
+		if (btRechazar == null) {
+			btRechazar = new JButton("Rechazar");
+			btRechazar.setForeground(new Color(255, 255, 255));
+			btRechazar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			btRechazar.setBackground(new Color(165, 42, 42));
+			btRechazar.setBounds(422, 209, 106, 23);
+		}
+		return btRechazar;
+	}
+	private JButton getBtCargar() {
+		if (btCargar == null) {
+			btCargar = new JButton("Cargar Articulos");
+			btCargar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					articulos = controller.getArticulosTomarDecision();
+					rellenarComboBox();
+				}
+			});
+			btCargar.setForeground(Color.BLACK);
+			btCargar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			btCargar.setBackground(new Color(100, 149, 237));
+			btCargar.setBounds(584, 112, 148, 23);
+		}
+		return btCargar;
+	}
+	
+	private void rellenarComboBox() {
+		ArticuloEntity[] vector = new ArticuloEntity[0];
+		if (this.articulos.size() > 0) {
+			vector = new ArticuloEntity[this.articulos.size()];
+			for (int i = 0; i < vector.length; i++) {
+				vector[i] = this.articulos.get(i);
+			}
+		}
+		getChArticulos().setModel(new DefaultComboBoxModel<ArticuloEntity>(vector));
 	}
 }

@@ -1,9 +1,10 @@
 package giis.demo.tkrun.models.articulo;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 import giis.demo.tkrun.models.dtos.ArticuloDto;
+import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.util.Database;
 
 public class ArticuloModel {
@@ -51,6 +52,7 @@ public class ArticuloModel {
 
 	/**
 	 * Obtiene la lista de articulos que han sido enviados por los autores.
+	 * 
 	 * @return
 	 */
 	public List<ArticuloDto> getArticulos() {
@@ -58,15 +60,42 @@ public class ArticuloModel {
 
 		return db.executeQueryPojo(ArticuloDto.class, sql);
 	}
-	
-	/**
-	 * Obtiene la lista de articulos listos para aceptar o rechazar
-	 */
-	public List<ArticuloDto> getArticulosTomarDecision() {
-		// validaciones (en este caso nada)
-		String sql = "SELECT id, titulo, autor, estado from articulos where estado = 'con el editor' and vecesRevisado <= 1";
-		return db.executeQueryPojo(ArticuloDto.class, sql);
 
+	/**
+	 * Obtiene la lista de articulos que deben ser evaluados por el editor
+	 */
+	public List<ArticuloDto> getArticulosTomarDecision(){
+		String sql = "SELECT idArticulo from articulos where vecesRevisado <= 1 and estado = 'con el editor'";
+		List<ArticuloDto> idsArticulos = db.executeQueryPojo(ArticuloDto.class, sql);
+		
+		List<RevisionDto> infoArtRevisados = new ArrayList<RevisionDto>();
+		List<Integer> idsArticulosRevisados = new ArrayList<Integer>();
+		
+		for(ArticuloDto str: idsArticulos) {
+			sql = "SELECT * from revisiones where idArticulo = ?";
+			infoArtRevisados = db.executeQueryPojo(RevisionDto.class, sql, str.getIdArticulo());
+			if(infoArtRevisados.size() == 3) {
+				boolean estaRevisado = true;
+				for(RevisionDto revision: infoArtRevisados) {
+					if(!revision.isEnviarAlEditor()) {
+						estaRevisado = false;
+						break;
+					}
+				}
+				if(estaRevisado)
+					idsArticulosRevisados.add(infoArtRevisados.get(0).getIdArticulo());
+			}
+		}
+		
+		sql = "SELECT idArticulo, titulo, primerAutor from articulos where idArticulo = ?";
+		
+		idsArticulos.clear();
+		for(int id: idsArticulosRevisados) {
+			idsArticulos.add((ArticuloDto) db.executeQueryPojo(ArticuloDto.class, sql, id));
+		}
+		
+		return idsArticulos;
 	}
+
 
 }

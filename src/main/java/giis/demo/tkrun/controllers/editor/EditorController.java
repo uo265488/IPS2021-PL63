@@ -34,6 +34,12 @@ public class EditorController {
 
 		initView(articulo);
 	}
+	
+	public EditorController() {
+		this.revisionModel = new RevisionModel();
+		this.articuloModel = new ArticuloModel();
+		this.revisoresModel = new RevisorModel();
+	}
 
 	public List<RevisorEntity> getRevisoresDisponibles() {
 
@@ -103,8 +109,6 @@ public class EditorController {
 	}
 
 	public List<ArticuloEntity> getArticulosTomarDecision() {
-
 		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosTomarDecision());
 	}
-
 }
