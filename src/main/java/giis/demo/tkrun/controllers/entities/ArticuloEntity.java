@@ -1,7 +1,7 @@
 package giis.demo.tkrun.controllers.entities;
 
 public class ArticuloEntity {
-
+	
 	private int idArticulo;
 	private String titulo;
 	private String primerAutor;
@@ -130,5 +130,6 @@ public class ArticuloEntity {
 	public String toString() {
 		return idArticulo + " - " + titulo + " - Autor: " + primerAutor;
 	}
-
 }
+
+

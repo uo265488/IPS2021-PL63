@@ -5,25 +5,8 @@ public class RevisorDto {
 	private int idRevisor;
 	private String nombre;
 	private String estado;
-	
-	public RevisorDto(int id, String nombre, String estado) {
-		super();
-		this.idRevisor = id;
-		this.nombre = nombre;
-		this.estado = estado;
-	}
-
-	public RevisorDto() {}
 
 
-
-	public int getIdRevisor() {
-		return idRevisor;
-	}
-
-	public void setIdRevisor(int idRevisor) {
-		this.idRevisor = idRevisor;
-	}
 
 	public String getNombre() {
 		return nombre;
@@ -43,8 +26,17 @@ public class RevisorDto {
 
 	@Override
 	public String toString() {
-		return "RevisorDto [id=" + idRevisor + ", nombre=" + nombre + ", estado=" + estado + "]";
+		return nombre + " - " + idRevisor;
+	}
+
+	public int getIdRevisor() {
+		return idRevisor;
+	}
+
+	public void setIdRevisor(int idRevisor) {
+		this.idRevisor = idRevisor;
 	}
 	
 	
+
 }

@@ -2,56 +2,50 @@ package giis.demo.tkrun.models.dtos;
 
 public class RevisionDto {
 	
-	private RevisorDto revisor;
-	
-	private ArticuloDto articulo;
-	
+	private int idRevisor;
+	private int idArticulo;
 	private String fecha;
+	private String comentariosAutor;
+	private String comentariosEditor;
+	private boolean enviarAlEditor;
+	
 
-	private String comentarios;
-
-	public RevisorDto getRevisor() {
-		return revisor;
+	public int getIdRevisor() {
+		return idRevisor;
 	}
-
-	public void setRevisor(RevisorDto revisor) {
-		this.revisor = revisor;
+	public void setIdRevisor(int idRevisor) {
+		this.idRevisor = idRevisor;
 	}
-
-	public ArticuloDto getArticulo() {
-		return articulo;
+	public int getIdArticulo() {
+		return idArticulo;
 	}
-
-	public void setArticulo(ArticuloDto articulo) {
-		this.articulo = articulo;
+	public void setIdArticulo(int idArticulo) {
+		this.idArticulo = idArticulo;
 	}
-
 	public String getFecha() {
 		return fecha;
 	}
-
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-
-	public RevisionDto(RevisorDto revisor, ArticuloDto articulo, String fecha) {
-		super();
-		this.revisor = revisor;
-		this.articulo = articulo;
-		this.fecha = fecha;
+	public String getComentariosAutor() {
+		return comentariosAutor;
 	}
-	
-	public RevisionDto() { }
-
-	public String getComentarios() {
-		return this.comentarios;
+	public void setComentariosAutor(String comentariosAutor) {
+		this.comentariosAutor = comentariosAutor;
 	}
-
-	public void setComentarios(String comentarios) {
-		this.comentarios = comentarios;
+	public String getComentariosEditor() {
+		return comentariosEditor;
 	}
-	
-	
+	public void setComentariosEditor(String comentariosEditor) {
+		this.comentariosEditor = comentariosEditor;
+	}
+	public boolean isEnviarAlEditor() {
+		return enviarAlEditor;
+	}
+	public void setEnviarAlEditor(boolean enviarAlEditor) {
+		this.enviarAlEditor = enviarAlEditor;
+	}
 	
 	
 

@@ -5,7 +5,10 @@ public class RevisionEntity {
 	private int idArticulo;
 	private int idRevisor;
 	private String fecha;
-	private String comentarios;
+	private String comentariosAutor;
+	private String comentariosEditor;
+	private boolean enviarAlEditor;
+	
 	public int getIdArticulo() {
 		return idArticulo;
 	}
@@ -24,12 +27,26 @@ public class RevisionEntity {
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-	public String getComentarios() {
-		return comentarios;
+	public String getComentariosAutor() {
+		return comentariosAutor;
 	}
-	public void setComentarios(String comentarios) {
-		this.comentarios = comentarios;
+	public void setComentariosAutor(String comentariosAutor) {
+		this.comentariosAutor = comentariosAutor;
 	}
+	public String getComentariosEditor() {
+		return comentariosEditor;
+	}
+	public void setComentariosEditor(String comentariosEditor) {
+		this.comentariosEditor = comentariosEditor;
+	}
+	public boolean isEnviarAlEditor() {
+		return enviarAlEditor;
+	}
+	public void setEnviarAlEditor(boolean enviarAlEditor) {
+		this.enviarAlEditor = enviarAlEditor;
+	}
+	
+	
 	
 
 }

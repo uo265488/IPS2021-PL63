@@ -49,13 +49,13 @@ public class DtoMapper {
 
 	public static RevisionDto toRevisionDto(RevisorEntity rev, ArticuloEntity articulo, String fecha) {
 		RevisionDto dto = new RevisionDto();
-		
-		dto.setRevisor(DtoMapper.toRevisorDto(rev));
-		dto.setArticulo(DtoMapper.toArticuloDto(articulo));
+
+		dto.setIdArticulo(articulo.getIdArticulo());
+		dto.setIdRevisor(rev.getId());
 		dto.setFecha(fecha);
-		
+
 		return dto;
-		
+
 	}
 
 }

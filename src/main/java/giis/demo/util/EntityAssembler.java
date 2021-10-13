@@ -9,9 +9,12 @@ import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
+import giis.demo.tkrun.controllers.entities.UserEntity;
+import giis.demo.tkrun.models.dtos.UserDto;
 
 public class EntityAssembler {
 
+	
 	public static List<RevisorEntity> toRevisorEntityList(List<RevisorDto> revisores) {
 		List<RevisorEntity> ents = new ArrayList<>();
 		for (RevisorDto rev : revisores) {
@@ -22,11 +25,12 @@ public class EntityAssembler {
 
 	private static RevisorEntity toRevisorEntity(RevisorDto rev) {
 		RevisorEntity ent = new RevisorEntity();
-
+		
 		ent.setEstado(rev.getEstado());
 		ent.setNombre(rev.getNombre());
 		ent.setId(rev.getIdRevisor());
 
+		
 		return ent;
 	}
 
@@ -63,17 +67,36 @@ public class EntityAssembler {
 		}
 		return ents;
 	}
-
-	private static RevisionEntity toRevisionEntity(RevisionDto rev) {
-
+	
+	public static List<UserEntity> toUserEntityList(List<UserDto> usersDto){
+		List<UserEntity> usersEntity = new ArrayList<>();
+		for(UserDto user : usersDto) {
+			usersEntity.add(toUserEntity(user));
+		}
+		
+		return usersEntity;
+	}
+	
+	private static UserEntity toUserEntity(UserDto userDto) {
+		UserEntity userEntity = new UserEntity();
+		
+		userEntity.setUserName(userDto.getNombre());
+		userEntity.setType(userDto.getTipoUsuario());
+		
+		return userEntity;
+	}
+	
+	public static RevisionEntity toRevisionEntity(RevisionDto art) {
 		RevisionEntity ent = new RevisionEntity();
-
-        ent.setComentarios(rev.getComentarios());
-        ent.setFecha(rev.getFecha());
-        ent.setIdArticulo(rev.getArticulo().getIdArticulo());
-        ent.setIdRevisor(rev.getRevisor().getIdRevisor());
-
+		
+		ent.setIdRevisor(art.getIdRevisor());
+		ent.setIdArticulo(art.getIdArticulo());
+		ent.setComentariosEditor(art.getComentariosEditor());
+		ent.setComentariosAutor(art.getComentariosAutor());
+		ent.setEnviarAlEditor(art.isEnviarAlEditor());
+		ent.setFecha(art.getFecha());
+		
+		
 		return ent;
 	}
-
 }

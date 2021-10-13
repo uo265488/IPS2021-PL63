@@ -32,7 +32,7 @@ public class RevisionController {
 	 * @return
 	 */
 	public boolean checkComentariosDeRevisionEnviados(ArticuloEntity articulo, RevisorEntity revisor) {
-		if ( model.getRevision(DtoMapper.toArticuloDto(articulo), DtoMapper.toRevisorDto(revisor)).getComentarios().isEmpty()) return false;
+		if ( model.getRevision(DtoMapper.toArticuloDto(articulo), DtoMapper.toRevisorDto(revisor)).isEnviarAlEditor()) return false;  //comprobar si este metodo chekea si se enviaron los comentarios o no
 		
 		return true;
 	}

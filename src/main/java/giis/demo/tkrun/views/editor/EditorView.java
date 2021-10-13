@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -22,7 +23,7 @@ import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
 
-public class EditorView extends JFrame {
+public class EditorView extends JDialog {
 
 	/**
 	 * 

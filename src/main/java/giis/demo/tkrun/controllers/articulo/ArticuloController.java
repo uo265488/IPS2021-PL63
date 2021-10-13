@@ -37,6 +37,8 @@ public class ArticuloController {
 		artModel.update(DtoMapper.toArticuloDto(articulo));
 	}
 	
+
+	
 	
 	
 	

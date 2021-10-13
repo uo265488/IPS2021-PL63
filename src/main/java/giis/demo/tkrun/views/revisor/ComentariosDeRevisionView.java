@@ -61,8 +61,8 @@ public class ComentariosDeRevisionView extends JDialog {
 		if (controller.checkComentariosDeRevisionEnviados(articulo, revisor)) {
 			List<RevisionEntity> revisiones = controller.getComentariosDeRevisionDelArticulo(articulo, revisor);
 
-			txtRevisor1.setText(revisiones.get(0).getComentarios());
-			txtRevisor2.setText(revisiones.get(1).getComentarios());
+			txtRevisor1.setText(revisiones.get(0).getComentariosEditor());
+			txtRevisor2.setText(revisiones.get(1).getComentariosEditor());
 
 		} else {
 			JOptionPane.showMessageDialog(this,

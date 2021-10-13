@@ -1,5 +1,6 @@
 package giis.demo.tkrun.models.articulo;
 
+
 import java.util.List;
 
 import giis.demo.tkrun.models.dtos.ArticuloDto;
@@ -47,5 +48,25 @@ public class ArticuloModel {
 //		
 //		db.executeQueryPojo(ArticuloDto.class, sql, articuloDto.getId());
 //	}
+
+	/**
+	 * Obtiene la lista de articulos que han sido enviados por los autores.
+	 * @return
+	 */
+	public List<ArticuloDto> getArticulos() {
+		String sql = "SELECT * from articulos where estado <> 'borrador'";
+
+		return db.executeQueryPojo(ArticuloDto.class, sql);
+	}
+	
+	/**
+	 * Obtiene la lista de articulos listos para aceptar o rechazar
+	 */
+	public List<ArticuloDto> getArticulosTomarDecision() {
+		// validaciones (en este caso nada)
+		String sql = "SELECT id, titulo, autor, estado from articulos where estado = 'con el editor' and vecesRevisado <= 1";
+		return db.executeQueryPojo(ArticuloDto.class, sql);
+
+	}
 
 }
