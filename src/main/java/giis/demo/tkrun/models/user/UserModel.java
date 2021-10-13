@@ -10,7 +10,7 @@ public class UserModel {
 	private Database db = new Database();
 	
 	public List<UserDto> getUsers() {
-		String query = "select nombre, tipoUsuario from usuarios";
+		String query = "select idUsuario, nombre, tipoUsuario from usuarios";
 		
 		return db.executeQueryPojo(UserDto.class, query);
 	}
