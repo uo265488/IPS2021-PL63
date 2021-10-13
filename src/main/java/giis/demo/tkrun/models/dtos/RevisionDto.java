@@ -8,6 +8,8 @@ public class RevisionDto {
 	
 	private String fecha;
 
+	private String comentarios;
+
 	public RevisorDto getRevisor() {
 		return revisor;
 	}
@@ -40,6 +42,14 @@ public class RevisionDto {
 	}
 	
 	public RevisionDto() { }
+
+	public String getComentarios() {
+		return this.comentarios;
+	}
+
+	public void setComentarios(String comentarios) {
+		this.comentarios = comentarios;
+	}
 	
 	
 	

@@ -2,6 +2,8 @@ package giis.demo.tkrun.controllers.entities;
 
 public class RevisorEntity {
 
+	public static final String NO_DISPONIBLE = "no disponible";
+	
 	private int id;
 	private String nombre;
 	private String estado;

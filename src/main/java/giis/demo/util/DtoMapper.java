@@ -22,7 +22,7 @@ public class DtoMapper {
 	public static RevisorDto toRevisorDto(RevisorEntity rev) {
 		RevisorDto dto = new RevisorDto();
 
-		dto.setId(rev.getId());
+		dto.setIdRevisor(rev.getId());
 		dto.setNombre(rev.getNombre());
 		dto.setEstado(rev.getEstado());
 

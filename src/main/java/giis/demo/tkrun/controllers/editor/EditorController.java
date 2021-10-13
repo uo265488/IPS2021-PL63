@@ -20,25 +20,35 @@ public class EditorController {
 	private ArticuloModel articuloModel;
 	private RevisorModel revisoresModel;
 	
-	public EditorController(EditorModel m, EditorView v) {
-		this.model = m;
-		this.view = v;
-		//no hay inicializacion especifica del modelo, solo de la vista
-		this.initView();
-	}
-	
-	public EditorController(EditorModel m) {
-		this.model = m;
-		//no hay inicializacion especifica del modelo, solo de la vista
-		this.initView();
-	}
+//	public EditorController(EditorModel m, EditorView v) {
+//		this.model = m;
+//		this.view = v;
+//		//no hay inicializacion especifica del modelo, solo de la vista
+//		this.initView();
+//	}
+//	
+//	public EditorController(EditorModel m) {
+//		this.model = m;
+//		//no hay inicializacion especifica del modelo, solo de la vista
+//		this.initView();
+//	}
+//
+	private void initView(ArticuloEntity articulo) {
 
-	private void initView() {
-
-		this.view = new EditorView(this);
+		this.view = new EditorView(this, articulo);
 		view.setVisible(true);
 		
 		
+	}
+	
+	public EditorController(ArticuloEntity articulo) {
+		
+		this.model = new EditorModel();
+		this.revisionModel = new RevisionModel();
+		this.articuloModel = new ArticuloModel();
+		this.revisoresModel = new RevisorModel();
+		
+		initView(articulo);
 	}
 
 	public List<RevisorEntity> getRevisoresDisponibles() {
@@ -72,7 +82,7 @@ public class EditorController {
 	private void cambiarEstadoRevisoresNoDisponible(List<RevisorEntity> revisores) {
 		
 		for(RevisorEntity rev : revisores) {
-			rev.setEstado("no disponible");
+			rev.setEstado(RevisorEntity.NO_DISPONIBLE);
 			revisoresModel.update(DtoMapper.toRevisorDto(rev));
 		}
 		
@@ -84,7 +94,7 @@ public class EditorController {
 	 */
 	private void cambiarEstadoArticuloEnRevision(ArticuloEntity articulo) {
 		
-		articulo.setEstado("En revision");
+		articulo.setEstado(ArticuloEntity.EN_REVISION);
 		
 		articuloModel.update(DtoMapper.toArticuloDto(articulo));
 		
@@ -97,6 +107,7 @@ public class EditorController {
 	 */
 	private void generarRevisiones(List<RevisorEntity> revisores, ArticuloEntity articulo, String fecha) {
 		for( RevisorEntity rev : revisores) {
+
 			revisionModel.add(DtoMapper.toRevisionDto(rev, articulo, fecha));
 		}
 	}

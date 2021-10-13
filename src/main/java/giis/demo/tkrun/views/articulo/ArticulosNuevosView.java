@@ -27,6 +27,7 @@ public class ArticulosNuevosView extends JFrame {
 	private JButton btnRechazar;
 	private JButton btnVisualizar;
 	private JLabel lblArticulosNuevos;
+	
 	private ArticuloController articulosController;
 
 //	/**
@@ -141,11 +142,14 @@ public class ArticulosNuevosView extends JFrame {
 		if (cbArticulos.getSelectedItem() == null) {
 			JOptionPane.showMessageDialog(this, "Primero debes seleccionar un artículo para visualizar.");
 		} else {
+			articulosController.visualizarArticulo((ArticuloEntity)cbArticulos.getSelectedItem());
+			
 			VisualizarArticuloView vistaArticulo = new VisualizarArticuloView((ArticuloEntity)cbArticulos.getSelectedItem());
 			
 			vistaArticulo.setModal(true);
 			vistaArticulo.setLocationRelativeTo(this);
 			vistaArticulo.setVisible(true);
+			
 		}
 		
 	}

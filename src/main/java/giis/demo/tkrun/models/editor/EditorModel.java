@@ -14,9 +14,13 @@ public class EditorModel {
 	 */
 	public List<RevisorDto> getRevisoresDisponibles() {
 		// validaciones (en este caso nada)
-		String sql = "SELECT id, nombre, estado from revisores where estado='disponible'";
+		String sql = "SELECT * from revisores where estado='disponible'";
 
-		return db.executeQueryPojo(RevisorDto.class, sql);
+		List<RevisorDto> revisores = db.executeQueryPojo(RevisorDto.class, sql);
+		
+		System.out.print(revisores.get(2).getIdRevisor());
+		
+		return revisores;
 
 	}
 

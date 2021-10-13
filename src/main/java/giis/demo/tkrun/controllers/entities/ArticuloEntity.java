@@ -2,7 +2,8 @@ package giis.demo.tkrun.controllers.entities;
 
 public class ArticuloEntity {
 
-	private String id;
+
+	private int id;
 	private String titulo;
 	private String primerAutor;
 	private String otrosAutores; // como almacenar varios autores?????
@@ -14,10 +15,17 @@ public class ArticuloEntity {
 	private boolean firma; // para asegurarse d q no hay plagios (string, boolean... da lo mismo)
 	private String estado;
 
+	public static String CON_EL_EDITOR = "con el editor";
+	public static String BORRADOR = "borrador";
+	public static String RECHAZADO = "rechazado";
+	public static String ACEPTADO = "aceptado";
+	public static final String EN_REVISION = "en revision";
+	
+	
 	public ArticuloEntity() {
 	}
 
-	public ArticuloEntity(String id, String titulo, String primerAutor, String otrosAutores, String resumen,
+	public ArticuloEntity(int id, String titulo, String primerAutor, String otrosAutores, String resumen,
 			String palabrasClave, String ficheroFuente, String cartaPresentacion, String cVAutor, boolean firma) {
 		// no se pueden hacer validaciones todavia porque se puede rellenar la
 		// informacion en cualquier momento
@@ -33,12 +41,14 @@ public class ArticuloEntity {
 		CVAutor = cVAutor;
 		this.firma = firma;
 	}
+	
+	
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

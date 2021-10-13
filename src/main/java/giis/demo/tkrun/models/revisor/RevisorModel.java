@@ -9,9 +9,9 @@ public class RevisorModel {
 
 	public void update(RevisorDto revisorDto) {
 		// validaciones (en este caso nada)
-		String sql = "update articulos set estado = ?, nombre = ? where id = ?";
+		String sql = "update revisores set estado = ?, nombre = ? where idRevisor = ?";
 
-		db.executeQueryPojo(RevisorDto.class, sql, revisorDto.getEstado(), revisorDto.getNombre(), revisorDto.getId());
+		db.executeUpdate(sql, revisorDto.getEstado(), revisorDto.getNombre(), revisorDto.getIdRevisor());
 		
 	}
 

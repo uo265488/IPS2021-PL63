@@ -2,7 +2,7 @@ package giis.demo.tkrun.models.dtos;
 
 public class ArticuloDto {
 
-	private String id;
+	private int id;
 	private String titulo;
 	private String primerAutor;
 	private String otrosAutores;  // como almacenar varios autores?????
@@ -16,7 +16,7 @@ public class ArticuloDto {
 	
 	public ArticuloDto() {}
 
-	public ArticuloDto(String id, String titulo, String primerAutor, String otrosAutores, String resumen,
+	public ArticuloDto(int id, String titulo, String primerAutor, String otrosAutores, String resumen,
 			String palabrasClave, String ficheroFuente, String cartaPresentacion, String cVAutor, boolean firma) {
 		//no se pueden hacer validaciones todavia porque se puede rellenar la informacion en cualquier momento
 		
@@ -32,11 +32,12 @@ public class ArticuloDto {
 		this.firma = firma;
 	}
 
-	public String getId() {
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

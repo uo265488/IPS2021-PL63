@@ -6,14 +6,12 @@ import java.util.List;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
-import giis.demo.tkrun.views.articulo.ArticulosNuevosView;
 import giis.demo.util.DtoMapper;
 import giis.demo.util.EntityAssembler;
 
 public class ArticuloController {
 
 	private ArticuloModel artModel;
-	private ArticulosNuevosView articulosNuevosView;
 	
 	/**
 	 * Obtiene del ArticuloModel una lista con los articulos nuevos
@@ -29,7 +27,13 @@ public class ArticuloController {
 	 * @param selectedItem
 	 */
 	public void rechazarArticulo(ArticuloEntity articulo) {
-		articulo.setEstado("rechazado");
+		articulo.setEstado(ArticuloEntity.RECHAZADO);
+		artModel.update(DtoMapper.toArticuloDto(articulo));
+	}
+
+
+	public void visualizarArticulo(ArticuloEntity articulo) {
+		articulo.setEstado(ArticuloEntity.CON_EL_EDITOR);
 		artModel.update(DtoMapper.toArticuloDto(articulo));
 	}
 	
