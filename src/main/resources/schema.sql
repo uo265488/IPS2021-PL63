@@ -12,6 +12,6 @@ drop table Usuarios;
 create table Usuarios (nombre varchar(32) primary key, tipoUsuario varchar(32));
 
 drop table Articulos;
-create table Articulos (id varchar(32) primary key, titulo varchar(32), primerAutor varchar(32), otrosAutores varchar(32), estado varchar(32), 
+create table Articulos (id varchar(32) primary key, titulo varchar(32), primerAutor varchar(32), otrosAutores varchar(32), estado varchar(32),
 						resumen varchar(255), palabrasClave varchar(255), ficheroFuente varchar(32), cartaPresentacion varchar(32), cvAutor varchar(32), firma varchar(32));
 

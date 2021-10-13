@@ -44,8 +44,8 @@ public class EntityAssembler {
 	private static UserEntity toUserEntity(UserDto userDto) {
 		UserEntity userEntity = new UserEntity();
 		
-		userEntity.setUserName(userDto.getUserName());
-		userEntity.setType(userDto.getType());
+		userEntity.setUserName(userDto.getNombre());
+		userEntity.setType(userDto.getTipoUsuario());
 		
 		return userEntity;
 	}

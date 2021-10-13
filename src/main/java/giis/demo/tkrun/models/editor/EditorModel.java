@@ -21,6 +21,11 @@ public class EditorModel {
 
 	}
 
+	/**
+	 * Obtiene la lista de articulos que han sido enviados por los autores.
+	 * 
+	 * @return lista de objetos articulo.
+	 */
 	public List<ArticuloDto> getArticulos() {
 		String sql = "SELECT * from articulos where estado <> 'borrador'";
 

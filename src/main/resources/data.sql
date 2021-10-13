@@ -14,10 +14,10 @@ insert into revisores(id,nombre,estado) values
 	(3,'maria','no disponible');
 	
 delete from usuarios;
-insert into usuarios(nombre,tipoUsuario) values
-	('alex', 'autor'),
-	('oscar','revisor'),
-	('javi', 'editor');
+insert into usuarios values
+	('Alex', 'Editor'),
+	('Oscar', 'Autor'),
+	('Javi', 'Revisor');
 	
 delete from articulos;
 insert into articulos values 

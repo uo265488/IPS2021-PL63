@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -117,24 +118,24 @@ public class UserView extends JFrame {
 	}
 	
 	private void login() {
-//		UserEntity userEntity = (UserEntity) getCbUsers().getSelectedItem();
-//		
-//		if(userEntity.getType().toLowerCase().equals("autor")) {
-//			launchAutor(userEntity.getUserName());
-//		}
-//		else if(userEntity.getType().toLowerCase().equals("revisor")) {
-//			launchRevisor(userEntity.getUserName());
-//		}else {
+		UserEntity userEntity = (UserEntity) getCbUsers().getSelectedItem();
+		
+		if(userEntity.getType().toLowerCase().equals("autor")) {
+			launchAutor(userEntity.getUserName());
+		}
+		else if(userEntity.getType().toLowerCase().equals("revisor")) {
+			launchRevisor(userEntity.getUserName());
+		}else {
 			launchEditor();
-//		}
+		}
 	}
 	
 	private void launchAutor(String id) {
-		
+		JOptionPane.showMessageDialog(this, "Lanzaría la pantalla principal del autor");
 	}
 	
 	private void launchRevisor(String id) {
-		
+		JOptionPane.showMessageDialog(this, "Lanzaría la pantalla principal del revisor");
 	}
 	
 	private void launchEditor() {

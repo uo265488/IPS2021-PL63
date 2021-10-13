@@ -54,11 +54,6 @@ public class DemoJdbc {
 			stmt.executeUpdate("insert into revisores(id,nombre,estado) values(2,'ernesto,'disponible')");
 			stmt.executeUpdate("insert into revisores(id,nombre,estado) values(3,'maria,'ocupado')");
 			
-			stmt.executeUpdate("create table usuarios(nombre varchar(32) not null, tipoUsuario varchar(32))");
-			stmt.executeUpdate("insert into usuarios(nombre, tipoUsuario) values('Alex', 'Revisor')");
-			stmt.executeUpdate("insert into usuarios(nombre, tipoUsuario) values('Javi', 'Autor')");
-			stmt.executeUpdate("insert into usuarios(nombre, tipoUsuario) values('Oscar', 'Editor')");
-			
 			stmt.close(); //no olvidar cerrar estos objetos
 			cn.close();
 
