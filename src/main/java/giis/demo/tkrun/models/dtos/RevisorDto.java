@@ -2,26 +2,11 @@ package giis.demo.tkrun.models.dtos;
 
 public class RevisorDto {
 
-	private int id;
+	private int idRevisor;
 	private String nombre;
 	private String estado;
-	
-	public RevisorDto(int id, String nombre, String estado) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.estado = estado;
-	}
 
-	public RevisorDto() {}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getNombre() {
 		return nombre;
@@ -41,8 +26,17 @@ public class RevisorDto {
 
 	@Override
 	public String toString() {
-		return "RevisorDto [id=" + id + ", nombre=" + nombre + ", estado=" + estado + "]";
+		return nombre + " - " + idRevisor;
+	}
+
+	public int getIdRevisor() {
+		return idRevisor;
+	}
+
+	public void setIdRevisor(int idRevisor) {
+		this.idRevisor = idRevisor;
 	}
 	
 	
+
 }

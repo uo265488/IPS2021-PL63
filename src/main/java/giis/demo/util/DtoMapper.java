@@ -9,7 +9,6 @@ import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 
-
 public class DtoMapper {
 
 	public static List<RevisorDto> toRevisorDtoList(List<RevisorEntity> revisores) {
@@ -23,7 +22,7 @@ public class DtoMapper {
 	public static RevisorDto toRevisorDto(RevisorEntity rev) {
 		RevisorDto dto = new RevisorDto();
 
-		dto.setId(rev.getId());
+		dto.setIdRevisor(rev.getId());
 		dto.setNombre(rev.getNombre());
 		dto.setEstado(rev.getEstado());
 
@@ -34,11 +33,11 @@ public class DtoMapper {
 		ArticuloDto dto = new ArticuloDto();
 
 		dto.setCartaPresentacion(articulo.getCartaPresentacion());
-		dto.setCVAutor(articulo.getCVAutor());
+		dto.setCV(articulo.getCV());
 		dto.setEstado(articulo.getEstado());
 		dto.setFicheroFuente(articulo.getFicheroFuente());
-		dto.setFirma(dto.getFirma());
-		dto.setId(articulo.getId());
+		dto.setFirma(dto.isFirma());
+		dto.setIdArticulo(articulo.getIdArticulo());
 		dto.setOtrosAutores(articulo.getOtrosAutores());
 		dto.setPalabrasClave(articulo.getPalabrasClave());
 		dto.setPrimerAutor(articulo.getPrimerAutor());
@@ -50,13 +49,13 @@ public class DtoMapper {
 
 	public static RevisionDto toRevisionDto(RevisorEntity rev, ArticuloEntity articulo, String fecha) {
 		RevisionDto dto = new RevisionDto();
-		
-		dto.setRevisor(DtoMapper.toRevisorDto(rev));
-		dto.setArticulo(DtoMapper.toArticuloDto(articulo));
+
+		dto.setIdArticulo(articulo.getIdArticulo());
+		dto.setIdRevisor(rev.getId());
 		dto.setFecha(fecha);
-		
+
 		return dto;
-		
+
 	}
 
 }

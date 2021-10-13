@@ -1,8 +1,8 @@
 package giis.demo.tkrun.controllers.entities;
 
 public class ArticuloEntity {
-
-	private String id;
+	
+	private int idArticulo;
 	private String titulo;
 	private String primerAutor;
 	private String otrosAutores; // como almacenar varios autores?????
@@ -10,36 +10,24 @@ public class ArticuloEntity {
 	private String palabrasClave;
 	private String ficheroFuente;
 	private String cartaPresentacion;
-	private String CVAutor;
-	private String firma; // para asegurarse d q no hay plagios (string, boolean... da lo mismo)
+	private String CV;
+	private boolean firma; // para asegurarse d q no hay plagios (string, boolean... da lo mismo)
 	private String estado;
+	private int vecesRevisado;
+	private boolean versionDefinitiva;
 
-	public ArticuloEntity() {
+	public static String CON_EL_EDITOR = "con el editor";
+	public static String BORRADOR = "borrador";
+	public static String RECHAZADO = "rechazado";
+	public static String ACEPTADO = "aceptado";
+	public static final String EN_REVISION = "en revision";
+
+	public int getIdArticulo() {
+		return idArticulo;
 	}
 
-	public ArticuloEntity(String id, String titulo, String primerAutor, String otrosAutores, String resumen,
-			String palabrasClave, String ficheroFuente, String cartaPresentacion, String cVAutor, String firma) {
-		// no se pueden hacer validaciones todavia porque se puede rellenar la
-		// informacion en cualquier momento
-
-		this.id = id;
-		this.titulo = titulo;
-		this.primerAutor = primerAutor;
-		this.otrosAutores = otrosAutores;
-		this.resumen = resumen;
-		this.palabrasClave = palabrasClave;
-		this.ficheroFuente = ficheroFuente;
-		this.cartaPresentacion = cartaPresentacion;
-		CVAutor = cVAutor;
-		this.firma = firma;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
+	public void setIdArticulo(int idArticulo) {
+		this.idArticulo = idArticulo;
 	}
 
 	public String getTitulo() {
@@ -98,27 +86,50 @@ public class ArticuloEntity {
 		this.cartaPresentacion = cartaPresentacion;
 	}
 
-	public String getCVAutor() {
-		return CVAutor;
+	public String getCV() {
+		return CV;
 	}
 
-	public void setCVAutor(String cVAutor) {
-		CVAutor = cVAutor;
+	public void setCV(String cV) {
+		CV = cV;
 	}
 
-	public String getFirma() {
+	public boolean isFirma() {
 		return firma;
 	}
 
-	public void setFirma(String firma) {
+	public void setFirma(boolean firma) {
 		this.firma = firma;
 	}
 
-	public void setEstado(String string) {
-		this.estado = string;
+	public String getEstado() {
+		return estado;
 	}
 
-	public String getEstado() {
-		return this.estado;
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public int getVecesRevisado() {
+		return vecesRevisado;
+	}
+
+	public void setVecesRevisado(int vecesRevisado) {
+		this.vecesRevisado = vecesRevisado;
+	}
+
+	public boolean isVersionDefinitiva() {
+		return versionDefinitiva;
+	}
+
+	public void setVersionDefinitiva(boolean versionDefinitiva) {
+		this.versionDefinitiva = versionDefinitiva;
+	}
+
+	@Override
+	public String toString() {
+		return idArticulo + " - " + titulo + " - Autor: " + primerAutor;
 	}
 }
+
+

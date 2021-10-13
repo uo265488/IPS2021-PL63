@@ -9,7 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import giis.demo.tkrun.controllers.editor.EditorController;
-import giis.demo.tkrun.models.editor.EditorModel;
+import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+
+
 
 
 /**
@@ -58,10 +60,7 @@ public class SwingMain {
 		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
 		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-//				CarrerasController controller=new CarrerasController(new CarrerasModel(), new CarrerasView());
-//				controller.initController();
-				
-				EditorController editorController = new EditorController(new EditorModel());
+				new EditorController(generarArticulo());
 			}
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
@@ -86,6 +85,25 @@ public class SwingMain {
 			}
 		});
 		frame.getContentPane().add(btnCargarDatosIniciales);
+	}
+
+	protected ArticuloEntity generarArticulo() {
+		
+		ArticuloEntity articulo = new ArticuloEntity();
+		articulo.setTitulo("Articulo sobre la naturaleza xd");
+		articulo.setPrimerAutor("Oscar");
+		articulo.setOtrosAutores("Dtoke y papo");
+		articulo.setCartaPresentacion("cartadepresentacion.txt");
+		articulo.setCV("CVdeOscar.css");
+		articulo.setFicheroFuente("ficheroguente.com");
+		articulo.setFirma(true);
+		articulo.setPalabrasClave("Queso - Fernando - Teclado");
+		articulo.setResumen("Cada PL se dividirá en equipos, de 4 alumnos. Los alumnos formarán sus propios equipos,\r\n" + 
+				"aunque el profesor podrá realizar cambios para que se cumplan las cifras anteriores, o cuando\r\n" + 
+				"haya bajas o nuevas incorporaciones");
+		articulo.setIdArticulo(1);
+		
+		return articulo;
 	}
 
 	public JFrame getFrame() { return this.frame; }

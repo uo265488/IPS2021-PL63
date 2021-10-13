@@ -37,7 +37,7 @@ public class DemoJdbc {
 			String connString=URL;
 
 			//Ejecuta acciones de actualizacion: insertar datos en una tabla
-			Connection cn=DriverManager.getConnection(connString); //NOSONAR
+			Connection cn=DriverManager.getConnection(connString);//NOSONAR
 			Statement stmt = cn.createStatement(); //NOSONAR
 			try {
 				stmt.executeUpdate("drop table if exists test");
