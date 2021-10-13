@@ -4,11 +4,52 @@ import java.util.List;
 
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
+import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.util.Database;
 
 public class RevisionModel {
 
 	private Database db = new Database();
+
+	/**
+	 * Añade una revision a la base de datos
+	 * 
+	 * @param revisionDto
+	 */
+	public void add(RevisionDto revisionDto) {
+		String sql = "insert into revisiones(idArticulo, idRevisor, fecha) values (?,?,?)";
+
+		db.executeUpdate(sql, revisionDto.getIdArticulo(), revisionDto.getIdRevisor(),
+				revisionDto.getFecha());
+
+	}
+
+	/**
+	 * Obtiene la revision atraves del id del articulo y el revisor
+	 * 
+	 * @param articulo
+	 * @param revisor
+	 * @return
+	 */
+	public RevisionDto getRevision(ArticuloDto articulo, RevisorDto revisor) {
+
+		String sql = "select * from revisiones where idArticulo = ? and idRevisor = ?";
+
+		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo(), revisor.getIdRevisor()).get(0);
+
+	}
+
+	/**
+	 * Obtiene todas las revisiones hechas sobre un articulo
+	 * @param articuloDto
+	 * @return
+	 */
+	public List<RevisionDto> getComentariosDeRevisionDeUnArticulo(ArticuloDto articulo, RevisorDto revisor) {
+
+		String sql = "select * from revisiones where idArticulo = ? and idRevisor <> ?";
+		
+		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo(), revisor.getIdRevisor());
+	}
 
 	/*
 	 * public void add(RevisionDto revisionDto) { String sql =
@@ -40,6 +81,7 @@ public class RevisionModel {
 				+ "where idRevisor = ? and enviarAlEditor = false and articulo.idArticulo = revisiones.idArticulo";
 		
 		return db.executeQueryPojo(ArticuloDto.class, sql, idRevisor);
+
 	}
 
 }

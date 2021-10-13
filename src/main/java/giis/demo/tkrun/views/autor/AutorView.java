@@ -1,10 +1,10 @@
-package giis.demo.tkrun.views;
+package giis.demo.tkrun.views.autor;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import giis.demo.tkrun.controllers.AutorController;
+import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 
 import javax.swing.JLabel;
@@ -231,7 +231,7 @@ public class AutorView extends JFrame {
 					else {
 						ArticuloEntity articulo = (ArticuloEntity)getCbArticulosSinPublicar().getSelectedItem();
 						if(articulo != null)
-							controller.getEnviarVersionDefinitiva(Integer.parseInt(articulo.getIdArticulo()));
+							controller.getEnviarVersionDefinitiva(articulo.getIdArticulo());
 					}
 				}
 			});

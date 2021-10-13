@@ -1,6 +1,5 @@
-package giis.demo.tkrun.views;
+package giis.demo.tkrun.views.editor;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,6 +10,10 @@ import java.awt.Font;
 
 public class EditorViewDecisionArticulo extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lbTitulo;
 

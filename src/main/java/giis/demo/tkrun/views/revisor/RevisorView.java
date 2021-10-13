@@ -1,12 +1,12 @@
-package giis.demo.tkrun.views;
+package giis.demo.tkrun.views.revisor;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import giis.demo.tkrun.controllers.RevisorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
+import giis.demo.tkrun.controllers.revisor.RevisorController;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -50,7 +50,7 @@ public class RevisorView extends JFrame {
 	private JButton btVerArticulos;
 	private RevisorController controller;
 	private List<ArticuloEntity> articulosSinRevisar = new ArrayList<ArticuloEntity>();
-	private String idArt;
+	private int idArt;
 	private RevisionEntity articuloRevisando;
 	private JButton btCancelar;
 

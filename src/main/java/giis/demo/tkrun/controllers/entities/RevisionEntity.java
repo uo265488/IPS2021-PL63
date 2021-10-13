@@ -1,24 +1,13 @@
 package giis.demo.tkrun.controllers.entities;
 
 public class RevisionEntity {
-
+	
 	private int idArticulo;
 	private int idRevisor;
+	private String fecha;
 	private String comentariosAutor;
 	private String comentariosEditor;
 	private boolean enviarAlEditor;
-	
-	public RevisionEntity(int idArticulo, int idRevisor, String comentariosAutor, String comentariosEditor, boolean enviarAlEditor) {
-		super();
-		this.idArticulo = idArticulo;
-		this.idRevisor = idRevisor;
-		this.comentariosAutor = comentariosAutor;
-		this.comentariosEditor = comentariosEditor;
-		this.enviarAlEditor = enviarAlEditor;
-	}
-
-	
-	public RevisionEntity() {}
 	
 	public int getIdArticulo() {
 		return idArticulo;
@@ -31,6 +20,12 @@ public class RevisionEntity {
 	}
 	public void setIdRevisor(int idRevisor) {
 		this.idRevisor = idRevisor;
+	}
+	public String getFecha() {
+		return fecha;
+	}
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
 	}
 	public String getComentariosAutor() {
 		return comentariosAutor;
@@ -50,4 +45,8 @@ public class RevisionEntity {
 	public void setEnviarAlEditor(boolean enviarAlEditor) {
 		this.enviarAlEditor = enviarAlEditor;
 	}
+	
+	
+	
+
 }

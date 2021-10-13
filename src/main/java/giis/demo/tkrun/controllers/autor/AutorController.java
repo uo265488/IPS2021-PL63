@@ -1,4 +1,4 @@
-package giis.demo.tkrun.controllers;
+package giis.demo.tkrun.controllers.autor;
 
 import java.util.List;
 
