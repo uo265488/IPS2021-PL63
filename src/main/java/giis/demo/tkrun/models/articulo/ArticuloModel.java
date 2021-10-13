@@ -11,12 +11,12 @@ public class ArticuloModel {
 	public void update(ArticuloDto articuloDto) {
 		// validaciones (en este caso nada)
 		String sql = "update articulos set cartaPresentacion = ?, CVAutor = ?, estado=?, ficheroFuente = ?,"
-				+ " firma=?, CVAutor = ?, otrosAutores=?, palabrasClave = ?, primerAutor=?, resumen = ?, titulo=? where id = ?";
+				+ " firma=?, CVAutor = ?, palabrasClave = ?, primerAutor=?, resumen = ?, titulo=? where id = ?";
 
-		db.executeQueryPojo(ArticuloDto.class, sql, articuloDto.getCartaPresentacion(), articuloDto.getCVAutor(),
-				articuloDto.getEstado(), articuloDto.getFicheroFuente(), articuloDto.getFirma(),
-				articuloDto.getOtrosAutores(), articuloDto.getPalabrasClave(), articuloDto.getPrimerAutor(),
-				articuloDto.getResumen(), articuloDto.getTitulo(), articuloDto.getId());
+		db.executeQueryPojo(RevisorDto.class, sql, articuloDto.getCartaPresentacion(), articuloDto.getCV(),
+				articuloDto.getEstado(), articuloDto.getFicheroFuente(), articuloDto.getFirma(), 
+				articuloDto.getPalabrasClave(), articuloDto.getPrimerAutor(),
+				articuloDto.getResumen(), articuloDto.getTitulo(), articuloDto.getIdArticulo());
 
 	}
 

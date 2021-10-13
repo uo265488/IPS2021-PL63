@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.controllers.entities.UserEntity;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
+import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.dtos.UserDto;
 
@@ -20,13 +22,21 @@ public class EntityAssembler {
 		}
 		return ents;
 	}
+	
+	public static List<RevisionEntity> toRevisionEntityList(List<RevisionDto> articulos) {
+		List<RevisionEntity> ents = new ArrayList<>();
+		for (RevisionDto rev : articulos) {
+			ents.add(toRevisionEntity(rev));
+		}
+		return ents;
+	}
 
 	private static RevisorEntity toRevisorEntity(RevisorDto rev) {
 		RevisorEntity ent = new RevisorEntity();
 		
 		ent.setEstado(rev.getEstado());
 		ent.setNombre(rev.getNombre());
-		ent.setId(rev.getId());
+		ent.setId(rev.getIdRevisor());
 		
 		
 		return ent;
@@ -66,14 +76,26 @@ public class EntityAssembler {
 		articuloEntity.setResumen(articuloDto.getResumen());
 		articuloEntity.setPrimerAutor(articuloDto.getPrimerAutor());
 		articuloEntity.setPalabrasClave(articuloDto.getPalabrasClave());
-		articuloEntity.setOtrosAutores(articuloDto.getOtrosAutores());
-		articuloEntity.setId(articuloDto.getId());
+		articuloEntity.setIdArticulo(articuloDto.getIdArticulo());
 		articuloEntity.setFirma(articuloDto.getFirma());
 		articuloEntity.setFicheroFuente(articuloDto.getFicheroFuente());
 		articuloEntity.setEstado(articuloDto.getEstado());
-		articuloEntity.setCVAutor(articuloDto.getCVAutor());
+		articuloEntity.setCV(articuloDto.getCV());
 		articuloEntity.setCartaPresentacion(articuloDto.getCartaPresentacion());
 		
 		return articuloEntity;
+	}
+	
+	public static RevisionEntity toRevisionEntity(RevisionDto art) {
+		RevisionEntity ent = new RevisionEntity();
+		
+		ent.setIdRevisor(art.getIdRevisor());
+		ent.setIdArticulo(art.getIdArticulo());
+		ent.setComentariosEditor(art.getComentariosEditor());
+		ent.setComentariosAutor(art.getComentariosAutor());
+		ent.setEnviarAlEditor(art.isEnviarAlEditor());
+		
+		
+		return ent;
 	}
 }

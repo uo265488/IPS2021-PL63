@@ -31,5 +31,15 @@ public class EditorModel {
 
 		return db.executeQueryPojo(ArticuloDto.class, sql);
 	}
+	
+	/**
+	 * Obtiene la lista de articulos listos para aceptar o rechazar
+	 */
+	public List<ArticuloDto> getArticulosTomarDecision() {
+		// validaciones (en este caso nada)
+		String sql = "SELECT id, titulo, autor, estado from articulos where estado = 'con el editor' and vecesRevisado <= 1";
+		return db.executeQueryPojo(ArticuloDto.class, sql);
+
+	}
 
 }
