@@ -42,7 +42,7 @@ public class EntityAssembler {
 		
 		ent.setEstado(rev.getEstado());
 		ent.setNombre(rev.getNombre());
-		ent.setId(rev.getId());
+		ent.setId(rev.getIdRevisor());
 		
 		
 		return ent;
