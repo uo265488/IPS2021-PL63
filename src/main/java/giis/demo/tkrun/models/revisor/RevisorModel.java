@@ -14,5 +14,4 @@ public class RevisorModel {
 		db.executeQueryPojo(RevisorDto.class, sql, revisorDto.getEstado(), revisorDto.getNombre(), revisorDto.getId());
 		
 	}
-
 }

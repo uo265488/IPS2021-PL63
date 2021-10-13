@@ -15,5 +15,12 @@ public class RevisionModel {
 				revisionDto.getFecha());
 
 	}
-
+	
+	public void update(RevisionDto revisionDto) {
+		String sql = "UPDATE revisiones SET fecha = ?, comentariosAutor = ?, comentariosEditor = ?,"
+				+ "  decision = ?, enviadoAlEditor = ? WHERE id = ? and idArticulo = ?";
+		db.executeQueryPojo(RevisionDto.class, sql, revisionDto.getFecha(), revisionDto.getComentariosAutor(), 
+				revisionDto.getComentariosEditor(), revisionDto.getDecision(), revisionDto.getRevisor().getId(),
+				revisionDto.getArticulo().getId());
+	}
 }

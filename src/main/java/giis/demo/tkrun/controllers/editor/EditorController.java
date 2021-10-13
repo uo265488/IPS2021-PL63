@@ -5,6 +5,7 @@ import java.util.List;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
+import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.editor.EditorModel;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.models.revisor.RevisorModel;
@@ -46,6 +47,10 @@ public class EditorController {
 		return EntityAssembler.toRevisorEntityList(model.getRevisoresDisponibles());
 	}
 	
+	public List<ArticuloEntity> getArticulos(){
+		return EntityAssembler.toArticuloEntityList(model.getArticulos());
+	}
+	
 	public boolean asignarRevisoresAlArticulo(List<RevisorEntity> revisores, ArticuloEntity articulo, String fecha) {
 		
 		//validaciones:
@@ -64,6 +69,7 @@ public class EditorController {
 		return false;
 		
 	}
+	
 
 	/**
 	 * Cambia el estado de los revisores a no disponibles
