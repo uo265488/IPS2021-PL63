@@ -20,15 +20,13 @@ import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
+import giis.demo.tkrun.controllers.revision.RevisionController;
 import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
 
 public class EditorView extends JDialog {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private List<RevisorEntity> revisoresDisponibles;
 	private EditorController editorController;
@@ -40,6 +38,7 @@ public class EditorView extends JDialog {
 	private JButton btnVisualizar;
 	private JScrollPane scrollPane;
 	private JList<RevisorEntity> listRevisores;
+	private JButton btnComentarios;
 
 //	/**
 //	 * Launch the application.
@@ -100,6 +99,7 @@ public class EditorView extends JDialog {
 		contentPane.add(getTxtArticulo());
 		contentPane.add(getBtnVisualizar());
 		contentPane.add(getScrollPane());
+		contentPane.add(getBtnComentarios());
 
 	}
 
@@ -229,5 +229,23 @@ public class EditorView extends JDialog {
 	     }
 	     return model;
 	}
-
+	private JButton getBtnComentarios() {
+		if (btnComentarios == null) {
+			btnComentarios = new JButton("Comentarios");
+			btnComentarios.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					RevisionController revController = new RevisionController();
+					List<RevisionEntity> revisiones = revController.getRevisionesDelArticulo(articulo);
+					if (revisiones.size() > 0) {
+						EditorViewComentariosArticulo comentarios = new EditorViewComentariosArticulo(articulo, revisiones);
+						comentarios.setVisible(true);
+					}
+					else 
+						JOptionPane.showMessageDialog(rootPane, "No hay revisiones asignadas a este articulo");
+				}
+			});
+			btnComentarios.setBounds(422, 116, 109, 20);
+		}
+		return btnComentarios;
+	}
 }

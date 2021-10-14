@@ -73,6 +73,7 @@ public class VisualizarArticuloView extends JDialog {
 	 * Create the frame.
 	 */
 	public VisualizarArticuloView(ArticuloEntity articulo) {
+		setFocusTraversalPolicyProvider(true);
 		this.articulo = articulo;
 		
 		

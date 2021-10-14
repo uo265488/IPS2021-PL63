@@ -95,6 +95,7 @@ public class EntityAssembler {
 		ent.setComentariosAutor(art.getComentariosAutor());
 		ent.setEnviarAlEditor(art.isEnviarAlEditor());
 		ent.setFecha(art.getFecha());
+		ent.setDecision(art.getDecision());
 		
 		
 		return ent;
