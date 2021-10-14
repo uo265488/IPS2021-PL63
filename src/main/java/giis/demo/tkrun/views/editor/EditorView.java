@@ -234,18 +234,25 @@ public class EditorView extends JDialog {
 			btnComentarios = new JButton("Comentarios");
 			btnComentarios.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					RevisionController revController = new RevisionController();
-					List<RevisionEntity> revisiones = revController.getRevisionesDelArticulo(articulo);
-					if (revisiones.size() > 0) {
-						EditorViewComentariosArticulo comentarios = new EditorViewComentariosArticulo(articulo, revisiones);
-						comentarios.setVisible(true);
-					}
-					else 
-						JOptionPane.showMessageDialog(rootPane, "No hay revisiones asignadas a este articulo");
+					visualizarComentariosArticulo();
 				}
 			});
 			btnComentarios.setBounds(422, 116, 109, 20);
 		}
 		return btnComentarios;
+	}
+	
+	private void visualizarComentariosArticulo() {
+		RevisionController revController = new RevisionController();
+		List<RevisionEntity> revisiones = revController.getRevisionesDelArticulo(articulo);
+		if (revisiones.size() > 0) {
+			EditorViewComentariosArticulo comentarios = new EditorViewComentariosArticulo(articulo, revisiones);
+			comentarios.setModal(true);
+			comentarios.setLocationRelativeTo(this);
+			comentarios.setVisible(true);
+			
+		}
+		else 
+			JOptionPane.showMessageDialog(rootPane, "No hay revisiones asignadas a este articulo");
 	}
 }

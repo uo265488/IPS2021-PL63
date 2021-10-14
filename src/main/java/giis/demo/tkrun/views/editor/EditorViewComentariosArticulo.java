@@ -23,7 +23,6 @@ import giis.demo.tkrun.controllers.entities.RevisionEntity;
 
 public class EditorViewComentariosArticulo extends JDialog {
 
-	private final JPanel contentPanel = new JPanel();
 	private static String INDIVIDUALES = "individuales";
 	private static String COLECTIVAS = "Colectivas";
 	private static String COMENTARIOS = "Comentarios";

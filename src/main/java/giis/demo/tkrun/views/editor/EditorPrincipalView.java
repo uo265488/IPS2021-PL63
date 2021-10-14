@@ -17,10 +17,6 @@ import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 
 public class EditorPrincipalView extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private EditorController controller;
 	private List<ArticuloEntity> articulos;
 	private JPanel contentPane;
