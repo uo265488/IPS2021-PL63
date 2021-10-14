@@ -135,6 +135,7 @@ public class ArticuloEntity {
 			str += " - Autor: " + primerAutor;
 		if(estado != null)
 			str += " - Estado: " + estado;
+		str += " - Veces Revisado: " + vecesRevisado;
 		return str;
 	}
 }

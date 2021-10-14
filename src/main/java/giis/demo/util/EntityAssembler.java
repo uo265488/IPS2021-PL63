@@ -56,7 +56,8 @@ public class EntityAssembler {
 		ent.setPrimerAutor(dto.getPrimerAutor());
 		ent.setResumen(dto.getResumen());
 		ent.setTitulo(dto.getTitulo());
-
+		ent.setVecesRevisado(dto.getVecesRevisado());
+		ent.setVersionDefinitiva(dto.isVersionDefinitiva());
 		return ent;
 	}
 

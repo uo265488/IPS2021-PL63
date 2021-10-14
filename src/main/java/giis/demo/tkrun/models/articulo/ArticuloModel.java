@@ -65,11 +65,11 @@ public class ArticuloModel {
 	 * Obtiene la lista de articulos que deben ser evaluados por el editor
 	 */
 	public List<ArticuloDto> getArticulosTomarDecision(){
-		String sql = "SELECT idArticulo from articulos where vecesRevisado <= 1 and estado = 'con el editor'";
+		String sql = "SELECT * from articulos where vecesRevisado <= 1 and estado = 'con el editor'";
 		List<ArticuloDto> idsArticulos = db.executeQueryPojo(ArticuloDto.class, sql);
 		
 		List<RevisionDto> infoArtRevisados = new ArrayList<RevisionDto>();
-		List<Integer> idsArticulosRevisados = new ArrayList<Integer>();
+		List<String> idsArticulosRevisados = new ArrayList<String>();
 		
 		for(ArticuloDto str: idsArticulos) {
 			sql = "SELECT * from revisiones where idArticulo = ?";
@@ -83,18 +83,37 @@ public class ArticuloModel {
 					}
 				}
 				if(estaRevisado)
-					idsArticulosRevisados.add(infoArtRevisados.get(0).getIdArticulo());
+					idsArticulosRevisados.add("" + infoArtRevisados.get(0).getIdArticulo());
 			}
 		}
 		
-		sql = "SELECT idArticulo, titulo, primerAutor from articulos where idArticulo = ?";
+		sql = "SELECT idArticulo, titulo, primerAutor, vecesRevisado from articulos where idArticulo = ?";
 		
 		idsArticulos.clear();
-		for(int id: idsArticulosRevisados) {
-			idsArticulos.add((ArticuloDto) db.executeQueryPojo(ArticuloDto.class, sql, id));
+		for(String id: idsArticulosRevisados) {
+			ArticuloDto art = db.executeQueryPojo(ArticuloDto.class, sql, id).get(0);
+			idsArticulos.add(art);
 		}
 		
 		return idsArticulos;
+	}
+	
+	public void aceptar(ArticuloDto articuloDto) {
+		int vecesRev = articuloDto.getVecesRevisado() + 1;
+		// validaciones (en este caso nada)
+		String sql = "update articulos set estado = 'aceptado', vecesRevisado=? where idArticulo = ?";
+
+		db.executeUpdate(sql, vecesRev, articuloDto.getIdArticulo());
+
+	}
+	
+	public void rechazar(ArticuloDto articuloDto) {
+		int vecesRev = articuloDto.getVecesRevisado() + 1;
+		// validaciones (en este caso nada)
+		String sql = "update articulos set estado = 'rechazado', vecesRevisado=? where idArticulo = ?";
+
+		db.executeUpdate(sql, vecesRev, articuloDto.getIdArticulo());
+
 	}
 
 

@@ -14,6 +14,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -31,7 +32,7 @@ public class EditorViewDecisionArticulo extends JFrame {
 	private JButton btRechazar;
 	private JButton btCargar;
 	private EditorController controller;
-	private List<ArticuloEntity> articulos;
+	private List<ArticuloEntity> articulos = new ArrayList<ArticuloEntity>();
 
 	/**
 	 * Create the frame.
@@ -76,13 +77,23 @@ public class EditorViewDecisionArticulo extends JFrame {
 	private JComboBox<ArticuloEntity> getChArticulos() {
 		if (chArticulos == null) {
 			chArticulos = new JComboBox<ArticuloEntity>();
-			chArticulos.setBounds(294, 112, 274, 22);
+			chArticulos.setBounds(294, 112, 390, 22);
 		}
 		return chArticulos;
 	}
 	private JButton getBtAceptar() {
 		if (btAceptar == null) {
 			btAceptar = new JButton("Aceptar");
+			btAceptar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(getChArticulos().getItemCount() > 0) {
+						ArticuloEntity art = (ArticuloEntity) getChArticulos().getSelectedItem();
+						controller.aceptarArticulo(art);
+					}
+					articulos.clear();
+					rellenarComboBox();
+				}
+			});
 			btAceptar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			btAceptar.setBackground(new Color(95, 158, 160));
 			btAceptar.setForeground(new Color(0, 0, 0));
@@ -93,6 +104,16 @@ public class EditorViewDecisionArticulo extends JFrame {
 	private JButton getBtRechazar() {
 		if (btRechazar == null) {
 			btRechazar = new JButton("Rechazar");
+			btRechazar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(getChArticulos().getItemCount() > 0) {
+						ArticuloEntity art = (ArticuloEntity) getChArticulos().getSelectedItem();
+						controller.rechazarArticulo(art);
+					}
+					articulos.clear();
+					rellenarComboBox();
+				}
+			});
 			btRechazar.setForeground(new Color(255, 255, 255));
 			btRechazar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			btRechazar.setBackground(new Color(165, 42, 42));
@@ -112,7 +133,7 @@ public class EditorViewDecisionArticulo extends JFrame {
 			btCargar.setForeground(Color.BLACK);
 			btCargar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			btCargar.setBackground(new Color(100, 149, 237));
-			btCargar.setBounds(584, 112, 148, 23);
+			btCargar.setBounds(705, 110, 148, 23);
 		}
 		return btCargar;
 	}
