@@ -18,6 +18,7 @@ import javax.swing.border.LineBorder;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
+import javax.swing.JButton;
 
 
 
@@ -42,6 +43,7 @@ public class EditorViewComentariosArticulo extends JDialog {
 	private JLabel lblRevisor;
 	private JLabel lblFormato;
 	private JTextArea txtRevisiones;
+	private JButton btnEnviarComentariosAutor;
 
 	/**
 	 * Launch the application.
@@ -65,7 +67,7 @@ public class EditorViewComentariosArticulo extends JDialog {
 		this.revisiones = revisiones;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 585, 478);
+		setBounds(100, 100, 585, 492);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -80,6 +82,7 @@ public class EditorViewComentariosArticulo extends JDialog {
 		contentPane.add(getLblRevisor());
 		contentPane.add(getLblFormato());
 		contentPane.add(getTxtRevisiones());
+		contentPane.add(getBtnEnviarComentariosAutor());
 	}
 	private JLabel getLblArticulo() {
 		if (lblArticulo == null) {
@@ -237,9 +240,30 @@ public class EditorViewComentariosArticulo extends JDialog {
 			txtRevisiones = new JTextArea();
 			txtRevisiones.setBorder(new LineBorder(new Color(0, 0, 0)));
 			txtRevisiones.setEditable(false);
-			txtRevisiones.setBounds(20, 159, 525, 263);
+			txtRevisiones.setBounds(20, 159, 525, 237);
 			setTextoRevisiones();
 		}
 		return txtRevisiones;
+	}
+	private JButton getBtnEnviarComentariosAutor() {
+		if (btnEnviarComentariosAutor == null) {
+			btnEnviarComentariosAutor = new JButton("Enviar comentarios al autor");
+			btnEnviarComentariosAutor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					visualizarComentariosAutor();					
+				}
+			});
+			btnEnviarComentariosAutor.setBackground(new Color(50, 205, 50));
+			btnEnviarComentariosAutor.setForeground(new Color(255, 255, 255));
+			btnEnviarComentariosAutor.setBounds(321, 407, 212, 37);
+		}
+		return btnEnviarComentariosAutor;
+	}
+	
+	private void visualizarComentariosAutor() {
+		EditorViewComentariosAutor comentariosAutor = new EditorViewComentariosAutor(revisiones);
+		comentariosAutor.setModal(true);
+		comentariosAutor.setLocationRelativeTo(this);
+		comentariosAutor.setVisible(true);
 	}
 }
