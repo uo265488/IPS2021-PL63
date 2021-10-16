@@ -64,7 +64,7 @@ public class RevisorView extends JFrame {
 	
 	private void inicialice() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 757, 539);
+		setBounds(100, 100, 1048, 539);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -109,7 +109,7 @@ public class RevisorView extends JFrame {
 		if (txId == null) {
 			txId = new JTextField();
 			txId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			txId.setBounds(389, 60, 119, 20);
+			txId.setBounds(389, 60, 280, 20);
 			txId.setColumns(10);
 		}
 		return txId;
@@ -125,7 +125,7 @@ public class RevisorView extends JFrame {
 	private JComboBox<ArticuloEntity> getChArticulos() {
 		if (chArticulos == null) {
 			chArticulos = new JComboBox<ArticuloEntity>();
-			chArticulos.setBounds(265, 91, 243, 22);
+			chArticulos.setBounds(265, 91, 404, 22);
 		}
 		return chArticulos;
 	}
@@ -150,7 +150,7 @@ public class RevisorView extends JFrame {
 			});
 			btSeleccionar.setBackground(new Color(165, 42, 42));
 			btSeleccionar.setForeground(new Color(255, 255, 255));
-			btSeleccionar.setBounds(515, 91, 132, 23);
+			btSeleccionar.setBounds(679, 94, 132, 23);
 		}
 		return btSeleccionar;
 	}
@@ -292,7 +292,7 @@ public class RevisorView extends JFrame {
 			});
 			btVerArticulos.setForeground(Color.WHITE);
 			btVerArticulos.setBackground(new Color(165, 42, 42));
-			btVerArticulos.setBounds(515, 59, 132, 23);
+			btVerArticulos.setBounds(679, 59, 132, 23);
 		}
 		return btVerArticulos;
 	}

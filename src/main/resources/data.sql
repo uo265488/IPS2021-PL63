@@ -14,7 +14,7 @@ insert into autores(idAutor,nombre,dni) values
 	
 delete from articulos;
 insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV,firma, vecesRevisado, versionDefinitiva) values 
-	(7,'Economia Española','antonio','con el editor', 'La economia española esta en decadencia', 'economia, euro', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
+	(7,'Economia Española','antonio','en revision', 'La economia española esta en decadencia', 'economia, euro', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
 	(8,'Gasol se retira','lucia','con el editor', 'Gasol anuncia su retirada del baloncesto', 'gasol, leyenda, Barca', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
 	(9,'La caida de Facebook','ariadna','aceptado', 'Se caen los servidores de Facebook durante 6 horas con perdidas multimillonarias', 'facebook, red, caida', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
 	(10,'Poesia clasica','ariadna','publicado', 'explicacion sobre la poesia clasica', 'poesia, españa', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, 1, true),
@@ -36,4 +36,5 @@ insert into revisiones(idArticulo, idRevisor, comentariosAutor, comentariosEdito
 	(10, 3, 'Buen artículo', 'Aceptable', 'aceptardo', true),
 	(8, 1, 'Me esta gustando','Aceptaria','altamente recomendable aceptar',true),
 	(8, 2, 'Me esta gustando','Aceptaria','altamente recomendable aceptar',true),
-	(8, 3, 'Me esta gustando','Aceptaria','altamente recomendable aceptar',true);
+	(8, 3, 'Me esta gustando','Aceptaria','altamente recomendable aceptar',true),
+	(7, 3, 'Me esta gustando mucho','Aceptaria','altamente recomendable aceptar',false);
