@@ -8,8 +8,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.revisor.RevisorController;
+import giis.demo.tkrun.models.articulo.ArticuloModel;
+import giis.demo.tkrun.models.autor.AutorModel;
+import giis.demo.tkrun.models.revision.RevisionModel;
 
 
 
@@ -60,7 +65,7 @@ public class SwingMain {
 		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
 		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				new EditorController(generarArticulo());
+				new RevisorController(new RevisionModel(), new ArticuloModel(), 2);
 			}
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));

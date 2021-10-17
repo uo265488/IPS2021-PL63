@@ -30,7 +30,6 @@ public class RevisorModel {
 		String sql = "SELECT id, nombre, estado from revisores where estado='disponible'";
 
 		return db.executeQueryPojo(RevisorDto.class, sql);
-
 	}
 
 }
