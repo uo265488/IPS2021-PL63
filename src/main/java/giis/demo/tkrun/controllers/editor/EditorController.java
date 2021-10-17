@@ -101,6 +101,14 @@ public class EditorController {
 	public List<ArticuloEntity> getArticulos() {
 		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulos());
 	}
+	
+	public List<ArticuloEntity> getArticulosFiltradoTitulo(String titulo){
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoTitulo(titulo));
+	}
+	
+	public List<ArticuloEntity> getArticulosFiltradoAutor(String autor){
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoAutor(autor));
+	}
 
 	public List<ArticuloEntity> getArticulosTomarDecision() {
 

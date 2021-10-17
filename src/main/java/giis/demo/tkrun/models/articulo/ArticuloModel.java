@@ -59,6 +59,18 @@ public class ArticuloModel {
 		return db.executeQueryPojo(ArticuloDto.class, sql);
 	}
 	
+	public List<ArticuloDto> getArticulosFiltradoTitulo(String titulo){
+		String sql = "SELECT * from articulos where estado <> 'borrador' and titulo = ?";
+
+		return db.executeQueryPojo(ArticuloDto.class, sql, titulo);
+	}
+	
+	public List<ArticuloDto> getArticulosFiltradoAutor(String autor){
+		String sql = "SELECT * from articulos where estado <> 'borrador' and primerAutor = ?";
+
+		return db.executeQueryPojo(ArticuloDto.class, sql, autor);
+	}
+	
 	/**
 	 * Obtiene la lista de articulos listos para aceptar o rechazar
 	 */
