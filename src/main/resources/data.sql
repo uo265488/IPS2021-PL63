@@ -4,7 +4,11 @@ delete from revisores;
 insert into revisores(idRevisor,nombre,estado) values 
 	(1,'felipe','disponible'),
 	(2,'ernesto','disponible'),
-	(3,'maria','no disponible');
+	(3,'maria','no disponible'),
+	(4,'carmen', 'no disponible'),
+	(5,'pablo','no disponible'),
+	(6,'julio','no disponible'),
+	(7,'ruben','disponible');
 	
 delete from autores;
 insert into autores(idAutor,nombre,dni) values 
@@ -18,7 +22,7 @@ insert into Articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave
 	(8,'Gasol se retira','lucia','en revision', 'Gasol anuncia su retirada del baloncesto', 'gasol, leyenda, Barca', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
 	(9,'La caida de Facebook','ariadna','aceptado', 'Se caen los servidores de Facebook durante 6 horas con perdidas multimillonarias', 'facebook, red, caida', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
 	(10,'Poesia clasica','ariadna','publicado', 'explicacion sobre la poesia clasica', 'poesia, españa', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, 1, true),
-	(11,'El Quijote, la obra maestra','ariadna','aceptado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false);
+	(11,'El Quijote, la obra maestra','ariadna','con el editor', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false);
 	
 delete from articulosDeAutores;
 insert into articulosDeAutores(idArticulo, idAutor) values
@@ -34,4 +38,7 @@ insert into revisiones(idArticulo, idRevisor, comentariosAutor, comentariosEdito
 	(10, 1, 'Muy buen artículo', 'Debe ser publicado', 'altamente recomendable aceptar', true),
 	(10, 2, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'poco recomendable aceptar', true),
 	(10, 3, 'Buen artículo', 'Aceptable', 'aceptardo', true),
+	(11, 4, 'Muy buen artículo', 'Debe ser publicado', 'altamente recomendable aceptar', true),
+	(11, 5, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'poco recomendable aceptar', true),
+	(11, 6, 'Buen artículo', 'Aceptable', 'aceptardo', true),
 	(8, 1, 'Me esta gustando','','',false);

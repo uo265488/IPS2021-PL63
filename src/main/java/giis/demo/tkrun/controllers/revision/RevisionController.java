@@ -38,6 +38,10 @@ public class RevisionController {
 		
 		return true;
 	}
+	
+	public void enviarComentariosRevisionAlAutor(RevisionEntity revision) {
+		
+	}
 
 
 

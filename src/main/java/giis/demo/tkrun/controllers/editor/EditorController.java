@@ -121,5 +121,15 @@ public class EditorController {
 
 		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosTomarDecision());
 	}
+	
+	
+	public void aceptarArticulo(ArticuloEntity articulo) {
+		articuloModel.aceptar(DtoMapper.toArticuloDto(articulo));
+	}
+	
+	public void rechazarArticulo(ArticuloEntity articulo) {
+		articuloModel.rechazar(DtoMapper.toArticuloDto(articulo));
+	}
+	
 
 }

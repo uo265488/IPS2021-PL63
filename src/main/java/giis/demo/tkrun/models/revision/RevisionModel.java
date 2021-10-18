@@ -95,5 +95,4 @@ public class RevisionModel {
 		return db.executeQueryPojo(ArticuloDto.class, sql, idRevisor);
 
 	}
-
 }

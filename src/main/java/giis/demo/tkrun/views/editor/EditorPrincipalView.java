@@ -43,7 +43,7 @@ public class EditorPrincipalView extends JFrame {
 	
 	public EditorPrincipalView(EditorController controller) {
 		this.controller = controller;
-		this.articulos = this.controller.getArticulos();
+		this.articulos = this.controller.getArticulosTomarDecision();
 		initialize();
 	}
 

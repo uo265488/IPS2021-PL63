@@ -245,14 +245,14 @@ public class EditorView extends JDialog {
 	private void visualizarComentariosArticulo() {
 		RevisionController revController = new RevisionController();
 		List<RevisionEntity> revisiones = revController.getRevisionesDelArticulo(articulo);
-		if (revisiones.size() > 0) {
-			EditorViewComentariosArticulo comentarios = new EditorViewComentariosArticulo(articulo, revisiones);
+		if (revisiones.size() > 0 && articulo.getEstado().contentEquals(ArticuloEntity.CON_EL_EDITOR)) {
+			EditorViewComentariosArticulo comentarios = new EditorViewComentariosArticulo(articulo, revisiones, this);
 			comentarios.setModal(true);
 			comentarios.setLocationRelativeTo(this);
 			comentarios.setVisible(true);
 			
 		}
 		else 
-			JOptionPane.showMessageDialog(rootPane, "No hay revisiones asignadas a este articulo");
+			JOptionPane.showMessageDialog(rootPane, "No hay revisiones disponibles de este articulo");
 	}
 }

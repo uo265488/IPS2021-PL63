@@ -44,6 +44,7 @@ public class EditorViewComentariosArticulo extends JDialog {
 	private JLabel lblFormato;
 	private JTextArea txtRevisiones;
 	private JButton btnEnviarComentariosAutor;
+	private EditorView ventanaAnterior;
 
 	/**
 	 * Launch the application.
@@ -61,8 +62,9 @@ public class EditorViewComentariosArticulo extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public EditorViewComentariosArticulo(ArticuloEntity articulo, List<RevisionEntity> revisiones) {
+	public EditorViewComentariosArticulo(ArticuloEntity articulo, List<RevisionEntity> revisiones, EditorView ventanaAnterior) {
 		setTitle("Comentarios Revision");
+		this.ventanaAnterior = ventanaAnterior;
 		this.articulo = articulo;
 		this.revisiones = revisiones;
 		setResizable(false);
@@ -261,9 +263,14 @@ public class EditorViewComentariosArticulo extends JDialog {
 	}
 	
 	private void visualizarComentariosAutor() {
-		EditorViewComentariosAutor comentariosAutor = new EditorViewComentariosAutor(revisiones);
+		EditorViewComentariosAutor comentariosAutor = new EditorViewComentariosAutor(revisiones, articulo, this);
 		comentariosAutor.setModal(true);
 		comentariosAutor.setLocationRelativeTo(this);
 		comentariosAutor.setVisible(true);
+	}
+	
+	public void disposeComentariosEditorWindow() {
+		this.ventanaAnterior.dispose();
+		this.dispose();
 	}
 }
