@@ -7,9 +7,15 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+
+import giis.demo.tkrun.controllers.autor.AutorController;
+import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
+import giis.demo.tkrun.models.autor.AutorModel;
 import giis.demo.tkrun.models.revision.RevisionModel;
+import giis.demo.tkrun.views.autor.AutorView;
+import giis.demo.tkrun.views.editor.EditorViewDecisionArticulo;
 import giis.demo.tkrun.views.revisor.RevisorView;
 
 

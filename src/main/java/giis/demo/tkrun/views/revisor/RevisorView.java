@@ -61,7 +61,7 @@ public class RevisorView extends JFrame {
 		this.controller = controller;
 		inicialice();
 	}
-	
+
 	private void inicialice() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1048, 539);
@@ -88,7 +88,7 @@ public class RevisorView extends JFrame {
 		setVisible(true);
 		setResizable(false);
 	}
-	
+
 	private JLabel getLbRevision() {
 		if (lbRevision == null) {
 			lbRevision = new JLabel("Vista Revisor:");
@@ -97,6 +97,7 @@ public class RevisorView extends JFrame {
 		}
 		return lbRevision;
 	}
+
 	private JLabel getLbId() {
 		if (lbId == null) {
 			lbId = new JLabel("Introduzca su ID para ver sus artículos:");
@@ -105,6 +106,7 @@ public class RevisorView extends JFrame {
 		}
 		return lbId;
 	}
+
 	private JTextField getTxId() {
 		if (txId == null) {
 			txId = new JTextField();
@@ -114,6 +116,7 @@ public class RevisorView extends JFrame {
 		}
 		return txId;
 	}
+
 	private JLabel getLbArticulo() {
 		if (lbArticulo == null) {
 			lbArticulo = new JLabel("Seleccione artículo:");
@@ -122,6 +125,7 @@ public class RevisorView extends JFrame {
 		}
 		return lbArticulo;
 	}
+
 	private JComboBox<ArticuloEntity> getChArticulos() {
 		if (chArticulos == null) {
 			chArticulos = new JComboBox<ArticuloEntity>();
@@ -129,17 +133,19 @@ public class RevisorView extends JFrame {
 		}
 		return chArticulos;
 	}
+
 	private JButton getBtSeleccionar() {
 		if (btSeleccionar == null) {
 			btSeleccionar = new JButton("Seleccionar");
 			btSeleccionar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					ArticuloEntity art = (ArticuloEntity) chArticulos.getSelectedItem();
-					if(art != null) {
+					if (art != null) {
 						idArt = art.getIdArticulo();
-						if(idArt != -1) {
+						if (idArt != -1) {
 							getTxId().setEnabled(false);
-							articuloRevisando = controller.getArticulosSinRevisar(Integer.parseInt(getTxId().getText()), idArt);
+							articuloRevisando = controller.getArticulosSinRevisar(Integer.parseInt(getTxId().getText()),
+									idArt);
 							getTxAutor().setText(articuloRevisando.getComentariosAutor());
 							getTxEditor().setText(articuloRevisando.getComentariosEditor());
 							getBtEnviar().setEnabled(true);
@@ -154,6 +160,7 @@ public class RevisorView extends JFrame {
 		}
 		return btSeleccionar;
 	}
+
 	private JLabel getLbComAutor() {
 		if (lbComAutor == null) {
 			lbComAutor = new JLabel("Comentarios Autor:");
@@ -162,6 +169,7 @@ public class RevisorView extends JFrame {
 		}
 		return lbComAutor;
 	}
+
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
@@ -170,12 +178,14 @@ public class RevisorView extends JFrame {
 		}
 		return scrollPane;
 	}
+
 	private JTextPane getTxAutor() {
 		if (txAutor == null) {
 			txAutor = new JTextPane();
 		}
 		return txAutor;
 	}
+
 	private JLabel getLbComEditor() {
 		if (lbComEditor == null) {
 			lbComEditor = new JLabel("Comentarios Editor:");
@@ -184,6 +194,7 @@ public class RevisorView extends JFrame {
 		}
 		return lbComEditor;
 	}
+
 	private JScrollPane getScrollPane_1() {
 		if (scrollPane_1 == null) {
 			scrollPane_1 = new JScrollPane();
@@ -192,12 +203,14 @@ public class RevisorView extends JFrame {
 		}
 		return scrollPane_1;
 	}
+
 	private JTextPane getTxEditor() {
 		if (txEditor == null) {
 			txEditor = new JTextPane();
 		}
 		return txEditor;
 	}
+
 	private JLabel getLbDecision() {
 		if (lbDecision == null) {
 			lbDecision = new JLabel("Decisión Propuesta:");
@@ -206,22 +219,26 @@ public class RevisorView extends JFrame {
 		}
 		return lbDecision;
 	}
+
 	private JComboBox<String> getChDecision() {
 		if (chDecision == null) {
 			chDecision = new JComboBox<String>();
-			chDecision.setModel(new DefaultComboBoxModel<String>(new String[] {"altamente recomendable aceptar", "aceptado", "poco recomendable aceptar", "rechazar"}));
+			chDecision.setModel(new DefaultComboBoxModel<String>(new String[] { "altamente recomendable aceptar",
+					"aceptado", "poco recomendable aceptar", "rechazar" }));
 			chDecision.setBounds(152, 365, 280, 22);
 		}
 		return chDecision;
 	}
+
 	private JButton getBtEnviar() {
 		if (btEnviar == null) {
 			btEnviar = new JButton("Enviar Revisión al editor");
 			btEnviar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(idArt != -1 && pasaCondiciones()) {
-						controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(), 
-								(String)getChDecision().getSelectedItem(), true, Integer.parseInt(getTxId().getText()), idArt);
+					if (idArt != -1 && pasaCondiciones()) {
+						controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(),
+								(String) getChDecision().getSelectedItem(), true, Integer.parseInt(getTxId().getText()),
+								idArt);
 						limpiar();
 						getBtEnviar().setEnabled(false);
 						getBtGuardarCambios().setEnabled(false);
@@ -235,19 +252,19 @@ public class RevisorView extends JFrame {
 		}
 		return btEnviar;
 	}
-	
+
 	private boolean pasaCondiciones() {
-		if(getTxAutor().getText().length() > 100) {
+		if (getTxAutor().getText().length() > 100) {
 			JOptionPane.showMessageDialog(null, "Debe reducir los comentarios al autor");
 			return false;
 		}
-		if(getTxEditor().getText().length() > 100) {
+		if (getTxEditor().getText().length() > 100) {
 			JOptionPane.showMessageDialog(null, "Debe reducir los comentarios al editor");
 			return false;
 		}
 		return true;
 	}
-	
+
 	private void limpiar() {
 		getTxId().setEnabled(true);
 		articulosSinRevisar.clear();
@@ -256,15 +273,16 @@ public class RevisorView extends JFrame {
 		getTxEditor().setText("");
 		getTxId().setText("");
 	}
-	
+
 	private JButton getBtGuardarCambios() {
 		if (btGuardarCambios == null) {
 			btGuardarCambios = new JButton("Guardar Cambios");
 			btGuardarCambios.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(idArt != -1 && pasaCondiciones()) {
-						controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(), 
-								(String)getChDecision().getSelectedItem(), false, Integer.parseInt(getTxId().getText()), idArt);
+					if (idArt != -1 && pasaCondiciones()) {
+						controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(),
+								(String) getChDecision().getSelectedItem(), false,
+								Integer.parseInt(getTxId().getText()), idArt);
 						limpiar();
 						getBtEnviar().setEnabled(false);
 						getBtGuardarCambios().setEnabled(false);
@@ -278,16 +296,21 @@ public class RevisorView extends JFrame {
 		}
 		return btGuardarCambios;
 	}
+
 	private JButton getBtVerArticulos() {
 		if (btVerArticulos == null) {
 			btVerArticulos = new JButton("Ver Artículos");
 			btVerArticulos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					articulosSinRevisar.clear();
-					idArt = -1;
-					if(getTxId().getText().strip().length() > 0)
-						articulosSinRevisar = controller.getTituloArticulosSinRevisar(Integer.parseInt(getTxId().getText()));
-					rellenarComboBox();
+					try {
+						articulosSinRevisar.clear();
+						idArt = -1;
+						if(getTxId().getText().strip().length() > 0)
+							articulosSinRevisar = controller.getTituloArticulosSinRevisar(Integer.parseInt(getTxId().getText()));
+						rellenarComboBox();
+					}catch(Exception e1) {
+						JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			});
 			btVerArticulos.setForeground(Color.WHITE);
@@ -296,7 +319,7 @@ public class RevisorView extends JFrame {
 		}
 		return btVerArticulos;
 	}
-	
+
 	private void rellenarComboBox() {
 		ArticuloEntity[] vector = new ArticuloEntity[0];
 		if (this.articulosSinRevisar.size() > 0) {
@@ -307,6 +330,7 @@ public class RevisorView extends JFrame {
 		}
 		getChArticulos().setModel(new DefaultComboBoxModel<ArticuloEntity>(vector));
 	}
+
 	private JButton getBtCancelar() {
 		if (btCancelar == null) {
 			btCancelar = new JButton("Cancelar");
