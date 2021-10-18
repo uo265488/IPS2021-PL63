@@ -61,6 +61,18 @@ public class ArticuloModel {
 		return db.executeQueryPojo(ArticuloDto.class, sql);
 	}
 	
+	public List<ArticuloDto> getArticulosFiltradoTitulo(String titulo){
+		String sql = "SELECT * from articulos where estado <> 'borrador' and titulo = ?";
+
+		return db.executeQueryPojo(ArticuloDto.class, sql, titulo);
+	}
+	
+	public List<ArticuloDto> getArticulosFiltradoAutor(String autor){
+		String sql = "SELECT * from articulos where estado <> 'borrador' and primerAutor = ?";
+
+		return db.executeQueryPojo(ArticuloDto.class, sql, autor);
+	}
+	
 	/**
 	 * Obtiene la lista de articulos listos para aceptar o rechazar
 	 */
@@ -132,6 +144,34 @@ public class ArticuloModel {
 		db.executeUpdate(sql, articulo.getFecha(), articulo.getDOI(), articulo.getVolumen(), articulo.getIdArticulo());
 	}
 	
+	public void crearBorrador(ArticuloDto articulo) {
+		String sql_into_articulos = "insert into usuarios values (?, ?, ?, 'borrador', ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql_into_articulosDeAutor = "insert into articulosDeAutores values (?, ?)";
+		
 	
+		db.executeUpdate(sql_into_articulos, articulo.getIdArticulo(), articulo.getTitulo(), articulo.getPrimerAutor(),
+				articulo.getResumen(), articulo.getPalabrasClave(), articulo.getFicheroFuente(),
+				articulo.getCartaPresentacion(), articulo.getCV(), articulo.isFirma(), articulo.getVecesRevisado());
+		
+		db.executeUpdate(sql_into_articulosDeAutor, articulo.getIdArticulo(), articulo.getOtrosAutores());
+	}
+	
+	public void crearArticulo(ArticuloDto articulo) {
+		String sql_into_articulos = "insert into usuarios values (?, ?, ?, 'con el editor', ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql_into_articulosDeAutor = "insert into articulosDeAutores values (?, ?)";
+		
+	
+		db.executeUpdate(sql_into_articulos, articulo.getIdArticulo(), articulo.getTitulo(), articulo.getPrimerAutor(),
+				articulo.getResumen(), articulo.getPalabrasClave(), articulo.getFicheroFuente(),
+				articulo.getCartaPresentacion(), articulo.getCV(), articulo.isFirma(), articulo.getVecesRevisado());
+		
+		db.executeUpdate(sql_into_articulosDeAutor, articulo.getIdArticulo(), articulo.getOtrosAutores());
+	}
+	
+	public List<ArticuloDto> getArticulosAsignados(int id){
+		String sql = "select * from articulos a, revisiones r where r.idRevisor = ? and a.idArticulo = r.idArticulo";
+		
+		return db.executeQueryPojo(ArticuloDto.class, sql, id);
+	}
 
 }

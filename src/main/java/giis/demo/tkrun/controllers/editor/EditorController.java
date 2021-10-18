@@ -14,23 +14,21 @@ import giis.demo.util.EntityAssembler;
 
 public class EditorController {
 
-	private EditorView view;
 	private EditorPrincipalView principalView;
+	private EditorView view;
 	private RevisionModel revisionModel;
 	private ArticuloModel articuloModel;
 	private RevisorModel revisoresModel;
 
-
-	private void initView(ArticuloEntity articulo) {
-
-		this.view = new EditorView(this, articulo);
-		view.setVisible(true);
-
-	}
 	
 	private void initView() {
 		this.principalView = new EditorPrincipalView(this);
 		this.principalView.setVisible(true);
+	}
+	
+	private void initView(ArticuloEntity articulo) {
+		this.view = new EditorView(this,articulo);
+		this.view.setVisible(true);
 	}
 
 	public EditorController(ArticuloEntity articulo) {
@@ -131,5 +129,12 @@ public class EditorController {
 		articuloModel.rechazar(DtoMapper.toArticuloDto(articulo));
 	}
 	
+	public List<ArticuloEntity> getArticulosFiltradoTitulo(String titulo){
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoTitulo(titulo));
+	}
+	
+	public List<ArticuloEntity> getArticulosFiltradoAutor(String autor){
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoAutor(autor));
+	}	
 
 }

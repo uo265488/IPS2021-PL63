@@ -137,9 +137,9 @@ public class RevisorView extends JFrame {
 					ArticuloEntity art = (ArticuloEntity) chArticulos.getSelectedItem();
 					if(art != null) {
 						idArt = art.getIdArticulo();
-						if(idArt != 0) {
+						if(idArt != null) {
 							getTxId().setEnabled(false);
-							articuloRevisando = controller.getArticulosSinRevisar(Integer.parseInt(getTxId().getText()), idArt);
+							articuloRevisando = controller.getArticulosSinRevisar(Integer.parseInt(getTxId().getText()), Integer.parseInt(idArt));
 							getTxAutor().setText(articuloRevisando.getComentariosAutor());
 							getTxEditor().setText(articuloRevisando.getComentariosEditor());
 							getBtEnviar().setEnabled(true);
@@ -219,9 +219,9 @@ public class RevisorView extends JFrame {
 			btEnviar = new JButton("Enviar Revisión al editor");
 			btEnviar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(idArt != 0 && pasaCondiciones()) {
+					if(idArt != null && pasaCondiciones()) {
 						controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(), 
-								(String)getChDecision().getSelectedItem(), true, Integer.parseInt(getTxId().getText()), idArt);
+								(String)getChDecision().getSelectedItem(), true, Integer.parseInt(getTxId().getText()), Integer.parseInt(idArt));
 						limpiar();
 						getBtEnviar().setEnabled(false);
 						getBtGuardarCambios().setEnabled(false);
@@ -262,9 +262,9 @@ public class RevisorView extends JFrame {
 			btGuardarCambios = new JButton("Guardar Cambios");
 			btGuardarCambios.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(idArt != 0 && pasaCondiciones()) {
+					if(idArt != null && pasaCondiciones()) {
 						controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(), 
-								(String)getChDecision().getSelectedItem(), false, Integer.parseInt(getTxId().getText()), idArt);
+								(String)getChDecision().getSelectedItem(), false, Integer.parseInt(getTxId().getText()), Integer.parseInt(idArt));
 						limpiar();
 						getBtEnviar().setEnabled(false);
 						getBtGuardarCambios().setEnabled(false);
@@ -284,7 +284,7 @@ public class RevisorView extends JFrame {
 			btVerArticulos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					articulosSinRevisar.clear();
-					idArt = 0;
+					idArt = null;
 					if(getTxId().getText().length() > 0)
 						articulosSinRevisar = controller.getTituloArticulosSinRevisar(Integer.parseInt(getTxId().getText()));
 					rellenarComboBox();
