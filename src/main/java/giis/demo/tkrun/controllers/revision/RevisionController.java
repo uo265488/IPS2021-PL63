@@ -24,6 +24,8 @@ public class RevisionController {
 		return EntityAssembler.toRevisionEntityList(model.getComentariosDeRevisionDeUnArticulo(DtoMapper.toArticuloDto(articulo), DtoMapper.toRevisorDto(revisor)));
 	}
 	
+	
+	
 	/**
 	 * Checkear si el revisor ha enviado sus comentarios
 	 * 
@@ -35,6 +37,17 @@ public class RevisionController {
 		if ( model.getRevision(DtoMapper.toArticuloDto(articulo), DtoMapper.toRevisorDto(revisor)).isEnviarAlEditor()) return false;  //comprobar si este metodo chekea si se enviaron los comentarios o no
 		
 		return true;
+	}
+	
+	public void enviarComentariosRevisionAlAutor(RevisionEntity revision) {
+		
+	}
+
+
+
+	public List<RevisionEntity> getRevisionesDelArticulo(ArticuloEntity articulo) {
+		
+		return EntityAssembler.toRevisionEntityList(model.getRevisionesDeUnArticulo(DtoMapper.toArticuloDto(articulo)));
 	}
 	
 	

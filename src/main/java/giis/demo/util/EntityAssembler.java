@@ -42,7 +42,7 @@ public class EntityAssembler {
 		return ents;
 	}
 
-	private static ArticuloEntity toArticuloEntity(ArticuloDto dto) {
+	public static ArticuloEntity toArticuloEntity(ArticuloDto dto) {
 		ArticuloEntity ent = new ArticuloEntity();
 
 		ent.setCartaPresentacion(dto.getCartaPresentacion());
@@ -95,6 +95,7 @@ public class EntityAssembler {
 		ent.setComentariosAutor(art.getComentariosAutor());
 		ent.setEnviarAlEditor(art.isEnviarAlEditor());
 		ent.setFecha(art.getFecha());
+		ent.setDecision(art.getDecision());
 		
 		
 		return ent;

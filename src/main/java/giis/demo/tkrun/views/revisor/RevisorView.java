@@ -29,7 +29,7 @@ public class RevisorView extends JFrame {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	private JPanel contentPane;
 	private JLabel lbRevision;
 	private JLabel lbId;
@@ -285,7 +285,7 @@ public class RevisorView extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					articulosSinRevisar.clear();
 					idArt = null;
-					if(getTxId().getText().strip().length() > 0)
+					if(getTxId().getText().length() > 0)
 						articulosSinRevisar = controller.getTituloArticulosSinRevisar(Integer.parseInt(getTxId().getText()));
 					rellenarComboBox();
 				}

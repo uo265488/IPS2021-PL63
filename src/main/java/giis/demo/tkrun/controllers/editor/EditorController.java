@@ -7,23 +7,28 @@ import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.models.revisor.RevisorModel;
+import giis.demo.tkrun.views.editor.EditorPrincipalView;
 import giis.demo.tkrun.views.editor.EditorView;
 import giis.demo.util.DtoMapper;
 import giis.demo.util.EntityAssembler;
 
 public class EditorController {
 
+	private EditorPrincipalView principalView;
 	private EditorView view;
 	private RevisionModel revisionModel;
 	private ArticuloModel articuloModel;
 	private RevisorModel revisoresModel;
 
-
+	
+	private void initView() {
+		this.principalView = new EditorPrincipalView(this);
+		this.principalView.setVisible(true);
+	}
+	
 	private void initView(ArticuloEntity articulo) {
-
-		this.view = new EditorView(this, articulo);
-		view.setVisible(true);
-
+		this.view = new EditorView(this,articulo);
+		this.view.setVisible(true);
 	}
 
 	public EditorController(ArticuloEntity articulo) {
@@ -34,12 +39,20 @@ public class EditorController {
 
 		initView(articulo);
 	}
+	
+	public EditorController() {
+		this.revisionModel = new RevisionModel();
+		this.articuloModel = new ArticuloModel();
+		this.revisoresModel = new RevisorModel();
+		
+		initView();
+	}
 
 	public List<RevisorEntity> getRevisoresDisponibles() {
 
 		return EntityAssembler.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
 	}
-
+	
 	public boolean asignarRevisoresAlArticulo(List<RevisorEntity> revisores, ArticuloEntity articulo, String fecha) {
 
 		// validaciones:
@@ -106,5 +119,22 @@ public class EditorController {
 
 		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosTomarDecision());
 	}
+	
+	
+	public void aceptarArticulo(ArticuloEntity articulo) {
+		articuloModel.aceptar(DtoMapper.toArticuloDto(articulo));
+	}
+	
+	public void rechazarArticulo(ArticuloEntity articulo) {
+		articuloModel.rechazar(DtoMapper.toArticuloDto(articulo));
+	}
+	
+	public List<ArticuloEntity> getArticulosFiltradoTitulo(String titulo){
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoTitulo(titulo));
+	}
+	
+	public List<ArticuloEntity> getArticulosFiltradoAutor(String autor){
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoAutor(autor));
+	}	
 
 }

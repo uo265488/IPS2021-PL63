@@ -15,12 +15,17 @@ public class ArticuloEntity {
 	private String estado;
 	private int vecesRevisado;
 	private boolean versionDefinitiva;
+	private String cartaDecision;
+	private String DOI;
+	private String fecha;
+	private int volumen;
 
 	public static String CON_EL_EDITOR = "con el editor";
 	public static String BORRADOR = "borrador";
 	public static String RECHAZADO = "rechazado";
 	public static String ACEPTADO = "aceptado";
 	public static final String EN_REVISION = "en revision";
+	public static final String PUBLICADO = "publicado";
 
 	public int getIdArticulo() {
 		return idArticulo;
@@ -130,6 +135,38 @@ public class ArticuloEntity {
 	public String toString() {
 		return idArticulo + " - " + titulo + " - Autor: " + primerAutor;
 	}
+
+	public String getCartaDecision() {
+		return cartaDecision;
+	}
+
+	public void setCartaDecision(String cartaDecision) {
+		this.cartaDecision = cartaDecision;
+	}
+
+	public String getDOI() {
+		return DOI;
+	}
+
+	public void setDOI(String dOI) {
+		DOI = dOI;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+
+	public int getVolumen() {
+		return volumen;
+	}
+
+	public void setVolumen(int volumen) {
+		this.volumen = volumen;
+	}	
 }
 
 

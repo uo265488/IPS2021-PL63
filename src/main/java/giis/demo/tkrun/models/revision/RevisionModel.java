@@ -50,6 +50,18 @@ public class RevisionModel {
 		
 		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo(), revisor.getIdRevisor());
 	}
+	
+	/**
+	 * Obtiene todas las revisiones hechas sobre un articulo
+	 * @param articuloDto
+	 * @return
+	 */
+	public List<RevisionDto> getRevisionesDeUnArticulo(ArticuloDto articulo) {
+
+		String sql = "select * from Revisiones where idArticulo = ?";
+		
+		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo());
+	}
 
 	/*
 	 * public void add(RevisionDto revisionDto) { String sql =
@@ -83,5 +95,4 @@ public class RevisionModel {
 		return db.executeQueryPojo(ArticuloDto.class, sql, idRevisor);
 
 	}
-
 }
