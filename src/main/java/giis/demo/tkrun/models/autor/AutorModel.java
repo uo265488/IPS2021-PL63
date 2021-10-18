@@ -29,4 +29,5 @@ public class AutorModel {
 		String sql = "update articulos set firma = true, versionDefinitiva = true where idArticulo = ?";
 		db.executeUpdate(sql, id);
 	}
+
 }

@@ -7,6 +7,7 @@ public class RevisionDto {
 	private String fecha;
 	private String comentariosAutor;
 	private String comentariosEditor;
+	private String decision;
 	private boolean enviarAlEditor;
 	
 
@@ -46,6 +47,16 @@ public class RevisionDto {
 	public void setEnviarAlEditor(boolean enviarAlEditor) {
 		this.enviarAlEditor = enviarAlEditor;
 	}
+	public String getDecision() {
+		return decision;
+	}
+	public void setDecision(String decision) {
+		this.decision = decision;
+	}
+	
+	
+	
+	
 	
 	
 

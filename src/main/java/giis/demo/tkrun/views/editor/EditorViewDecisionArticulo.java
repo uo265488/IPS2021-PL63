@@ -149,3 +149,4 @@ public class EditorViewDecisionArticulo extends JFrame {
 		getChArticulos().setModel(new DefaultComboBoxModel<ArticuloEntity>(vector));
 	}
 }
+

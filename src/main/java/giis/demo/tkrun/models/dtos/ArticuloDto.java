@@ -15,6 +15,10 @@ public class ArticuloDto {
 	private String estado;
 	private int vecesRevisado;
 	private boolean versionDefinitiva;
+	private String cartaDecision;
+	private String DOI;
+	private String fecha;
+	private int volumen;
 	
 	public int getIdArticulo() {
 		return idArticulo;
@@ -94,6 +98,31 @@ public class ArticuloDto {
 	public void setVersionDefinitiva(boolean versionDefinitiva) {
 		this.versionDefinitiva = versionDefinitiva;
 	}
+	public String getCartaDecision() {
+		return cartaDecision;
+	}
+	public void setCartaDecision(String cartaDecision) {
+		this.cartaDecision = cartaDecision;
+	}
+	public String getDOI() {
+		return DOI;
+	}
+	public void setDOI(String dOI) {
+		DOI = dOI;
+	}
+	public String getFecha() {
+		return fecha;
+	}
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+	public int getVolumen() {
+		return volumen;
+	}
+	public void setVolumen(int volumen) {
+		this.volumen = volumen;
+	}
+	
 	
 	
 	

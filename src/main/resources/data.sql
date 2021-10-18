@@ -4,7 +4,11 @@ delete from revisores;
 insert into revisores(idRevisor,nombre,estado) values 
 	(1,'felipe','disponible'),
 	(2,'ernesto','disponible'),
-	(3,'maria','no disponible');
+	(3,'maria','no disponible'),
+	(4,'carmen', 'no disponible'),
+	(5,'pablo','no disponible'),
+	(6,'julio','no disponible'),
+	(7,'ruben','disponible');
 	
 delete from autores;
 insert into autores(idAutor,nombre,dni) values 
@@ -38,3 +42,7 @@ insert into revisiones(idArticulo, idRevisor, comentariosAutor, comentariosEdito
 	(8, 2, 'Me esta gustando','Aceptaria','altamente recomendable aceptar',true),
 	(8, 3, 'Me esta gustando','Aceptaria','altamente recomendable aceptar',true),
 	(7, 3, 'Me esta gustando mucho','Aceptaria','altamente recomendable aceptar',false);
+	(8, 1, 'Me esta gustando','','',false),
+	(11, 4, 'Muy buen artículo', 'Debe ser publicado', 'altamente recomendable aceptar', true),
+	(11, 5, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'poco recomendable aceptar', true),
+	(11, 6, 'Buen artículo', 'Aceptable', 'aceptardo', true);

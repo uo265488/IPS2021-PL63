@@ -18,13 +18,13 @@ public class ArticuloModel {
 	 */
 	public void update(ArticuloDto articuloDto) {
 		// validaciones (en este caso nada)
-		String sql = "update articulos set cartaPresentacion = ?, CV = ?, estado=?, ficheroFuente = ?, otrosAutores=?, palabrasClave=?, primerAutor=?, resumen=?, titulo=?, vecesRevisado=?, firma=?, versionDefinitiva=? where idArticulo = ?";
+		String sql = "update articulos set cartaPresentacion = ?, CV = ?, estado=?, ficheroFuente = ?, otrosAutores=?, palabrasClave=?, primerAutor=?, resumen=?, titulo=?, vecesRevisado=?, firma=?, versionDefinitiva=?, DOI=?, fecha=?, volumen=? where idArticulo = ?";
 
 		db.executeUpdate(sql, articuloDto.getCartaPresentacion(), articuloDto.getCV(), articuloDto.getEstado(),
 				articuloDto.getFicheroFuente(), articuloDto.getOtrosAutores(), articuloDto.getPalabrasClave(),
 				articuloDto.getPrimerAutor(), articuloDto.getResumen(), articuloDto.getTitulo(),
 				articuloDto.getVecesRevisado(), articuloDto.isFirma(), articuloDto.isVersionDefinitiva(),
-				articuloDto.getIdArticulo());
+				articuloDto.getIdArticulo(), articuloDto.getDOI(), articuloDto.getFecha(), articuloDto.getVolumen());
 
 	}
 
@@ -114,6 +114,36 @@ public class ArticuloModel {
 
 		db.executeUpdate(sql, vecesRev, articuloDto.getIdArticulo());
 
+	}
+	
+	public void crearBorrador(ArticuloDto articulo) {
+		String sql_into_articulos = "insert into usuarios values (?, ?, ?, 'borrador', ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql_into_articulosDeAutor = "insert into articulosDeAutores values (?, ?)";
+		
+	
+		db.executeUpdate(sql_into_articulos, articulo.getIdArticulo(), articulo.getTitulo(), articulo.getPrimerAutor(),
+				articulo.getResumen(), articulo.getPalabrasClave(), articulo.getFicheroFuente(),
+				articulo.getCartaPresentacion(), articulo.getCV(), articulo.isFirma(), articulo.getVecesRevisado());
+		
+		db.executeUpdate(sql_into_articulosDeAutor, articulo.getIdArticulo(), articulo.getOtrosAutores());
+	}
+	
+	public void crearArticulo(ArticuloDto articulo) {
+		String sql_into_articulos = "insert into usuarios values (?, ?, ?, 'con el editor', ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql_into_articulosDeAutor = "insert into articulosDeAutores values (?, ?)";
+		
+	
+		db.executeUpdate(sql_into_articulos, articulo.getIdArticulo(), articulo.getTitulo(), articulo.getPrimerAutor(),
+				articulo.getResumen(), articulo.getPalabrasClave(), articulo.getFicheroFuente(),
+				articulo.getCartaPresentacion(), articulo.getCV(), articulo.isFirma(), articulo.getVecesRevisado());
+		
+		db.executeUpdate(sql_into_articulosDeAutor, articulo.getIdArticulo(), articulo.getOtrosAutores());
+	}
+	
+	public List<ArticuloDto> getArticulosAsignados(int id){
+		String sql = "select * from articulos a, revisiones r where r.idRevisor = ? and a.idArticulo = r.idArticulo";
+		
+		return db.executeQueryPojo(ArticuloDto.class, sql, id);
 	}
 
 

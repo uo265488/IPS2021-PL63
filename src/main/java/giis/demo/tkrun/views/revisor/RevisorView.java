@@ -29,7 +29,7 @@ public class RevisorView extends JFrame {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	private JPanel contentPane;
 	private JLabel lbRevision;
 	private JLabel lbId;
@@ -311,6 +311,10 @@ public class RevisorView extends JFrame {
 					}catch(Exception e1) {
 						JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id", JOptionPane.ERROR_MESSAGE);
 					}
+					articulosSinRevisar.clear();
+					if(getTxId().getText().length() > 0)
+						articulosSinRevisar = controller.getTituloArticulosSinRevisar(Integer.parseInt(getTxId().getText()));
+					rellenarComboBox();
 				}
 			});
 			btVerArticulos.setForeground(Color.WHITE);
