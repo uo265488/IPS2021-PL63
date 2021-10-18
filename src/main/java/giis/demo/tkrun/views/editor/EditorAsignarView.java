@@ -110,6 +110,7 @@ public class EditorAsignarView extends JDialog {
 			btnAsignar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					checkAsignacion();
+					
 				}
 			});
 			btnAsignar.setBackground(Color.GREEN);

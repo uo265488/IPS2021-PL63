@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 
 import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.user.UserController;
+import giis.demo.tkrun.models.user.UserModel;
 
 
 
@@ -64,7 +66,7 @@ public class SwingMain {
 				//new RevisorView(new RevisorController(new RevisionModel()));
 				//new AutorView(new AutorController(new AutorModel()));
 				//new EditorViewDecisionArticulo(new EditorController());
-				new EditorController();
+				new UserController();
 			}
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));

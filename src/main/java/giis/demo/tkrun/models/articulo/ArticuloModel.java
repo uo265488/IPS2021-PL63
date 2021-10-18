@@ -56,7 +56,7 @@ public class ArticuloModel {
 	 * @return
 	 */
 	public List<ArticuloDto> getArticulos() {
-		String sql = "SELECT * from articulos where estado <> 'borrador'";
+		String sql = "SELECT * from articulos where estado = 'con el editor'";
 
 		return db.executeQueryPojo(ArticuloDto.class, sql);
 	}

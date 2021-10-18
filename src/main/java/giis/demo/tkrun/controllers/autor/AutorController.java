@@ -24,8 +24,8 @@ public class AutorController {
 		//this.initView();
 	//}
 	
-	public AutorController(AutorModel m) {
-		this.model = m;
+	public AutorController() {
+		this.model = new AutorModel();
 		//no hay inicializacion especifica del modelo, solo de la vista
 		//this.initView();
 		AutorCreacionView acv = new AutorCreacionView(this);

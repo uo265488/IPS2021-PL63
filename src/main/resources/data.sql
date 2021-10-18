@@ -41,8 +41,14 @@ insert into revisiones(idArticulo, idRevisor, comentariosAutor, comentariosEdito
 	(8, 1, 'Me esta gustando','Aceptaria','altamente recomendable aceptar',true),
 	(8, 2, 'Me esta gustando','Aceptaria','altamente recomendable aceptar',true),
 	(8, 3, 'Me esta gustando','Aceptaria','altamente recomendable aceptar',true),
-	(7, 3, 'Me esta gustando mucho','Aceptaria','altamente recomendable aceptar',false);
+	(7, 3, 'Me esta gustando mucho','Aceptaria','altamente recomendable aceptar',false),
 	(8, 1, 'Me esta gustando','','',false),
 	(11, 4, 'Muy buen artículo', 'Debe ser publicado', 'altamente recomendable aceptar', true),
 	(11, 5, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'poco recomendable aceptar', true),
 	(11, 6, 'Buen artículo', 'Aceptable', 'aceptardo', true);
+	
+delete from usuarios;
+insert into usuarios (idUsuario, nombre, tipoUsuario) values
+	(1, 'Alex', 'Editor'),
+	(2, 'Hugo', 'Autor'),
+	(3, 'Oscar', 'Revisor');

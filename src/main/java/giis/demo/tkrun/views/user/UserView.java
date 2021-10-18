@@ -13,7 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import giis.demo.tkrun.controllers.autor.AutorController;
+import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.UserEntity;
+import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.controllers.user.UserController;
 
 public class UserView extends JFrame {
@@ -117,24 +121,24 @@ public class UserView extends JFrame {
 		UserEntity userEntity = (UserEntity) getCbUsers().getSelectedItem();
 		
 		if(userEntity.getType().toLowerCase().equals("autor")) {
-			launchAutor(userEntity.getUserName());
+			launchAutor();
 		}
 		else if(userEntity.getType().toLowerCase().equals("revisor")) {
-			launchRevisor(userEntity.getUserName());
+			launchRevisor(userEntity.getIdUser());
 		}else {
 			launchEditor();
 		}
 	}
 	
-	private void launchAutor(String id) {
-		JOptionPane.showMessageDialog(this, "Lanzaría la pantalla principal del autor");
+	private void launchAutor() {
+		new AutorController();
 	}
 	
-	private void launchRevisor(String id) {
-		JOptionPane.showMessageDialog(this, "Lanzaría la pantalla principal del revisor");
+	private void launchRevisor(int idRevisor) {
+		new RevisorController(idRevisor);
 	}
 	
 	private void launchEditor() {
-		//EditorPrincipalView ePV = new EditorPrincipalView(new EditorController(null));   //hay que saber el articulo para inicilizar el controlador que permite la gestion
+		new EditorController();
 	}
 }

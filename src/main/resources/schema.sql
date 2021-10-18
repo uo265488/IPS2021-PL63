@@ -5,6 +5,7 @@
 
 drop table Usuarios;
 create table Usuarios(idUsuario int primary key, nombre varchar(32), tipoUsuario varchar(32));
+
 drop table Revisores;
 create table Revisores (idRevisor int primary key, nombre varchar(32), estado varchar(32));
 
