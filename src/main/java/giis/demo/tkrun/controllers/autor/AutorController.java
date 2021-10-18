@@ -7,6 +7,7 @@ import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.autor.AutorModel;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.views.autor.AutorCreacionView;
+import giis.demo.tkrun.views.autor.MenuAutor;
 import giis.demo.util.EntityAssembler;
 
 public class AutorController {
@@ -15,6 +16,7 @@ public class AutorController {
 	private AutorModel model;
 	//private RevisionModel revisionModel;
 	private ArticuloModel articuloModel;
+	private MenuAutor view;
 	//private RevisorModel revisoresModel;
 	
 	//public AutorController(AutorModel m, EditorView v) {
@@ -26,19 +28,13 @@ public class AutorController {
 	
 	public AutorController() {
 		this.model = new AutorModel();
-		//no hay inicializacion especifica del modelo, solo de la vista
-		//this.initView();
-		AutorCreacionView acv = new AutorCreacionView(this);
-		acv.setVisible(true);
+		initView();
 	}
 
-	//private void initView() {
-
-		//this.view = new EditorView(this);
-		//view.setVisible(true);
-		
-		
-	//}
+	private void initView() {
+		this.view = new MenuAutor(this);
+		view.setVisible(true);
+	}
 
 	public List<ArticuloEntity> getArticulosPropios(int id) {
 		

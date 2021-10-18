@@ -110,7 +110,6 @@ public class EditorAsignarView extends JDialog {
 			btnAsignar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					checkAsignacion();
-					
 				}
 			});
 			btnAsignar.setBackground(Color.GREEN);
@@ -124,6 +123,7 @@ public class EditorAsignarView extends JDialog {
 			editorController.asignarRevisoresAlArticulo(getRevisoresSeleccionados(), articulo, "hoy"); // dar opcion de
 																										// escoger fecha
 			removeSelectedElements();
+			dispose();
 			
 		} else {
 			JOptionPane.showMessageDialog(this, "Tienes que seleccionar 3 revisores. ");
@@ -230,5 +230,4 @@ public class EditorAsignarView extends JDialog {
 	     }
 	     return model;
 	}
-
 }

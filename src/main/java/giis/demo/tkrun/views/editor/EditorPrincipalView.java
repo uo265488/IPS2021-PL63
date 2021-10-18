@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,7 +21,7 @@ import giis.demo.util.articulo.ArticuloComparatorTitulo;
 import java.awt.GridLayout;
 import javax.swing.JTextField;
 
-public class EditorPrincipalView extends JFrame {
+public class EditorPrincipalView extends JDialog {
 
 	/**
 	 * 
@@ -70,7 +71,7 @@ public class EditorPrincipalView extends JFrame {
 	public void initialize() {
 		setTitle("Editor: Articulos disponibles");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 517, 363);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

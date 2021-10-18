@@ -19,7 +19,7 @@ public class AutorModel {
 	
 	public List<ArticuloDto> articulosAceptadosSinVersionDefinitiva(int id) {
 		// validaciones (en este caso nada)
-		String sql = "select articulos.idArticulo, titulo, primerAutor "
+		String sql = "select * "
 				+ "from articulosDeAutores, articulos "
 				+ "where idAutor = ? and articulos.idArticulo = articulosDeAutores.idArticulo and estado = 'aceptado' and versionDefinitiva = false";
 		return db.executeQueryPojo(ArticuloDto.class, sql, id);

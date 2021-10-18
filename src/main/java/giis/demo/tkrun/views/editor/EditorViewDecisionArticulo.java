@@ -10,6 +10,7 @@ import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
-public class EditorViewDecisionArticulo extends JFrame {
+public class EditorViewDecisionArticulo extends JDialog {
 
 	/**
 	 * 
@@ -33,6 +34,7 @@ public class EditorViewDecisionArticulo extends JFrame {
 	private JButton btCargar;
 	private EditorController controller;
 	private List<ArticuloEntity> articulos = new ArrayList<ArticuloEntity>();
+	private JButton btComentarios;
 
 	/**
 	 * Create the frame.
@@ -43,7 +45,7 @@ public class EditorViewDecisionArticulo extends JFrame {
 	}
 	
 	private void inicialice() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 916, 345);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -55,6 +57,7 @@ public class EditorViewDecisionArticulo extends JFrame {
 		contentPane.add(getBtAceptar());
 		contentPane.add(getBtRechazar());
 		contentPane.add(getBtCargar());
+		contentPane.add(getBtComentarios());
 		setVisible(true);
 		setResizable(false);
 	}
@@ -147,6 +150,30 @@ public class EditorViewDecisionArticulo extends JFrame {
 			}
 		}
 		getChArticulos().setModel(new DefaultComboBoxModel<ArticuloEntity>(vector));
+	}
+	private JButton getBtComentarios() {
+		if (btComentarios == null) {
+			btComentarios = new JButton("Comentarios");
+			btComentarios.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					mostrarComentarios();
+				}
+			});
+			btComentarios.setForeground(Color.BLACK);
+			btComentarios.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			btComentarios.setBackground(new Color(100, 149, 237));
+			btComentarios.setBounds(705, 144, 148, 23);
+		}
+		return btComentarios;
+	}
+	
+	private void mostrarComentarios() {
+		if(getChArticulos().getItemCount() > 0) {
+			ArticuloEntity art = (ArticuloEntity) getChArticulos().getSelectedItem();
+			EditorViewComentariosArticulo ven = new EditorViewComentariosArticulo(art);
+			ven.setVisible(true);
+			ven.setModal(true);
+		}
 	}
 }
 

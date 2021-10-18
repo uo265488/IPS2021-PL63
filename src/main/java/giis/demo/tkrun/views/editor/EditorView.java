@@ -246,7 +246,7 @@ public class EditorView extends JDialog {
 		RevisionController revController = new RevisionController();
 		List<RevisionEntity> revisiones = revController.getRevisionesDelArticulo(articulo);
 		if (revisiones.size() > 0 && articulo.getEstado().contentEquals(ArticuloEntity.CON_EL_EDITOR)) {
-			EditorViewComentariosArticulo comentarios = new EditorViewComentariosArticulo(articulo, revisiones, this);
+			EditorViewComentariosArticulo comentarios = new EditorViewComentariosArticulo(articulo);
 			comentarios.setModal(true);
 			comentarios.setLocationRelativeTo(this);
 			comentarios.setVisible(true);

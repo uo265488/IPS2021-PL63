@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 
-public class AutorCreacionView extends JFrame {
+public class AutorCreacionView extends JDialog {
 
 	/**
 	 * 

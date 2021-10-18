@@ -9,12 +9,13 @@ import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.models.revisor.RevisorModel;
 import giis.demo.tkrun.views.editor.EditorPrincipalView;
 import giis.demo.tkrun.views.editor.EditorView;
+import giis.demo.tkrun.views.editor.MenuEditor;
 import giis.demo.util.DtoMapper;
 import giis.demo.util.EntityAssembler;
 
 public class EditorController {
 
-	private EditorPrincipalView principalView;
+	private MenuEditor principalView;
 	private EditorView view;
 	private RevisionModel revisionModel;
 	private ArticuloModel articuloModel;
@@ -22,22 +23,8 @@ public class EditorController {
 
 	
 	private void initView() {
-		this.principalView = new EditorPrincipalView(this);
+		this.principalView = new MenuEditor(this);
 		this.principalView.setVisible(true);
-	}
-	
-	private void initView(ArticuloEntity articulo) {
-		this.view = new EditorView(this,articulo);
-		this.view.setVisible(true);
-	}
-
-	public EditorController(ArticuloEntity articulo) {
-
-		this.revisionModel = new RevisionModel();
-		this.articuloModel = new ArticuloModel();
-		this.revisoresModel = new RevisorModel();
-
-		initView(articulo);
 	}
 	
 	public EditorController() {

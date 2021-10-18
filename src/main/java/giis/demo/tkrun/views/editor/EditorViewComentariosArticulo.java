@@ -18,6 +18,8 @@ import javax.swing.border.LineBorder;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
+import giis.demo.tkrun.controllers.revision.RevisionController;
+
 import javax.swing.JButton;
 
 
@@ -62,11 +64,10 @@ public class EditorViewComentariosArticulo extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public EditorViewComentariosArticulo(ArticuloEntity articulo, List<RevisionEntity> revisiones, EditorView ventanaAnterior) {
+	public EditorViewComentariosArticulo(ArticuloEntity articulo) {
 		setTitle("Comentarios Revision");
-		this.ventanaAnterior = ventanaAnterior;
 		this.articulo = articulo;
-		this.revisiones = revisiones;
+		inicializar();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 585, 492);
@@ -85,6 +86,11 @@ public class EditorViewComentariosArticulo extends JDialog {
 		contentPane.add(getLblFormato());
 		contentPane.add(getTxtRevisiones());
 		contentPane.add(getBtnEnviarComentariosAutor());
+	}
+	
+	private void inicializar() {
+		RevisionController rev = new RevisionController();
+		revisiones = rev.getRevisionesDelArticulo(articulo);
 	}
 	private JLabel getLblArticulo() {
 		if (lblArticulo == null) {

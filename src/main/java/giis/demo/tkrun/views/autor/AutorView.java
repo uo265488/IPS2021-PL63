@@ -24,9 +24,10 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JCheckBox;
 
-public class AutorView extends JFrame {
+public class AutorView extends JDialog {
 
 	/**
 	 * 
@@ -74,7 +75,7 @@ public class AutorView extends JFrame {
 	}
 	
 	private void inicialize() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1083, 586);
 		setTitle("Vista de Autor");
 		contentPane = new JPanel();
@@ -222,7 +223,7 @@ public class AutorView extends JFrame {
 	private JComboBox<ArticuloEntity> getCbArticulosSinPublicar() {
 		if (cbArticulosSinPublicar == null) {
 			cbArticulosSinPublicar = new JComboBox<ArticuloEntity>();
-			cbArticulosSinPublicar.setBounds(633, 168, 434, 22);
+			cbArticulosSinPublicar.setBounds(605, 168, 462, 22);
 		}
 		return cbArticulosSinPublicar;
 	}

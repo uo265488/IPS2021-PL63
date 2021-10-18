@@ -12,6 +12,7 @@ import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.user.UserController;
 import giis.demo.tkrun.models.user.UserModel;
+import giis.demo.tkrun.views.editor.EditorViewDecisionArticulo;
 
 
 
