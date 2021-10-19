@@ -76,7 +76,7 @@ public class AutorView extends JDialog {
 	
 	private void inicialize() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1083, 586);
+		setBounds(100, 100, 1213, 586);
 		setTitle("Vista de Autor");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -223,7 +223,7 @@ public class AutorView extends JDialog {
 	private JComboBox<ArticuloEntity> getCbArticulosSinPublicar() {
 		if (cbArticulosSinPublicar == null) {
 			cbArticulosSinPublicar = new JComboBox<ArticuloEntity>();
-			cbArticulosSinPublicar.setBounds(605, 168, 462, 22);
+			cbArticulosSinPublicar.setBounds(615, 168, 582, 22);
 		}
 		return cbArticulosSinPublicar;
 	}
@@ -250,7 +250,7 @@ public class AutorView extends JDialog {
 			});
 			btnEnviarArticulo.setForeground(new Color(255, 255, 255));
 			btnEnviarArticulo.setBackground(new Color(0, 0, 128));
-			btnEnviarArticulo.setBounds(842, 396, 225, 23);
+			btnEnviarArticulo.setBounds(915, 396, 225, 23);
 			btnEnviarArticulo.setEnabled(false);
 		}
 		return btnEnviarArticulo;
@@ -265,7 +265,7 @@ public class AutorView extends JDialog {
 			});
 			btVisualizar.setForeground(Color.WHITE);
 			btVisualizar.setBackground(new Color(173, 216, 230));
-			btVisualizar.setBounds(727, 259, 225, 23);
+			btVisualizar.setBounds(784, 259, 225, 23);
 		}
 		return btVisualizar;
 	}

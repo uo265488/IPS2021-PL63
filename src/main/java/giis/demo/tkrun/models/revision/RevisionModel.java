@@ -88,7 +88,7 @@ public class RevisionModel {
 	}
 	
 	public List<ArticuloDto> articulosSinRevisar(int idRevisor){
-		String sql = "select articulos.idArticulo, titulo "
+		String sql = "select articulos.idArticulo, titulo, vecesRevisado "
 				+ "from revisiones, articulos "
 				+ "where idRevisor = ? and enviarAlEditor = false and articulos.idArticulo = revisiones.idArticulo and estado = 'en revision'";
 		
