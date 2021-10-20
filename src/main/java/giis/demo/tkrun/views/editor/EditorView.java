@@ -20,15 +20,13 @@ import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
+import giis.demo.tkrun.controllers.revision.RevisionController;
 import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
 
-public class EditorAsignarView extends JDialog {
+public class EditorView extends JDialog {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private List<RevisorEntity> revisoresDisponibles;
 	private EditorController editorController;
@@ -40,6 +38,7 @@ public class EditorAsignarView extends JDialog {
 	private JButton btnVisualizar;
 	private JScrollPane scrollPane;
 	private JList<RevisorEntity> listRevisores;
+	private JButton btnComentarios;
 
 //	/**
 //	 * Launch the application.
@@ -72,7 +71,7 @@ public class EditorAsignarView extends JDialog {
 //		initialize();
 //	}
 
-	public EditorAsignarView(EditorController controller, ArticuloEntity articulo) {
+	public EditorView(EditorController controller, ArticuloEntity articulo) {
 		setTitle("Asignación de revisores");
 		setResizable(false);
 		this.editorController = controller;
@@ -100,6 +99,7 @@ public class EditorAsignarView extends JDialog {
 		contentPane.add(getTxtArticulo());
 		contentPane.add(getBtnVisualizar());
 		contentPane.add(getScrollPane());
+		contentPane.add(getBtnComentarios());
 
 	}
 
@@ -123,7 +123,6 @@ public class EditorAsignarView extends JDialog {
 			editorController.asignarRevisoresAlArticulo(getRevisoresSeleccionados(), articulo, "hoy"); // dar opcion de
 																										// escoger fecha
 			removeSelectedElements();
-			dispose();
 			
 		} else {
 			JOptionPane.showMessageDialog(this, "Tienes que seleccionar 3 revisores. ");
@@ -230,5 +229,30 @@ public class EditorAsignarView extends JDialog {
 	     }
 	     return model;
 	}
-
+	private JButton getBtnComentarios() {
+		if (btnComentarios == null) {
+			btnComentarios = new JButton("Comentarios");
+			btnComentarios.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					visualizarComentariosArticulo();
+				}
+			});
+			btnComentarios.setBounds(422, 116, 109, 20);
+		}
+		return btnComentarios;
+	}
+	
+	private void visualizarComentariosArticulo() {
+		RevisionController revController = new RevisionController();
+		List<RevisionEntity> revisiones = revController.getRevisionesDelArticulo(articulo);
+		if (revisiones.size() > 0 && articulo.getEstado().contentEquals(ArticuloEntity.CON_EL_EDITOR)) {
+			EditorViewComentariosArticulo comentarios = new EditorViewComentariosArticulo(articulo);
+			comentarios.setModal(true);
+			comentarios.setLocationRelativeTo(this);
+			comentarios.setVisible(true);
+			
+		}
+		else 
+			JOptionPane.showMessageDialog(rootPane, "No hay revisiones disponibles de este articulo");
+	}
 }

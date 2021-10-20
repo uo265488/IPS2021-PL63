@@ -4,7 +4,9 @@ import java.util.List;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
+import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.revision.RevisionModel;
+import giis.demo.tkrun.views.revisor.RevisorAsignadosView;
 import giis.demo.util.EntityAssembler;
 
 public class RevisorController {
@@ -12,8 +14,10 @@ public class RevisorController {
 	//private EditorView view; No hay vista todavía asi que esta todo comentado
 		private RevisionModel model;
 		//private RevisionModel revisionModel;
-		//private ArticuloModel articuloModel;
+		private ArticuloModel articuloModel;
 		//private RevisorModel revisoresModel;
+		private RevisorAsignadosView rav;
+		private int idRevisor;
 		
 		//public AutorController(AutorModel m, EditorView v) {
 			//this.model = m;
@@ -22,19 +26,21 @@ public class RevisorController {
 			//this.initView();
 		//}
 		
-		public RevisorController(RevisionModel m) {
-			this.model = m;
+		public RevisorController(int idRevisor) {
+			this.model = new RevisionModel();
+			this.articuloModel = new ArticuloModel();;
+			this.idRevisor = idRevisor;
 			//no hay inicializacion especifica del modelo, solo de la vista
-			//this.initView();
+			this.initView();
 		}
 
-		//private void initView() {
+		private void initView() {
 
-			//this.view = new EditorView(this);
-			//view.setVisible(true);
+			rav = new RevisorAsignadosView(this, idRevisor);
+			rav.setVisible(true);
 			
 			
-		//}
+		}
 		
 		public RevisionEntity getArticulosSinRevisar(int id, int idArt) {
 			
@@ -49,5 +55,9 @@ public class RevisorController {
 		public void actualizarRevision(String comAutor, String comEditor, String decision, boolean enviarAlEditor, int id, int idArt) {
 			
 			model.revisarArticulo(comAutor, comEditor, decision, enviarAlEditor, idArt, id);
+		}
+		
+		public List<ArticuloEntity> getArticulosAsignados(int id){
+			return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosAsignados(id));
 		}
 }

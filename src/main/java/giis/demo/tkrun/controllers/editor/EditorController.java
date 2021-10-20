@@ -7,32 +7,32 @@ import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.models.revisor.RevisorModel;
-import giis.demo.tkrun.views.editor.EditorAsignarView;
+import giis.demo.tkrun.views.editor.EditorView;
+import giis.demo.tkrun.views.editor.MenuEditor;
 import giis.demo.util.DtoMapper;
 import giis.demo.util.EntityAssembler;
 
 public class EditorController {
 
-	private EditorAsignarView view;
+
+	private MenuEditor principalView;
+	private EditorView view;
 	private RevisionModel revisionModel;
 	private ArticuloModel articuloModel;
 	private RevisorModel revisoresModel;
 
-
-	private void initView(ArticuloEntity articulo) {
-
-		this.view = new EditorAsignarView(this, articulo);
-		view.setVisible(true);
-
+	
+	private void initView() {
+		this.principalView = new MenuEditor(this);
+		this.principalView.setVisible(true);
 	}
 
-	public EditorController(ArticuloEntity articulo) {
-
+	public EditorController() {
 		this.revisionModel = new RevisionModel();
 		this.articuloModel = new ArticuloModel();
 		this.revisoresModel = new RevisorModel();
-
-		initView(articulo);
+		
+		initView();
 	}
 
 	public List<RevisorEntity> getRevisoresDisponibles() {
@@ -105,6 +105,22 @@ public class EditorController {
 	public List<ArticuloEntity> getArticulosTomarDecision() {
 
 		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosTomarDecision());
+	}
+	
+	public void aceptarArticulo(ArticuloEntity articulo) {
+		articuloModel.aceptar(DtoMapper.toArticuloDto(articulo));
+	}
+	
+	public void rechazarArticulo(ArticuloEntity articulo) {
+		articuloModel.rechazar(DtoMapper.toArticuloDto(articulo));
+	}
+	
+	public List<ArticuloEntity> getArticulosFiltradoTitulo(String titulo){
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoTitulo(titulo));
+	}
+	
+	public List<ArticuloEntity> getArticulosFiltradoAutor(String autor){
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoAutor(autor));
 	}
 
 }

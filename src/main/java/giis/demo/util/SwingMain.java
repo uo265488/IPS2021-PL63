@@ -10,6 +10,9 @@ import javax.swing.JFrame;
 
 import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.user.UserController;
+import giis.demo.tkrun.models.user.UserModel;
+import giis.demo.tkrun.views.editor.EditorViewDecisionArticulo;
 
 
 
@@ -60,7 +63,11 @@ public class SwingMain {
 		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
 		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				new EditorController(generarArticulo());
+				//new EditorController(generarArticulo());
+				//new RevisorView(new RevisorController(new RevisionModel()));
+				//new AutorView(new AutorController(new AutorModel()));
+				//new EditorViewDecisionArticulo(new EditorController());
+				new UserController();
 			}
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));

@@ -50,6 +50,18 @@ public class RevisionModel {
 		
 		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo(), revisor.getIdRevisor());
 	}
+	
+	/**
+	 * Obtiene todas las revisiones hechas sobre un articulo
+	 * @param articuloDto
+	 * @return
+	 */
+	public List<RevisionDto> getRevisionesDeUnArticulo(ArticuloDto articulo) {
+
+		String sql = "select * from Revisiones where idArticulo = ?";
+		
+		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo());
+	}
 
 	/*
 	 * public void add(RevisionDto revisionDto) { String sql =
@@ -76,12 +88,11 @@ public class RevisionModel {
 	}
 	
 	public List<ArticuloDto> articulosSinRevisar(int idRevisor){
-		String sql = "select articulo.idArticulo, titulo "
-				+ "from revisiones, articulo "
-				+ "where idRevisor = ? and enviarAlEditor = false and articulo.idArticulo = revisiones.idArticulo";
+		String sql = "select articulos.idArticulo, titulo "
+				+ "from revisiones, articulos "
+				+ "where idRevisor = ? and enviarAlEditor = false and articulos.idArticulo = revisiones.idArticulo and estado = 'en revision'";
 		
 		return db.executeQueryPojo(ArticuloDto.class, sql, idRevisor);
 
 	}
-
 }

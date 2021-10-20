@@ -19,8 +19,8 @@ public class UserController {
 		this.initView();
 	}
 	
-	public UserController(UserModel m) {
-		this.userModel = m;
+	public UserController() {
+		this.userModel = new UserModel();
 		this.initView();
 	}
 	

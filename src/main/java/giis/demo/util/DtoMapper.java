@@ -43,6 +43,11 @@ public class DtoMapper {
 		dto.setPrimerAutor(articulo.getPrimerAutor());
 		dto.setResumen(articulo.getResumen());
 		dto.setTitulo(articulo.getTitulo());
+		dto.setVecesRevisado(articulo.getVecesRevisado());
+		dto.setVersionDefinitiva(articulo.isVersionDefinitiva());
+		dto.setDOI(articulo.getDOI());
+		dto.setFecha(articulo.getFecha());
+		dto.setVolumen(articulo.getVolumen());
 
 		return dto;
 	}

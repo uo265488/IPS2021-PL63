@@ -7,6 +7,7 @@ public class RevisionEntity {
 	private String fecha;
 	private String comentariosAutor;
 	private String comentariosEditor;
+	private String decision;
 	private boolean enviarAlEditor;
 	
 	public int getIdArticulo() {
@@ -45,6 +46,18 @@ public class RevisionEntity {
 	public void setEnviarAlEditor(boolean enviarAlEditor) {
 		this.enviarAlEditor = enviarAlEditor;
 	}
+	
+	public String getDecision() {
+		return decision;
+	}
+	public void setDecision(String decision) {
+		this.decision = decision;
+	}
+	public String toString() {
+		return String.valueOf(this.idRevisor);
+	}
+	
+	
 	
 	
 	

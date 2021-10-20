@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,9 +24,10 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JCheckBox;
 
-public class AutorView extends JFrame {
+public class AutorView extends JDialog {
 
 	/**
 	 * 
@@ -46,6 +48,7 @@ public class AutorView extends JFrame {
 	private JComboBox<ArticuloEntity> cbArticulosSinPublicar;
 	private JCheckBox chCopy;
 	private JButton btnEnviarArticulo;
+	private JButton btVisualizar;
 
 	///**
 	// * Launch the application.
@@ -72,7 +75,7 @@ public class AutorView extends JFrame {
 	}
 	
 	private void inicialize() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1083, 586);
 		setTitle("Vista de Autor");
 		contentPane = new JPanel();
@@ -89,6 +92,7 @@ public class AutorView extends JFrame {
 		contentPane.add(getCbArticulosSinPublicar());
 		contentPane.add(getChCopy());
 		contentPane.add(getBtnEnviarArticulo());
+		contentPane.add(getBtVisualizar());
 		setVisible(true);
 		setResizable(false);
 	}
@@ -138,12 +142,17 @@ public class AutorView extends JFrame {
 			btConfirmar = new JButton("Visualizar Artículos");
 			btConfirmar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					getBtnEnviarArticulo().setEnabled(false);
 					if(!getTxId().getText().isEmpty()) {
 						articulosAceptadosSinVersionDefinitiva.clear();
 						rellenarComboBox();
-						int idAutor = Integer.parseInt(getTxId().getText());
-						articulosDelEditor = controller.getArticulosPropios(idAutor);
-						mostrarArticulos();
+						try {
+							int idAutor = Integer.parseInt(getTxId().getText());
+							articulosDelEditor = controller.getArticulosPropios(idAutor);
+							mostrarArticulos();
+						}catch(Exception e1) {
+							JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 				}
 			});
@@ -172,13 +181,17 @@ public class AutorView extends JFrame {
 					articulosDelEditor.clear();
 					rellenarComboBox();
 					if(!getTxId().getText().isEmpty()) {
-						int idAutor = Integer.parseInt(getTxId().getText());
-						articulosAceptadosSinVersionDefinitiva = controller.getArticulosAceptadosSinVersionDefinitiva(idAutor);
-						rellenarComboBox();
-						if(articulosAceptadosSinVersionDefinitiva.size() == 0)
-							getBtnEnviarArticulo().setEnabled(false);
-						else
-							getBtnEnviarArticulo().setEnabled(true);
+						try {
+							int idAutor = Integer.parseInt(getTxId().getText());
+							articulosAceptadosSinVersionDefinitiva = controller.getArticulosAceptadosSinVersionDefinitiva(idAutor);
+							rellenarComboBox();
+							if(articulosAceptadosSinVersionDefinitiva.size() == 0)
+								getBtnEnviarArticulo().setEnabled(false);
+							else
+								getBtnEnviarArticulo().setEnabled(true);
+						}catch(Exception e1) {
+							JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 				}
 			});
@@ -210,7 +223,7 @@ public class AutorView extends JFrame {
 	private JComboBox<ArticuloEntity> getCbArticulosSinPublicar() {
 		if (cbArticulosSinPublicar == null) {
 			cbArticulosSinPublicar = new JComboBox<ArticuloEntity>();
-			cbArticulosSinPublicar.setBounds(633, 168, 434, 22);
+			cbArticulosSinPublicar.setBounds(605, 168, 462, 22);
 		}
 		return cbArticulosSinPublicar;
 	}
@@ -241,5 +254,26 @@ public class AutorView extends JFrame {
 			btnEnviarArticulo.setEnabled(false);
 		}
 		return btnEnviarArticulo;
+	}
+	private JButton getBtVisualizar() {
+		if (btVisualizar == null) {
+			btVisualizar = new JButton("Visualizar Artículo");
+			btVisualizar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					mostrarVentanaVisualizacion();
+				}
+			});
+			btVisualizar.setForeground(Color.WHITE);
+			btVisualizar.setBackground(new Color(173, 216, 230));
+			btVisualizar.setBounds(727, 259, 225, 23);
+		}
+		return btVisualizar;
+	}
+	
+	private void mostrarVentanaVisualizacion() {
+		if(getCbArticulosSinPublicar().getSelectedItem() != null) {
+			VisualizarArticuloView vA = new VisualizarArticuloView((ArticuloEntity) getCbArticulosSinPublicar().getSelectedItem());
+			vA.setVisible(true);
+		}
 	}
 }

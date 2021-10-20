@@ -11,22 +11,23 @@ public class AutorModel {
 	public List<ArticuloDto> articulosDeUnAutor(int id) {
 		// validaciones (en este caso nada)
 		String sql = "select titulo, primerAutor, estado "
-				+ "from articulosDeAutores, articulo "
-				+ "where idAutor = ? and articulo.idArticulo = articulosDeAutores.idArticulo";
+				+ "from articulosDeAutores, articulos "
+				+ "where idAutor = ? and articulos.idArticulo = articulosDeAutores.idArticulo";
 		return db.executeQueryPojo(ArticuloDto.class, sql, id);
 		
 	}
 	
 	public List<ArticuloDto> articulosAceptadosSinVersionDefinitiva(int id) {
 		// validaciones (en este caso nada)
-		String sql = "select articulo.idArticulo, titulo, primerAutor "
-				+ "from articulosDeAutores, articulo "
-				+ "where idAutor = ? and articulo.idArticulo = articulosDeAutores.idArticulo and estado = 'aceptado' and versionDefinitiva = false";
+		String sql = "select * "
+				+ "from articulosDeAutores, articulos "
+				+ "where idAutor = ? and articulos.idArticulo = articulosDeAutores.idArticulo and estado = 'aceptado' and versionDefinitiva = false";
 		return db.executeQueryPojo(ArticuloDto.class, sql, id);
 	}
 	
 	public void enviarVersionDefinitiva(int id) {
-		String sql = "update articulo set firma = true, versionDefinitiva = true where idArticulo = ?";
+		String sql = "update articulos set firma = true, versionDefinitiva = true where idArticulo = ?";
 		db.executeUpdate(sql, id);
 	}
+
 }

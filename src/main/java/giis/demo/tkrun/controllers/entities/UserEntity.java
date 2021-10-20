@@ -4,11 +4,13 @@ public class UserEntity {
 
 	private String userName;
 	private String type;  //If the user is an editor, author or reviewer.
+	private int idUser;
 
-	public UserEntity(String userName, String type) {
+	public UserEntity(String userName, String type, int idUser) {
 		super();
 		this.userName = userName;
 		this.type = type;
+		this.idUser = idUser;
 	}
 
 	public UserEntity() {}
@@ -27,6 +29,14 @@ public class UserEntity {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public int getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
 
 	@Override
