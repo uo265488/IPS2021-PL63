@@ -23,7 +23,7 @@ import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
 
-public class EditorView extends JDialog {
+public class EditorAsignarView extends JDialog {
 
 	/**
 	 * 
@@ -72,7 +72,7 @@ public class EditorView extends JDialog {
 //		initialize();
 //	}
 
-	public EditorView(EditorController controller, ArticuloEntity articulo) {
+	public EditorAsignarView(EditorController controller, ArticuloEntity articulo) {
 		setTitle("Asignación de revisores");
 		setResizable(false);
 		this.editorController = controller;

@@ -118,7 +118,7 @@ public class EditorPrincipalView extends JFrame {
 	
 	private void launchAsignar() {
 		ArticuloEntity articulo = (ArticuloEntity) getCbArticulos().getSelectedItem();
-		EditorView eV = new EditorView(controller, articulo);
+		EditorAsignarView eV = new EditorAsignarView(controller, articulo);
 		eV.setLocationRelativeTo(this);
 		eV.setModal(true);
 		eV.setVisible(true);

@@ -7,13 +7,13 @@ import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.models.revisor.RevisorModel;
-import giis.demo.tkrun.views.editor.EditorView;
+import giis.demo.tkrun.views.editor.EditorAsignarView;
 import giis.demo.util.DtoMapper;
 import giis.demo.util.EntityAssembler;
 
 public class EditorController {
 
-	private EditorView view;
+	private EditorAsignarView view;
 	private RevisionModel revisionModel;
 	private ArticuloModel articuloModel;
 	private RevisorModel revisoresModel;
@@ -21,7 +21,7 @@ public class EditorController {
 
 	private void initView(ArticuloEntity articulo) {
 
-		this.view = new EditorView(this, articulo);
+		this.view = new EditorAsignarView(this, articulo);
 		view.setVisible(true);
 
 	}
