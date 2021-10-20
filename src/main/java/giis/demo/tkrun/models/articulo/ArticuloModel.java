@@ -24,7 +24,7 @@ public class ArticuloModel {
 				articuloDto.getFicheroFuente(), articuloDto.getPalabrasClave(),
 				articuloDto.getPrimerAutor(), articuloDto.getResumen(), articuloDto.getTitulo(),
 				articuloDto.getVecesRevisado(), articuloDto.isFirma(), articuloDto.isVersionDefinitiva(),
-				articuloDto.getIdArticulo(), articuloDto.getDOI(), articuloDto.getFecha(), articuloDto.getVolumen());
+				articuloDto.getIdArticulo(), articuloDto.getDOI(), articuloDto.getFecha(), articuloDto.getVolumen(), articuloDto.getIdArticulo());
 
 	}
 
