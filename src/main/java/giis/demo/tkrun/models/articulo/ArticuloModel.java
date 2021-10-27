@@ -117,12 +117,13 @@ public class ArticuloModel {
 	}
 
 	public void crearBorrador(ArticuloDto articulo) {
-		String sql_into_articulos = "insert into articulos values (?, ?, ?, 'borrador', ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql_into_articulos = "insert into articulos values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		String sql_into_articulosDeAutor = "insert into articulosDeAutores values (?, ?)";
 
-		db.executeUpdate(sql_into_articulos, articulo.getIdArticulo(), articulo.getTitulo(), articulo.getPrimerAutor(),
+		db.executeUpdate(sql_into_articulos, articulo.getIdArticulo(), articulo.getTitulo(), articulo.getPrimerAutor(), "borrador",
 				articulo.getResumen(), articulo.getPalabrasClave(), articulo.getFicheroFuente(),
-				articulo.getCartaPresentacion(), articulo.getCV(), articulo.isFirma(), articulo.getVecesRevisado());
+				articulo.getCartaPresentacion(), articulo.getCV(), articulo.isFirma(), articulo.getVecesRevisado(), 
+				articulo.isVersionDefinitiva(),articulo.getFecha(), articulo.getDOI(), articulo.getVolumen());
 
 		db.executeUpdate(sql_into_articulosDeAutor, articulo.getIdArticulo(), articulo.getOtrosAutores());
 	}
@@ -162,5 +163,13 @@ public class ArticuloModel {
        
         db.executeUpdate(sql, articulo.getFecha(), articulo.getDOI(), articulo.getVolumen(), articulo.getIdArticulo());
     }
+	
+	public Integer getNextId() {
+		String sql = "select idArticulo from articulos order by idArticulo";
+		
+		List<ArticuloDto> list =  db.executeQueryPojo(ArticuloDto.class, sql);
+		
+		return list.get(list.size()-1).getIdArticulo();
+	}
 
 }

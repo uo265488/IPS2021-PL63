@@ -3,8 +3,6 @@ package giis.demo.tkrun.views.autor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
-import java.util.UUID;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -61,8 +59,9 @@ public class AutorCreacionView extends JDialog {
 //			}
 //		});
 //	}
-	
+
 	public AutorCreacionView(AutorController autorController) {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.autorController = autorController;
 		initialize();
 	}
@@ -73,7 +72,6 @@ public class AutorCreacionView extends JDialog {
 	public void initialize() {
 		setResizable(false);
 		setTitle("Autor. Crear un artículo");
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 384);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -99,6 +97,7 @@ public class AutorCreacionView extends JDialog {
 		contentPane.add(getBtnBorrador());
 		contentPane.add(getBtnEnviar());
 	}
+
 	private JLabel getLbTitulo() {
 		if (lbTitulo == null) {
 			lbTitulo = new JLabel("Título: ");
@@ -109,6 +108,7 @@ public class AutorCreacionView extends JDialog {
 		}
 		return lbTitulo;
 	}
+
 	private JTextField getTxtFTitulo() {
 		if (txtFTitulo == null) {
 			txtFTitulo = new JTextField();
@@ -117,6 +117,7 @@ public class AutorCreacionView extends JDialog {
 		}
 		return txtFTitulo;
 	}
+
 	private JLabel getLbAutor() {
 		if (lbAutor == null) {
 			lbAutor = new JLabel("Autor: ");
@@ -127,6 +128,7 @@ public class AutorCreacionView extends JDialog {
 		}
 		return lbAutor;
 	}
+
 	private JTextField getTxtFAutor() {
 		if (txtFAutor == null) {
 			txtFAutor = new JTextField();
@@ -135,6 +137,7 @@ public class AutorCreacionView extends JDialog {
 		}
 		return txtFAutor;
 	}
+
 	private JLabel getLbOtrosAutores() {
 		if (lbOtrosAutores == null) {
 			lbOtrosAutores = new JLabel("Otros autores: ");
@@ -145,6 +148,7 @@ public class AutorCreacionView extends JDialog {
 		}
 		return lbOtrosAutores;
 	}
+
 	private JTextField getTxtFOtrosAutores() {
 		if (txtFOtrosAutores == null) {
 			txtFOtrosAutores = new JTextField();
@@ -153,6 +157,7 @@ public class AutorCreacionView extends JDialog {
 		}
 		return txtFOtrosAutores;
 	}
+
 	private JLabel getLbResumen() {
 		if (lbResumen == null) {
 			lbResumen = new JLabel("Resumen: ");
@@ -163,6 +168,7 @@ public class AutorCreacionView extends JDialog {
 		}
 		return lbResumen;
 	}
+
 	private JTextField getTxtFResumen() {
 		if (txtFResumen == null) {
 			txtFResumen = new JTextField();
@@ -171,6 +177,7 @@ public class AutorCreacionView extends JDialog {
 		}
 		return txtFResumen;
 	}
+
 	private JLabel getLbPalabrasClave() {
 		if (lbPalabrasClave == null) {
 			lbPalabrasClave = new JLabel("Palabras clave:");
@@ -181,6 +188,7 @@ public class AutorCreacionView extends JDialog {
 		}
 		return lbPalabrasClave;
 	}
+
 	private JTextField getTxtFPalabrasClave() {
 		if (txtFPalabrasClave == null) {
 			txtFPalabrasClave = new JTextField();
@@ -189,6 +197,7 @@ public class AutorCreacionView extends JDialog {
 		}
 		return txtFPalabrasClave;
 	}
+
 	private JLabel getLbFicheroFuente() {
 		if (lbFicheroFuente == null) {
 			lbFicheroFuente = new JLabel("Fichero fuente: ");
@@ -199,6 +208,7 @@ public class AutorCreacionView extends JDialog {
 		}
 		return lbFicheroFuente;
 	}
+
 	private JTextField getTxtFFicheroFuente() {
 		if (txtFFicheroFuente == null) {
 			txtFFicheroFuente = new JTextField();
@@ -207,6 +217,7 @@ public class AutorCreacionView extends JDialog {
 		}
 		return txtFFicheroFuente;
 	}
+
 	private JLabel getLbCartaPresentación() {
 		if (lbCartaPresentación == null) {
 			lbCartaPresentación = new JLabel("Carta de presentación: ");
@@ -217,6 +228,7 @@ public class AutorCreacionView extends JDialog {
 		}
 		return lbCartaPresentación;
 	}
+
 	private JTextField getTxtFCartaPresentacion() {
 		if (txtFCartaPresentacion == null) {
 			txtFCartaPresentacion = new JTextField();
@@ -225,6 +237,7 @@ public class AutorCreacionView extends JDialog {
 		}
 		return txtFCartaPresentacion;
 	}
+
 	private JLabel getLbCVAutor() {
 		if (lbCVAutor == null) {
 			lbCVAutor = new JLabel("CV del autor: ");
@@ -235,6 +248,7 @@ public class AutorCreacionView extends JDialog {
 		}
 		return lbCVAutor;
 	}
+
 	private JTextField getTxtFCVAutor() {
 		if (txtFCVAutor == null) {
 			txtFCVAutor = new JTextField();
@@ -243,14 +257,17 @@ public class AutorCreacionView extends JDialog {
 		}
 		return txtFCVAutor;
 	}
+
 	private JCheckBox getChckBoxFirmaPlagio() {
 		if (chckBoxFirmaPlagio == null) {
-			chckBoxFirmaPlagio = new JCheckBox("Comfirmo que el artículo es propio, original y que no se encuentra en ningún proceso de aceptación en ninguna otra revista. \r\n");
+			chckBoxFirmaPlagio = new JCheckBox(
+					"Comfirmo que el artículo es propio, original y que no se encuentra en ningún proceso de aceptación en ninguna otra revista. \r\n");
 			chckBoxFirmaPlagio.setMnemonic('O');
 			chckBoxFirmaPlagio.setBounds(10, 268, 421, 23);
 		}
 		return chckBoxFirmaPlagio;
 	}
+
 	private JButton getBtnBorrador() {
 		if (btnBorrador == null) {
 			btnBorrador = new JButton("Guardar BORRADOR");
@@ -265,15 +282,16 @@ public class AutorCreacionView extends JDialog {
 		}
 		return btnBorrador;
 	}
+
 	private JButton getBtnEnviar() {
 		if (btnEnviar == null) {
 			btnEnviar = new JButton("ENVIAR a revista");
 			btnEnviar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(checkFields()) {
+					if (checkFields()) {
 						enviarARevista();
-					}
-					else {
+						dispose();
+					} else {
 						JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos");
 					}
 				}
@@ -283,11 +301,11 @@ public class AutorCreacionView extends JDialog {
 		}
 		return btnEnviar;
 	}
-	
+
 	private void crearBorrador() {
-		
+
 		ArticuloDto articuloDto = new ArticuloDto();
-		articuloDto.setIdArticulo(new Random().nextInt());
+		articuloDto.setIdArticulo(getNextId());
 		articuloDto.setTitulo(getTxtFTitulo().getText());
 		articuloDto.setPrimerAutor(getTxtFAutor().getText());
 		articuloDto.setOtrosAutores(getTxtFOtrosAutores().getText());
@@ -297,11 +315,11 @@ public class AutorCreacionView extends JDialog {
 		articuloDto.setCartaPresentacion(getTxtFCartaPresentacion().getText());
 		articuloDto.setCV(getTxtFCVAutor().getText());
 		articuloDto.setFirma(getChckBoxFirmaPlagio().isSelected());
-		
+
 		autorController.crearBorrador(articuloDto);
-		
+
 	}
-	
+
 	private boolean checkFields() {
 		String titulo = getTxtFTitulo().getText();
 		String autor = getTxtFAutor().getText();
@@ -311,39 +329,39 @@ public class AutorCreacionView extends JDialog {
 		String ficheroFuente = getTxtFFicheroFuente().getText();
 		String cartaPresentacion = getTxtFCartaPresentacion().getText();
 		String cVAutor = getTxtFCVAutor().getText();
-		
-		if(titulo.replaceAll("\\s", "").length() == 0) {
+
+		if (titulo.replaceAll("\\s", "").length() == 0) {
 			return false;
 		}
-		if(autor.replaceAll("\\s", "").length() == 0) {
+		if (autor.replaceAll("\\s", "").length() == 0) {
 			return false;
 		}
-		if(otrosAutores.replaceAll("\\s", "").length() == 0) {
+		if (otrosAutores.replaceAll("\\s", "").length() == 0) {
 			return false;
 		}
-		if(resumen.replaceAll("\\s", "").length() == 0) {
+		if (resumen.replaceAll("\\s", "").length() == 0) {
 			return false;
 		}
-		if(palabrasClave.replaceAll("\\s", "").length() == 0) {
+		if (palabrasClave.replaceAll("\\s", "").length() == 0) {
 			return false;
 		}
-		if(ficheroFuente.replaceAll("\\s", "").length() == 0) {
+		if (ficheroFuente.replaceAll("\\s", "").length() == 0) {
 			return false;
 		}
-		if(cartaPresentacion.replaceAll("\\s", "").length() == 0) {
+		if (cartaPresentacion.replaceAll("\\s", "").length() == 0) {
 			return false;
 		}
-		if(cVAutor.replaceAll("\\s", "").length() == 0) {
+		if (cVAutor.replaceAll("\\s", "").length() == 0) {
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	private void enviarARevista() {
-		
+
 		ArticuloDto articuloDto = new ArticuloDto();
-		articuloDto.setIdArticulo(new Random().nextInt());
+		articuloDto.setIdArticulo(getNextId());
 		articuloDto.setTitulo(getTxtFTitulo().getText());
 		articuloDto.setPrimerAutor(getTxtFAutor().getText());
 		articuloDto.setOtrosAutores(getTxtFOtrosAutores().getText());
@@ -358,7 +376,13 @@ public class AutorCreacionView extends JDialog {
 		articuloDto.setDOI("");
 		articuloDto.setFecha("");
 		articuloDto.setVolumen(0);
-		
+
 		autorController.crearArticulo(articuloDto);
+	}
+
+	private int getNextId() {
+		int id = autorController.getNextId();
+
+		return id + 1;
 	}
 }

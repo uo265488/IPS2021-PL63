@@ -59,5 +59,9 @@ public class AutorController {
 	public void crearArticulo(ArticuloDto articuloDto) {
 		articuloModel.crearArticulo(articuloDto);
 	}
+	
+	public Integer getNextId() {
+		return articuloModel.getNextId();
+	}
 
 }
