@@ -24,7 +24,8 @@ public class ArticuloModel {
 				articuloDto.getFicheroFuente(), articuloDto.getPalabrasClave(),
 				articuloDto.getPrimerAutor(), articuloDto.getResumen(), articuloDto.getTitulo(),
 				articuloDto.getVecesRevisado(), articuloDto.isFirma(), articuloDto.isVersionDefinitiva(),
-				articuloDto.getIdArticulo(), articuloDto.getDOI(), articuloDto.getFecha(), articuloDto.getVolumen());
+				articuloDto.getDOI(), articuloDto.getFecha(), articuloDto.getVolumen(),
+				articuloDto.getIdArticulo());
 
 	}
 
@@ -56,7 +57,7 @@ public class ArticuloModel {
 	 * @return
 	 */
 	public List<ArticuloDto> getArticulos() {
-		String sql = "SELECT * from articulos where estado = 'con el editor'";
+		String sql = "SELECT * from articulos where estado = 'con el editor' and vecesRevisado =0";
 
 		return db.executeQueryPojo(ArticuloDto.class, sql);
 	}
@@ -161,5 +162,20 @@ public class ArticuloModel {
        
         db.executeUpdate(sql, articulo.getFecha(), articulo.getDOI(), articulo.getVolumen(), articulo.getIdArticulo());
     }
+
+	public void rechazarDefinitivamente(ArticuloDto articuloDto) {
+
+		String sql = "update articulos set estado = 'rechazado', vecesRevisado=2 where idArticulo = ?";
+
+		db.executeUpdate(sql, articuloDto.getIdArticulo());
+		
+	}
+
+	public List<ArticuloDto> findById(int idArticulo) {
+		
+		String sql = "SELECT * from articulos where idArticulo=?";
+
+		return db.executeQueryPojo(ArticuloDto.class, sql, idArticulo);
+	}
 
 }

@@ -4,6 +4,8 @@ public class RevisorEntity {
 
 
 	public static final String NO_DISPONIBLE = "no disponible";
+	public static final String DISPONIBLE = "disponible";
+	public static final String SUGERIDO = "sugerido";
 
 	private int id;
 	private String nombre;

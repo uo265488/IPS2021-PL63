@@ -19,13 +19,6 @@ public class RevisorController {
 		private RevisorAsignadosView rav;
 		private int idRevisor;
 		
-		//public AutorController(AutorModel m, EditorView v) {
-			//this.model = m;
-			//this.view = v;
-			//no hay inicializacion especifica del modelo, solo de la vista
-			//this.initView();
-		//}
-		
 		public RevisorController(int idRevisor) {
 			this.model = new RevisionModel();
 			this.articuloModel = new ArticuloModel();;
@@ -35,11 +28,8 @@ public class RevisorController {
 		}
 
 		private void initView() {
-
 			rav = new RevisorAsignadosView(this, idRevisor);
 			rav.setVisible(true);
-			
-			
 		}
 		
 		public RevisionEntity getArticulosSinRevisar(int id, int idArt) {

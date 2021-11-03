@@ -27,6 +27,10 @@ import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
 
 public class EditorView extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private List<RevisorEntity> revisoresDisponibles;
 	private EditorController editorController;

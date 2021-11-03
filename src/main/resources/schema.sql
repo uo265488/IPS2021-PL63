@@ -3,6 +3,9 @@
 
 --Para giis.demo.tkrun:
 
+drop table Sugerencias;
+create table Sugerencias (idArticulo int foreing key, idRevisor int foreing key);
+
 drop table Usuarios;
 create table Usuarios(idUsuario int primary key, nombre varchar(32), tipoUsuario varchar(32));
 
@@ -20,3 +23,4 @@ create table articulosDeAutores (idArticulo int foreing key, idAutor int foreing
 
 drop table Revisiones;
 create table Revisiones (idArticulo int foreing key, idRevisor int foreing key, fecha varchar(32), comentariosAutor varchar(100), comentariosEditor varchar(100), decision varchar(50), enviarAlEditor varchar(32));
+

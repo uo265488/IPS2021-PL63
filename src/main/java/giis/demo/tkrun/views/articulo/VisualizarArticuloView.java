@@ -271,9 +271,9 @@ public class VisualizarArticuloView extends JDialog {
 	private Checkbox getCheckFirma() {
 		if (checkFirma == null) {
 			checkFirma = new Checkbox("El autor ha confirmado que es el autor del artículo y no ha incurrido en plagio.");
-			checkFirma.setState(articulo.isFirma());
 			checkFirma.setBounds(34, 482, 431, 37);
 			
+			checkFirma.setState(articulo.isFirma());
 		}
 		return checkFirma;
 	}

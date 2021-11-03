@@ -27,6 +27,36 @@ public class ArticuloEntity {
 	public static final String EN_REVISION = "en revision";
 	public static final String PUBLICADO = "publicado";
 
+	
+	
+	public ArticuloEntity(int idArticulo, String titulo, String primerAutor, String otrosAutores, String resumen,
+			String palabrasClave, String ficheroFuente, String cartaPresentacion, String cV, boolean firma,
+			String estado, int vecesRevisado, boolean versionDefinitiva, String cartaDecision, String dOI, String fecha,
+			int volumen) {
+		super();
+		this.idArticulo = idArticulo;
+		this.titulo = titulo;
+		this.primerAutor = primerAutor;
+		this.otrosAutores = otrosAutores;
+		this.resumen = resumen;
+		this.palabrasClave = palabrasClave;
+		this.ficheroFuente = ficheroFuente;
+		this.cartaPresentacion = cartaPresentacion;
+		CV = cV;
+		this.firma = firma;
+		this.estado = estado;
+		this.vecesRevisado = vecesRevisado;
+		this.versionDefinitiva = versionDefinitiva;
+		this.cartaDecision = cartaDecision;
+		DOI = dOI;
+		this.fecha = fecha;
+		this.volumen = volumen;
+	}
+
+	public ArticuloEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getIdArticulo() {
 		return idArticulo;
 	}

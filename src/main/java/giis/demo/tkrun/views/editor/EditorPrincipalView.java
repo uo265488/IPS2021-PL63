@@ -1,7 +1,10 @@
 package giis.demo.tkrun.views.editor;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -11,15 +14,13 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.util.articulo.ArticuloComparatorAutor;
 import giis.demo.util.articulo.ArticuloComparatorTitulo;
-
-import java.awt.GridLayout;
-import javax.swing.JTextField;
 
 public class EditorPrincipalView extends JDialog {
 
@@ -58,11 +59,24 @@ public class EditorPrincipalView extends JDialog {
 //			}
 //		});
 //	}
-	
+
 	public EditorPrincipalView(EditorController controller) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				cerrarVentana();
+				
+			}
+		});
+		
 		this.controller = controller;
 		this.articulos = this.controller.getArticulos();
 		initialize();
+	}
+
+	protected void cerrarVentana() {
+
+		this.dispose();
 	}
 
 	/**
@@ -88,6 +102,7 @@ public class EditorPrincipalView extends JDialog {
 		contentPane.add(getTxtFFiltrado());
 		contentPane.add(getBtnQuitarFiltros());
 	}
+
 	private JComboBox<ArticuloEntity> getCbArticulos() {
 		if (cbArticulos == null) {
 			cbArticulos = new JComboBox<ArticuloEntity>();
@@ -96,6 +111,7 @@ public class EditorPrincipalView extends JDialog {
 		}
 		return cbArticulos;
 	}
+
 	private JButton getBtnDetallesArticulo() {
 		if (btnDetallesArticulo == null) {
 			btnDetallesArticulo = new JButton("Detalles del articulo");
@@ -109,6 +125,7 @@ public class EditorPrincipalView extends JDialog {
 		}
 		return btnDetallesArticulo;
 	}
+
 	private JLabel getLbArticulos() {
 		if (lbArticulos == null) {
 			lbArticulos = new JLabel("Articulos disponibles en la revista:");
@@ -118,25 +135,25 @@ public class EditorPrincipalView extends JDialog {
 		}
 		return lbArticulos;
 	}
-	
+
 	private void setComboBoxModel() {
 		ArticuloEntity[] articulosEntity = new ArticuloEntity[this.articulos.size()];
-		for (int i = 0; i<articulosEntity.length;  i++) {
+		for (int i = 0; i < articulosEntity.length; i++) {
 			articulosEntity[i] = articulos.get(i);
 		}
-		
+
 		getCbArticulos().setModel(new DefaultComboBoxModel<ArticuloEntity>(articulosEntity));
-		
+
 	}
-	
+
 	private void launchAsignar() {
 		ArticuloEntity articulo = (ArticuloEntity) getCbArticulos().getSelectedItem();
 		EditorAsignarView eV = new EditorAsignarView(controller, articulo);
 		eV.setLocationRelativeTo(this);
-		eV.setModal(true);
+//		eV.setModal(true);
 		eV.setVisible(true);
 	}
-		
+
 	private JLabel getLbOrdenar() {
 		if (lbOrdenar == null) {
 			lbOrdenar = new JLabel("Ordenar por:");
@@ -144,6 +161,7 @@ public class EditorPrincipalView extends JDialog {
 		}
 		return lbOrdenar;
 	}
+
 	private JPanel getPnOrdenar() {
 		if (pnOrdenar == null) {
 			pnOrdenar = new JPanel();
@@ -154,6 +172,7 @@ public class EditorPrincipalView extends JDialog {
 		}
 		return pnOrdenar;
 	}
+
 	private JButton getBtnOrdenarAutor() {
 		if (btnOrdenarAutor == null) {
 			btnOrdenarAutor = new JButton("Autor");
@@ -165,6 +184,7 @@ public class EditorPrincipalView extends JDialog {
 		}
 		return btnOrdenarAutor;
 	}
+
 	private JButton getBtnOrdenarTitulo() {
 		if (btnOrdenarTitulo == null) {
 			btnOrdenarTitulo = new JButton("Titulo");
@@ -176,16 +196,17 @@ public class EditorPrincipalView extends JDialog {
 		}
 		return btnOrdenarTitulo;
 	}
-	
+
 	private void ordenarPorTitulo() {
 		articulos.sort(new ArticuloComparatorTitulo());
 		setComboBoxModel();
 	}
-	
+
 	private void ordenarPorAutor() {
 		articulos.sort(new ArticuloComparatorAutor());
 		setComboBoxModel();
 	}
+
 	private JLabel getLbFiltrar() {
 		if (lbFiltrar == null) {
 			lbFiltrar = new JLabel("Filtrar por:");
@@ -193,14 +214,16 @@ public class EditorPrincipalView extends JDialog {
 		}
 		return lbFiltrar;
 	}
+
 	private JComboBox<String> getCbBoxFiltrar() {
 		if (cbBoxFiltrar == null) {
 			cbBoxFiltrar = new JComboBox<String>();
-			cbBoxFiltrar.setModel(new DefaultComboBoxModel<String>(new String[] {"Titulo", "Autor"}));
+			cbBoxFiltrar.setModel(new DefaultComboBoxModel<String>(new String[] { "Titulo", "Autor" }));
 			cbBoxFiltrar.setBounds(75, 191, 105, 21);
 		}
 		return cbBoxFiltrar;
 	}
+
 	private JButton getBtnFiltrar() {
 		if (btnFiltrar == null) {
 			btnFiltrar = new JButton("Filtrar");
@@ -213,6 +236,7 @@ public class EditorPrincipalView extends JDialog {
 		}
 		return btnFiltrar;
 	}
+
 	private JTextField getTxtFFiltrado() {
 		if (txtFFiltrado == null) {
 			txtFFiltrado = new JTextField();
@@ -221,30 +245,31 @@ public class EditorPrincipalView extends JDialog {
 		}
 		return txtFFiltrado;
 	}
-	
+
 	private void filtrar() {
-		String filtrado =(String) getCbBoxFiltrar().getSelectedItem();
+		String filtrado = (String) getCbBoxFiltrar().getSelectedItem();
 		String filtro = getTxtFFiltrado().getText();
-		
-		if(filtrado.equals("Titulo")) {
+
+		if (filtrado.equals("Titulo")) {
 			filtrarTitulo(filtro);
 		}
-		if(filtrado.equals("Autor")) {
+		if (filtrado.equals("Autor")) {
 			filtrarAutor(filtro);
-		}	
+		}
 	}
-	
+
 	private void filtrarTitulo(String titulo) {
 		articulos = controller.getArticulosFiltradoTitulo(titulo);
-		
+
 		setComboBoxModel();
 	}
-	
+
 	private void filtrarAutor(String autor) {
 		articulos = controller.getArticulosFiltradoAutor(autor);
-		
+
 		setComboBoxModel();
 	}
+
 	private JButton getBtnQuitarFiltros() {
 		if (btnQuitarFiltros == null) {
 			btnQuitarFiltros = new JButton("Quitar filtros");
@@ -257,10 +282,10 @@ public class EditorPrincipalView extends JDialog {
 		}
 		return btnQuitarFiltros;
 	}
-	
+
 	private void quitarFiltros() {
 		articulos = controller.getArticulos();
-		
+
 		setComboBoxModel();
 	}
 }

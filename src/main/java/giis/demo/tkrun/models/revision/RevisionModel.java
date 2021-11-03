@@ -95,4 +95,15 @@ public class RevisionModel {
 		return db.executeQueryPojo(ArticuloDto.class, sql, idRevisor);
 
 	}
+
+//--------------------------------- OSCAR--------------------------------------------------------------------------
+	
+	public List<RevisionDto> findByIdArticulo(int idArticulo) {
+		String sql = "select * "
+				+ "from revisiones "
+				+ "where idArticulo = ?";
+		
+		return db.executeQueryPojo(RevisionDto.class, sql, idArticulo);
+	}
+
 }
