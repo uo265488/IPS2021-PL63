@@ -272,7 +272,7 @@ public class AutorView extends JDialog {
 	
 	private void mostrarVentanaVisualizacion() {
 		if(getCbArticulosSinPublicar().getSelectedItem() != null) {
-			VisualizarArticuloView vA = new VisualizarArticuloView((ArticuloEntity) getCbArticulosSinPublicar().getSelectedItem());
+			AutorEditarArticuloView vA = new AutorEditarArticuloView((ArticuloEntity) getCbArticulosSinPublicar().getSelectedItem());
 			vA.setVisible(true);
 		}
 	}
