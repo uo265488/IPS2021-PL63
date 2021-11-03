@@ -29,6 +29,7 @@ public class RevisorView extends JFrame {
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 2L;
 	private JPanel contentPane;
 	private JLabel lbRevision;
