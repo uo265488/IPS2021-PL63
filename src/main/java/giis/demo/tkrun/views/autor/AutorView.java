@@ -257,7 +257,8 @@ public class AutorView extends JDialog {
 	}
 	private JButton getBtVisualizar() {
 		if (btVisualizar == null) {
-			btVisualizar = new JButton("Visualizar Artículo");
+			btVisualizar = new JButton("Editar Artículo");
+			btVisualizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			btVisualizar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					mostrarVentanaVisualizacion();

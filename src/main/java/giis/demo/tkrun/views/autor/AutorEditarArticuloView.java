@@ -265,6 +265,7 @@ public class AutorEditarArticuloView extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					if(checkFields()) {
 						enviarARevista();
+						dispose();
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos");
@@ -280,7 +281,6 @@ public class AutorEditarArticuloView extends JDialog {
 	private boolean checkFields() {
 		String titulo = getTxtFTitulo().getText();
 		String autor = getTxtFAutor().getText();
-		String otrosAutores = getTxtFOtrosAutores().getText();
 		String resumen = getTxtFResumen().getText();
 		String palabrasClave = getTxtFPalabrasClave().getText();
 		String ficheroFuente = getTxtFFicheroFuente().getText();
@@ -291,9 +291,6 @@ public class AutorEditarArticuloView extends JDialog {
 			return false;
 		}
 		if(autor.replaceAll("\\s", "").length() == 0) {
-			return false;
-		}
-		if(otrosAutores.replaceAll("\\s", "").length() == 0) {
 			return false;
 		}
 		if(resumen.replaceAll("\\s", "").length() == 0) {
@@ -318,6 +315,7 @@ public class AutorEditarArticuloView extends JDialog {
 	private void enviarARevista() {
 		
 		ArticuloDto articuloDto = new ArticuloDto();
+		articuloDto.setIdArticulo(articulo.getIdArticulo());
 		articuloDto.setTitulo(getTxtFTitulo().getText());
 		articuloDto.setPrimerAutor(getTxtFAutor().getText());
 		articuloDto.setOtrosAutores(getTxtFOtrosAutores().getText());
@@ -326,6 +324,13 @@ public class AutorEditarArticuloView extends JDialog {
 		articuloDto.setFicheroFuente(getTxtFFicheroFuente().getText());
 		articuloDto.setCartaPresentacion(getTxtFCartaPresentacion().getText());
 		articuloDto.setCV(getTxtFCVAutor().getText());
+		
+		articuloDto.setCartaDecision(articulo.getCartaDecision());
+		articuloDto.setEstado(articulo.getEstado());
+		articuloDto.setDOI(articulo.getDOI());
+		articuloDto.setFirma(articulo.isFirma());
+		articuloDto.setVecesRevisado(articulo.getVecesRevisado());
+		articuloDto.setVolumen(articulo.getVolumen());
 		
 		autorController.editarArticulo(articuloDto);
 	}
