@@ -36,18 +36,18 @@ insert into articulosDeAutores(idArticulo, idAutor) values
 	(12,4);
 	
 delete from revisiones;
-insert into revisiones(idArticulo, idRevisor, comentariosAutor, comentariosEditor, decision, enviarAlEditor) values
-	(10, 1, 'Muy buen artículo', 'Debe ser publicado', 'altamente recomendable aceptar', true),
-	(10, 2, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'poco recomendable aceptar', true),
-	(10, 3, 'Buen artículo', 'Aceptable', 'aceptardo', true),
-	(8, 1, 'No me esta gustando','No aceptaria','rechazar',true),
-	(8, 2, 'Me esta gustando','Aceptaria','altamente recomendable aceptar',true),
-	(8, 3, 'Articulo normal','Se puede aceptar','aceptado',true),
-	(7, 3, 'Me esta gustando mucho','Aceptaria','altamente recomendable aceptar',false),
-	(11, 4, 'Muy buen artículo', 'Debe ser publicado', 'altamente recomendable aceptar', true),
-	(11, 5, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'poco recomendable aceptar', true),
-	(11, 6, 'Buen artículo', 'Aceptable', 'aceptardo', true),
-	(12, 3, 'No tiene nivel', 'Es un artículo pobre', 'rechazar', false);
+insert into revisiones(idArticulo, idRevisor, comentariosAutor, comentariosEditor, decision, enviarAlEditor, decisionArticulo) values
+	(10, 1, 'Muy buen artículo', 'Debe ser publicado', 'aceptar', true, true),
+	(10, 2, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'rechazar', true, true),
+	(10, 3, 'Buen artículo', 'Aceptable', 'aceptar con cambios mayores', true, true),
+	(8, 1, 'No me esta gustando','No aceptaria','rechazar',true, true),
+	(8, 2, 'Me esta gustando','Aceptaria','aceptar con cambios menores',true, true),
+	(8, 3, 'Articulo normal','Se puede aceptar','aceptar',true, true),
+	(7, 3, 'Me esta gustando mucho','Aceptaria','aceptar con cambios menores',false, true),
+	(11, 4, 'Muy buen artículo', 'Debe ser publicado', 'aceptar con cambios menores', true, true),
+	(11, 5, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'aceptar con cambios mayores', true, true),
+	(11, 6, 'Buen artículo', 'Aceptable', 'aceptar', true, true),
+	(12, 3, '', '', '', false, false);
 	
 delete from usuarios;
 insert into usuarios (idUsuario, nombre, tipoUsuario) values
