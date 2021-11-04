@@ -264,11 +264,10 @@ public class EditorAsignarView extends JDialog {
 		if (editorController.checkArticuloParaAsignar(articulo)) {
 			editorController.rechazarDefinitivimenteArticulo(articulo);
 			btnRechazar.setEnabled(false);
-			cerrarVentana();
 
 		} else {
 			JOptionPane.showMessageDialog(this, "El articulo ya ha sido asignado o ha sido rechazado ");
-			cerrarVentana();
+
 		}
 
 	}
