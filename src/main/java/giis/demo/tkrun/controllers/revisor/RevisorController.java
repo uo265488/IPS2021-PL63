@@ -5,6 +5,8 @@ import java.util.List;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
+import giis.demo.tkrun.models.dtos.ArticuloDto;
+import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.views.revisor.RevisorAsignadosView;
 import giis.demo.util.EntityAssembler;
@@ -67,5 +69,18 @@ public class RevisorController {
 		
 		public void decisionArticulo(int idRev, int idArt, boolean decision){
 			model.decisionArticulo(idRev, idArt, decision);
+		}
+
+		public RevisionDto getFecha(int idRev, int idArticulo) {
+			return model.getFecha(idRev, idArticulo);
+		}
+		
+		public void updateArticulo(ArticuloDto articulo) {
+			articuloModel.update(articulo);
+		}
+
+		public List<RevisionDto> getArticulosAceptados(int idArticulo) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 }

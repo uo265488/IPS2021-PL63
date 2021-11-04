@@ -30,13 +30,17 @@ public class DetallesMasImportantesArticulo extends JDialog {
 	private JScrollPane scrollPane_1;
 	private JTextPane txPalabrasClave;
 	private JButton btFinalizarVista;
+	@SuppressWarnings("unused")
+	private String fecha;
 
 	/**
 	 * Create the dialog.
 	 */
-	public DetallesMasImportantesArticulo(ArticuloEntity art) {
+	public DetallesMasImportantesArticulo(ArticuloEntity art, String fecha) {
+		setTitle("Detalles Artículo Revisor");
+		this.fecha = fecha;
 		this.articulo = art;
-		setBounds(100, 100, 685, 460);
+		setBounds(100, 100, 685, 539);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -77,6 +81,20 @@ public class DetallesMasImportantesArticulo extends JDialog {
 		contentPanel.add(getLbPalabrasClave());
 		contentPanel.add(getScrollPane_1());
 		contentPanel.add(getBtFinalizarVista());
+		{
+			JLabel lbFecha = new JLabel("Fecha Máxima: ");
+			lbFecha.setForeground(new Color(0, 0, 128));
+			lbFecha.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			lbFecha.setBounds(12, 376, 129, 25);
+			contentPanel.add(lbFecha);
+		}
+		{
+			JLabel lbFechaContenido = new JLabel(fecha);
+			lbFechaContenido.setFont(new Font("Tahoma", Font.BOLD, 15));
+			lbFechaContenido.setBackground(new Color(255, 248, 220));
+			lbFechaContenido.setBounds(151, 376, 508, 22);
+			contentPanel.add(lbFechaContenido);
+		}
 	}
 	private JTextPane getTxResumen() {
 		if (txResumen == null) {
@@ -126,7 +144,7 @@ public class DetallesMasImportantesArticulo extends JDialog {
 			btFinalizarVista.setBackground(new Color(139, 0, 0));
 			btFinalizarVista.setForeground(new Color(255, 255, 255));
 			btFinalizarVista.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			btFinalizarVista.setBounds(530, 387, 129, 23);
+			btFinalizarVista.setBounds(530, 466, 129, 23);
 		}
 		return btFinalizarVista;
 	}

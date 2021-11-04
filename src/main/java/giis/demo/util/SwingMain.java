@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.views.revisor.RevisorDecisionRevisionesEncomendadas;
-import giis.demo.tkrun.views.revisor.RevisorView;
 
 
 

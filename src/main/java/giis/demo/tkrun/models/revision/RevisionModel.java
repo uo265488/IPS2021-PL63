@@ -101,4 +101,11 @@ public class RevisionModel {
 		
 		db.executeUpdate(sql, condicion, idArt, idRev);
 	}
+
+	public RevisionDto getFecha(int idRev, int idArticulo) {
+		String sql = "select fecha "
+				+ "from revisiones "
+				+ "where idRevisor = ? and idArticulo = ?";
+		return db.executeQueryPojo(RevisionDto.class, sql, idRev, idArticulo).get(0);
+	}
 }

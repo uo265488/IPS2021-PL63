@@ -20,7 +20,9 @@ import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
+import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.views.articulo.DetallesMasImportantesArticulo;
+import giis.demo.util.DtoMapper;
 
 public class RevisorDecisionRevisionesEncomendadas extends JFrame {
 
@@ -168,7 +170,8 @@ public class RevisorDecisionRevisionesEncomendadas extends JFrame {
 	}
 
 	private void mostrarDetallesArticulo(ArticuloEntity art) {
-		DetallesMasImportantesArticulo vista = new DetallesMasImportantesArticulo(art);
+		RevisionDto fecha = controller.getFecha(idRev, art.getIdArticulo());
+		DetallesMasImportantesArticulo vista = new DetallesMasImportantesArticulo(art, fecha.getFecha());
 		vista.setModal(true);
 		vista.setVisible(true);
 	}
@@ -184,6 +187,7 @@ public class RevisorDecisionRevisionesEncomendadas extends JFrame {
 					else {
 						ArticuloEntity art = lista.getSelectedValue();
 						controller.decisionArticulo(idRev, art.getIdArticulo(), true);
+						List<RevisionDto> revisionesAceptadas = controller.getArticulosAceptados(art.getIdArticulo());
 						articulos.remove(art);
 						rellenarLista();
 						JOptionPane.showMessageDialog(null, "Ha aceptado la revisión del artículo " + art.getTitulo(), "Acepta la revisión", JOptionPane.INFORMATION_MESSAGE);
@@ -208,6 +212,8 @@ public class RevisorDecisionRevisionesEncomendadas extends JFrame {
 					else {
 						ArticuloEntity art = lista.getSelectedValue();
 						controller.decisionArticulo(idRev, art.getIdArticulo(), false);
+						art.setEstado(ArticuloEntity.CON_EL_EDITOR);
+						controller.updateArticulo(DtoMapper.toArticuloDto(art));
 						articulos.remove(art);
 						rellenarLista();
 						JOptionPane.showMessageDialog(null, "Ha rechazado la revisión del artículo " + art.getTitulo(), "Rechazo de revisión", JOptionPane.INFORMATION_MESSAGE);
