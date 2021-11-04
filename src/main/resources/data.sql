@@ -38,15 +38,15 @@ insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave
 	(21,'El Quijote, la obra maestra','ariadna','aceptado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
 	(22,'Teo va a la escuela','ariadna','rechazado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false);
 	
-delete from articulosDeAutores;
-insert into articulosDeAutores(idArticulo, idAutor) values
+delete from autoresSecundarios;
+insert into autoresSecundarios(idArticulo, idAutor) values
 	(7,4),
 	(8,5),
 	(8,4),
 	(9,6),
 	(10,6),
-	(11,6),
-	(12, 6);
+	(20,5),
+	(20, 6);
 	
 delete from revisiones;
 insert into revisiones(idArticulo, idRevisor, comentariosAutor, comentariosEditor, decision, enviarAlEditor) values
