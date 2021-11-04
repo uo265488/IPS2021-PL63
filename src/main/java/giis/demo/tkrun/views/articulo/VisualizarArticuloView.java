@@ -1,18 +1,20 @@
 package giis.demo.tkrun.views.articulo;
 
+import java.awt.Checkbox;
+import java.awt.Color;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import giis.demo.tkrun.controllers.entities.ArticuloEntity;
-import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import java.awt.Checkbox;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import giis.demo.tkrun.controllers.editor.EditorController;
+import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.RevisorEntity;
 
 public class VisualizarArticuloView extends JDialog {
 
@@ -39,35 +41,10 @@ public class VisualizarArticuloView extends JDialog {
 	private JLabel lblFicheroFuente;
 	private JTextField txtFicheroFuente;
 	private Checkbox checkFirma;
+	private JTextArea txtRevisoresSugeridos;
+	private JLabel lblRevisoresSugeridos;
 
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				ArticuloEntity articulo = new ArticuloEntity();
-//				articulo.setTitulo("Articulo sobre la naturaleza xd");
-//				articulo.setPrimerAutor("Oscar");
-//				articulo.setOtrosAutores("Dtoke y papo");
-//				articulo.setCartaPresentacion("cartadepresentacion.txt");
-//				articulo.setCVAutor("CVdeOscar.css");
-//				articulo.setFicheroFuente("ficheroguente.com");
-//				articulo.setFirma(true);
-//				articulo.setPalabrasClave("Queso - Fernando - Teclado");
-//				articulo.setResumen("Cada PL se dividirá en equipos, de 4 alumnos. Los alumnos formarán sus propios equipos,\r\n" + 
-//						"aunque el profesor podrá realizar cambios para que se cumplan las cifras anteriores, o cuando\r\n" + 
-//						"haya bajas o nuevas incorporaciones");
-//				
-//				try {
-//					VisualizarArticuloView frame = new VisualizarArticuloView(articulo);
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	private EditorController editorController = new EditorController();
 
 	/**
 	 * Create the frame.
@@ -75,13 +52,12 @@ public class VisualizarArticuloView extends JDialog {
 	public VisualizarArticuloView(ArticuloEntity articulo) {
 		setFocusTraversalPolicyProvider(true);
 		this.articulo = articulo;
-		
-		
+
 		setTitle("Visualizar articulo: " + articulo.getTitulo());
 		setBackground(Color.WHITE);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 508, 582);
+		setBounds(100, 100, 571, 636);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -104,6 +80,8 @@ public class VisualizarArticuloView extends JDialog {
 		contentPane.add(getLblFicheroFuente());
 		contentPane.add(getTxtFicheroFuente());
 		contentPane.add(getCheckFirma());
+		contentPane.add(getTxtRevisoresSugeridos());
+		contentPane.add(getLblRevisoresSugeridos());
 	}
 
 	private JLabel getLblTitulo() {
@@ -114,18 +92,20 @@ public class VisualizarArticuloView extends JDialog {
 		}
 		return lblTitulo;
 	}
+
 	private JTextField getTxtTitulo() {
 		if (txtTitulo == null) {
 			txtTitulo = new JTextField();
 			txtTitulo.setBackground(Color.WHITE);
 			txtTitulo.setEditable(false);
-			txtTitulo.setBounds(34, 46, 431, 20);
+			txtTitulo.setBounds(34, 46, 501, 20);
 			txtTitulo.setColumns(10);
-			
+
 			txtTitulo.setText(articulo.getTitulo());
 		}
 		return txtTitulo;
 	}
+
 	private JLabel getLblAutorPrincipal() {
 		if (lblAutorPrincipal == null) {
 			lblAutorPrincipal = new JLabel("Autor principal:");
@@ -134,30 +114,33 @@ public class VisualizarArticuloView extends JDialog {
 		}
 		return lblAutorPrincipal;
 	}
+
 	private JTextField getTxtAutorPrincipal() {
 		if (txtAutorPrincipal == null) {
 			txtAutorPrincipal = new JTextField();
 			txtAutorPrincipal.setEditable(false);
 			txtAutorPrincipal.setColumns(10);
 			txtAutorPrincipal.setBackground(Color.WHITE);
-			txtAutorPrincipal.setBounds(34, 102, 431, 20);
-			
+			txtAutorPrincipal.setBounds(34, 102, 501, 20);
+
 			txtAutorPrincipal.setText(articulo.getPrimerAutor());
 		}
 		return txtAutorPrincipal;
 	}
+
 	private JTextField getTxtAutoresSecundarios() {
 		if (txtAutoresSecundarios == null) {
 			txtAutoresSecundarios = new JTextField();
 			txtAutoresSecundarios.setEditable(false);
 			txtAutoresSecundarios.setColumns(10);
 			txtAutoresSecundarios.setBackground(Color.WHITE);
-			txtAutoresSecundarios.setBounds(34, 158, 431, 20);
-			
+			txtAutoresSecundarios.setBounds(34, 158, 501, 20);
+
 			txtAutoresSecundarios.setText(articulo.getOtrosAutores());
 		}
 		return txtAutoresSecundarios;
 	}
+
 	private JLabel getLblAutoresSecundarios() {
 		if (lblAutoresSecundarios == null) {
 			lblAutoresSecundarios = new JLabel("Autores Secundarios");
@@ -166,6 +149,7 @@ public class VisualizarArticuloView extends JDialog {
 		}
 		return lblAutoresSecundarios;
 	}
+
 	private JLabel getLblResumen() {
 		if (lblResumen == null) {
 			lblResumen = new JLabel("Resumen:");
@@ -175,6 +159,7 @@ public class VisualizarArticuloView extends JDialog {
 		}
 		return lblResumen;
 	}
+
 	private JTextArea getTxtResumen() {
 		if (txtResumen == null) {
 			txtResumen = new JTextArea();
@@ -182,12 +167,13 @@ public class VisualizarArticuloView extends JDialog {
 			txtResumen.setLineWrap(true);
 			txtResumen.setBackground(Color.WHITE);
 			txtResumen.setEditable(false);
-			txtResumen.setBounds(34, 214, 431, 100);
-			
+			txtResumen.setBounds(34, 214, 501, 100);
+
 			txtResumen.setText(articulo.getResumen());
 		}
 		return txtResumen;
 	}
+
 	private JLabel getLblPalabrasClave() {
 		if (lblPalabrasClave == null) {
 			lblPalabrasClave = new JLabel("Palabras clave:");
@@ -196,86 +182,123 @@ public class VisualizarArticuloView extends JDialog {
 		}
 		return lblPalabrasClave;
 	}
+
 	private JTextField getTxtPalabrasClave() {
 		if (txtPalabrasClave == null) {
 			txtPalabrasClave = new JTextField();
 			txtPalabrasClave.setEditable(false);
 			txtPalabrasClave.setBackground(Color.WHITE);
-			txtPalabrasClave.setBounds(34, 343, 431, 20);
+			txtPalabrasClave.setBounds(34, 343, 501, 20);
 			txtPalabrasClave.setColumns(10);
-			
+
 			txtPalabrasClave.setText(articulo.getPalabrasClave());
 		}
 		return txtPalabrasClave;
 	}
+
 	private JLabel getLblCV() {
 		if (lblCV == null) {
 			lblCV = new JLabel("CV:");
 			lblCV.setBackground(Color.WHITE);
-			lblCV.setBounds(34, 376, 169, 14);
+			lblCV.setBounds(202, 509, 169, 14);
 		}
 		return lblCV;
 	}
+
 	private JTextField getTxtCV() {
 		if (txtCV == null) {
 			txtCV = new JTextField();
 			txtCV.setEditable(false);
 			txtCV.setBackground(Color.WHITE);
-			txtCV.setBounds(34, 390, 210, 20);
+			txtCV.setBounds(202, 534, 158, 20);
 			txtCV.setColumns(10);
-			
+
 			txtCV.setText(articulo.getCV());
 		}
 		return txtCV;
 	}
+
 	private JLabel getLblCartaPresentacion() {
 		if (lblCartaPresentacion == null) {
 			lblCartaPresentacion = new JLabel("Carta de presentación:");
 			lblCartaPresentacion.setBackground(Color.WHITE);
-			lblCartaPresentacion.setBounds(254, 374, 182, 14);
+			lblCartaPresentacion.setBounds(370, 509, 161, 14);
 		}
 		return lblCartaPresentacion;
 	}
+
 	private JTextField getTxtCartaPresentacion() {
 		if (txtCartaPresentacion == null) {
 			txtCartaPresentacion = new JTextField();
 			txtCartaPresentacion.setEditable(false);
 			txtCartaPresentacion.setBackground(Color.WHITE);
-			txtCartaPresentacion.setBounds(254, 390, 211, 20);
+			txtCartaPresentacion.setBounds(370, 534, 165, 20);
 			txtCartaPresentacion.setColumns(10);
-			
+
 			txtCartaPresentacion.setText(articulo.getCartaPresentacion());
 		}
 		return txtCartaPresentacion;
 	}
+
 	private JLabel getLblFicheroFuente() {
 		if (lblFicheroFuente == null) {
 			lblFicheroFuente = new JLabel("Fichero fuente:");
 			lblFicheroFuente.setBackground(Color.WHITE);
-			lblFicheroFuente.setBounds(34, 421, 169, 14);
+			lblFicheroFuente.setBounds(34, 509, 169, 14);
 		}
 		return lblFicheroFuente;
 	}
+
 	private JTextField getTxtFicheroFuente() {
 		if (txtFicheroFuente == null) {
 			txtFicheroFuente = new JTextField();
 			txtFicheroFuente.setEditable(false);
 			txtFicheroFuente.setBackground(Color.WHITE);
-			txtFicheroFuente.setBounds(34, 440, 210, 20);
+			txtFicheroFuente.setBounds(34, 534, 158, 20);
 			txtFicheroFuente.setColumns(10);
-			
+
 			txtFicheroFuente.setText(articulo.getFicheroFuente());
 		}
 		return txtFicheroFuente;
 	}
+
 	private Checkbox getCheckFirma() {
 		if (checkFirma == null) {
-			checkFirma = new Checkbox("El autor ha confirmado que es el autor del artículo y no ha incurrido en plagio.");
-			checkFirma.setBounds(34, 482, 431, 37);
-			
+			checkFirma = new Checkbox(
+					"El autor ha confirmado que es el autor del artículo y no ha incurrido en plagio.");
+			checkFirma.setBounds(34, 560, 431, 37);
+
 			checkFirma.setState(articulo.isFirma());
 		}
 		return checkFirma;
 	}
 
+	private JTextArea getTxtRevisoresSugeridos() {
+		if (txtRevisoresSugeridos == null) {
+			txtRevisoresSugeridos = new JTextArea();
+
+			txtRevisoresSugeridos.setLineWrap(true);
+			txtRevisoresSugeridos.setEditable(false);
+			txtRevisoresSugeridos.setBorder(new LineBorder(new Color(0, 0, 0)));
+			txtRevisoresSugeridos.setBackground(Color.WHITE);
+			txtRevisoresSugeridos.setBounds(34, 398, 501, 100);
+
+			txtRevisoresSugeridos.setText(getRevisoresSugeridos());
+		}
+		return txtRevisoresSugeridos;
+	}
+
+	private String getRevisoresSugeridos() {
+
+		return editorController.getRevisoresSugeridos(articulo).stream()
+				.map(revisor -> " - " + revisor.toString() + "\n").reduce("", String::concat);
+	}
+
+	private JLabel getLblRevisoresSugeridos() {
+		if (lblRevisoresSugeridos == null) {
+			lblRevisoresSugeridos = new JLabel("Revisores sugeridos por el autor del artículo:");
+			lblRevisoresSugeridos.setBounds(34, 374, 501, 14);
+		}
+		return lblRevisoresSugeridos;
+	}
 }

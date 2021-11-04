@@ -7,17 +7,17 @@ insert into sugerencias (idArticulo, idRevisor) values
     (22, 22);
 	
 delete from revisores;
-insert into revisores(idRevisor,nombre,estado) values 
-	(1,'felipe','disponible'),
-	(2,'ernesto','disponible'),
-	(3,'maria','disponible'),
-	(4,'carmen', 'disponible'),
-	(5,'pablo','disponible'),
-	(6,'julio','disponible'),
-	(7,'ruben','no disponible'),
-	(20,'Paco','disponible'),
-	(21,'Carlos','disponible'),
-	(22,'Franchesco','disponible');
+insert into revisores(idRevisor,nombre,estado, correo, especialidad) values 
+	(1,'felipe','disponible', 'uo282362@uniovi.es', 'Biologia' ),
+	(2,'ernesto','disponible', 'uo232322@uniovi.es', 'Matemáticas' ),
+	(3,'maria','disponible', 'uo0198232@uniovi.es', 'Ciencia' ),
+	(4,'carmen', 'disponible', 'uo092843@uniovi.es', 'Prensa Rosa' ),
+	(5,'pablo','disponible', 'uo111111@uniovi.es', 'Películas' ),
+	(6,'julio','disponible', 'pepe@uniovi.es', 'Series' ),
+	(7,'ruben','no disponible', 'uo2093029@uniovi.es', 'Geografía' ),
+	(20,'Paco','sugerido', 'uo282362@uniovi.es', 'Osos' ),
+	(21,'Carlos','sugerido', 'uo2834552@uniovi.es', 'Dormir' ),
+	(22,'Franchesco','disponible', 'uo333333@uniovi.es', 'Comida' );
 	
 delete from autores;
 insert into autores(idAutor,nombre,dni) values 
@@ -34,7 +34,7 @@ insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave
 	(10,'Poesia clasica','ariadna','publicado', 'explicacion sobre la poesia clasica', 'poesia, españa', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, 1, true),
 	(11,'El Quijote, la obra maestra','ariadna','aceptado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
 	(12,'Teo va a la escuela','ariadna','rechazado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
-	(20,'Poesia clasica','ariadna','publicado', 'explicacion sobre la poesia clasica', 'poesia, españa', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, 1, true),
+	(20,'Poesia clasica','ariadna','con el editor', 'explicacion sobre la poesia clasica', 'poesia, españa', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, 1, true),
 	(21,'El Quijote, la obra maestra','ariadna','aceptado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
 	(22,'Teo va a la escuela','ariadna','rechazado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false);
 	

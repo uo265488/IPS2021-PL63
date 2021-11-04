@@ -19,12 +19,13 @@ public class ArticuloEntity {
 	private String DOI;
 	private String fecha;
 	private int volumen;
-
-	public static String CON_EL_EDITOR = "con el editor";
-	public static String BORRADOR = "borrador";
-	public static String RECHAZADO = "rechazado";
-	public static String ACEPTADO = "aceptado";
+	
+	public static final String CON_EL_EDITOR = "con el editor";
+	public static final String PENDIENTE_DE_ACEPTACION = "pendiente de aceptacion";
 	public static final String EN_REVISION = "en revision";
+	public static final String BORRADOR = "borrador";
+	public static final String RECHAZADO = "rechazado";
+	public static final String ACEPTADO = "aceptado";
 	public static final String PUBLICADO = "publicado";
 
 	

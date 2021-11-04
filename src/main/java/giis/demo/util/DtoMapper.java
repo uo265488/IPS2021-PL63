@@ -25,6 +25,8 @@ public class DtoMapper {
 		dto.setIdRevisor(rev.getId());
 		dto.setNombre(rev.getNombre());
 		dto.setEstado(rev.getEstado());
+		dto.setEspecialidad(rev.getEspecialidad());
+		dto.setCorreo(rev.getCorreo());
 
 		return dto;
 	}
@@ -58,6 +60,8 @@ public class DtoMapper {
 		dto.setIdArticulo(articulo.getIdArticulo());
 		dto.setIdRevisor(rev.getId());
 		dto.setFecha(fecha);
+		dto.setDecisionTomada(false);
+		dto.setDecisionArticulo(false);
 
 		return dto;
 

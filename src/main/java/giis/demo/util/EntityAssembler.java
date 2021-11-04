@@ -29,8 +29,9 @@ public class EntityAssembler {
 		ent.setEstado(rev.getEstado());
 		ent.setNombre(rev.getNombre());
 		ent.setId(rev.getIdRevisor());
+		ent.setCorreo(rev.getCorreo());
+		ent.setEspecialidad(rev.getEspecialidad());
 
-		
 		return ent;
 	}
 

@@ -10,6 +10,9 @@ public class RevisionEntity {
 	private String decision;
 	private boolean enviarAlEditor;
 	
+	private boolean decisionArticulo;
+	private boolean decisionTomada;
+	
 	public int getIdArticulo() {
 		return idArticulo;
 	}
@@ -49,6 +52,19 @@ public class RevisionEntity {
 	
 	public String getDecision() {
 		return decision;
+	}
+	
+	public boolean isDecisionArticulo() {
+		return decisionArticulo;
+	}
+	public void setDecisionArticulo(boolean decisionArticulo) {
+		this.decisionArticulo = decisionArticulo;
+	}
+	public boolean isDecisionTomada() {
+		return decisionTomada;
+	}
+	public void setDecisionTomada(boolean decisionTomada) {
+		this.decisionTomada = decisionTomada;
 	}
 	public void setDecision(String decision) {
 		this.decision = decision;

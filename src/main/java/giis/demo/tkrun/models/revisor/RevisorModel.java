@@ -17,9 +17,16 @@ public class RevisorModel {
 	 */
 	public void update(RevisorDto revisorDto) {
 		// validaciones (en este caso nada)
-		String sql = "update revisores set estado = ?, nombre = ? where idRevisor = ?";
-
-		db.executeUpdate(sql, revisorDto.getEstado(), revisorDto.getNombre(), revisorDto.getIdRevisor());
+		String sql = "update revisores set estado = ?, nombre = ?, correo=?, especialidad=? where idRevisor = ?";
+		
+		////TESTEO
+		System.out.print(revisorDto.getEstado());
+		System.out.print(revisorDto.getNombre());
+		System.out.print(revisorDto.getIdRevisor());
+		System.out.print(revisorDto.getCorreo());
+		System.out.print(revisorDto.getEspecialidad());
+		
+		db.executeUpdate(sql, revisorDto.getEstado(), revisorDto.getNombre(), revisorDto.getCorreo(), revisorDto.getEspecialidad(), revisorDto.getIdRevisor());
 		
 	}
 	
@@ -28,7 +35,7 @@ public class RevisorModel {
 	 */
 	public List<RevisorDto> getRevisoresDisponibles() {
 		// validaciones (en este caso nada)
-		String sql = "SELECT idRevisor, nombre, estado from revisores where estado='disponible'";
+		String sql = "SELECT * from revisores where estado='disponible'";
 
 		return db.executeQueryPojo(RevisorDto.class, sql);
 	}

@@ -10,6 +10,9 @@ public class RevisionDto {
 	private String decision;
 	private boolean enviarAlEditor;
 	
+	private boolean decisionArticulo;
+	private boolean decisionTomada;
+	
 
 	public int getIdRevisor() {
 		return idRevisor;
@@ -52,6 +55,18 @@ public class RevisionDto {
 	}
 	public void setDecision(String decision) {
 		this.decision = decision;
+	}
+	public boolean isDecisionArticulo() {
+		return decisionArticulo;
+	}
+	public void setDecisionArticulo(boolean decisionArticulo) {
+		this.decisionArticulo = decisionArticulo;
+	}
+	public boolean isDecisionTomada() {
+		return decisionTomada;
+	}
+	public void setDecisionTomada(boolean decisionTomada) {
+		this.decisionTomada = decisionTomada;
 	}
 	
 	

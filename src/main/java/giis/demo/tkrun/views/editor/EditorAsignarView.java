@@ -25,7 +25,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -86,7 +85,7 @@ public class EditorAsignarView extends JDialog {
 
 	protected void cerrarVentana() {
 		this.dispose();
-		
+
 	}
 
 	/**
@@ -95,7 +94,7 @@ public class EditorAsignarView extends JDialog {
 	public void initialize() {
 		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 895, 470);
+		setBounds(100, 100, 948, 494);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -116,7 +115,6 @@ public class EditorAsignarView extends JDialog {
 		contentPane.add(getLblFecha());
 		contentPane.add(getCbFechas());
 
-
 	}
 
 	private JButton getBtnAsignar() {
@@ -129,7 +127,7 @@ public class EditorAsignarView extends JDialog {
 				}
 			});
 			btnAsignar.setBackground(Color.GREEN);
-			btnAsignar.setBounds(484, 360, 91, 45);
+			btnAsignar.setBounds(523, 380, 91, 45);
 		}
 		return btnAsignar;
 	}
@@ -137,32 +135,30 @@ public class EditorAsignarView extends JDialog {
 	protected void checkAsignacion() {
 		if (editorController.getNumeroDeRevisoresAsignados(articulo) < 3) {
 			if (editorController.checkArticuloParaAsignar(articulo)) {
-				editorController.asignarRevisor(listDisponibles.getSelectedValue(), articulo, cbFechas.getSelectedItem().toString());
-				removeSelectedElements();
-
+				if (cbFechas.getSelectedIndex() != -1) {
+					editorController.asignarRevisor(listDisponibles.getSelectedValue(), articulo,
+							cbFechas.getSelectedItem().toString());
+					actualizarListas();
+					btnRechazar.setEnabled(false);
+					
+				} else {
+					JOptionPane.showMessageDialog(this, "Debes seleccionar una fecha. ");
+				}
 			} else {
 				JOptionPane.showMessageDialog(this, "El estado del articulo no es con el editor. ");
 			}
-		}
-		JOptionPane.showMessageDialog(this, "Ya se ha asignado el numero maximo de revisores: 3. ");
-
-	}
-
-	private void removeSelectedElements() {
-		DefaultListModel<RevisorEntity> dlm = (DefaultListModel) listDisponibles.getModel();
-		int count = listDisponibles.getSelectedIndices().length;
-
-		for (int i = 0; i < count; i++) {
-			dlm.removeElementAt(listDisponibles.getSelectedIndex());
+		} else {
+			JOptionPane.showMessageDialog(this, "Ya se ha asignado el numero maximo de revisores: 3. ");
 		}
 
 	}
+
 
 	private JLabel getLblRevisoresDisponibles() {
 		if (lblRevisoresDisponibles == null) {
 			lblRevisoresDisponibles = new JLabel("Revisores disponibles para el artículo:");
 			lblRevisoresDisponibles.setDisplayedMnemonic('S');
-			lblRevisoresDisponibles.setBounds(318, 133, 213, 14);
+			lblRevisoresDisponibles.setBounds(348, 148, 257, 14);
 		}
 		return lblRevisoresDisponibles;
 	}
@@ -180,7 +176,7 @@ public class EditorAsignarView extends JDialog {
 			txtArticulo = new JTextField();
 			txtArticulo.setEditable(false);
 			txtArticulo.setBackground(Color.WHITE);
-			txtArticulo.setBounds(53, 83, 478, 20);
+			txtArticulo.setBounds(53, 83, 439, 20);
 			txtArticulo.setColumns(10);
 
 			txtArticulo.setText(this.articulo.toString());
@@ -198,7 +194,7 @@ public class EditorAsignarView extends JDialog {
 				}
 			});
 			btnVisualizar.setMnemonic('V');
-			btnVisualizar.setBounds(541, 82, 109, 23);
+			btnVisualizar.setBounds(505, 82, 109, 23);
 		}
 		return btnVisualizar;
 	}
@@ -216,123 +212,178 @@ public class EditorAsignarView extends JDialog {
 	}
 
 	private JScrollPane getScDisponibles() {
-		if (scDisponibles == null) {
-			scDisponibles = new JScrollPane();
-			scDisponibles.setBackground(Color.WHITE);
-			scDisponibles.setBounds(318, 158, 257, 192);
-			scDisponibles.setViewportView(getListDisponibles());
-			scDisponibles.setVisible(true);
-		}
+
+		scDisponibles = new JScrollPane();
+		scDisponibles.setBackground(Color.WHITE);
+		scDisponibles.setBounds(348, 175, 271, 192);
+		scDisponibles.setViewportView(getListDisponibles());
+
 		return scDisponibles;
 	}
 
 	private JList<RevisorEntity> getListDisponibles() {
-		if (listDisponibles == null) {
-			listDisponibles = new JList<RevisorEntity>();
-			listDisponibles.setBorder(new LineBorder(new Color(0, 0, 0)));
-			listDisponibles.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			listDisponibles.setBackground(Color.WHITE);
+		listDisponibles = new JList<RevisorEntity>();
+		listDisponibles.setBorder(new LineBorder(new Color(0, 0, 0)));
+		listDisponibles.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listDisponibles.setBackground(Color.WHITE);
 
-			listDisponibles.setModel(addModel(revisoresDisponibles));
-		}
-		return listDisponibles;
-	}
-
-	private ListModel<RevisorEntity> addModel(List<RevisorEntity> list) {
 		DefaultListModel<RevisorEntity> model = new DefaultListModel<RevisorEntity>();
 
-		for (RevisorEntity ent : list) {
+		for (RevisorEntity ent : editorController.getRevisoresDisponibles()) {
 			model.addElement(ent);
+
+			// TESTEO
+			System.out.print(ent.toString());
 		}
-		return model;
+
+		listDisponibles.setModel(model);
+		listDisponibles.setSelectedIndex(0);
+
+		return listDisponibles;
 	}
 
 	private JButton getBtnRechazar() {
 		if (btnRechazar == null) {
-			btnRechazar = new JButton("Rechazar");
+			btnRechazar = new JButton("Rechazar artículo");
 			btnRechazar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-//					rechazarArticulo();
+					rechazarArticulo();
 				}
 			});
 			btnRechazar.setBackground(Color.RED);
-			btnRechazar.setBounds(698, 77, 109, 32);
+			btnRechazar.setBounds(642, 77, 271, 32);
+			
+			if (revisoresAsignados.size() > 0) {
+				btnRechazar.setEnabled(false);
+			}
 		}
 		return btnRechazar;
 	}
 
-//	protected void rechazarArticulo() {
-//		if (editorController.checkArticuloParaAsignar(articulo)) {
-//			editorController.rechazarDefinitivimenteArticulo(articulo);
-//			cerrarVentana();
-//
-//		} else {
-//			JOptionPane.showMessageDialog(this, "El articulo ya ha sido asignado o ha sido rechazado ");
-//			cerrarVentana();
-//		}
-//
-//	}
+	protected void rechazarArticulo() {
+		if (editorController.checkArticuloParaAsignar(articulo)) {
+			editorController.rechazarDefinitivimenteArticulo(articulo);
+			btnRechazar.setEnabled(false);
+			cerrarVentana();
+
+		} else {
+			JOptionPane.showMessageDialog(this, "El articulo ya ha sido asignado o ha sido rechazado ");
+			cerrarVentana();
+		}
+
+	}
 
 	private JScrollPane getScSugeridos() {
-		if (scSugeridos == null) {
-			scSugeridos = new JScrollPane();
-			scSugeridos.setBorder(new LineBorder(new Color(130, 135, 144)));
-			scSugeridos.setBackground(Color.WHITE);
-			scSugeridos.setBounds(53, 157, 245, 192);
-			scSugeridos.setViewportView(getListSugeridos());
-		}
+
+		scSugeridos = new JScrollPane();
+		scSugeridos.setBorder(new LineBorder(new Color(130, 135, 144)));
+		scSugeridos.setBackground(Color.WHITE);
+		scSugeridos.setBounds(53, 175, 266, 192);
+		scSugeridos.setViewportView(getListSugeridos());
+
 		return scSugeridos;
 	}
 
 	private JList<RevisorEntity> getListSugeridos() {
-		if (listSugeridos == null) {
-			listSugeridos = new JList<RevisorEntity>();
-			listSugeridos.setBorder(new LineBorder(new Color(0, 0, 0)));
-			listSugeridos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			listSugeridos.setBackground(Color.WHITE);
 
-			listDisponibles.setModel(addModel(this.revisoresSugeridos));
+		listSugeridos = new JList<RevisorEntity>();
+		listSugeridos.setBorder(new LineBorder(new Color(0, 0, 0)));
+		listSugeridos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listSugeridos.setBackground(Color.WHITE);
+
+		DefaultListModel<RevisorEntity> model = new DefaultListModel<RevisorEntity>();
+
+		for (RevisorEntity ent : editorController.getRevisoresSugeridos(articulo)) {
+			model.addElement(ent);
+
+			// TESTEO
+			System.out.print(ent.toString());
 		}
+
+		listSugeridos.setModel(model);
+		listSugeridos.setSelectedIndex(0);
+
 		return listSugeridos;
 	}
 
 	private JButton getBtnAñadirRevisor() {
 		if (btnAñadirRevisor == null) {
 			btnAñadirRevisor = new JButton("Añadir revisor");
+			btnAñadirRevisor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					añadirRevisor();
+				}
+			});
 			btnAñadirRevisor.setBackground(Color.GREEN);
 			btnAñadirRevisor.setMnemonic('ñ');
-			btnAñadirRevisor.setBounds(53, 360, 245, 45);
+			btnAñadirRevisor.setBounds(53, 380, 266, 45);
+
 		}
 		return btnAñadirRevisor;
 	}
 
+	/**
+	 * Añade el revisor selecionado a la lista de revisores
+	 */
+	protected void añadirRevisor() {
+		if (listSugeridos.getSelectedIndex() != -1) {
+			if (editorController.añadirRevisorAListaDeRevisores(listSugeridos.getSelectedValue())) {
+
+				actualizarListas();
+				JOptionPane.showMessageDialog(this, "El revisor ha sido añadido a la lista de revisores disponibles. ");
+			} else {
+				JOptionPane.showMessageDialog(this,
+						"El revisor seleccionado ya pertenece a la lista de revisores disponibles. ");
+			}
+
+		} else
+			JOptionPane.showMessageDialog(this, "Debes seleccionar un revisor. ");
+
+	}
+
+	private void actualizarListas() {
+
+		scAsignados.setViewportView(getListAsignados());
+		scSugeridos.setViewportView(getListSugeridos());
+		scDisponibles.setViewportView(getListDisponibles());
+
+		scAsignados.updateUI();
+		scSugeridos.updateUI();
+		scDisponibles.updateUI();
+	}
+
 	private JScrollPane getScAsignados() {
-		if (scAsignados == null) {
-			scAsignados = new JScrollPane();
-			scAsignados.setBackground(Color.WHITE);
-			scAsignados.setBounds(595, 158, 245, 192);
-			scAsignados.setViewportView(getListAsignados());
-		}
+
+		scAsignados = new JScrollPane();
+		scAsignados.setBackground(Color.WHITE);
+		scAsignados.setBounds(642, 175, 271, 192);
+		scAsignados.setViewportView(getListAsignados());
+
 		return scAsignados;
 	}
 
 	private JList<RevisorEntity> getListAsignados() {
-		if (listAsignados == null) {
-			listAsignados = new JList<RevisorEntity>();
-			listAsignados.setBorder(new LineBorder(new Color(0, 0, 0)));
-			listAsignados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			listAsignados.setBackground(Color.WHITE);
+		listAsignados = new JList<RevisorEntity>();
+		listAsignados.setBorder(new LineBorder(new Color(0, 0, 0)));
+		listAsignados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listAsignados.setBackground(Color.WHITE);
 
-			listDisponibles.setModel(addModel(this.revisoresAsignados));
+		DefaultListModel<RevisorEntity> model = new DefaultListModel<RevisorEntity>();
+
+		for (RevisorEntity ent : editorController.getRevisoresAsignados(articulo)) {
+			model.addElement(ent);
 		}
+
+		listAsignados.setModel(model);
+
 		return listAsignados;
 	}
 
 	private JLabel getLblAsignados() {
 		if (lblAsignados == null) {
-			lblAsignados = new JLabel("Revisores asignados:");
+			lblAsignados = new JLabel("Propuestas de asignación:");
 			lblAsignados.setDisplayedMnemonic('S');
-			lblAsignados.setBounds(594, 133, 213, 14);
+			lblAsignados.setBounds(642, 145, 246, 14);
 		}
 		return lblAsignados;
 	}
@@ -341,47 +392,49 @@ public class EditorAsignarView extends JDialog {
 		if (lblRevisoresSugeridos == null) {
 			lblRevisoresSugeridos = new JLabel("Revisores sugeridos por el autor:");
 			lblRevisoresSugeridos.setDisplayedMnemonic('S');
-			lblRevisoresSugeridos.setBounds(53, 133, 213, 14);
+			lblRevisoresSugeridos.setBounds(49, 148, 213, 14);
 		}
 		return lblRevisoresSugeridos;
 	}
+
 	private JLabel getLblFecha() {
 		if (lblFecha == null) {
 			lblFecha = new JLabel("Fecha límite:");
 			lblFecha.setLabelFor(getCbFechas());
 			lblFecha.setDisplayedMnemonic('F');
-			lblFecha.setBounds(318, 360, 83, 14);
+			lblFecha.setBounds(348, 380, 93, 14);
 		}
 		return lblFecha;
 	}
+
 	private JComboBox<LocalDate> getCbFechas() {
 		if (cbFechas == null) {
 			cbFechas = new JComboBox<LocalDate>();
-			cbFechas.setBounds(318, 382, 156, 23);
-			
+			cbFechas.setBounds(348, 402, 163, 23);
+
 			cbFechas.setModel(generarComboBoxModel());
-			
+
 		}
 		return cbFechas;
 	}
 
 	private ComboBoxModel<LocalDate> generarComboBoxModel() {
-		DefaultComboBoxModel<LocalDate> model= new DefaultComboBoxModel<>();
-		
+		DefaultComboBoxModel<LocalDate> model = new DefaultComboBoxModel<>();
+
 		model.addAll(generarFechas());
-		
+
 		return model;
 	}
 
 	/**
 	 * Genera una lista de fechas
+	 * 
 	 * @return
 	 */
 	private List<LocalDate> generarFechas() {
 		LocalDate start = LocalDate.now();
 		LocalDate end = LocalDate.now().plusMonths(1).with(TemporalAdjusters.lastDayOfMonth());
-		return Stream.iterate(start, date -> date.plusDays(1))
-		    .limit(ChronoUnit.DAYS.between(start, end))
-		    .collect(Collectors.toList()); 
+		return Stream.iterate(start, date -> date.plusDays(1)).limit(ChronoUnit.DAYS.between(start, end))
+				.collect(Collectors.toList());
 	}
 }
