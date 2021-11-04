@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
+import giis.demo.tkrun.views.revisor.RevisorDecisionRevisionesEncomendadas;
 import giis.demo.tkrun.views.revisor.RevisorView;
 
 
@@ -62,10 +63,11 @@ public class SwingMain {
 		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				//new EditorController(generarArticulo());
-				new RevisorView(new RevisorController(1));
+				//new RevisorView(new RevisorController(1));
 				//new AutorView(new AutorController());
 				//new EditorViewDecisionArticulo(new EditorController());
 				//new UserController();
+				new RevisorDecisionRevisionesEncomendadas(new RevisorController(0));
 			}
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));

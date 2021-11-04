@@ -31,7 +31,7 @@ public class RevisorController {
 			this.articuloModel = new ArticuloModel();;
 			this.idRevisor = idRevisor;
 			//no hay inicializacion especifica del modelo, solo de la vista
-			this.initView();
+			//this.initView();
 		}
 
 		private void initView() {
@@ -59,5 +59,13 @@ public class RevisorController {
 		
 		public List<ArticuloEntity> getArticulosAsignados(int id){
 			return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosAsignados(id));
+		}
+		
+		public List<ArticuloEntity> getArticulosSinResponder(int id){
+			return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosSinResponder(id));
+		}
+		
+		public void decisionArticulo(int idRev, int idArt, boolean decision){
+			model.decisionArticulo(idRev, idArt, decision);
 		}
 }

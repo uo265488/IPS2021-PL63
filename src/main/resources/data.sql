@@ -17,13 +17,14 @@ insert into autores(idAutor,nombre,dni) values
 	(6,'ariadna','810582');
 	
 delete from articulos;
-insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV,firma, vecesRevisado, versionDefinitiva) values 
+insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV, firma, vecesRevisado, versionDefinitiva) values 
 	(7,'Economia Española','antonio','en revision', 'La economia española esta en decadencia', 'economia, euro', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
 	(8,'Gasol se retira','lucia','con el editor', 'Gasol anuncia su retirada del baloncesto', 'gasol, leyenda, Barca', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
 	(9,'La caida de Facebook','ariadna','aceptado', 'Se caen los servidores de Facebook durante 6 horas con perdidas multimillonarias', 'facebook, red, caida', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
 	(10,'Poesia clasica','ariadna','publicado', 'explicacion sobre la poesia clasica', 'poesia, españa', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, 1, true),
 	(11,'El Quijote, la obra maestra','ariadna','aceptado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
-	(12,'El Quijote, la obra maestra','antonio','en revision', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false);
+	(12,'Xavi será nuevo técnico del Barcelona','antonio','con el editor', 'Xavi será nuevo DT', 'fútbol, leyenda, Xavi, Barcelona', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
+	(13,'Nuevo Articulo','lucia','con el editor', 'algo', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false);
 	
 delete from articulosDeAutores;
 insert into articulosDeAutores(idArticulo, idAutor) values
@@ -33,21 +34,23 @@ insert into articulosDeAutores(idArticulo, idAutor) values
 	(9,6),
 	(10,6),
 	(11,6),
-	(12,4);
+	(12,4),
+	(13,5);
 	
 delete from revisiones;
-insert into revisiones(idArticulo, idRevisor, comentariosAutor, comentariosEditor, decision, enviarAlEditor, decisionArticulo) values
-	(10, 1, 'Muy buen artículo', 'Debe ser publicado', 'aceptar', true, true),
-	(10, 2, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'rechazar', true, true),
-	(10, 3, 'Buen artículo', 'Aceptable', 'aceptar con cambios mayores', true, true),
-	(8, 1, 'No me esta gustando','No aceptaria','rechazar',true, true),
-	(8, 2, 'Me esta gustando','Aceptaria','aceptar con cambios menores',true, true),
-	(8, 3, 'Articulo normal','Se puede aceptar','aceptar',true, true),
-	(7, 3, 'Me esta gustando mucho','Aceptaria','aceptar con cambios menores',false, true),
-	(11, 4, 'Muy buen artículo', 'Debe ser publicado', 'aceptar con cambios menores', true, true),
-	(11, 5, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'aceptar con cambios mayores', true, true),
-	(11, 6, 'Buen artículo', 'Aceptable', 'aceptar', true, true),
-	(12, 3, '', '', '', false, false);
+insert into revisiones(idArticulo, idRevisor, comentariosAutor, comentariosEditor, decision, enviarAlEditor, decisionArticulo, decisionTomada) values
+	(10, 1, 'Muy buen artículo', 'Debe ser publicado', 'aceptar', true, true, true),
+	(10, 2, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'rechazar', true, true, true),
+	(10, 3, 'Buen artículo', 'Aceptable', 'aceptar con cambios mayores', true, true, true),
+	(8, 1, 'No me esta gustando','No aceptaria','rechazar',true, true, true),
+	(8, 2, 'Me esta gustando','Aceptaria','aceptar con cambios menores',true, true, true),
+	(8, 3, 'Articulo normal','Se puede aceptar','aceptar',true, true, true),
+	(7, 3, 'Me esta gustando mucho','Aceptaria','aceptar con cambios menores',false, true, true),
+	(11, 4, 'Muy buen artículo', 'Debe ser publicado', 'aceptar con cambios menores', true, true, true),
+	(11, 5, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'aceptar con cambios mayores', true, true, true),
+	(11, 6, 'Buen artículo', 'Aceptable', 'aceptar', true, true, true),
+	(12, 3, '', '', '', false, false, false),
+	(13, 3, '', '', '', false, false, false);
 	
 delete from usuarios;
 insert into usuarios (idUsuario, nombre, tipoUsuario) values

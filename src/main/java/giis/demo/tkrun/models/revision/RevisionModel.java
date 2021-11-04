@@ -95,4 +95,10 @@ public class RevisionModel {
 		return db.executeQueryPojo(ArticuloDto.class, sql, idRevisor);
 
 	}
+	
+	public void decisionArticulo(int idRev, int idArt, boolean condicion) {
+		String sql = "update revisiones set decisionArticulo = true, decisionTomada = ? where idArticulo = ? and idRevisor = ?";
+		
+		db.executeUpdate(sql, condicion, idArt, idRev);
+	}
 }
