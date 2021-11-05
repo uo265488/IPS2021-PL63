@@ -19,4 +19,5 @@ drop table ArticulosDeAutores;
 create table articulosDeAutores (idArticulo int foreing key, idAutor int foreing key);
 
 drop table Revisiones;
-create table Revisiones (idArticulo int foreing key, idRevisor int foreing key, fecha varchar(32), comentariosAutor varchar(100), comentariosEditor varchar(100), decision varchar(50), enviarAlEditor varchar(32));
+create table Revisiones (idArticulo int foreing key, idRevisor int foreing, numeroRevision int, fecha varchar(32), comentariosAutor varchar(100), comentariosEditor varchar(100), decision varchar(50), enviarAlEditor varchar(32), estadoDeLaPropuesta varchar(32),
+	constraint pk_revisiones primary key (idArticulo, idRevisor, numeroRevision));

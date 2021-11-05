@@ -52,12 +52,21 @@ public class RevisorController {
 			return EntityAssembler.toArticuloEntityList(model.articulosSinRevisar(id));
 		}
 		
-		public void actualizarRevision(String comAutor, String comEditor, String decision, boolean enviarAlEditor, int id, int idArt) {
+		public void actualizarRevision(String comAutor, String comEditor, String decision, boolean enviarAlEditor, int id, int idArt, int numeroRevision) {
 			
-			model.revisarArticulo(comAutor, comEditor, decision, enviarAlEditor, idArt, id);
+			model.revisarArticulo(comAutor, comEditor, decision, enviarAlEditor, idArt, id, numeroRevision);
 		}
 		
 		public List<ArticuloEntity> getArticulosAsignados(int id){
 			return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosAsignados(id));
+		}
+
+		public int numeroRevisiones(int idArt, int idRev) {
+			List<RevisionEntity> revisiones = EntityAssembler.toRevisionEntityList(model.numeroRevisiones(idRev, idArt));
+			return revisiones.size();
+		}
+
+		public RevisionEntity getRevisionAnterior(int idArt, int idRev) {
+			return EntityAssembler.toRevisionEntity(model.primeraRevision(idRev, idArt));
 		}
 }
