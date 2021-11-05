@@ -51,18 +51,6 @@ public class EditorViewComentariosArticulo extends JDialog {
 	private JTextArea txtRevisiones;
 	private JButton btnEnviarComentariosAutor;
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		try {
-			EditorViewComentariosArticulo1 dialog = new EditorViewComentariosArticulo1();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
 
 	/**
 	 * Create the dialog.
@@ -277,6 +265,6 @@ public class EditorViewComentariosArticulo extends JDialog {
 		comentariosAutor.setLocationRelativeTo(this);
 		comentariosAutor.setVisible(true);
 	}
-	
+
 
 }
