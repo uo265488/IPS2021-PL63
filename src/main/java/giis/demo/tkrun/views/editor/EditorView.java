@@ -124,7 +124,7 @@ public class EditorView extends JDialog {
 
 	protected void checkAsignacion() {
 		if (listRevisores.getSelectedValuesList().size() == 3) {
-			editorController.asignarRevisoresAlArticulo(getRevisoresSeleccionados(), articulo, "hoy"); // dar opcion de
+//			editorController.asignarRevisoresAlArticulo(getRevisoresSeleccionados(), articulo, "hoy"); // dar opcion de
 																										// escoger fecha
 			removeSelectedElements();
 			

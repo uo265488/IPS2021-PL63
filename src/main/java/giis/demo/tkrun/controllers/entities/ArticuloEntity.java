@@ -205,6 +205,16 @@ public class ArticuloEntity {
 
 	public void setVolumen(int volumen) {
 		this.volumen = volumen;
+	}
+
+	public String toStringForTable() {
+		String str = "" + idArticulo;
+		if(titulo != null)
+			str += " - " + titulo;
+		if(primerAutor != null)
+			str += " - Autor: " + primerAutor;
+
+		return str;
 	}	
 }
 

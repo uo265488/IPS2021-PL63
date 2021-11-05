@@ -1,11 +1,14 @@
 package giis.demo.tkrun.controllers.articulo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.autor.AutorModel;
 import giis.demo.tkrun.models.autoresSecundarios.AutoresSecundariosModel;
+import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.util.DtoMapper;
 import giis.demo.util.EntityAssembler;
 
@@ -14,6 +17,7 @@ public class ArticuloController {
 	private ArticuloModel artModel = new ArticuloModel();
 	private AutorModel autorModel =  new AutorModel();
 	private AutoresSecundariosModel secundariosModel = new AutoresSecundariosModel();
+	private RevisionModel revisionesModel = new RevisionModel();
 
 	public ArticuloController() {
 		this.artModel = new ArticuloModel();
@@ -99,6 +103,30 @@ public class ArticuloController {
 		} 
 
 		return "El artículo no tiene autores secundarios. ";
+	}
+
+	public ArticuloEntity getArticuloById(int idArticulo) {
+		return EntityAssembler.toArticuloEntity(artModel.findById(idArticulo).get(0));
+	}
+
+	public List<ArticuloEntity> getArticulosParaReasignar() {
+		List<RevisionEntity> revisiones = getRevisionesRechazadas();
+		List<ArticuloEntity> articulos = new ArrayList<>();
+		
+		for(RevisionEntity r : revisiones) {
+			if (revisionesModel.getRevisionesPendientesDeUnArticulo(r.getIdArticulo()).size() < 3) {
+				articulos.add(EntityAssembler.toArticuloEntity(artModel.findById(r.getIdArticulo()).get(0)));
+			}
+		}
+		
+		return articulos;
+
+		
+		
+	}
+	
+	public List<RevisionEntity> getRevisionesRechazadas() {
+	    return EntityAssembler.toRevisionEntityList(revisionesModel.findRevisionesRechazadas());
 	}
 
 }

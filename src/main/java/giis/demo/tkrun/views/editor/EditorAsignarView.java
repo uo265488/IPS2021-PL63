@@ -58,9 +58,7 @@ public class EditorAsignarView extends JDialog {
 	private JLabel lblRevisoresSugeridos;
 
 	private EditorController editorController = new EditorController();
-	private List<RevisorEntity> revisoresDisponibles;
 	private ArticuloEntity articulo;
-	private List<RevisorEntity> revisoresSugeridos;
 	private List<RevisorEntity> revisoresAsignados;
 	private JLabel lblFecha;
 	private JComboBox<LocalDate> cbFechas;
@@ -76,8 +74,6 @@ public class EditorAsignarView extends JDialog {
 		setResizable(false);
 
 		this.articulo = articulo;
-		this.revisoresDisponibles = editorController.getRevisoresDisponibles();
-		this.revisoresSugeridos = editorController.getRevisoresSugeridos(articulo);
 		this.revisoresAsignados = editorController.getRevisoresAsignados(articulo);
 
 		initialize();
@@ -231,9 +227,6 @@ public class EditorAsignarView extends JDialog {
 
 		for (RevisorEntity ent : editorController.getRevisoresDisponibles()) {
 			model.addElement(ent);
-
-			// TESTEO
-			System.out.print(ent.toString());
 		}
 
 		listDisponibles.setModel(model);

@@ -60,8 +60,10 @@ public class DtoMapper {
 		dto.setIdArticulo(articulo.getIdArticulo());
 		dto.setIdRevisor(rev.getId());
 		dto.setFecha(fecha);
-		dto.setDecisionTomada(false);
-		dto.setDecisionArticulo(false);
+
+//		dto.setDecisionTomada(false);
+//		dto.setDecisionArticulo(false);
+		dto.setEstadoDeLaPropuesta("PENDIENTE");
 
 		return dto;
 

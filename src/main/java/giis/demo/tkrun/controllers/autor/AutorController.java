@@ -6,7 +6,6 @@ import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.autor.AutorModel;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
-import giis.demo.tkrun.views.autor.AutorCreacionView;
 import giis.demo.tkrun.views.autor.MenuAutor;
 import giis.demo.util.EntityAssembler;
 

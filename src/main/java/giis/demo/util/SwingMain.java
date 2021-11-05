@@ -8,9 +8,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.user.UserController;
 import giis.demo.tkrun.views.editor.EditorAsignarView;
+import giis.demo.tkrun.views.editor.EditorPrincipalView;
 
 
 
@@ -61,9 +63,12 @@ public class SwingMain {
 		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
 		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				EditorAsignarView frame = new EditorAsignarView(new ArticuloEntity
-						(20,"Poesia clasica","ariadna","publicado", "explicacion sobre la poesia clasica", "poesia, españa", "FicheroFuente.pdf", "Presentacion.pdf", "cv.pdf", true, "cv.pdf", 1, true,"cv.pdf", "cv.pdf", "cv.pdf", 1));
-				frame.setVisible(true);
+//				EditorAsignarView frame = new EditorAsignarView(new ArticuloEntity
+//						(20,"Poesia clasica","ariadna","publicado", "explicacion sobre la poesia clasica", "poesia, españa", "FicheroFuente.pdf", "Presentacion.pdf", "cv.pdf", true, "cv.pdf", 1, true,"cv.pdf", "cv.pdf", "cv.pdf", 1));
+//				frame.setVisible(true);
+				EditorPrincipalView v = new EditorPrincipalView(new EditorController());
+				
+				v.setVisible(true);
 			}
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));

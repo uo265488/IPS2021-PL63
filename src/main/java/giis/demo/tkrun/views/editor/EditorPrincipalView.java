@@ -43,6 +43,7 @@ public class EditorPrincipalView extends JDialog {
 	private JButton btnFiltrar;
 	private JTextField txtFFiltrado;
 	private JButton btnQuitarFiltros;
+	private JButton btnVerEstadoAsignaciones;
 
 //	/**
 //	 * Launch the application.
@@ -101,6 +102,7 @@ public class EditorPrincipalView extends JDialog {
 		contentPane.add(getBtnFiltrar());
 		contentPane.add(getTxtFFiltrado());
 		contentPane.add(getBtnQuitarFiltros());
+		contentPane.add(getBtnVerEstadoAsignaciones());
 	}
 
 	private JComboBox<ArticuloEntity> getCbArticulos() {
@@ -121,7 +123,7 @@ public class EditorPrincipalView extends JDialog {
 				}
 			});
 			btnDetallesArticulo.setMnemonic('D');
-			btnDetallesArticulo.setBounds(319, 284, 150, 29);
+			btnDetallesArticulo.setBounds(319, 284, 172, 29);
 		}
 		return btnDetallesArticulo;
 	}
@@ -148,7 +150,7 @@ public class EditorPrincipalView extends JDialog {
 
 	private void launchAsignar() {
 		ArticuloEntity articulo = (ArticuloEntity) getCbArticulos().getSelectedItem();
-		EditorAsignarView eV = new EditorAsignarView(controller, articulo);
+		EditorAsignarView eV = new EditorAsignarView(articulo);
 		eV.setLocationRelativeTo(this);
 //		eV.setModal(true);
 		eV.setVisible(true);
@@ -287,5 +289,25 @@ public class EditorPrincipalView extends JDialog {
 		articulos = controller.getArticulos();
 
 		setComboBoxModel();
+	}
+	private JButton getBtnVerEstadoAsignaciones() {
+		if (btnVerEstadoAsignaciones == null) {
+			btnVerEstadoAsignaciones = new JButton("Ver estado de las propuestas");
+			btnVerEstadoAsignaciones.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					mostrarVentanaEstadoDeLasAsignacionesView();
+				}
+			});
+			btnVerEstadoAsignaciones.setBounds(319, 250, 172, 23);
+		}
+		return btnVerEstadoAsignaciones;
+	}
+
+	protected void mostrarVentanaEstadoDeLasAsignacionesView() {
+		EstadoDeAsignacionesView v = new EstadoDeAsignacionesView();
+		v.setLocationRelativeTo(this);
+//		eV.setModal(true);
+		v.setVisible(true);
+		
 	}
 }

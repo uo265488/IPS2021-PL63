@@ -49,17 +49,17 @@ insert into autoresSecundarios(idArticulo, idAutor) values
 	(20, 6);
 	
 delete from revisiones;
-insert into revisiones(idArticulo, idRevisor, comentariosAutor, comentariosEditor, decision, enviarAlEditor) values
-	(10, 1, 'Muy buen artículo', 'Debe ser publicado', 'altamente recomendable aceptar', true),
-	(10, 2, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'poco recomendable aceptar', true),
-	(10, 3, 'Buen artículo', 'Aceptable', 'aceptardo', true),
-	(8, 1, 'Me esta gustando','Aceptaria','altamente recomendable aceptar',true),
-	(8, 2, 'Me esta gustando','Aceptaria','altamente recomendable aceptar',true),
-	(8, 3, 'Me esta gustando','Aceptaria','altamente recomendable aceptar',true),
-	(7, 3, 'Me esta gustando mucho','Aceptaria','altamente recomendable aceptar',false),
-	(11, 4, 'Muy buen artículo', 'Debe ser publicado', 'altamente recomendable aceptar', true),
-	(11, 5, 'Mejorable', 'Tengo mis dudas de aceptarlo', 'poco recomendable aceptar', true),
-	(11, 6, 'Buen artículo', 'Aceptable', 'aceptardo', true);
+insert into revisiones(idArticulo, idRevisor, fecha, comentariosAutor, comentariosEditor, decision, enviarAlEditor, estadoDeLaPropuesta) values
+	(10, 1, '2020-10-2','Muy buen artículo', 'Debe ser publicado', 'altamente recomendable aceptar', true, 'ACEPTADA'),
+	(10, 2, '2020-10-2','Mejorable', 'Tengo mis dudas de aceptarlo', 'poco recomendable aceptar', true, 'ACEPTADA'),
+	(10, 3, '2020-10-2','Buen artículo', 'Aceptable', 'aceptardo', true, 'RECHAZADA'),
+	(8, 1, '2020-10-2','Me esta gustando','Aceptaria','altamente recomendable aceptar',true, 'ACEPTADA'),
+	(8, 2, '2020-10-2','Me esta gustando','Aceptaria','altamente recomendable aceptar',true, 'RECHAZADA'),
+	(8, 3,'2020-10-2', 'Me esta gustando','Aceptaria','altamente recomendable aceptar',true, 'PENDIENTE'),
+	(7, 3, '2020-10-2','Me esta gustando mucho','Aceptaria','altamente recomendable aceptar',false, 'RECHAZADA'),
+	(11, 4, '2020-10-2','Muy buen artículo', 'Debe ser publicado', 'altamente recomendable aceptar', true, 'ACEPTADA'),
+	(11, 5,'2020-10-2', 'Mejorable', 'Tengo mis dudas de aceptarlo', 'poco recomendable aceptar', true, 'PENDIENTE'),
+	(11, 6, '2020-10-2','Buen artículo', 'Aceptable', 'aceptardo', true, 'RECHAZADA');
 	
 delete from usuarios;
 insert into usuarios (idUsuario, nombre, tipoUsuario) values
