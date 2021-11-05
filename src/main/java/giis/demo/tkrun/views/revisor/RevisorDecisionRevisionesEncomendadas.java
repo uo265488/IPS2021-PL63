@@ -184,7 +184,7 @@ public class RevisorDecisionRevisionesEncomendadas extends JFrame {
 					if(lista.getSelectedValuesList().size() > 1)
 						JOptionPane.showMessageDialog(null, "Debe seleccionar solo un artículo", "Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
 					else if(lista.getSelectedValuesList().size() == 0)
-						JOptionPane.showMessageDialog(null, "Seleccione un artículo para poder ver sus detalles", "Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Seleccione un artículo para poder aceptarlo", "Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
 					else {
 						ArticuloEntity art = lista.getSelectedValue();
 						controller.decisionArticulo(idRev, art.getIdArticulo(), true);
@@ -213,7 +213,7 @@ public class RevisorDecisionRevisionesEncomendadas extends JFrame {
 					if(lista.getSelectedValuesList().size() > 1)
 						JOptionPane.showMessageDialog(null, "Debe seleccionar solo un artículo", "Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
 					else if(lista.getSelectedValuesList().size() == 0)
-						JOptionPane.showMessageDialog(null, "Seleccione un artículo para poder ver sus detalles", "Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Seleccione un artículo para poder rechazarlo", "Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
 					else {
 						ArticuloEntity art = lista.getSelectedValue();
 						controller.decisionArticulo(idRev, art.getIdArticulo(), false);
