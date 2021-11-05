@@ -14,7 +14,8 @@ delete from autores;
 insert into autores(idAutor,nombre,dni) values 
 	(4,'antonio','435135'),
 	(5,'lucia','156723'),
-	(6,'ariadna','810582');
+	(6,'ariadna','810582'),
+	(2, 'Hugo', '821648');
 	
 delete from articulos;
 insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV,firma, vecesRevisado, versionDefinitiva) values 
