@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.views.articulo.DetallesMasImportantesArticulo;
@@ -187,7 +188,11 @@ public class RevisorDecisionRevisionesEncomendadas extends JFrame {
 					else {
 						ArticuloEntity art = lista.getSelectedValue();
 						controller.decisionArticulo(idRev, art.getIdArticulo(), true);
-						List<RevisionDto> revisionesAceptadas = controller.getArticulosAceptados(art.getIdArticulo());
+						List<RevisionEntity> revisionesAceptadas = controller.getArticulosAceptados(art.getIdArticulo());
+						if(revisionesAceptadas.size() == 3) {
+							art.setEstado(ArticuloEntity.EN_REVISION);
+							controller.updateArticulo(DtoMapper.toArticuloDto(art));
+						}
 						articulos.remove(art);
 						rellenarLista();
 						JOptionPane.showMessageDialog(null, "Ha aceptado la revisión del artículo " + art.getTitulo(), "Acepta la revisión", JOptionPane.INFORMATION_MESSAGE);

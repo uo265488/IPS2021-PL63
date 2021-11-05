@@ -97,9 +97,14 @@ public class RevisionModel {
 	}
 	
 	public void decisionArticulo(int idRev, int idArt, boolean condicion) {
-		String sql = "update revisiones set decisionArticulo = true, decisionTomada = ? where idArticulo = ? and idRevisor = ?";
+		String decision = "";
+		if(condicion)
+			decision = "'ACEPTADO'";
+		else
+			decision = "'RECHAZADO'";
+		String sql = "update revisiones set estadoDeLaPropuesta = ? where idArticulo = ? and idRevisor = ?";
 		
-		db.executeUpdate(sql, condicion, idArt, idRev);
+		db.executeUpdate(sql, decision, idArt, idRev);
 	}
 
 	public RevisionDto getFecha(int idRev, int idArticulo) {
@@ -107,5 +112,12 @@ public class RevisionModel {
 				+ "from revisiones "
 				+ "where idRevisor = ? and idArticulo = ?";
 		return db.executeQueryPojo(RevisionDto.class, sql, idRev, idArticulo).get(0);
+	}
+
+	public List<RevisionDto> articulosAceptados(int idArticulo) {
+		String sql = "select * "
+				+ "from revisiones "
+				+ "where idArticulo = ? and estadoDeLaPropuesta = 'ACEPTADO'";
+		return db.executeQueryPojo(RevisionDto.class, sql, idArticulo);
 	}
 }

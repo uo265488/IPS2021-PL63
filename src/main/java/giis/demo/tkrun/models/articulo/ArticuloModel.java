@@ -139,13 +139,13 @@ public class ArticuloModel {
 	}
 
 	public List<ArticuloDto> getArticulosAsignados(int id) {
-		String sql = "select * from articulos a, revisiones r where r.idRevisor = ? and a.idArticulo = r.idArticulo and r.decisionArticulo = true";
+		String sql = "select * from articulos a, revisiones r where r.idRevisor = ? and a.idArticulo = r.idArticulo and r.estadoDeLaPropuesta = 'ACEPTADA'";
 
 		return db.executeQueryPojo(ArticuloDto.class, sql, id);
 	}
 	
 	public List<ArticuloDto> getArticulosSinResponder(int id) {
-		String sql = "select * from articulos a, revisiones r where r.idRevisor = ? and a.idArticulo = r.idArticulo and r.decisionArticulo = false";
+		String sql = "select * from articulos a, revisiones r where r.idRevisor = ? and a.idArticulo = r.idArticulo and r.estadoDeLaPropuesta = 'PENDIENTE'";
 
 		return db.executeQueryPojo(ArticuloDto.class, sql, id);
 	}

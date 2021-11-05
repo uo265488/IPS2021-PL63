@@ -79,8 +79,7 @@ public class RevisorController {
 			articuloModel.update(articulo);
 		}
 
-		public List<RevisionDto> getArticulosAceptados(int idArticulo) {
-			// TODO Auto-generated method stub
-			return null;
+		public List<RevisionEntity> getArticulosAceptados(int idArticulo) {
+			return EntityAssembler.toRevisionEntityList(model.articulosAceptados(idArticulo));
 		}
 }
