@@ -148,7 +148,7 @@ public class EditorPrincipalView extends JDialog {
 
 	private void launchAsignar() {
 		ArticuloEntity articulo = (ArticuloEntity) getCbArticulos().getSelectedItem();
-		EditorAsignarView eV = new EditorAsignarView(controller, articulo);
+		EditorAsignarView eV = new EditorAsignarView(articulo);
 		eV.setLocationRelativeTo(this);
 //		eV.setModal(true);
 		eV.setVisible(true);

@@ -50,7 +50,6 @@ public class EditorViewComentariosArticulo extends JDialog {
 	private JLabel lblFormato;
 	private JTextArea txtRevisiones;
 	private JButton btnEnviarComentariosAutor;
-	private EditorView ventanaAnterior;
 
 	/**
 	 * Launch the application.
@@ -279,8 +278,5 @@ public class EditorViewComentariosArticulo extends JDialog {
 		comentariosAutor.setVisible(true);
 	}
 	
-	public void disposeComentariosEditorWindow() {
-		this.ventanaAnterior.dispose();
-		this.dispose();
-	}
+
 }
