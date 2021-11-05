@@ -1,59 +1,22 @@
---Datos para carga inicial de la base de datos
-	
-delete from revisores;
-insert into revisores(idRevisor,nombre,estado) values 
-	(1,'felipe','disponible'),
-	(2,'ernesto','disponible'),
-	(3,'maria','no disponible'),
-	(4,'carmen', 'no disponible'),
-	(5,'pablo','no disponible'),
-	(6,'julio','no disponible'),
-	(7,'ruben','disponible');
-	
-delete from autores;
-insert into autores(idAutor,nombre,dni) values 
-	(4,'antonio','435135'),
-	(5,'lucia','156723'),
-	(6,'ariadna','810582');
-	
-delete from articulos;
-insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV, firma, vecesRevisado, versionDefinitiva) values 
-	(7,'Economia Española','antonio','en revision', 'La economia española esta en decadencia', 'economia, euro', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
-	(8,'Gasol se retira','lucia','con el editor', 'Gasol anuncia su retirada del baloncesto', 'gasol, leyenda, Barca', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
-	(9,'La caida de Facebook','ariadna','aceptado', 'Se caen los servidores de Facebook durante 6 horas con perdidas multimillonarias', 'facebook, red, caida', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
-	(10,'Poesia clasica','ariadna','publicado', 'explicacion sobre la poesia clasica', 'poesia, españa', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, 1, true),
-	(11,'El Quijote, la obra maestra','ariadna','aceptado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
-	(12,'Xavi será nuevo técnico del Barcelona','antonio','pendiente', 'Xavi será nuevo DT', 'fútbol, leyenda, Xavi, Barcelona', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
-	(13,'Nuevo Articulo','lucia','pendiente', 'algo', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false);
-	
-delete from articulosDeAutores;
-insert into articulosDeAutores(idArticulo, idAutor) values
-	(7,4),
-	(8,5),
-	(8,4),
-	(9,6),
-	(10,6),
-	(11,6),
-	(12,4),
-	(13,5);
-	
-delete from revisiones;
-insert into revisiones(idArticulo, idRevisor, fecha, comentariosAutor, comentariosEditor, decision, enviarAlEditor, estadoDeLaPropuesta) values
-	(10, 1, '31/12/2021', 'Muy buen artículo', 'Debe ser publicado', 'aceptar', true, 'ACEPTADO'),
-	(10, 2, '31/12/2021', 'Mejorable', 'Tengo mis dudas de aceptarlo', 'rechazar', true, 'ACEPTADO'),
-	(10, 3, '31/12/2021', 'Buen artículo', 'Aceptable', 'aceptar con cambios mayores', true, 'ACEPTADO'),
-	(8, 1, '31/12/2021', 'No me esta gustando','No aceptaria','rechazar',true, 'ACEPTADO'),
-	(8, 2, '31/12/2021', 'Me esta gustando','Aceptaria','aceptar con cambios menores',true, 'ACEPTADO'),
-	(8, 3, '31/12/2021', 'Articulo normal','Se puede aceptar','aceptar',true, 'ACEPTADO'),
-	(7, 3, '31/12/2021', 'Me esta gustando mucho','Aceptaria','aceptar con cambios menores',false, 'ACEPTADO'),
-	(11, 4, '31/12/2021', 'Muy buen artículo', 'Debe ser publicado', 'aceptar con cambios menores', true, 'ACEPTADO'),
-	(11, 5, '31/12/2021', 'Mejorable', 'Tengo mis dudas de aceptarlo', 'aceptar con cambios mayores', true, 'ACEPTADO'),
-	(11, 6, '31/12/2021', 'Buen artículo', 'Aceptable', 'aceptar', true, 'ACEPTADO'),
-	(12, 3, '10/12/2021', '', '', '', false, 'PENDIENTE'),
-	(13, 3, '25/12/2021', '', '', '', false, 'PENDIENTE');
-	
-delete from usuarios;
-insert into usuarios (idUsuario, nombre, tipoUsuario) values
-	(1, 'Alex', 'Editor'),
-	(2, 'Hugo', 'Autor'),
-	(3, 'Oscar', 'Revisor');
+--Primero se deben borrar todas las tablas(de detalle a maestro) y lugo anyadirlas (de maestro a detalle)
+--(en este caso en cada una de las aplicaciones (tkrun y descuento) se usa solo una tabla, por lo que no hace falta)
+
+--Para giis.demo.tkrun:
+
+drop table Usuarios;
+create table Usuarios(idUsuario int primary key, nombre varchar(32), tipoUsuario varchar(32));
+
+drop table Revisores;
+create table Revisores (idRevisor int primary key, nombre varchar(32), estado varchar(32));
+
+drop table Articulos;
+create table Articulos (idArticulo int primary key, titulo varchar(32), primerAutor varchar(32), estado varchar(32), resumen varchar(100), palabrasClave varchar(32), ficheroFuente varchar(32), cartaPresentacion varchar(32), CV varchar(32), firma bool, vecesRevisado int, versionDefinitiva bool, DOI varchar(32),fecha varchar(32), volumen int);
+
+drop table Autores;
+create table Autores (idAutor int primary key, nombre varchar(32), dni varchar(32));
+
+drop table ArticulosDeAutores;
+create table articulosDeAutores (idArticulo int foreing key, idAutor int foreing key);
+
+drop table Revisiones;
+create table Revisiones (idArticulo int foreing key, idRevisor int foreing key, fecha varchar(32), comentariosAutor varchar(100), comentariosEditor varchar(100), decision varchar(50), enviarAlEditor varchar(32), estadoDeLaPropuesta varchar(32));
