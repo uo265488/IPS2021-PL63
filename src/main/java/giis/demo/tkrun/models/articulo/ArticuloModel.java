@@ -118,7 +118,7 @@ public class ArticuloModel {
 	}
 
 	public void crearBorrador(ArticuloDto articulo) {
-		String sql_into_articulos = "insert into usuarios values (?, ?, ?, 'borrador', ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql_into_articulos = "insert into articulos values (?, ?, ?, 'borrador', ?, ?, ?, ?, ?, ?, ?, ?)";
 		String sql_into_articulosDeAutor = "insert into articulosDeAutores values (?, ?)";
 
 		db.executeUpdate(sql_into_articulos, articulo.getIdArticulo(), articulo.getTitulo(), articulo.getPrimerAutor(),
@@ -129,12 +129,13 @@ public class ArticuloModel {
 	}
 
 	public void crearArticulo(ArticuloDto articulo) {
-		String sql_into_articulos = "insert into usuarios values (?, ?, ?, 'con el editor', ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql_into_articulos = "insert into articulos values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		String sql_into_articulosDeAutor = "insert into articulosDeAutores values (?, ?)";
 
-		db.executeUpdate(sql_into_articulos, articulo.getIdArticulo(), articulo.getTitulo(), articulo.getPrimerAutor(),
+		db.executeUpdate(sql_into_articulos, articulo.getIdArticulo(), articulo.getTitulo(), articulo.getPrimerAutor(), "con el editor",
 				articulo.getResumen(), articulo.getPalabrasClave(), articulo.getFicheroFuente(),
-				articulo.getCartaPresentacion(), articulo.getCV(), articulo.isFirma(), articulo.getVecesRevisado());
+				articulo.getCartaPresentacion(), articulo.getCV(), articulo.isFirma(), articulo.getVecesRevisado(), 
+				articulo.isVersionDefinitiva(),articulo.getFecha(), articulo.getDOI(), articulo.getVolumen());
 
 		db.executeUpdate(sql_into_articulosDeAutor, articulo.getIdArticulo(), articulo.getOtrosAutores());
 	}

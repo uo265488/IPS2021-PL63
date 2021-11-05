@@ -28,6 +28,7 @@ public class AutorController {
 	
 	public AutorController() {
 		this.model = new AutorModel();
+		articuloModel = new ArticuloModel();
 		initView();
 	}
 
