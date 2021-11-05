@@ -2,6 +2,7 @@ package giis.demo.tkrun.controllers.editor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
@@ -31,9 +32,16 @@ public class EditorController {
 	 * 
 	 * @return
 	 */
-	public List<RevisorEntity> getRevisoresDisponibles() {
+	public List<RevisorEntity> getRevisoresDisponibles(ArticuloEntity articulo) {
 
-		return EntityAssembler.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
+		List<RevisorEntity> revisoresDisponibles = EntityAssembler
+				.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
+
+		return revisoresDisponibles
+				.stream()
+				.filter(r -> revisionModel.findRevisionRechazada(articulo.getIdArticulo(), r.getId()).isEmpty())
+				.collect(Collectors.toList());
+
 	}
 
 	/**
@@ -148,15 +156,16 @@ public class EditorController {
 		return EntityAssembler.toArticuloEntity(articuloModel.findById(articulo.getIdArticulo()).get(0)).getEstado()
 				.equals(ArticuloEntity.CON_EL_EDITOR);
 	}
-	
+
 	/**
 	 * Añade el revisor a la lista de revisores si es que no esta añadido
+	 * 
 	 * @param selectedValue
 	 * @return
 	 */
 	public boolean añadirRevisorAListaDeRevisores(RevisorEntity selectedValue) {
-		if(revisoresModel.findById(selectedValue.getId()).getEstado().equals(RevisorEntity.SUGERIDO)) {
-			RevisorDto dto = DtoMapper.toRevisorDto(selectedValue); 
+		if (revisoresModel.findById(selectedValue.getId()).getEstado().equals(RevisorEntity.SUGERIDO)) {
+			RevisorDto dto = DtoMapper.toRevisorDto(selectedValue);
 			dto.setEstado(RevisorEntity.DISPONIBLE);
 			revisoresModel.update(dto);
 			return true;
@@ -195,7 +204,5 @@ public class EditorController {
 		articuloModel.rechazarDefinitivamente(DtoMapper.toArticuloDto(articulo));
 
 	}
-
-
 
 }

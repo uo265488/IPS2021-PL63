@@ -26,6 +26,7 @@ public class RevisorModel {
 	 * Obtiene la lista de revisores disponibles en forma de objetos
 	 */
 	public List<RevisorDto> getRevisoresDisponibles() {
+		
 		String sql = "SELECT * from revisores where estado='disponible'";
 
 		return db.executeQueryPojo(RevisorDto.class, sql);

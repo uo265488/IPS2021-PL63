@@ -225,7 +225,7 @@ public class EditorAsignarView extends JDialog {
 
 		DefaultListModel<RevisorEntity> model = new DefaultListModel<RevisorEntity>();
 
-		for (RevisorEntity ent : editorController.getRevisoresDisponibles()) {
+		for (RevisorEntity ent : editorController.getRevisoresDisponibles(articulo)) {
 			model.addElement(ent);
 		}
 

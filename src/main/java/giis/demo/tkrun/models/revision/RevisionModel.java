@@ -1,8 +1,8 @@
 package giis.demo.tkrun.models.revision;
 
 import java.util.List;
+import java.util.Optional;
 
-import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
@@ -123,6 +123,17 @@ public class RevisionModel {
 		String sql = "select * from revisiones where estadoDeLaPropuesta='" + RevisionDto.PENDIENTE + "'";
 
 		return db.executeQueryPojo(RevisionDto.class, sql);
+	}
+
+	public Optional<RevisionDto> findRevisionRechazada(int idArticulo, int id) {
+		
+		String sql = "select * from revisiones where idArticulo=? and idRevisor=? and estadoDeLaPropuesta='" + RevisionDto.RECHAZADA + "'";
+		
+		if (db.executeQueryPojo(RevisionDto.class, sql, idArticulo, id).isEmpty()) {
+			return Optional.ofNullable(null);
+		}
+
+		return Optional.ofNullable(db.executeQueryPojo(RevisionDto.class, sql, idArticulo, id).get(0));
 	}
 
 }
