@@ -33,6 +33,8 @@ public class EditorView extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private List<RevisorEntity> revisoresDisponibles;
+	
+	@SuppressWarnings("unused")
 	private EditorController editorController;
 	private ArticuloEntity articulo;
 	private JButton btnAsignar;
@@ -44,42 +46,13 @@ public class EditorView extends JDialog {
 	private JList<RevisorEntity> listRevisores;
 	private JButton btnComentarios;
 
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					EditorView frame = new EditorView();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
-//	/**
-//	 * Create the application.
-//	 */
-//	public EditorView() {
-//		setTitle("Asignación de revisores");
-//		setResizable(false);
-//		initialize();
-//	}
-//
-//	public EditorView(EditorController controller) {
-//		this.editorController = controller;
-//		this.revisoresDisponibles = controller.getRevisoresDisponibles();
-//		initialize();
-//	}
 
 	public EditorView(EditorController controller, ArticuloEntity articulo) {
 		setTitle("Asignación de revisores");
 		setResizable(false);
 		this.editorController = controller;
-		this.revisoresDisponibles = controller.getRevisoresDisponibles();
+		this.revisoresDisponibles = controller.getRevisoresDisponibles(articulo);
 
 		this.articulo = articulo;
 		initialize();
@@ -134,7 +107,9 @@ public class EditorView extends JDialog {
 
 	}
 
+	@SuppressWarnings("rawtypes")
 	private void removeSelectedElements() {
+		@SuppressWarnings("unchecked")
 		DefaultListModel<RevisorEntity> dlm = (DefaultListModel) listRevisores.getModel();
 		int count = listRevisores.getSelectedIndices().length;
 
@@ -144,12 +119,7 @@ public class EditorView extends JDialog {
 		}
 		
 	}
-
-	private List<RevisorEntity> getRevisoresSeleccionados() {
-
-		return listRevisores.getSelectedValuesList();
-	}
-
+	
 	private JLabel getLblRevisores() {
 		if (lblRevisores == null) {
 			lblRevisores = new JLabel("Selecciona 3 revisores para el artículo:");
