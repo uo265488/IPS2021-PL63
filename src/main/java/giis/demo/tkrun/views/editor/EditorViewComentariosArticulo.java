@@ -264,5 +264,5 @@ public class EditorViewComentariosArticulo extends JDialog {
 		comentariosAutor.setLocationRelativeTo(this);
 		comentariosAutor.setVisible(true);
 	}
-	
+
 }

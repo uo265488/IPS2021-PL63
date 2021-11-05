@@ -3,11 +3,12 @@ package giis.demo.tkrun.views.autor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
+import java.util.UUID;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -286,6 +287,7 @@ public class AutorCreacionView extends JDialog {
 	private void crearBorrador() {
 		
 		ArticuloDto articuloDto = new ArticuloDto();
+		articuloDto.setIdArticulo(new Random().nextInt());
 		articuloDto.setTitulo(getTxtFTitulo().getText());
 		articuloDto.setPrimerAutor(getTxtFAutor().getText());
 		articuloDto.setOtrosAutores(getTxtFOtrosAutores().getText());
@@ -341,6 +343,7 @@ public class AutorCreacionView extends JDialog {
 	private void enviarARevista() {
 		
 		ArticuloDto articuloDto = new ArticuloDto();
+		articuloDto.setIdArticulo(new Random().nextInt());
 		articuloDto.setTitulo(getTxtFTitulo().getText());
 		articuloDto.setPrimerAutor(getTxtFAutor().getText());
 		articuloDto.setOtrosAutores(getTxtFOtrosAutores().getText());
@@ -350,6 +353,11 @@ public class AutorCreacionView extends JDialog {
 		articuloDto.setCartaPresentacion(getTxtFCartaPresentacion().getText());
 		articuloDto.setCV(getTxtFCVAutor().getText());
 		articuloDto.setFirma(getChckBoxFirmaPlagio().isSelected());
+		articuloDto.setVecesRevisado(0);
+		articuloDto.setVersionDefinitiva(false);
+		articuloDto.setDOI("");
+		articuloDto.setFecha("");
+		articuloDto.setVolumen(0);
 		
 		autorController.crearArticulo(articuloDto);
 	}

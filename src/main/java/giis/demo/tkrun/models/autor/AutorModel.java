@@ -1,7 +1,9 @@
 package giis.demo.tkrun.models.autor;
 
 import java.util.List;
+
 import giis.demo.tkrun.models.dtos.ArticuloDto;
+import giis.demo.tkrun.models.dtos.AutorDto;
 import giis.demo.util.Database;
 
 public class AutorModel {
@@ -28,6 +30,12 @@ public class AutorModel {
 	public void enviarVersionDefinitiva(int id) {
 		String sql = "update articulos set firma = true, versionDefinitiva = true where idArticulo = ?";
 		db.executeUpdate(sql, id);
+	}
+
+	public AutorDto findByIdAutor(String idAutor) {
+		String sql = "select * from autores where idAutor=?";
+		
+		return db.executeQueryPojo(AutorDto.class, sql, idAutor).get(0);
 	}
 
 }
