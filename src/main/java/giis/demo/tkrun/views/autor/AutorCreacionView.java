@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
+import giis.demo.tkrun.models.dtos.RevisorDto;
 
 public class AutorCreacionView extends JDialog {
 
@@ -148,6 +149,7 @@ public class AutorCreacionView extends JDialog {
     private JTextField getTxtFAutor() {
 	if (txtFAutor == null) {
 	    txtFAutor = new JTextField();
+	    txtFAutor.setEditable(false);
 	    txtFAutor.setText(autorController.findById(id_autor).getNombre());
 	    txtFAutor.setColumns(10);
 	    txtFAutor.setBounds(183, 56, 321, 20);
@@ -335,6 +337,8 @@ public class AutorCreacionView extends JDialog {
 	articuloDto.setCV(getTxtFCVAutor().getText());
 	articuloDto.setFirma(getChckBoxFirmaPlagio().isSelected());
 
+	revisoresSugeridos(getTextFSugerido1().getText(), getTextFSugerido2().getText(), getTextFSugerido3().getText());
+
 	autorController.crearBorrador(articuloDto);
 
     }
@@ -373,7 +377,9 @@ public class AutorCreacionView extends JDialog {
 	if (cVAutor.replaceAll("\\s", "").length() == 0) {
 	    return false;
 	}
-
+	if (!getChckBoxFirmaPlagio().isSelected()) {
+	    return false;
+	}
 	return true;
     }
 
@@ -421,7 +427,7 @@ public class AutorCreacionView extends JDialog {
     private JPanel getPanelSugeridos() {
 	if (panelSugeridos == null) {
 	    panelSugeridos = new JPanel();
-	    panelSugeridos.setBounds(23, 390, 481, 110);
+	    panelSugeridos.setBounds(23, 390, 555, 110);
 	    panelSugeridos.setLayout(null);
 	    panelSugeridos.add(getTextFSugerido1());
 	    panelSugeridos.add(getTextFSugerido2());
@@ -459,10 +465,18 @@ public class AutorCreacionView extends JDialog {
 
     private JLabel getLbConstraintsSugeridos() {
 	if (lbConstraintsSugeridos == null) {
-	    lbConstraintsSugeridos = new JLabel("* Nombre - Correo - Especialidad");
+	    lbConstraintsSugeridos = new JLabel("*Formato:  Nombre - Correo - Especialidad");
 	    lbConstraintsSugeridos.setFont(new Font("Tahoma", Font.PLAIN, 10));
 	    lbConstraintsSugeridos.setBounds(23, 365, 315, 14);
 	}
 	return lbConstraintsSugeridos;
+    }
+
+    private void revisoresSugeridos(String revisor1, String revisor2, String revisor3) {
+	if (!revisor1.isEmpty()) {
+	    String[] rev1 = revisor1.split("-");
+	    RevisorDto revisorDto1 = new RevisorDto();
+	    revisorDto1.setIdRevisor(id_autor);
+	}
     }
 }
