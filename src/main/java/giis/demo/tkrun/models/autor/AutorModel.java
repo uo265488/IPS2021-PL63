@@ -35,4 +35,10 @@ public class AutorModel {
 	return db.executeQueryPojo(AutorDto.class, sql, id).get(0);
     }
 
+    public void addAutor(AutorDto autor) {
+	String sql = "insert into autores(idAutor, nombre, dni) values ?, ?, ?";
+	db.executeUpdate(sql, autor.getIdAutor(), autor.getNombre(), autor.getDni());
+
+    }
+
 }

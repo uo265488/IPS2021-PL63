@@ -1,12 +1,14 @@
 package giis.demo.tkrun.controllers.autor;
 
 import java.util.List;
+import java.util.Random;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.AutorEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.autor.AutorModel;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
+import giis.demo.tkrun.models.dtos.AutorDto;
 import giis.demo.tkrun.views.autor.MenuAutor;
 import giis.demo.util.EntityAssembler;
 
@@ -60,10 +62,28 @@ public class AutorController {
 
     public void crearBorrador(ArticuloDto articuloDto) {
 	articuloModel.crearBorrador(articuloDto);
+	articuloModel.asignarAutor(articuloDto, id_autor);
+	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
     }
 
     public void crearArticulo(ArticuloDto articuloDto) {
 	articuloModel.crearArticulo(articuloDto);
     }
 
+    public void parseOtrosAutores(int id_Articulo, String otrosAutores) {
+	String[] autores = otrosAutores.split(";");
+
+	for (String line : autores) {
+	    String[] autorAParsear = line.split("-");
+	    AutorDto autor = new AutorDto();
+	    autor.setIdAutor(new Random().nextInt());
+	    autor.setNombre(autorAParsear[0]);
+	    autor.setDni(autorAParsear[1]);
+	    if (model.findById(autor.getIdAutor()) == null) {
+		model.addAutor(autor);
+	    }
+
+	    articuloModel.asignarOtroAutor(id_Articulo, autor.getIdAutor());
+	}
+    }
 }

@@ -1,5 +1,6 @@
 package giis.demo.tkrun.views.autor;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.autor.AutorController;
@@ -45,6 +47,13 @@ public class AutorCreacionView extends JDialog {
     private JButton btnEnviar;
     private AutorController autorController;
     private int id_autor;
+    private JLabel lbContstraints;
+    private JLabel lbSugerirRevisores;
+    private JPanel panelSugeridos;
+    private JTextField txtFSugerido1;
+    private JTextField txtFSugerido2;
+    private JTextField txtFSugerido3;
+    private JLabel lbConstraintsSugeridos;
 
 //	/**
 //	 * Launch the application.
@@ -75,7 +84,7 @@ public class AutorCreacionView extends JDialog {
 	setResizable(false);
 	setTitle("Autor. Crear un artículo");
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	setBounds(100, 100, 600, 384);
+	setBounds(100, 100, 604, 638);
 	contentPane = new JPanel();
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 	setContentPane(contentPane);
@@ -99,6 +108,10 @@ public class AutorCreacionView extends JDialog {
 	contentPane.add(getChckBoxFirmaPlagio());
 	contentPane.add(getBtnBorrador());
 	contentPane.add(getBtnEnviar());
+	contentPane.add(getLbContstraints());
+	contentPane.add(getLbSugerirRevisores());
+	contentPane.add(getPanelSugeridos());
+	contentPane.add(getLbConstraintsSugeridos());
     }
 
     private JLabel getLbTitulo() {
@@ -107,7 +120,7 @@ public class AutorCreacionView extends JDialog {
 	    lbTitulo.setLabelFor(getTxtFTitulo());
 	    lbTitulo.setDisplayedMnemonic('T');
 	    lbTitulo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    lbTitulo.setBounds(10, 24, 150, 20);
+	    lbTitulo.setBounds(23, 25, 150, 20);
 	}
 	return lbTitulo;
     }
@@ -115,7 +128,7 @@ public class AutorCreacionView extends JDialog {
     private JTextField getTxtFTitulo() {
 	if (txtFTitulo == null) {
 	    txtFTitulo = new JTextField();
-	    txtFTitulo.setBounds(170, 25, 261, 20);
+	    txtFTitulo.setBounds(183, 25, 321, 20);
 	    txtFTitulo.setColumns(10);
 	}
 	return txtFTitulo;
@@ -127,7 +140,7 @@ public class AutorCreacionView extends JDialog {
 	    lbAutor.setDisplayedMnemonic('L');
 	    lbAutor.setLabelFor(getTxtFAutor());
 	    lbAutor.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    lbAutor.setBounds(10, 55, 150, 20);
+	    lbAutor.setBounds(23, 56, 150, 20);
 	}
 	return lbAutor;
     }
@@ -137,7 +150,7 @@ public class AutorCreacionView extends JDialog {
 	    txtFAutor = new JTextField();
 	    txtFAutor.setText(autorController.findById(id_autor).getNombre());
 	    txtFAutor.setColumns(10);
-	    txtFAutor.setBounds(170, 56, 261, 20);
+	    txtFAutor.setBounds(183, 56, 321, 20);
 	}
 	return txtFAutor;
     }
@@ -148,7 +161,7 @@ public class AutorCreacionView extends JDialog {
 	    lbOtrosAutores.setLabelFor(getTxtFOtrosAutores());
 	    lbOtrosAutores.setDisplayedMnemonic('O');
 	    lbOtrosAutores.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    lbOtrosAutores.setBounds(10, 86, 150, 20);
+	    lbOtrosAutores.setBounds(23, 87, 150, 20);
 	}
 	return lbOtrosAutores;
     }
@@ -156,8 +169,9 @@ public class AutorCreacionView extends JDialog {
     private JTextField getTxtFOtrosAutores() {
 	if (txtFOtrosAutores == null) {
 	    txtFOtrosAutores = new JTextField();
+	    txtFOtrosAutores.setForeground(Color.BLACK);
 	    txtFOtrosAutores.setColumns(10);
-	    txtFOtrosAutores.setBounds(170, 87, 261, 20);
+	    txtFOtrosAutores.setBounds(183, 87, 321, 20);
 	}
 	return txtFOtrosAutores;
     }
@@ -168,7 +182,7 @@ public class AutorCreacionView extends JDialog {
 	    lbResumen.setLabelFor(getTxtFResumen());
 	    lbResumen.setDisplayedMnemonic('R');
 	    lbResumen.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    lbResumen.setBounds(10, 117, 150, 20);
+	    lbResumen.setBounds(23, 137, 150, 20);
 	}
 	return lbResumen;
     }
@@ -177,7 +191,7 @@ public class AutorCreacionView extends JDialog {
 	if (txtFResumen == null) {
 	    txtFResumen = new JTextField();
 	    txtFResumen.setColumns(10);
-	    txtFResumen.setBounds(170, 118, 261, 20);
+	    txtFResumen.setBounds(183, 138, 321, 20);
 	}
 	return txtFResumen;
     }
@@ -188,7 +202,7 @@ public class AutorCreacionView extends JDialog {
 	    lbPalabrasClave.setLabelFor(getTxtFPalabrasClave());
 	    lbPalabrasClave.setDisplayedMnemonic('P');
 	    lbPalabrasClave.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    lbPalabrasClave.setBounds(10, 148, 150, 20);
+	    lbPalabrasClave.setBounds(23, 168, 150, 20);
 	}
 	return lbPalabrasClave;
     }
@@ -197,7 +211,7 @@ public class AutorCreacionView extends JDialog {
 	if (txtFPalabrasClave == null) {
 	    txtFPalabrasClave = new JTextField();
 	    txtFPalabrasClave.setColumns(10);
-	    txtFPalabrasClave.setBounds(170, 149, 261, 20);
+	    txtFPalabrasClave.setBounds(183, 168, 321, 20);
 	}
 	return txtFPalabrasClave;
     }
@@ -208,7 +222,7 @@ public class AutorCreacionView extends JDialog {
 	    lbFicheroFuente.setLabelFor(getTxtFFicheroFuente());
 	    lbFicheroFuente.setDisplayedMnemonic('F');
 	    lbFicheroFuente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    lbFicheroFuente.setBounds(10, 179, 150, 20);
+	    lbFicheroFuente.setBounds(23, 199, 150, 20);
 	}
 	return lbFicheroFuente;
     }
@@ -217,7 +231,7 @@ public class AutorCreacionView extends JDialog {
 	if (txtFFicheroFuente == null) {
 	    txtFFicheroFuente = new JTextField();
 	    txtFFicheroFuente.setColumns(10);
-	    txtFFicheroFuente.setBounds(170, 180, 261, 20);
+	    txtFFicheroFuente.setBounds(183, 200, 321, 20);
 	}
 	return txtFFicheroFuente;
     }
@@ -228,7 +242,7 @@ public class AutorCreacionView extends JDialog {
 	    lbCartaPresentación.setLabelFor(getTxtFCartaPresentacion());
 	    lbCartaPresentación.setDisplayedMnemonic('C');
 	    lbCartaPresentación.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    lbCartaPresentación.setBounds(10, 210, 150, 20);
+	    lbCartaPresentación.setBounds(23, 231, 150, 20);
 	}
 	return lbCartaPresentación;
     }
@@ -237,7 +251,7 @@ public class AutorCreacionView extends JDialog {
 	if (txtFCartaPresentacion == null) {
 	    txtFCartaPresentacion = new JTextField();
 	    txtFCartaPresentacion.setColumns(10);
-	    txtFCartaPresentacion.setBounds(170, 211, 261, 20);
+	    txtFCartaPresentacion.setBounds(183, 231, 321, 20);
 	}
 	return txtFCartaPresentacion;
     }
@@ -248,7 +262,7 @@ public class AutorCreacionView extends JDialog {
 	    lbCVAutor.setDisplayedMnemonic('V');
 	    lbCVAutor.setLabelFor(getTxtFCVAutor());
 	    lbCVAutor.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    lbCVAutor.setBounds(10, 241, 150, 20);
+	    lbCVAutor.setBounds(23, 262, 150, 20);
 	}
 	return lbCVAutor;
     }
@@ -257,7 +271,7 @@ public class AutorCreacionView extends JDialog {
 	if (txtFCVAutor == null) {
 	    txtFCVAutor = new JTextField();
 	    txtFCVAutor.setColumns(10);
-	    txtFCVAutor.setBounds(170, 242, 261, 20);
+	    txtFCVAutor.setBounds(183, 262, 321, 20);
 	}
 	return txtFCVAutor;
     }
@@ -267,7 +281,7 @@ public class AutorCreacionView extends JDialog {
 	    chckBoxFirmaPlagio = new JCheckBox(
 		    "Comfirmo que el artículo es propio, original y que no se encuentra en ningún proceso de aceptación en ninguna otra revista. \r\n");
 	    chckBoxFirmaPlagio.setMnemonic('O');
-	    chckBoxFirmaPlagio.setBounds(10, 268, 421, 23);
+	    chckBoxFirmaPlagio.setBounds(23, 524, 421, 23);
 	}
 	return chckBoxFirmaPlagio;
     }
@@ -282,9 +296,10 @@ public class AutorCreacionView extends JDialog {
 		}
 	    });
 	    btnBorrador.setMnemonic('B');
-	    btnBorrador.setBounds(274, 310, 131, 23);
+	    btnBorrador.setBounds(264, 565, 131, 23);
 	}
 	return btnBorrador;
+
     }
 
     private JButton getBtnEnviar() {
@@ -294,13 +309,14 @@ public class AutorCreacionView extends JDialog {
 		public void actionPerformed(ActionEvent e) {
 		    if (checkFields()) {
 			enviarARevista();
+			dispose();
 		    } else {
 			JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos");
 		    }
 		}
 	    });
 	    btnEnviar.setMnemonic('E');
-	    btnEnviar.setBounds(415, 310, 131, 23);
+	    btnEnviar.setBounds(405, 565, 131, 23);
 	}
 	return btnEnviar;
     }
@@ -381,5 +397,72 @@ public class AutorCreacionView extends JDialog {
 	articuloDto.setVolumen(0);
 
 	autorController.crearArticulo(articuloDto);
+    }
+
+    private JLabel getLbContstraints() {
+	if (lbContstraints == null) {
+	    lbContstraints = new JLabel("* Nombre y dni separados por -. Cada autor separado por ;");
+	    lbContstraints.setFont(new Font("Tahoma", Font.PLAIN, 10));
+	    lbContstraints.setBounds(183, 112, 321, 14);
+	}
+	return lbContstraints;
+    }
+
+    private JLabel getLbSugerirRevisores() {
+	if (lbSugerirRevisores == null) {
+	    lbSugerirRevisores = new JLabel("Sugerir revisores: (máximo 3)");
+	    lbSugerirRevisores.setFont(new Font("Tahoma", Font.BOLD, 13));
+	    lbSugerirRevisores.setHorizontalAlignment(SwingConstants.CENTER);
+	    lbSugerirRevisores.setBounds(175, 321, 238, 33);
+	}
+	return lbSugerirRevisores;
+    }
+
+    private JPanel getPanelSugeridos() {
+	if (panelSugeridos == null) {
+	    panelSugeridos = new JPanel();
+	    panelSugeridos.setBounds(23, 390, 481, 110);
+	    panelSugeridos.setLayout(null);
+	    panelSugeridos.add(getTextFSugerido1());
+	    panelSugeridos.add(getTextFSugerido2());
+	    panelSugeridos.add(getTextFSugerido3());
+	}
+	return panelSugeridos;
+    }
+
+    private JTextField getTextFSugerido1() {
+	if (txtFSugerido1 == null) {
+	    txtFSugerido1 = new JTextField();
+	    txtFSugerido1.setBounds(0, 12, 314, 20);
+	    txtFSugerido1.setColumns(10);
+	}
+	return txtFSugerido1;
+    }
+
+    private JTextField getTextFSugerido2() {
+	if (txtFSugerido2 == null) {
+	    txtFSugerido2 = new JTextField();
+	    txtFSugerido2.setColumns(10);
+	    txtFSugerido2.setBounds(0, 44, 314, 20);
+	}
+	return txtFSugerido2;
+    }
+
+    private JTextField getTextFSugerido3() {
+	if (txtFSugerido3 == null) {
+	    txtFSugerido3 = new JTextField();
+	    txtFSugerido3.setColumns(10);
+	    txtFSugerido3.setBounds(0, 76, 314, 20);
+	}
+	return txtFSugerido3;
+    }
+
+    private JLabel getLbConstraintsSugeridos() {
+	if (lbConstraintsSugeridos == null) {
+	    lbConstraintsSugeridos = new JLabel("* Nombre - Correo - Especialidad");
+	    lbConstraintsSugeridos.setFont(new Font("Tahoma", Font.PLAIN, 10));
+	    lbConstraintsSugeridos.setBounds(23, 365, 315, 14);
+	}
+	return lbConstraintsSugeridos;
     }
 }
