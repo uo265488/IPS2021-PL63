@@ -161,5 +161,10 @@ public class ArticuloModel {
        
         db.executeUpdate(sql, articulo.getFecha(), articulo.getDOI(), articulo.getVolumen(), articulo.getIdArticulo());
     }
+	
+	public List<ArticuloDto> getArticulo(int idArt) {
+		String sql = "SELECT * from articulos where idArticulo = ?";
+		return db.executeQueryPojo(ArticuloDto.class, sql, idArt);
+	}
 
 }

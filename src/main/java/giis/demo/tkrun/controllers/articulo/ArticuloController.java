@@ -6,6 +6,7 @@ import java.util.List;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
+import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.util.DtoMapper;
 import giis.demo.util.EntityAssembler;
 
@@ -37,7 +38,11 @@ public class ArticuloController {
 	
 	public void aceptarArticulo(ArticuloEntity articulo) {
 		articulo.setEstado(ArticuloEntity.ACEPTADO);
-		artModel.update(DtoMapper.toArticuloDto(articulo));;;
+		artModel.update(DtoMapper.toArticuloDto(articulo));
+	}
+	
+	public void actualizarArticulo(ArticuloEntity articulo) {
+		artModel.update(DtoMapper.toArticuloDto(articulo));
 	}
 
 
@@ -74,7 +79,13 @@ public class ArticuloController {
 		artModel.publicar(DtoMapper.toArticuloDto(articulo));
 	}
 	
-
+	public ArticuloEntity getArticulo(int idArt) {
+		List<ArticuloDto> articulos = artModel.getArticulo(idArt);
+		if(articulos.isEmpty())
+			return null;
+		else
+			return EntityAssembler.toArticuloEntity(articulos.get(0));
+	}
 	
 	
 	

@@ -111,4 +111,12 @@ public class RevisionModel {
 		
 		return db.executeQueryPojo(RevisionDto.class, sql, idRev, idArt).get(0);
 	}
+
+	public List<RevisionDto> revisionesEnviadas(int idArt, int numeroRevision) {
+		String sql = "select * "
+				+ "from revisiones "
+				+ "where idArticulo = ? and numeroRevision = ? and enviarAlEditor = true";
+		
+		return db.executeQueryPojo(RevisionDto.class, sql, idArt, numeroRevision);
+	}
 }

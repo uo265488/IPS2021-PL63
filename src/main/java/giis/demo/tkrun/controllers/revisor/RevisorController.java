@@ -69,4 +69,9 @@ public class RevisorController {
 		public RevisionEntity getRevisionAnterior(int idArt, int idRev) {
 			return EntityAssembler.toRevisionEntity(model.primeraRevision(idRev, idArt));
 		}
+
+		public boolean todasLasRevisionesEnviadas(int idArt, int numeroRevision) {
+			List<RevisionEntity> revisiones = EntityAssembler.toRevisionEntityList(model.revisionesEnviadas(idArt, numeroRevision));
+			return revisiones.size() == 3;
+		}
 }

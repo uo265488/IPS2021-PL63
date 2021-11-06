@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import giis.demo.tkrun.controllers.articulo.ArticuloController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
@@ -49,6 +50,7 @@ public class RevisorView extends JFrame {
 	private JButton btGuardarCambios;
 	private JButton btVerArticulos;
 	private RevisorController controller;
+	private ArticuloController contArt;
 	private List<ArticuloEntity> articulosSinRevisar = new ArrayList<ArticuloEntity>();
 	private int idArt;
 	private RevisionEntity articuloRevisando;
@@ -60,6 +62,7 @@ public class RevisorView extends JFrame {
 	 */
 	public RevisorView(RevisorController controller) {
 		this.controller = controller;
+		this.contArt = new ArticuloController();
 		inicialice();
 	}
 
@@ -230,7 +233,7 @@ public class RevisorView extends JFrame {
 	private JComboBox<String> getChDecision() {
 		if (chDecision == null) {
 			chDecision = new JComboBox<String>();
-			chDecision.setModel(new DefaultComboBoxModel(new String[] {"aceptar", "aceptar con cambios menores", "aceptar con cambios mayores", "rechazar"}));
+			chDecision.setModel(new DefaultComboBoxModel<String>(new String[] {"aceptar", "aceptar con cambios menores", "aceptar con cambios mayores", "rechazar"}));
 			chDecision.setBounds(152, 365, 280, 22);
 		}
 		return chDecision;
@@ -246,6 +249,13 @@ public class RevisorView extends JFrame {
 						controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(),
 								(String) getChDecision().getSelectedItem(), true,
 								Integer.parseInt(getTxId().getText()), idArt, numeroRevision);
+						if(controller.todasLasRevisionesEnviadas(idArt, numeroRevision)) {
+							ArticuloEntity art = contArt.getArticulo(idArt);
+							if(art != null) {
+								art.setEstado(ArticuloEntity.CON_EL_EDITOR);
+								contArt.actualizarArticulo(art);
+							}
+						}
 						limpiar();
 						getBtEnviar().setEnabled(false);
 						getBtGuardarCambios().setEnabled(false);
