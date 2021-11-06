@@ -230,8 +230,7 @@ public class RevisorView extends JFrame {
 	private JComboBox<String> getChDecision() {
 		if (chDecision == null) {
 			chDecision = new JComboBox<String>();
-			chDecision.setModel(new DefaultComboBoxModel<String>(new String[] { "altamente recomendable aceptar",
-					"aceptado", "poco recomendable aceptar", "rechazar" }));
+			chDecision.setModel(new DefaultComboBoxModel(new String[] {"aceptar", "aceptar con cambios menores", "aceptar con cambios mayores", "rechazar"}));
 			chDecision.setBounds(152, 365, 280, 22);
 		}
 		return chDecision;
@@ -245,7 +244,7 @@ public class RevisorView extends JFrame {
 					if (idArt != -1 && pasaCondiciones()) {
 						int numeroRevision = controller.numeroRevisiones(idArt, Integer.parseInt(getTxId().getText()));
 						controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(),
-								(String) getChDecision().getSelectedItem(), false,
+								(String) getChDecision().getSelectedItem(), true,
 								Integer.parseInt(getTxId().getText()), idArt, numeroRevision);
 						limpiar();
 						getBtEnviar().setEnabled(false);
