@@ -9,6 +9,8 @@ import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.autor.AutorModel;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.AutorDto;
+import giis.demo.tkrun.models.dtos.RevisorDto;
+import giis.demo.tkrun.models.revisor.RevisorModel;
 import giis.demo.tkrun.views.autor.MenuAutor;
 import giis.demo.util.EntityAssembler;
 
@@ -20,7 +22,7 @@ public class AutorController {
     // private RevisionModel revisionModel;
     private ArticuloModel articuloModel;
     private MenuAutor view;
-    // private RevisorModel revisoresModel;
+    private RevisorModel revisorModel;
 
     // public AutorController(AutorModel m, EditorView v) {
     // this.model = m;
@@ -33,6 +35,7 @@ public class AutorController {
 	this.model = new AutorModel();
 	this.id_autor = id_autor;
 	articuloModel = new ArticuloModel();
+	revisorModel = new RevisorModel();
 	initView();
     }
 
@@ -85,5 +88,9 @@ public class AutorController {
 
 	    articuloModel.asignarOtroAutor(id_Articulo, autor.getIdAutor());
 	}
+    }
+
+    public void sugerirRevisores(int id_articulo, RevisorDto revisor) {
+
     }
 }

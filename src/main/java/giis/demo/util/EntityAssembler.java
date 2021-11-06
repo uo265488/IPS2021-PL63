@@ -24,7 +24,7 @@ public class EntityAssembler {
 	return ents;
     }
 
-    private static RevisorEntity toRevisorEntity(RevisorDto rev) {
+    public static RevisorEntity toRevisorEntity(RevisorDto rev) {
 	RevisorEntity ent = new RevisorEntity();
 
 	ent.setEstado(rev.getEstado());

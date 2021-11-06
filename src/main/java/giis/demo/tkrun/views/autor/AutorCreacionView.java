@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.autor.AutorController;
+import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 
@@ -55,6 +56,7 @@ public class AutorCreacionView extends JDialog {
     private JTextField txtFSugerido2;
     private JTextField txtFSugerido3;
     private JLabel lbConstraintsSugeridos;
+    private RevisorController revisorController;
 
 //	/**
 //	 * Launch the application.
@@ -75,6 +77,7 @@ public class AutorCreacionView extends JDialog {
     public AutorCreacionView(AutorController autorController, int id_autor) {
 	this.autorController = autorController;
 	this.id_autor = id_autor;
+	revisorController = new RevisorController();
 	initialize();
     }
 
@@ -337,7 +340,8 @@ public class AutorCreacionView extends JDialog {
 	articuloDto.setCV(getTxtFCVAutor().getText());
 	articuloDto.setFirma(getChckBoxFirmaPlagio().isSelected());
 
-	revisoresSugeridos(getTextFSugerido1().getText(), getTextFSugerido2().getText(), getTextFSugerido3().getText());
+	revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(), getTextFSugerido2().getText(),
+		getTextFSugerido3().getText());
 
 	autorController.crearBorrador(articuloDto);
 
@@ -472,11 +476,56 @@ public class AutorCreacionView extends JDialog {
 	return lbConstraintsSugeridos;
     }
 
-    private void revisoresSugeridos(String revisor1, String revisor2, String revisor3) {
+    private void revisoresSugeridos(int id_articulo, String revisor1, String revisor2, String revisor3) {
 	if (!revisor1.isEmpty()) {
-	    String[] rev1 = revisor1.split("-");
-	    RevisorDto revisorDto1 = new RevisorDto();
-	    revisorDto1.setIdRevisor(id_autor);
+	    String[] rev1 = revisor1.split("-"); // *Formato: Nombre - Correo - Especialidad
+	    String nombre = rev1[0];
+	    String correo = rev1[1];
+	    String especialidad = rev1[2];
+	    if (revisorController.findRevisor(nombre, correo, especialidad) == null) {
+		RevisorDto revisorDto1 = new RevisorDto();
+		revisorDto1.setIdRevisor(new Random().nextInt());
+		revisorDto1.setNombre(rev1[0]);
+		revisorDto1.setCorreo(rev1[1]);
+		revisorDto1.setEspecialidad(rev1[2]);
+		revisorDto1.setEstado("Sugerido");
+
+		autorController.sugerirRevisores(id_articulo, revisorDto1);
+	    }
+	}
+
+	if (!revisor2.isEmpty()) {
+	    String[] rev2 = revisor2.split("-"); // *Formato: Nombre - Correo - Especialidad
+	    String nombre = rev2[0];
+	    String correo = rev2[1];
+	    String especialidad = rev2[2];
+	    if (revisorController.findRevisor(nombre, correo, especialidad) == null) {
+		RevisorDto revisorDto2 = new RevisorDto();
+		revisorDto2.setIdRevisor(new Random().nextInt());
+		revisorDto2.setNombre(rev2[0]);
+		revisorDto2.setCorreo(rev2[1]);
+		revisorDto2.setEspecialidad(rev2[2]);
+		revisorDto2.setEstado("Sugerido");
+
+		autorController.sugerirRevisores(id_articulo, revisorDto2);
+	    }
+	}
+
+	if (!revisor3.isEmpty()) {
+	    String[] rev3 = revisor1.split("-"); // *Formato: Nombre - Correo - Especialidad
+	    String nombre = rev3[0];
+	    String correo = rev3[1];
+	    String especialidad = rev3[2];
+	    if (revisorController.findRevisor(nombre, correo, especialidad) == null) {
+		RevisorDto revisorDto3 = new RevisorDto();
+		revisorDto3.setIdRevisor(new Random().nextInt());
+		revisorDto3.setNombre(rev3[0]);
+		revisorDto3.setCorreo(rev3[1]);
+		revisorDto3.setEspecialidad(rev3[2]);
+		revisorDto3.setEstado("Sugerido");
+
+		autorController.sugerirRevisores(id_articulo, revisorDto3);
+	    }
 	}
     }
 }
