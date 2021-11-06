@@ -1,31 +1,27 @@
 package giis.demo.tkrun.views.autor;
 
-import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
-import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JTextField;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JCheckBox;
 
 public class AutorView extends JDialog {
 
@@ -75,7 +71,7 @@ public class AutorView extends JDialog {
 	}
 	
 	private void inicialize() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1213, 586);
 		setTitle("Vista de Autor");
 		contentPane = new JPanel();
@@ -243,8 +239,11 @@ public class AutorView extends JDialog {
 						JOptionPane.showMessageDialog(null, "Tiene que confirmar la firma de CopyRight");
 					else {
 						ArticuloEntity articulo = (ArticuloEntity)getCbArticulosSinPublicar().getSelectedItem();
-						if(articulo != null)
+						if(articulo != null) {
 							controller.getEnviarVersionDefinitiva(articulo.getIdArticulo());
+							articulosAceptadosSinVersionDefinitiva.remove(articulo);
+							rellenarComboBox();
+						}
 					}
 				}
 			});
@@ -274,6 +273,7 @@ public class AutorView extends JDialog {
 	private void mostrarVentanaVisualizacion() {
 		if(getCbArticulosSinPublicar().getSelectedItem() != null) {
 			AutorEditarArticuloView vA = new AutorEditarArticuloView((ArticuloEntity) getCbArticulosSinPublicar().getSelectedItem());
+			vA.setModal(true);
 			vA.setVisible(true);
 		}
 	}
