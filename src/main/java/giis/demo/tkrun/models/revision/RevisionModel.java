@@ -99,7 +99,7 @@ public class RevisionModel {
 	public List<RevisionDto> numeroRevisiones(int idRev, int idArt) {
 		String sql = "select * "
 				+ "from revisiones "
-				+ "where idRevisor = ? and idArticulo = ?";
+				+ "where idRevisor = ? and idArticulo = ?"; 
 		
 		return db.executeQueryPojo(RevisionDto.class, sql, idRev, idArt);
 	}

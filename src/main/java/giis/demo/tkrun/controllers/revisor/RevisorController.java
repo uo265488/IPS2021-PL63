@@ -42,7 +42,7 @@ public class RevisorController {
 			
 		}
 		
-		public RevisionEntity getArticulosSinRevisar(int id, int idArt) {
+		public RevisionEntity getArticulosSinRevisar(int id, int idArt) { 
 			
 			return EntityAssembler.toRevisionEntity(model.visualizarSinRevisar(id, idArt));
 		}

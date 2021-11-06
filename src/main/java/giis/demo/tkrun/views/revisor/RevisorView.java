@@ -233,7 +233,8 @@ public class RevisorView extends JFrame {
 	private JComboBox<String> getChDecision() {
 		if (chDecision == null) {
 			chDecision = new JComboBox<String>();
-			chDecision.setModel(new DefaultComboBoxModel<String>(new String[] {"aceptar", "aceptar con cambios menores", "aceptar con cambios mayores", "rechazar"}));
+			chDecision.setModel(new DefaultComboBoxModel<String>(new String[] { "aceptar",
+					"aceptar con cambios menores", "aceptar con cambios mayores", "rechazar" }));
 			chDecision.setBounds(152, 365, 280, 22);
 		}
 		return chDecision;
@@ -245,20 +246,29 @@ public class RevisorView extends JFrame {
 			btEnviar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (idArt != -1 && pasaCondiciones()) {
-						int numeroRevision = controller.numeroRevisiones(idArt, Integer.parseInt(getTxId().getText()));
-						controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(),
-								(String) getChDecision().getSelectedItem(), true,
-								Integer.parseInt(getTxId().getText()), idArt, numeroRevision);
-						if(controller.todasLasRevisionesEnviadas(idArt, numeroRevision)) {
-							ArticuloEntity art = contArt.getArticulo(idArt);
-							if(art != null) {
-								art.setEstado(ArticuloEntity.CON_EL_EDITOR);
-								contArt.actualizarArticulo(art);
+						if (getTxAutor().getText().strip().length() == 0
+								|| getTxEditor().getText().strip().length() == 0)
+							JOptionPane.showMessageDialog(null,
+									"Debe rellenar tanto los comentarios del autor como los del editor para poder enviar la revisión",
+									"Error de campos", JOptionPane.ERROR_MESSAGE);
+						else {
+							int numeroRevision = controller.numeroRevisiones(idArt,
+									Integer.parseInt(getTxId().getText()));
+							controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(),
+									(String) getChDecision().getSelectedItem(), true,
+									Integer.parseInt(getTxId().getText()), idArt, numeroRevision);
+							if (controller.todasLasRevisionesEnviadas(idArt, numeroRevision)) {
+								ArticuloEntity art = contArt.getArticulo(idArt);
+								if (art != null) {
+									art.setEstado(ArticuloEntity.CON_EL_EDITOR);
+									contArt.actualizarArticulo(art);
+								}
 							}
+							limpiar();
+							getBtEnviar().setEnabled(false);
+							getBtGuardarCambios().setEnabled(false);
 						}
-						limpiar();
-						getBtEnviar().setEnabled(false);
-						getBtGuardarCambios().setEnabled(false);
+						
 					}
 				}
 			});
