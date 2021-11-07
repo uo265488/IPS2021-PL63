@@ -413,9 +413,16 @@ public class EditorAsignarView extends JDialog {
 	private ComboBoxModel<LocalDate> generarComboBoxModel() {
 		DefaultComboBoxModel<LocalDate> model = new DefaultComboBoxModel<>();
 
-		model.addAll(generarFechas());
+		addAllFechas(model);
 
 		return model;
+	}
+	
+	private void addAllFechas(DefaultComboBoxModel<LocalDate> model) {
+		List<LocalDate> allFechas = generarFechas();
+		for (LocalDate fecha : allFechas) {
+			model.addElement(fecha);
+		}
 	}
 
 	/**

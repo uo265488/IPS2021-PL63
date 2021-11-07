@@ -49,17 +49,30 @@ insert into autoresSecundarios(idArticulo, idAutor) values
 	(20, 6);
 	
 delete from revisiones;
-insert into revisiones(idArticulo, idRevisor, fecha, comentariosAutor, comentariosEditor, decision, enviarAlEditor, estadoDeLaPropuesta) values
-	(10, 1, '2020-10-2','Muy buen artículo', 'Debe ser publicado', 'altamente recomendable aceptar', true, 'ACEPTADA'),
-	(10, 2, '2020-10-2','Mejorable', 'Tengo mis dudas de aceptarlo', 'poco recomendable aceptar', true, 'ACEPTADA'),
-	(10, 3, '2020-10-2','Buen artículo', 'Aceptable', 'aceptardo', true, 'RECHAZADA'),
-	(8, 1, '2020-10-2','Me esta gustando','Aceptaria','altamente recomendable aceptar',true, 'ACEPTADA'),
-	(8, 2, '2020-10-2','Me esta gustando','Aceptaria','altamente recomendable aceptar',true, 'RECHAZADA'),
-	(8, 3,'2020-10-2', 'Me esta gustando','Aceptaria','altamente recomendable aceptar',true, 'PENDIENTE'),
-	(7, 3, '2020-10-2','Me esta gustando mucho','Aceptaria','altamente recomendable aceptar',false, 'RECHAZADA'),
-	(11, 4, '2020-10-2','Muy buen artículo', 'Debe ser publicado', 'altamente recomendable aceptar', true, 'ACEPTADA'),
-	(11, 5,'2020-10-2', 'Mejorable', 'Tengo mis dudas de aceptarlo', 'poco recomendable aceptar', true, 'PENDIENTE'),
-	(11, 6, '2020-10-2','Buen artículo', 'Aceptable', 'aceptardo', true, 'RECHAZADA');
+insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, comentariosAutor, comentariosEditor, decision, enviarAlEditor, estadoDeLaPropuesta) values
+	(10, 1, 1,'31/12/2021', 'Muy buen artículo', 'Debe ser publicado', 'aceptar', true, 'ACEPTADO'),
+	(10, 2, 1,'31/12/2021', 'Mejorable', 'Tengo mis dudas de aceptarlo', 'rechazar', true, 'ACEPTADO'),
+	(10, 3, 1,'31/12/2021', 'Buen artículo', 'Aceptable', 'aceptar con cambios mayores', true, 'ACEPTADO'),
+	(8, 1, 1,'31/12/2021', 'No me esta gustando','No aceptaria','rechazar',true, 'ACEPTADO'),
+	(8, 2, 1,'31/12/2021', 'Me esta gustando','Aceptaria','aceptar con cambios menores',true, 'ACEPTADO'),
+	(8, 3, 1,'31/12/2021', 'Articulo normal','Se puede aceptar','aceptar',true, 'ACEPTADO'),
+	(8, 3, 2,'31/12/2021', '','','',false, 'ACEPTADO'),
+	(7, 3, 1,'31/12/2021', 'Me esta gustando mucho','Aceptaria','aceptar con cambios menores',false, 'ACEPTADO'),
+	(11, 4, 1,'31/12/2021', 'Muy buen artículo', 'Debe ser publicado', 'aceptar con cambios menores', true, 'ACEPTADO'),
+	(11, 5, 1,'31/12/2021', 'Mejorable', 'Tengo mis dudas de aceptarlo', 'aceptar con cambios mayores', true, 'ACEPTADO'),
+	(11, 6, 1,'31/12/2021', 'Buen artículo', 'Aceptable', 'aceptar', true, 'ACEPTADO'),
+	(11, 6, 2,'31/12/2021', 'Buen artículo', 'Aceptable', 'aceptar', true, 'ACEPTADO'),
+	(12, 3, 1,'10/12/2021', '', '', '', false, 'PENDIENTE'),
+	(13, 3, 1,'25/12/2021', '', '', '', false, 'PENDIENTE'),
+	(14, 1, 1,'31/12/2021', 'Muy buen artículo', 'Debe ser publicado', 'aceptar con cambios menores', true, 'ACEPTADO'),
+	(14, 2, 1,'31/12/2021', 'Mejorable', 'Tengo mis dudas de aceptarlo', 'aceptar con cambios mayores', false, 'ACEPTADO'),
+	(14, 3, 1,'31/12/2021', 'Buen artículo', 'Aceptable', 'aceptar', true, 'ACEPTADO'), 
+	(15, 1, 1,'31/12/2021', 'Mal artículo', 'esto no se puede publicar', 'rechazar', true, 'ACEPTADO'),
+	(15, 2, 1,'31/12/2021', 'Artículo regular', 'Tengo mis dudas de aceptarlo', 'aceptar con cambios mayores', true, 'ACEPTADO'),
+	(15, 3, 1,'31/12/2021', 'No tiene ni pies ni cabeza', 'Sin comentarios, es malísimo', 'rechazar', true, 'ACEPTADO'),
+	(15, 1, 2,'31/12/2021', 'Es increíble lo que ha mejorado', 'publicar', 'aceptar', true, 'ACEPTADO'),
+	(15, 2, 2,'31/12/2021', 'Es increíble lo que ha mejorado', 'publicar sin lugar a dudas', 'aceptar', false, 'ACEPTADO'),
+	(15, 3, 2,'31/12/2021', '', '', '', false, 'ACEPTADO');
 	
 delete from usuarios;
 insert into usuarios (idUsuario, nombre, tipoUsuario) values

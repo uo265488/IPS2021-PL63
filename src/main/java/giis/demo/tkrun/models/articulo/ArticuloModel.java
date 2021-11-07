@@ -75,7 +75,8 @@ public class ArticuloModel {
 		for (ArticuloDto str : idsArticulos) {
 			sql = "SELECT * from revisiones where idArticulo = ?";
 			infoArtRevisados = db.executeQueryPojo(RevisionDto.class, sql, str.getIdArticulo());
-			if (infoArtRevisados.size() == 3) {
+			//if (infoArtRevisados.size() == 3) {
+			if (infoArtRevisados.size() >= 3) {
 				boolean estaRevisado = true;
 				for (RevisionDto revision : infoArtRevisados) {
 					if (!revision.isEnviarAlEditor()) {

@@ -93,6 +93,7 @@ public class EntityAssembler {
 		
 		ent.setIdRevisor(art.getIdRevisor());
 		ent.setIdArticulo(art.getIdArticulo());
+		ent.setNumeroRevision(art.getNumeroRevision());
 		ent.setComentariosEditor(art.getComentariosEditor());
 		ent.setComentariosAutor(art.getComentariosAutor());
 		ent.setEnviarAlEditor(art.isEnviarAlEditor());

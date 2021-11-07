@@ -13,6 +13,7 @@ import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.user.UserController;
 import giis.demo.tkrun.views.editor.EditorAsignarView;
 import giis.demo.tkrun.views.editor.EditorPrincipalView;
+import giis.demo.tkrun.views.editor.MenuEditor;
 
 
 
@@ -66,9 +67,12 @@ public class SwingMain {
 //				EditorAsignarView frame = new EditorAsignarView(new ArticuloEntity
 //						(20,"Poesia clasica","ariadna","publicado", "explicacion sobre la poesia clasica", "poesia, españa", "FicheroFuente.pdf", "Presentacion.pdf", "cv.pdf", true, "cv.pdf", 1, true,"cv.pdf", "cv.pdf", "cv.pdf", 1));
 //				frame.setVisible(true);
-				EditorPrincipalView v = new EditorPrincipalView(new EditorController());
 				
-				v.setVisible(true);
+				MenuEditor menu = new MenuEditor(new EditorController());
+				menu.setVisible(true);
+				
+//				EditorPrincipalView v = new EditorPrincipalView(new EditorController());				
+//				v.setVisible(true);
 			}
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
