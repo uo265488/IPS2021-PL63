@@ -60,7 +60,7 @@ public class AutorModel {
     }
 
     public List<Integer> findOtrosAutores(int idArticulo) {
-	String sql = "select idAutor from articulosdeautores where idArticulo = ?";
+	String sql = "select * from articulosdeautores where idArticulo = ?";
 
 	return db.executeQueryPojo(Integer.class, sql, idArticulo);
     }
