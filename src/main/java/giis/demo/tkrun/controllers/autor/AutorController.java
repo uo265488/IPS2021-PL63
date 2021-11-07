@@ -10,7 +10,9 @@ import giis.demo.tkrun.models.autor.AutorModel;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.AutorDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
+import giis.demo.tkrun.models.dtos.UserDto;
 import giis.demo.tkrun.models.revisor.RevisorModel;
+import giis.demo.tkrun.models.user.UserModel;
 import giis.demo.tkrun.views.autor.MenuAutor;
 import giis.demo.util.EntityAssembler;
 
@@ -23,6 +25,7 @@ public class AutorController {
     private ArticuloModel articuloModel;
     private MenuAutor view;
     private RevisorModel revisorModel;
+    private UserModel userModel;
 
     // public AutorController(AutorModel m, EditorView v) {
     // this.model = m;
@@ -36,6 +39,7 @@ public class AutorController {
 	this.id_autor = id_autor;
 	articuloModel = new ArticuloModel();
 	revisorModel = new RevisorModel();
+	userModel = new UserModel();
 	initView();
     }
 
@@ -54,6 +58,10 @@ public class AutorController {
 	return EntityAssembler.toArticuloEntityList(model.articulosAceptadosSinVersionDefinitiva(id));
     }
 
+    public AutorEntity findAutor(String nombre, String dni) {
+	return EntityAssembler.toAutorEntity(model.findAutor(nombre, dni));
+    }
+
     public AutorEntity findById(int id) {
 	return EntityAssembler.toAutorEntity(model.findById(id));
     }
@@ -66,7 +74,6 @@ public class AutorController {
     public void crearBorrador(ArticuloDto articuloDto) {
 	articuloModel.crearBorrador(articuloDto);
 	articuloModel.asignarAutor(articuloDto, id_autor);
-	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
     }
 
     public void crearArticulo(ArticuloDto articuloDto) {
@@ -82,8 +89,9 @@ public class AutorController {
 	    autor.setIdAutor(new Random().nextInt());
 	    autor.setNombre(autorAParsear[0]);
 	    autor.setDni(autorAParsear[1]);
-	    if (model.findById(autor.getIdAutor()) == null) {
+	    if (model.findAutor(autor.getNombre(), autor.getDni()) == null) {
 		model.addAutor(autor);
+		createUser(autor);
 	    }
 
 	    articuloModel.asignarOtroAutor(id_Articulo, autor.getIdAutor());
@@ -91,6 +99,27 @@ public class AutorController {
     }
 
     public void sugerirRevisores(int id_articulo, RevisorDto revisor) {
+	revisorModel.sugerirRevisores(id_articulo, revisor);
+    }
+
+    private void createUser(AutorDto autor) {
+	UserDto user = new UserDto();
+	user.setIdUsuario(autor.getIdAutor());
+	user.setNombre(autor.getNombre());
+	user.setTipoUsuario("Autor");
+
+	userModel.addUser(user);
+    }
+
+    public void actualizarBorrador(ArticuloDto articuloDto) {
+
+	articuloModel.actualizarBorrador(articuloDto);
 
     }
+
+    public void enviarBorrador(ArticuloDto articuloDto) {
+	articuloModel.enviarBorrador(articuloDto);
+	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
+    }
+
 }

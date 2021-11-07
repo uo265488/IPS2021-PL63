@@ -16,10 +16,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import giis.demo.tkrun.controllers.articulo.ArticuloController;
 import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
+import giis.demo.util.EntityAssembler;
 
 public class AutorCreacionView extends JDialog {
 
@@ -57,6 +59,7 @@ public class AutorCreacionView extends JDialog {
     private JTextField txtFSugerido3;
     private JLabel lbConstraintsSugeridos;
     private RevisorController revisorController;
+    private ArticuloController articuloController;
 
 //	/**
 //	 * Launch the application.
@@ -78,6 +81,7 @@ public class AutorCreacionView extends JDialog {
 	this.autorController = autorController;
 	this.id_autor = id_autor;
 	revisorController = new RevisorController();
+	articuloController = new ArticuloController();
 	initialize();
     }
 
@@ -339,11 +343,21 @@ public class AutorCreacionView extends JDialog {
 	articuloDto.setCartaPresentacion(getTxtFCartaPresentacion().getText());
 	articuloDto.setCV(getTxtFCVAutor().getText());
 	articuloDto.setFirma(getChckBoxFirmaPlagio().isSelected());
+	articuloDto.setVecesRevisado(0);
+	articuloDto.setVersionDefinitiva(false);
+	articuloDto.setDOI("");
+	articuloDto.setFecha("");
+	articuloDto.setVolumen(0);
 
-	revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(), getTextFSugerido2().getText(),
-		getTextFSugerido3().getText());
+	if (articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor()) == null) {
+	    autorController.crearBorrador(articuloDto);
+	} else {
+	    int id = articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor())
+		    .getIdArticulo();
 
-	autorController.crearBorrador(articuloDto);
+	    articuloDto.setIdArticulo(id);
+	    autorController.actualizarBorrador(articuloDto);
+	}
 
     }
 
@@ -406,7 +420,17 @@ public class AutorCreacionView extends JDialog {
 	articuloDto.setFecha("");
 	articuloDto.setVolumen(0);
 
-	autorController.crearArticulo(articuloDto);
+	if (articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor()) == null) {
+	    autorController.crearArticulo(articuloDto);
+	} else {
+	    int id = articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor())
+		    .getIdArticulo();
+	    articuloDto.setIdArticulo(id);
+	    autorController.enviarBorrador(articuloDto);
+	}
+	revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(), getTextFSugerido2().getText(),
+		getTextFSugerido3().getText());
+
     }
 
     private JLabel getLbContstraints() {
@@ -491,6 +515,9 @@ public class AutorCreacionView extends JDialog {
 		revisorDto1.setEstado("Sugerido");
 
 		autorController.sugerirRevisores(id_articulo, revisorDto1);
+	    } else {
+		autorController.sugerirRevisores(id_articulo,
+			EntityAssembler.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
 	    }
 	}
 

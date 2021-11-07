@@ -30,9 +30,26 @@ public class AutorModel {
 	db.executeUpdate(sql, id);
     }
 
+    public AutorDto findAutor(String nombre, String dni) {
+	String sql = "select * from autores where nombre = ? and dni = ?";
+	List<AutorDto> list = db.executeQueryPojo(AutorDto.class, sql, nombre, dni);
+
+	if (list.isEmpty()) {
+	    return null;
+	} else {
+	    return list.get(0);
+	}
+    }
+
     public AutorDto findById(int id) {
 	String sql = "select * from autores where idAutor = ?";
-	return db.executeQueryPojo(AutorDto.class, sql, id).get(0);
+	List<AutorDto> list = db.executeQueryPojo(AutorDto.class, sql, id);
+
+	if (list.isEmpty()) {
+	    return null;
+	} else {
+	    return list.get(0);
+	}
     }
 
     public void addAutor(AutorDto autor) {

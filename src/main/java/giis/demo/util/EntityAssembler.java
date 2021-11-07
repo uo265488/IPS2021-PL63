@@ -25,6 +25,10 @@ public class EntityAssembler {
     }
 
     public static RevisorEntity toRevisorEntity(RevisorDto rev) {
+	if (rev == null) {
+	    return null;
+	}
+
 	RevisorEntity ent = new RevisorEntity();
 
 	ent.setEstado(rev.getEstado());
@@ -32,6 +36,20 @@ public class EntityAssembler {
 	ent.setId(rev.getIdRevisor());
 
 	return ent;
+    }
+
+    public static RevisorDto toRevisorDto(RevisorEntity rev) {
+	if (rev == null) {
+	    return null;
+	}
+	RevisorDto dto = new RevisorDto();
+	dto.setIdRevisor(rev.getId());
+	dto.setNombre(rev.getNombre());
+	dto.setEstado(rev.getEstado());
+	dto.setCorreo(rev.getCorreo());
+	dto.setEspecialidad(rev.getEspecialidad());
+
+	return dto;
     }
 
     public static List<ArticuloEntity> toArticuloEntityList(List<ArticuloDto> listArticulosNuevos) {
@@ -43,6 +61,10 @@ public class EntityAssembler {
     }
 
     public static ArticuloEntity toArticuloEntity(ArticuloDto dto) {
+	if (dto == null) {
+	    return null;
+	}
+
 	ArticuloEntity ent = new ArticuloEntity();
 
 	ent.setCartaPresentacion(dto.getCartaPresentacion());
@@ -79,6 +101,10 @@ public class EntityAssembler {
     }
 
     private static UserEntity toUserEntity(UserDto userDto) {
+	if (userDto == null) {
+	    return null;
+	}
+
 	UserEntity userEntity = new UserEntity();
 
 	userEntity.setIdUser(userDto.getIdUsuario());
@@ -103,6 +129,10 @@ public class EntityAssembler {
     }
 
     public static AutorEntity toAutorEntity(AutorDto autor) {
+	if (autor == null) {
+	    return null;
+	}
+
 	AutorEntity res = new AutorEntity();
 
 	res.setIdAutor(autor.getIdAutor());

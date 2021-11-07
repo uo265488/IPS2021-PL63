@@ -117,26 +117,22 @@ public class ArticuloModel {
     }
 
     public void crearBorrador(ArticuloDto articulo) {
-	String sql_into_articulos = "insert into articulos values (?, ?, ?, 'borrador', ?, ?, ?, ?, ?, ?, ?, ?)";
-	String sql_into_articulosDeAutor = "insert into articulosDeAutores values (?, ?)";
+	String sql_into_articulos = "insert into articulos values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	db.executeUpdate(sql_into_articulos, articulo.getIdArticulo(), articulo.getTitulo(), articulo.getPrimerAutor(),
-		articulo.getResumen(), articulo.getPalabrasClave(), articulo.getFicheroFuente(),
-		articulo.getCartaPresentacion(), articulo.getCV(), articulo.isFirma(), articulo.getVecesRevisado());
+		"borrador", articulo.getResumen(), articulo.getPalabrasClave(), articulo.getFicheroFuente(),
+		articulo.getCartaPresentacion(), articulo.getCV(), articulo.isFirma(), articulo.getVecesRevisado(),
+		articulo.isVersionDefinitiva(), articulo.getDOI(), articulo.getFecha(), articulo.getVolumen());
 
-	db.executeUpdate(sql_into_articulosDeAutor, articulo.getIdArticulo(), articulo.getOtrosAutores());
     }
 
     public void crearArticulo(ArticuloDto articulo) {
 	String sql_into_articulos = "insert into articulos values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	String sql_into_articulosDeAutor = "insert into articulosDeAutores values (?, ?)";
 
 	db.executeUpdate(sql_into_articulos, articulo.getIdArticulo(), articulo.getTitulo(), articulo.getPrimerAutor(),
 		"con el editor", articulo.getResumen(), articulo.getPalabrasClave(), articulo.getFicheroFuente(),
 		articulo.getCartaPresentacion(), articulo.getCV(), articulo.isFirma(), articulo.getVecesRevisado(),
-		articulo.isVersionDefinitiva(), articulo.getFecha(), articulo.getDOI(), articulo.getVolumen());
-
-	db.executeUpdate(sql_into_articulosDeAutor, articulo.getIdArticulo(), articulo.getOtrosAutores());
+		articulo.isVersionDefinitiva(), articulo.getDOI(), articulo.getFecha(), articulo.getVolumen());
     }
 
     public List<ArticuloDto> getArticulosAsignados(int id) {
@@ -164,13 +160,43 @@ public class ArticuloModel {
     }
 
     public void asignarAutor(ArticuloDto articulo, int id_autor) {
-	String sql = "insert into articulosdeautores(idArticulo, idAutor) vales ?, ?";
+	String sql = "insert into articulosdeautores(idArticulo, idAutor) values (?, ?)";
 	db.executeUpdate(sql, articulo.getIdArticulo(), id_autor);
     }
 
     public void asignarOtroAutor(int id_articulo, int id_segundo_Autor) {
-	String sql = "insert into articulosdeautores(idArticulo, idAutor) values ?, ?";
+	String sql = "insert into articulosdeautores(idArticulo, idAutor) values (?, ?)";
 	db.executeUpdate(sql, id_articulo, id_segundo_Autor);
+    }
+
+    public ArticuloDto findArticulo(String nombre, String autor) {
+	String sql = "select * from articulos where titulo = ? and primerAutor = ?";
+	List<ArticuloDto> list = db.executeQueryPojo(ArticuloDto.class, sql, nombre, autor);
+
+	if (list.isEmpty()) {
+	    return null;
+	} else {
+	    return list.get(0);
+	}
+    }
+
+    public void actualizarBorrador(ArticuloDto articuloDto) {
+	String remove = "delete from articulos where idArticulo = ?";
+	String remove_autor = "delete from articulosdeautor where idArticulo = ?";
+	db.executeUpdate(remove, articuloDto.getIdArticulo());
+	db.executeUpdate(remove_autor, articuloDto.getIdArticulo());
+
+	crearBorrador(articuloDto);
+    }
+
+    public void enviarBorrador(ArticuloDto articuloDto) {
+	String remove = "delete from articulos where idArticulo = ?";
+	String remove_autor = "delete from articulosdeautor where idArticulo = ?";
+	db.executeUpdate(remove, articuloDto.getIdArticulo());
+	db.executeUpdate(remove_autor, articuloDto.getIdArticulo());
+
+	crearArticulo(articuloDto);
+
     }
 
 }
