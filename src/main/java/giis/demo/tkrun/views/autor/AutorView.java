@@ -316,6 +316,7 @@ public class AutorView extends JDialog {
     private JList<ArticuloEntity> getListArticulos() {
 	if (listArticulos == null) {
 	    listArticulos = new JList<ArticuloEntity>();
+	    listArticulos.setModel(addModel());
 	    listArticulos.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -326,7 +327,7 @@ public class AutorView extends JDialog {
 		    }
 		}
 	    });
-	    listArticulos.setModel(addModel());
+
 	}
 	return listArticulos;
     }

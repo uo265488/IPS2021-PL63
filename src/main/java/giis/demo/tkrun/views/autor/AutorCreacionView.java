@@ -88,6 +88,7 @@ public class AutorCreacionView extends JDialog {
 	this.posibleBorrador = borrador;
 	revisorController = new RevisorController();
 	articuloController = new ArticuloController();
+	System.out.println(posibleBorrador.getIdArticulo());
 	initialize();
 	fillFields();
     }
@@ -100,6 +101,7 @@ public class AutorCreacionView extends JDialog {
 	this.id_autor = id_autor;
 	revisorController = new RevisorController();
 	articuloController = new ArticuloController();
+	posibleBorrador = new ArticuloEntity();
 	initialize();
     }
 
@@ -349,9 +351,10 @@ public class AutorCreacionView extends JDialog {
     }
 
     private void crearBorrador() {
-
 	ArticuloDto articuloDto = new ArticuloDto();
-	articuloDto.setIdArticulo(new Random().nextInt());
+
+	System.out.println(posibleBorrador.getIdArticulo());
+
 	articuloDto.setTitulo(getTxtFTitulo().getText());
 	articuloDto.setPrimerAutor(getTxtFAutor().getText());
 	articuloDto.setOtrosAutores(getTxtFOtrosAutores().getText());
@@ -367,14 +370,14 @@ public class AutorCreacionView extends JDialog {
 	articuloDto.setFecha("");
 	articuloDto.setVolumen(0);
 
-	if (articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor()) == null) {
-	    autorController.crearBorrador(articuloDto);
-	} else {
-	    int id = articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor())
-		    .getIdArticulo();
-
-	    articuloDto.setIdArticulo(id);
+	if (posibleBorrador.getIdArticulo() != 0) {
+	    articuloDto.setIdArticulo(posibleBorrador.getIdArticulo());
+	    System.out.println(articuloDto.getIdArticulo());
 	    autorController.actualizarBorrador(articuloDto);
+	} else {
+	    articuloDto.setIdArticulo(new Random().nextInt());
+	    System.out.println(articuloDto.getIdArticulo());
+	    autorController.crearBorrador(articuloDto);
 	}
 	revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(), getTextFSugerido2().getText(),
 		getTextFSugerido3().getText());

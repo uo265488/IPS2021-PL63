@@ -33,7 +33,10 @@ public class RevisorModel {
     }
 
     public void sugerirRevisores(int id_articulo, RevisorDto revisor) {
-	String sql = "insert or update into sugerencias(idArticulo, idRevisor) values ?, ?";
+	String sql = "delete from sugerencias where idArticulo = ?";
+	db.executeUpdate(sql, id_articulo);
+
+	sql = "insert into sugerencias(idArticulo, idRevisor) values (?, ?)";
 	db.executeUpdate(sql, id_articulo, revisor.getIdRevisor());
     }
 }
