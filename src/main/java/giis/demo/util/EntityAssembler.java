@@ -142,4 +142,13 @@ public class EntityAssembler {
 	return res;
     }
 
+    public static List<AutorEntity> toAutorEntiyList(List<AutorDto> dtos) {
+	List<AutorEntity> entities = new ArrayList<>();
+	for (AutorDto dto : dtos) {
+	    entities.add(toAutorEntity(dto));
+	}
+
+	return entities;
+    }
+
 }

@@ -1,5 +1,6 @@
 package giis.demo.tkrun.controllers.autor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -74,6 +75,7 @@ public class AutorController {
     public void crearBorrador(ArticuloDto articuloDto) {
 	articuloModel.crearBorrador(articuloDto);
 	articuloModel.asignarAutor(articuloDto, id_autor);
+	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
     }
 
     public void crearArticulo(ArticuloDto articuloDto) {
@@ -82,20 +84,22 @@ public class AutorController {
 
     public void parseOtrosAutores(int id_Articulo, String otrosAutores) {
 	String[] autores = otrosAutores.split(";");
+	if (autores.length > 1) {
+	    for (String line : autores) {
+		String[] autorAParsear = line.split("-");
+		AutorDto autor = new AutorDto();
+		autor.setIdAutor(new Random().nextInt());
+		autor.setNombre(autorAParsear[0]);
+		autor.setDni(autorAParsear[1]);
+		if (model.findAutor(autor.getNombre(), autor.getDni()) == null) {
+		    model.addAutor(autor);
+		    createUser(autor);
+		}
 
-	for (String line : autores) {
-	    String[] autorAParsear = line.split("-");
-	    AutorDto autor = new AutorDto();
-	    autor.setIdAutor(new Random().nextInt());
-	    autor.setNombre(autorAParsear[0]);
-	    autor.setDni(autorAParsear[1]);
-	    if (model.findAutor(autor.getNombre(), autor.getDni()) == null) {
-		model.addAutor(autor);
-		createUser(autor);
+		articuloModel.asignarOtroAutor(id_Articulo, autor.getIdAutor());
 	    }
-
-	    articuloModel.asignarOtroAutor(id_Articulo, autor.getIdAutor());
 	}
+
     }
 
     public void sugerirRevisores(int id_articulo, RevisorDto revisor) {
@@ -120,6 +124,16 @@ public class AutorController {
     public void enviarBorrador(ArticuloDto articuloDto) {
 	articuloModel.enviarBorrador(articuloDto);
 	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
+    }
+
+    public List<AutorEntity> findOtrosAutorEntities(int idArticulo) {
+	List<Integer> ids = model.findOtrosAutores(idArticulo);
+	List<AutorEntity> autores = new ArrayList<>();
+	for (Integer id : ids) {
+	    autores.add(EntityAssembler.toAutorEntity(model.findById(id)));
+	}
+
+	return autores;
     }
 
 }

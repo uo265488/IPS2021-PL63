@@ -1,5 +1,6 @@
 package giis.demo.tkrun.controllers.revisor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
@@ -69,5 +70,15 @@ public class RevisorController {
 
     public RevisorEntity findRevisor(String nombre, String correo, String especialidad) {
 	return EntityAssembler.toRevisorEntity(model.findRevisor(nombre, correo, especialidad));
+    }
+
+    public List<RevisorEntity> findSugeridos(int idArticulo) {
+	List<Integer> ids = model.findSugeridos(idArticulo);
+	List<RevisorEntity> revisores = new ArrayList<RevisorEntity>();
+	for (Integer id : ids) {
+	    revisores.add(EntityAssembler.toRevisorEntity(model.findById(id)));
+	}
+
+	return revisores;
     }
 }

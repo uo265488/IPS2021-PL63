@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -18,6 +19,9 @@ import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.articulo.ArticuloController;
 import giis.demo.tkrun.controllers.autor.AutorController;
+import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.AutorEntity;
+import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
@@ -60,6 +64,7 @@ public class AutorCreacionView extends JDialog {
     private JLabel lbConstraintsSugeridos;
     private RevisorController revisorController;
     private ArticuloController articuloController;
+    private ArticuloEntity posibleBorrador;
 
 //	/**
 //	 * Launch the application.
@@ -77,6 +82,19 @@ public class AutorCreacionView extends JDialog {
 //		});
 //	}
 
+    public AutorCreacionView(AutorController autorController, int id_autor, ArticuloEntity borrador) {
+	this.autorController = autorController;
+	this.id_autor = id_autor;
+	this.posibleBorrador = borrador;
+	revisorController = new RevisorController();
+	articuloController = new ArticuloController();
+	initialize();
+	fillFields();
+    }
+
+    /**
+     * @wbp.parser.constructor
+     */
     public AutorCreacionView(AutorController autorController, int id_autor) {
 	this.autorController = autorController;
 	this.id_autor = id_autor;
@@ -358,6 +376,8 @@ public class AutorCreacionView extends JDialog {
 	    articuloDto.setIdArticulo(id);
 	    autorController.actualizarBorrador(articuloDto);
 	}
+	revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(), getTextFSugerido2().getText(),
+		getTextFSugerido3().getText());
 
     }
 
@@ -553,6 +573,49 @@ public class AutorCreacionView extends JDialog {
 
 		autorController.sugerirRevisores(id_articulo, revisorDto3);
 	    }
+	}
+    }
+
+    private void fillFields() {
+	getTxtFTitulo().setText(posibleBorrador.getTitulo());
+	getTxtFResumen().setText(posibleBorrador.getResumen());
+	getTxtFPalabrasClave().setText(posibleBorrador.getPalabrasClave());
+	getTxtFFicheroFuente().setText(posibleBorrador.getFicheroFuente());
+	getTxtFCartaPresentacion().setText(posibleBorrador.getCartaPresentacion());
+	getTxtFCVAutor().setText(posibleBorrador.getCV());
+
+	fillOtrosAutores();
+	fillSugeridos();
+    }
+
+    private void fillOtrosAutores() {
+	List<AutorEntity> otrosAutores = autorController.findOtrosAutorEntities(posibleBorrador.getIdArticulo());
+	for (AutorEntity autor : otrosAutores) {
+	    getTxtFOtrosAutores().setText(autor.getNombre() + "-" + autor.getDni() + ";");
+	}
+    }
+
+    private void fillSugeridos() {
+	List<RevisorEntity> sugeridos = revisorController.findSugeridos(posibleBorrador.getIdArticulo());
+	switch (sugeridos.size()) {
+	case 1:
+	    RevisorEntity rev1 = sugeridos.get(0);
+	    getTextFSugerido1().setText(rev1.getNombre() + "-" + rev1.getCorreo() + "-" + rev1.getEspecialidad());
+	    break;
+	case 2:
+	    rev1 = sugeridos.get(0);
+	    getTextFSugerido1().setText(rev1.getNombre() + "-" + rev1.getCorreo() + "-" + rev1.getEspecialidad());
+	    RevisorEntity rev2 = sugeridos.get(1);
+	    getTextFSugerido2().setText(rev2.getNombre() + "-" + rev2.getCorreo() + "-" + rev2.getEspecialidad());
+	    break;
+	case 3:
+	    rev1 = sugeridos.get(0);
+	    getTextFSugerido1().setText(rev1.getNombre() + "-" + rev1.getCorreo() + "-" + rev1.getEspecialidad());
+	    rev2 = sugeridos.get(1);
+	    getTextFSugerido2().setText(rev2.getNombre() + "-" + rev2.getCorreo() + "-" + rev2.getEspecialidad());
+	    RevisorEntity rev3 = sugeridos.get(2);
+	    getTextFSugerido3().setText(rev3.getNombre() + "-" + rev3.getCorreo() + "-" + rev3.getEspecialidad());
+	    break;
 	}
     }
 }

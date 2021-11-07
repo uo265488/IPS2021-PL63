@@ -182,7 +182,7 @@ public class ArticuloModel {
 
     public void actualizarBorrador(ArticuloDto articuloDto) {
 	String remove = "delete from articulos where idArticulo = ?";
-	String remove_autor = "delete from articulosdeautor where idArticulo = ?";
+	String remove_autor = "delete from articulosdeautores where idArticulo = ?";
 	db.executeUpdate(remove, articuloDto.getIdArticulo());
 	db.executeUpdate(remove_autor, articuloDto.getIdArticulo());
 
@@ -191,7 +191,7 @@ public class ArticuloModel {
 
     public void enviarBorrador(ArticuloDto articuloDto) {
 	String remove = "delete from articulos where idArticulo = ?";
-	String remove_autor = "delete from articulosdeautor where idArticulo = ?";
+	String remove_autor = "delete from articulosdeautores where idArticulo = ?";
 	db.executeUpdate(remove, articuloDto.getIdArticulo());
 	db.executeUpdate(remove_autor, articuloDto.getIdArticulo());
 

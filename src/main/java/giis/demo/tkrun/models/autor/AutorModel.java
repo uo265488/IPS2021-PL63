@@ -12,8 +12,9 @@ public class AutorModel {
 
     public List<ArticuloDto> articulosDeUnAutor(int id) {
 	// validaciones (en este caso nada)
-	String sql = "select titulo, primerAutor, estado " + "from articulosDeAutores, articulos "
-		+ "where idAutor = ? and articulos.idArticulo = articulosDeAutores.idArticulo";
+	String sql = "select a.titulo, a.primerAutor, a.estado, a.resumen, a.palabrasClave, a.ficheroFuente, a.cartaPresentacion, a.CV, a.firma, a.vecesRevisado"
+		+ " from articulosDeAutores, articulos as a "
+		+ "where idAutor = ? and a.idArticulo = articulosDeAutores.idArticulo";
 	return db.executeQueryPojo(ArticuloDto.class, sql, id);
 
     }
@@ -56,6 +57,12 @@ public class AutorModel {
 	String sql = "insert into autores(idAutor, nombre, dni) values ?, ?, ?";
 	db.executeUpdate(sql, autor.getIdAutor(), autor.getNombre(), autor.getDni());
 
+    }
+
+    public List<Integer> findOtrosAutores(int idArticulo) {
+	String sql = "select idAutor from articulosdeautores where idArticulo = ?";
+
+	return db.executeQueryPojo(Integer.class, sql, idArticulo);
     }
 
 }

@@ -97,7 +97,7 @@ public class RevisionModel {
     }
 
     public RevisorDto findRevisor(String nombre, String correo, String especialidad) {
-	String sql = "select * from revisores where nombre = ' and correo = ? and especialidad = ?";
+	String sql = "select * from revisores where nombre = ? and correo = ? and especialidad = ?";
 
 	List<RevisorDto> revisores = db.executeQueryPojo(RevisorDto.class, sql, nombre, correo, especialidad);
 
@@ -106,5 +106,22 @@ public class RevisionModel {
 	} else {
 	    return revisores.get(0);
 	}
+    }
+
+    public RevisorDto findById(int id) {
+	String sql = "select * from revisores where idRevisor = ?";
+	List<RevisorDto> revisores = db.executeQueryPojo(RevisorDto.class, sql, id);
+
+	if (revisores.isEmpty()) {
+	    return null;
+	} else {
+	    return revisores.get(0);
+	}
+    }
+
+    public List<Integer> findSugeridos(int idArticulo) {
+	String sql = "select idRevisor from sugerencias where idArticulo = ?";
+
+	return db.executeQueryPojo(Integer.class, sql, idArticulo);
     }
 }
