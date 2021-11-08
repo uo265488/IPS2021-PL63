@@ -358,8 +358,6 @@ public class AutorCreacionView extends JDialog {
     private void crearBorrador() {
 	ArticuloDto articuloDto = new ArticuloDto();
 
-	System.out.println(posibleBorrador.getIdArticulo());
-
 	articuloDto.setTitulo(getTxtFTitulo().getText());
 	articuloDto.setPrimerAutor(getTxtFAutor().getText());
 	articuloDto.setOtrosAutores(getTxtFOtrosAutores().getText());
@@ -377,11 +375,9 @@ public class AutorCreacionView extends JDialog {
 
 	if (posibleBorrador.getIdArticulo() != 0) {
 	    articuloDto.setIdArticulo(posibleBorrador.getIdArticulo());
-	    System.out.println(articuloDto.getIdArticulo());
 	    autorController.actualizarBorrador(articuloDto);
 	} else {
 	    articuloDto.setIdArticulo(new Random().nextInt());
-	    System.out.println(articuloDto.getIdArticulo());
 	    autorController.crearBorrador(articuloDto);
 	}
 	revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(), getTextFSugerido2().getText(),
