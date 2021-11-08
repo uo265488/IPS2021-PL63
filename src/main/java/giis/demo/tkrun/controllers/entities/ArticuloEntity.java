@@ -19,44 +19,13 @@ public class ArticuloEntity {
 	private String DOI;
 	private String fecha;
 	private int volumen;
-	
-	public static final String CON_EL_EDITOR = "con el editor";
-	public static final String PENDIENTE_DE_ACEPTACION = "pendiente de aceptacion";
+
+	public static String CON_EL_EDITOR = "con el editor";
+	public static String BORRADOR = "borrador";
+	public static String RECHAZADO = "rechazado";
+	public static String ACEPTADO = "aceptado";
 	public static final String EN_REVISION = "en revision";
-	public static final String BORRADOR = "borrador";
-	public static final String RECHAZADO = "rechazado";
-	public static final String ACEPTADO = "aceptado";
 	public static final String PUBLICADO = "publicado";
-
-	
-	
-	public ArticuloEntity(int idArticulo, String titulo, String primerAutor, String otrosAutores, String resumen,
-			String palabrasClave, String ficheroFuente, String cartaPresentacion, String cV, boolean firma,
-			String estado, int vecesRevisado, boolean versionDefinitiva, String cartaDecision, String dOI, String fecha,
-			int volumen) {
-		super();
-		this.idArticulo = idArticulo;
-		this.titulo = titulo;
-		this.primerAutor = primerAutor;
-		this.otrosAutores = otrosAutores;
-		this.resumen = resumen;
-		this.palabrasClave = palabrasClave;
-		this.ficheroFuente = ficheroFuente;
-		this.cartaPresentacion = cartaPresentacion;
-		CV = cV;
-		this.firma = firma;
-		this.estado = estado;
-		this.vecesRevisado = vecesRevisado;
-		this.versionDefinitiva = versionDefinitiva;
-		this.cartaDecision = cartaDecision;
-		DOI = dOI;
-		this.fecha = fecha;
-		this.volumen = volumen;
-	}
-
-	public ArticuloEntity() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public int getIdArticulo() {
 		return idArticulo;
@@ -205,16 +174,6 @@ public class ArticuloEntity {
 
 	public void setVolumen(int volumen) {
 		this.volumen = volumen;
-	}
-
-	public String toStringForTable() {
-		String str = "" + idArticulo;
-		if(titulo != null)
-			str += " - " + titulo;
-		if(primerAutor != null)
-			str += " - Autor: " + primerAutor;
-
-		return str;
 	}	
 }
 
