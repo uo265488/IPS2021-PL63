@@ -170,7 +170,7 @@ public class EditorViewDecisionArticulo extends JDialog {
 	private void mostrarComentarios() {
 		if(getChArticulos().getItemCount() > 0) {
 			ArticuloEntity art = (ArticuloEntity) getChArticulos().getSelectedItem();
-			EditorViewComentariosArticulo ven = new EditorViewComentariosArticulo(art);
+			EditorViewVerComentarios ven = new EditorViewVerComentarios(art, controller);
 			ven.setVisible(true);
 			ven.setModal(true);
 		}

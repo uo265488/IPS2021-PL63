@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -16,6 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.revision.RevisionController;
@@ -24,7 +26,7 @@ import javax.swing.JButton;
 
 
 
-public class EditorViewComentariosArticulo extends JDialog {
+public class EditorViewVerComentarios extends JDialog {
 
 	/**
 	 * 
@@ -35,6 +37,10 @@ public class EditorViewComentariosArticulo extends JDialog {
 	private static String COMENTARIOS = "Comentarios";
 	private static final String DECISIONES = "Decisiones";
 	private static final String TODA_LA_INFORMACION = "Toda la informacion";
+	private static final String PRIMERA = "1ª";
+	private static final String SEGUNDA = "2ª";
+	private static final String TODAS = "Todas";
+	private static final int PRIMERA_REVISION = 0;
 
 	private JPanel contentPane;
 	private ArticuloEntity articulo;
@@ -50,15 +56,19 @@ public class EditorViewComentariosArticulo extends JDialog {
 	private JLabel lblFormato;
 	private JTextArea txtRevisiones;
 	private JButton btnEnviarComentariosAutor;
+	private EditorController controller;
+	private JComboBox cbSeleccionarRevision;
+	private JLabel lblRevision;
 
 
 	/**
 	 * Create the dialog.
 	 */
-	public EditorViewComentariosArticulo(ArticuloEntity articulo) {
+	public EditorViewVerComentarios(ArticuloEntity articulo, EditorController controller) {
 		setTitle("Comentarios Revision");
 		this.articulo = articulo;
-		inicializar();
+		this.controller = controller;
+		this.revisiones = controller.getRevisionesArticulo(articulo);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 585, 492);
@@ -77,12 +87,10 @@ public class EditorViewComentariosArticulo extends JDialog {
 		contentPane.add(getLblFormato());
 		contentPane.add(getTxtRevisiones());
 		contentPane.add(getBtnEnviarComentariosAutor());
+		contentPane.add(getCbSeleccionarRevision());
+		contentPane.add(getLblRevision());
 	}
-	
-	private void inicializar() {
-		RevisionController rev = new RevisionController();
-		revisiones = rev.getRevisionesDelArticulo(articulo);
-	}
+
 	private JLabel getLblArticulo() {
 		if (lblArticulo == null) {
 			lblArticulo = new JLabel("Articulo:");
@@ -144,7 +152,7 @@ public class EditorViewComentariosArticulo extends JDialog {
 			String[] opcionesInd = {COMENTARIOS, TODA_LA_INFORMACION};
 			opciones = opcionesInd;
 			getCbSeleccionarRevisor().setEnabled(true);
-			getCbSeleccionarRevisor().setModel(new DefaultComboBoxModel(revisiones.toArray()));
+			cbSeleccionarRevisor.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3"}));
 		}
 		else {
 			String[] opcionesCol = {COMENTARIOS, DECISIONES};
@@ -154,11 +162,18 @@ public class EditorViewComentariosArticulo extends JDialog {
 		getCbFormatoVisualizacion().setModel(new DefaultComboBoxModel(opciones));
 	}
 	
+	
 	/**
 	 * Establece el texto de las revisiones dependiendo de la opcion seleccionada con las comboBoxes
 	 */
 	private void setTextoRevisiones() {
 		String text = "";
+		String selectedFormat =(String) getCbSeleccionarRevision().getSelectedItem();
+		switch (selectedFormat) {
+		case "1ª":{ revisiones = controller.getRevisionesFiltradas(articulo.getIdArticulo(), 1); break;}
+		case "2ª": { revisiones = controller.getRevisionesFiltradas(articulo.getIdArticulo(), 2); break;}
+		case "Todas": { revisiones = controller.getRevisionesArticulo(articulo); break;}
+		}
 		if (revisiones.size() != 0) {
 		if (getCbSeleccionarRevisiones().getSelectedItem().equals(INDIVIDUALES)) 
 			text = setTextoRevisionesIndividuales();
@@ -171,21 +186,29 @@ public class EditorViewComentariosArticulo extends JDialog {
 	
 	private String setTextoRevisionesIndividuales() {
 		String text = "";
-		RevisionEntity revision = null;
-		//Busca el revisor seleccionado 
-		for (RevisionEntity rev : revisiones) {
-			if (rev.getIdRevisor() == Integer.parseInt(getCbSeleccionarRevisor().getSelectedItem().toString())) {
-				revision = rev;
-				break;
-			}	
-		}
-		if (getCbFormatoVisualizacion().getSelectedItem().equals(COMENTARIOS)) {
-			text = "Comentarios: " + revision.getComentariosEditor();
+		int idRevisor = Integer.parseInt(getCbSeleccionarRevisor().getSelectedItem().toString());
+		String selectedRevision = getCbSeleccionarRevision().getSelectedItem().toString();
+		
+		if (selectedRevision.equals("Todas")) {
+			revisiones = controller.getRevisionesArticuloDeUnRevisor(articulo.getIdArticulo(), idRevisor);
 		}
 		else {
-			text = "Comentarios al editor:\n" + revision.getComentariosEditor()
-			+ "\n\n Comentarios al autor:\n"+ revision.getComentariosAutor()
-			+ "\n\n Decision:\n" + revision.getDecision();
+			if (selectedRevision.equals("1ª"))
+				revisiones = controller.getRevisionPorNumeroRevision(1, idRevisor, articulo.getIdArticulo());
+			else
+				revisiones = controller.getRevisionPorNumeroRevision(2, idRevisor, articulo.getIdArticulo());
+		}
+		for (RevisionEntity revision : revisiones) {	
+			if (getCbFormatoVisualizacion().getSelectedItem().equals(COMENTARIOS)) {
+				text += "Revision " + revision.getNumeroRevision() 
+				+ "\n Comentarios: " + revision.getComentariosEditor() + "\n";
+			}
+			else {
+				text += "Revision " + revision.getNumeroRevision() 
+				+ "\nComentarios al editor: " + revision.getComentariosEditor()
+				+ "\nComentarios al autor: "+ revision.getComentariosAutor()
+				+ "\nDecision: " + revision.getDecision()+ "\n\n";
+			}
 		}
 		return text;
 	}
@@ -218,6 +241,7 @@ public class EditorViewComentariosArticulo extends JDialog {
 		}
 		return cbSeleccionarRevisor;
 	}
+	
 	private JLabel getLblRevisor() {
 		if (lblRevisor == null) {
 			lblRevisor = new JLabel("Revisor:");
@@ -260,11 +284,41 @@ public class EditorViewComentariosArticulo extends JDialog {
 	}
 	
 	private void visualizarComentariosAutor() {
-		EditorViewComentariosAutor comentariosAutor = new EditorViewComentariosAutor(revisiones, articulo, this);
+		EditorViewEnviarComentarios comentariosAutor = new EditorViewEnviarComentarios(articulo, controller, this);
 		comentariosAutor.setModal(true);
 		comentariosAutor.setLocationRelativeTo(this);
 		comentariosAutor.setVisible(true);
 	}
-
-
+	private JComboBox getCbSeleccionarRevision() {
+		if (cbSeleccionarRevision == null) {
+			cbSeleccionarRevision = new JComboBox();
+			cbSeleccionarRevision.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setTextoRevisiones();
+				}
+			});
+			cbSeleccionarRevision.setModel(new DefaultComboBoxModel(setCbSeleccionarRevisionModel()));
+			cbSeleccionarRevision.setBounds(266, 125, 68, 23);
+		}
+		return cbSeleccionarRevision;
+	}
+	private String[] setCbSeleccionarRevisionModel() {
+		String[] modelOrdenado;
+		int numeroRevision = articulo.getVecesRevisado();
+		if (numeroRevision==PRIMERA_REVISION)
+			modelOrdenado = new String[] {PRIMERA, SEGUNDA, TODAS};
+		else
+			modelOrdenado = new String[] {SEGUNDA, PRIMERA, TODAS};
+		return modelOrdenado;
+	}
+	
+	//Obtiene 
+	
+	private JLabel getLblRevision() {
+		if (lblRevision == null) {
+			lblRevision = new JLabel("Revision:");
+			lblRevision.setBounds(266, 91, 68, 18);
+		}
+		return lblRevision;
+	}
 }

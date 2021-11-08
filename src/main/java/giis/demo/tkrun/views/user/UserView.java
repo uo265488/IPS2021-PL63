@@ -18,6 +18,7 @@ import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.UserEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.controllers.user.UserController;
+import giis.demo.tkrun.views.editor.MenuEditor;
 
 public class UserView extends JFrame {
 
@@ -138,6 +139,8 @@ public class UserView extends JFrame {
 	}
 	
 	private void launchEditor() {
-		new EditorController();
+		MenuEditor menu = new MenuEditor(new EditorController());
+		menu.setVisible(true);
+		//new EditorController();
 	}
 }

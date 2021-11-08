@@ -205,5 +205,19 @@ public class EditorController {
 		articuloModel.rechazarDefinitivamente(DtoMapper.toArticuloDto(articulo));
 
 	}
+	public List<RevisionEntity> getRevisionesFiltradas(int idArticulo, int numeroRevision) {
+		return EntityAssembler.toRevisionEntityList(revisionModel.getRevisionesFiltradoNumeroRevision(idArticulo, numeroRevision));
+	}
+	public List<RevisionEntity> getRevisionesArticulo(ArticuloEntity articulo){
+		return EntityAssembler.toRevisionEntityList(revisionModel.getRevisionesDeUnArticulo(DtoMapper.toArticuloDto(articulo)));
+	}
+	
+	public List<RevisionEntity> getRevisionesArticuloDeUnRevisor(int idArticulo, int idRevisor){
+		return EntityAssembler.toRevisionEntityList(revisionModel.getRevisionesArticuloDeUnRevisor(idArticulo, idRevisor));
+	}
+	
+	public List<RevisionEntity> getRevisionPorNumeroRevision(int numeroRevision, int idRevisor, int idArticulo) {
+		return EntityAssembler.toRevisionEntityList(revisionModel.getRevisionPorNumeroRevision(idArticulo, idRevisor, numeroRevision));
+	}
 
 }

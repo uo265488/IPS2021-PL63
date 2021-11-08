@@ -8,12 +8,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.user.UserController;
-import giis.demo.tkrun.views.editor.EditorAsignarView;
-import giis.demo.tkrun.views.editor.EditorPrincipalView;
-import giis.demo.tkrun.views.editor.MenuEditor;
+import giis.demo.tkrun.views.user.UserView;
 
 
 
@@ -68,11 +65,13 @@ public class SwingMain {
 //						(20,"Poesia clasica","ariadna","publicado", "explicacion sobre la poesia clasica", "poesia, españa", "FicheroFuente.pdf", "Presentacion.pdf", "cv.pdf", true, "cv.pdf", 1, true,"cv.pdf", "cv.pdf", "cv.pdf", 1));
 //				frame.setVisible(true);
 				
-				MenuEditor menu = new MenuEditor(new EditorController());
-				menu.setVisible(true);
+//				MenuEditor menu = new MenuEditor(new EditorController());
+//				menu.setVisible(true);
 				
 //				EditorPrincipalView v = new EditorPrincipalView(new EditorController());				
 //				v.setVisible(true);
+				UserView user = new UserView(new UserController());
+				user.setVisible(true);
 			}
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));

@@ -26,6 +26,8 @@ public class ArticuloEntity {
 	public static final String BORRADOR = "borrador";
 	public static final String RECHAZADO = "rechazado";
 	public static final String ACEPTADO = "aceptado";
+	public static final String ACEPTADO_CAMBIOS_MENORES = "aceptado con cambios menores";
+	public static final String ACEPTADO_CAMBIOS_MAYORES = "aceptado con cambios mayores";
 	public static final String PUBLICADO = "publicado";
 
 	
