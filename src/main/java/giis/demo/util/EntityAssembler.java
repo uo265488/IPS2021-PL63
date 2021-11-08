@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.AutorEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
+import giis.demo.tkrun.controllers.entities.SugerenciaEntity;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
+import giis.demo.tkrun.models.dtos.AutorDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
+import giis.demo.tkrun.models.dtos.SugerenciaDto;
 import giis.demo.tkrun.controllers.entities.UserEntity;
 import giis.demo.tkrun.models.dtos.UserDto;
 
@@ -103,4 +107,43 @@ public class EntityAssembler {
 		
 		return ent;
 	}
+	public static AutorEntity toAutorEntity(AutorDto autor) {
+		if (autor == null) {
+		    return null;
+		}
+
+		AutorEntity res = new AutorEntity();
+
+		res.setIdAutor(autor.getIdAutor());
+		res.setNombre(autor.getNombre());
+		res.setDni(autor.getDni());
+
+		return res;
+	    }
+
+	    public static List<AutorEntity> toAutorEntiyList(List<AutorDto> dtos) {
+		List<AutorEntity> entities = new ArrayList<>();
+		for (AutorDto dto : dtos) {
+		    entities.add(toAutorEntity(dto));
+		}
+
+		return entities;
+	    }
+
+	    public static List<SugerenciaEntity> toSugerenciaEntityList(List<SugerenciaDto> dtos) {
+		List<SugerenciaEntity> ents = new ArrayList<>();
+		for (SugerenciaDto sug : dtos) {
+		    ents.add(toSugerenciaEntity(sug));
+		}
+
+		return ents;
+	    }
+
+	    private static SugerenciaEntity toSugerenciaEntity(SugerenciaDto dto) {
+		SugerenciaEntity ent = new SugerenciaEntity();
+		ent.setIdArticulo(dto.getIdArticulo());
+		ent.setIdRevisor(dto.getIdRevisor());
+
+		return ent;
+	    }
 }

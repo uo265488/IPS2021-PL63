@@ -29,6 +29,7 @@ public class RevisorView extends JFrame {
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 2L;
 	private JPanel contentPane;
 	private JLabel lbRevision;
@@ -93,7 +94,7 @@ public class RevisorView extends JFrame {
 		if (lbRevision == null) {
 			lbRevision = new JLabel("Vista Revisor:");
 			lbRevision.setFont(new Font("Tahoma", Font.ITALIC, 25));
-			lbRevision.setBounds(285, 11, 175, 30);
+			lbRevision.setBounds(435, 11, 175, 30);
 		}
 		return lbRevision;
 	}
@@ -141,6 +142,7 @@ public class RevisorView extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					ArticuloEntity art = (ArticuloEntity) chArticulos.getSelectedItem();
 					if (art != null) {
+						try {
 						idArt = art.getIdArticulo();
 						if (idArt != -1) {
 							getTxId().setEnabled(false);
@@ -150,6 +152,9 @@ public class RevisorView extends JFrame {
 							getTxEditor().setText(articuloRevisando.getComentariosEditor());
 							getBtEnviar().setEnabled(true);
 							getBtGuardarCambios().setEnabled(true);
+						}
+						}catch(Exception e1) {
+							JOptionPane.showMessageDialog(null, "No hay artículos para este Id", "Sin artículos", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				}
@@ -223,8 +228,8 @@ public class RevisorView extends JFrame {
 	private JComboBox<String> getChDecision() {
 		if (chDecision == null) {
 			chDecision = new JComboBox<String>();
-			chDecision.setModel(new DefaultComboBoxModel<String>(new String[] { "altamente recomendable aceptar",
-					"aceptado", "poco recomendable aceptar", "rechazar" }));
+			chDecision.setModel(new DefaultComboBoxModel<String>(new String[] { "aceptar",
+					"aceptar con cambios menores", "aceptar con cambios mayores", "rechazar" }));
 			chDecision.setBounds(152, 365, 280, 22);
 		}
 		return chDecision;
@@ -311,10 +316,6 @@ public class RevisorView extends JFrame {
 					}catch(Exception e1) {
 						JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id", JOptionPane.ERROR_MESSAGE);
 					}
-					articulosSinRevisar.clear();
-					if(getTxId().getText().length() > 0)
-						articulosSinRevisar = controller.getTituloArticulosSinRevisar(Integer.parseInt(getTxId().getText()));
-					rellenarComboBox();
 				}
 			});
 			btVerArticulos.setForeground(Color.WHITE);

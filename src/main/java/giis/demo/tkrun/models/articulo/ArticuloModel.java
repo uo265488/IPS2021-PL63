@@ -179,5 +179,55 @@ public class ArticuloModel {
 
 		return db.executeQueryPojo(ArticuloDto.class, sql, idArticulo);
 	}
+	
+	public void asignarAutor(ArticuloDto articulo, int id_autor) {
+		String sql = "insert into autoressecundarios(idArticulo, idAutor) values (?, ?)";
+		db.executeUpdate(sql, articulo.getIdArticulo(), id_autor);
+	    }
 
+	    public void asignarOtroAutor(int id_articulo, int id_segundo_Autor) {
+		String sql = "insert into autoressecundarios(idArticulo, idAutor) values (?, ?)";
+		db.executeUpdate(sql, id_articulo, id_segundo_Autor);
+	    }
+
+	    public ArticuloDto findArticulo(String nombre, String autor) {
+		String sql = "select * from articulos where titulo = ? and primerAutor = ?";
+		List<ArticuloDto> list = db.executeQueryPojo(ArticuloDto.class, sql, nombre, autor);
+
+		if (list.isEmpty()) {
+		    return null;
+		} else {
+		    return list.get(0);
+		}
+	    }
+
+	    public void actualizarBorrador(ArticuloDto articuloDto) {
+
+		String sql = "update articulos set titulo = ?, resumen = ?, palabrasClave = ?,ficheroFuente = ? "
+			+ ", cartaPresentacion = ?, CV = ?, firma = ? where idArticulo = ?";
+
+		db.executeUpdate(sql, articuloDto.getTitulo(), articuloDto.getResumen(), articuloDto.getPalabrasClave(),
+			articuloDto.getFicheroFuente(), articuloDto.getCartaPresentacion(), articuloDto.getCV(),
+			articuloDto.isFirma(), articuloDto.getIdArticulo());
+	    }
+
+	    public void enviarBorrador(ArticuloDto articuloDto) {
+		String remove = "delete from articulos where idArticulo = ?";
+		String remove_autor = "delete from articulosdeautores where idArticulo = ?";
+		db.executeUpdate(remove, articuloDto.getIdArticulo());
+		db.executeUpdate(remove_autor, articuloDto.getIdArticulo());
+
+		crearArticulo(articuloDto);
+
+	    }
+
+	    public void modificarArticulo(ArticuloDto articuloDto) {
+		String sql = "update articulos set titulo = ?, resumen = ?, palabrasClave = ?, ficheroFuente = ? "
+			+ ", cartaPresentacion = ?, CV = ?, firma = ? where idArticulo = ?";
+
+		db.executeUpdate(sql, articuloDto.getTitulo(), articuloDto.getResumen(), articuloDto.getPalabrasClave(),
+			articuloDto.getFicheroFuente(), articuloDto.getCartaPresentacion(), articuloDto.getCV(),
+			articuloDto.isFirma(), articuloDto.getIdArticulo());
+
+	    }
 }
