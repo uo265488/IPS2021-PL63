@@ -26,10 +26,6 @@ import javax.swing.JButton;
 
 public class EditorViewComentariosArticulo extends JDialog {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private static String INDIVIDUALES = "individuales";
 	private static String COLECTIVAS = "Colectivas";
 	private static String COMENTARIOS = "Comentarios";
@@ -50,7 +46,20 @@ public class EditorViewComentariosArticulo extends JDialog {
 	private JLabel lblFormato;
 	private JTextArea txtRevisiones;
 	private JButton btnEnviarComentariosAutor;
+	private EditorView ventanaAnterior;
 
+	/**
+	 * Launch the application.
+	 */
+	/*public static void main(String[] args) {
+		try {
+			EditorViewComentariosArticulo1 dialog = new EditorViewComentariosArticulo1();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}*/
 
 	/**
 	 * Create the dialog.
@@ -265,6 +274,9 @@ public class EditorViewComentariosArticulo extends JDialog {
 		comentariosAutor.setLocationRelativeTo(this);
 		comentariosAutor.setVisible(true);
 	}
-
-
+	
+	public void disposeComentariosEditorWindow() {
+		this.ventanaAnterior.dispose();
+		this.dispose();
+	}
 }

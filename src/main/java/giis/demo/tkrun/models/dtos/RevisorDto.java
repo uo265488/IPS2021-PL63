@@ -5,26 +5,8 @@ public class RevisorDto {
 	private int idRevisor;
 	private String nombre;
 	private String estado;
-	private String correo;
-	private String especialidad;
 
 
-
-	public String getCorreo() {
-		return correo;
-	}
-
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-
-	public String getEspecialidad() {
-		return especialidad;
-	}
-
-	public void setEspecialidad(String especialidad) {
-		this.especialidad = especialidad;
-	}
 
 	public String getNombre() {
 		return nombre;

@@ -1,7 +1,6 @@
 package giis.demo.tkrun.models.revision;
 
 import java.util.List;
-import java.util.Optional;
 
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
@@ -18,10 +17,10 @@ public class RevisionModel {
 	 * @param revisionDto
 	 */
 	public void add(RevisionDto revisionDto) {
-		String sql = "insert into revisiones(idArticulo, idRevisor, fecha, estadoDeLaPropuesta) values (?,?,?,?)";
+		String sql = "insert into revisiones(idArticulo, idRevisor, fecha) values (?,?,?)";
 
-		db.executeUpdate(sql, revisionDto.getIdArticulo(), revisionDto.getIdRevisor(), revisionDto.getFecha(),
-				revisionDto.getEstadoDeLaPropuesta());
+		db.executeUpdate(sql, revisionDto.getIdArticulo(), revisionDto.getIdRevisor(),
+				revisionDto.getFecha());
 
 	}
 
@@ -42,27 +41,25 @@ public class RevisionModel {
 
 	/**
 	 * Obtiene todas las revisiones hechas sobre un articulo
-	 * 
 	 * @param articuloDto
 	 * @return
 	 */
 	public List<RevisionDto> getComentariosDeRevisionDeUnArticulo(ArticuloDto articulo, RevisorDto revisor) {
 
 		String sql = "select * from revisiones where idArticulo = ? and idRevisor <> ?";
-
+		
 		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo(), revisor.getIdRevisor());
 	}
-
+	
 	/**
 	 * Obtiene todas las revisiones hechas sobre un articulo
-	 * 
 	 * @param articuloDto
 	 * @return
 	 */
 	public List<RevisionDto> getRevisionesDeUnArticulo(ArticuloDto articulo) {
 
 		String sql = "select * from Revisiones where idArticulo = ?";
-
+		
 		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo());
 	}
 
@@ -75,72 +72,27 @@ public class RevisionModel {
 	 * 
 	 * }
 	 */
-
-	public void revisarArticulo(String comentariosAutor, String comentariosEditor, String decision,
-			boolean enviarAlEditor, int idArticulo, int idRevisor, String estado) {
+	
+	public void revisarArticulo(String comentariosAutor, String comentariosEditor, String decision, boolean enviarAlEditor, int idArticulo, int idRevisor) {
 		// validaciones (en este caso nada)
-		String sql = "update revisiones set comentariosAutor = ?, comentariosEditor = ?, decision = ?, enviarAlEditor = ?, estadoDeLaPropuesta where idArticulo = ? and idRevisor = ?";
-		db.executeUpdate(sql, comentariosAutor, comentariosEditor, decision, enviarAlEditor, estado, idArticulo,
-				idRevisor);
+		String sql = "update revisiones set comentariosAutor = ?, comentariosEditor = ?, decision = ?, enviarAlEditor = ? where idArticulo = ? and idRevisor = ?";
+		db.executeUpdate(sql, comentariosAutor, comentariosEditor, decision, enviarAlEditor, idArticulo, idRevisor);
 	}
-
-	public RevisionDto visualizarSinRevisar(int idRevisor, int idArticulo) {
-		String sql = "select * " + "from revisiones "
+	
+	public RevisionDto visualizarSinRevisar(int idRevisor, int idArticulo){
+		String sql = "select * "
+				+ "from revisiones "
 				+ "where idRevisor = ? and enviarAlEditor = false and idArticulo = ?";
-
+		
 		return db.executeQueryPojo(RevisionDto.class, sql, idRevisor, idArticulo).get(0);
 	}
-<<<<<<< HEAD
 	
 	public List<ArticuloDto> articulosSinRevisar(int idRevisor){
 		String sql = "select articulos.idArticulo, titulo, vecesRevisado "
 				+ "from revisiones, articulos "
-=======
-
-	public List<ArticuloDto> articulosSinRevisar(int idRevisor) {
-		String sql = "select articulos.idArticulo, titulo " + "from revisiones, articulos "
->>>>>>> refs/heads/master
 				+ "where idRevisor = ? and enviarAlEditor = false and articulos.idArticulo = revisiones.idArticulo and estado = 'en revision'";
-
+		
 		return db.executeQueryPojo(ArticuloDto.class, sql, idRevisor);
 
 	}
-
-//--------------------------------- OSCAR--------------------------------------------------------------------------
-
-	public List<RevisionDto> findByIdArticulo(int idArticulo) {
-		String sql = "select * " + "from revisiones " + "where idArticulo = ?";
-
-		return db.executeQueryPojo(RevisionDto.class, sql, idArticulo);
-	}
-
-	public List<RevisionDto> findAll() {
-		String sql = "select * from revisiones";
-
-		return db.executeQueryPojo(RevisionDto.class, sql);
-	}
-
-	public List<RevisionDto> findRevisionesRechazadas() {
-		String sql = "select * from revisiones where estadoDeLaPropuesta='" + RevisionDto.RECHAZADA + "'";
-
-		return db.executeQueryPojo(RevisionDto.class, sql);
-	}
-
-	public List<RevisionDto> getRevisionesPendientesDeUnArticulo(int idArticulo) {
-		String sql = "select * from revisiones where estadoDeLaPropuesta='" + RevisionDto.PENDIENTE + "'";
-
-		return db.executeQueryPojo(RevisionDto.class, sql);
-	}
-
-	public Optional<RevisionDto> findRevisionRechazada(int idArticulo, int id) {
-		
-		String sql = "select * from revisiones where idArticulo=? and idRevisor=? and estadoDeLaPropuesta='" + RevisionDto.RECHAZADA + "'";
-		
-		if (db.executeQueryPojo(RevisionDto.class, sql, idArticulo, id).isEmpty()) {
-			return Optional.ofNullable(null);
-		}
-
-		return Optional.ofNullable(db.executeQueryPojo(RevisionDto.class, sql, idArticulo, id).get(0));
-	}
-
 }
