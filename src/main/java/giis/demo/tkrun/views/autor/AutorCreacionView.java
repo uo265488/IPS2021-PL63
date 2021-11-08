@@ -88,6 +88,7 @@ public class AutorCreacionView extends JDialog {
 	this.posibleBorrador = borrador;
 	revisorController = new RevisorController();
 	articuloController = new ArticuloController();
+	// TEST
 	System.out.println(posibleBorrador.getIdArticulo());
 	initialize();
 	fillFields();
@@ -427,7 +428,6 @@ public class AutorCreacionView extends JDialog {
     private void enviarARevista() {
 
 	ArticuloDto articuloDto = new ArticuloDto();
-	articuloDto.setIdArticulo(new Random().nextInt());
 	articuloDto.setTitulo(getTxtFTitulo().getText());
 	articuloDto.setPrimerAutor(getTxtFAutor().getText());
 	articuloDto.setOtrosAutores(getTxtFOtrosAutores().getText());
@@ -444,6 +444,7 @@ public class AutorCreacionView extends JDialog {
 	articuloDto.setVolumen(0);
 
 	if (articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor()) == null) {
+	    articuloDto.setIdArticulo(new Random().nextInt());
 	    autorController.crearArticulo(articuloDto);
 	} else {
 	    int id = articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor())
@@ -526,9 +527,9 @@ public class AutorCreacionView extends JDialog {
     private void revisoresSugeridos(int id_articulo, String revisor1, String revisor2, String revisor3) {
 	if (!revisor1.isEmpty()) {
 	    String[] rev1 = revisor1.split("-"); // *Formato: Nombre - Correo - Especialidad
-	    String nombre = rev1[0];
-	    String correo = rev1[1];
-	    String especialidad = rev1[2];
+	    String nombre = rev1[0].toLowerCase();
+	    String correo = rev1[1].toLowerCase();
+	    String especialidad = rev1[2].toLowerCase();
 	    if (revisorController.findRevisor(nombre, correo, especialidad) == null) {
 		RevisorDto revisorDto1 = new RevisorDto();
 		revisorDto1.setIdRevisor(new Random().nextInt());
@@ -538,6 +539,7 @@ public class AutorCreacionView extends JDialog {
 		revisorDto1.setEstado("Sugerido");
 
 		autorController.sugerirRevisores(id_articulo, revisorDto1);
+		revisorController.addRevisor(revisorDto1);
 	    } else {
 		autorController.sugerirRevisores(id_articulo,
 			EntityAssembler.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
@@ -546,9 +548,9 @@ public class AutorCreacionView extends JDialog {
 
 	if (!revisor2.isEmpty()) {
 	    String[] rev2 = revisor2.split("-"); // *Formato: Nombre - Correo - Especialidad
-	    String nombre = rev2[0];
-	    String correo = rev2[1];
-	    String especialidad = rev2[2];
+	    String nombre = rev2[0].toLowerCase();
+	    String correo = rev2[1].toLowerCase();
+	    String especialidad = rev2[2].toLowerCase();
 	    if (revisorController.findRevisor(nombre, correo, especialidad) == null) {
 		RevisorDto revisorDto2 = new RevisorDto();
 		revisorDto2.setIdRevisor(new Random().nextInt());
@@ -558,23 +560,31 @@ public class AutorCreacionView extends JDialog {
 		revisorDto2.setEstado("Sugerido");
 
 		autorController.sugerirRevisores(id_articulo, revisorDto2);
+		revisorController.addRevisor(revisorDto2);
+	    } else {
+		autorController.sugerirRevisores(id_articulo,
+			EntityAssembler.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
 	    }
 	}
 
 	if (!revisor3.isEmpty()) {
-	    String[] rev3 = revisor1.split("-"); // *Formato: Nombre - Correo - Especialidad
+	    String[] rev3 = revisor3.split("-"); // *Formato: Nombre - Correo - Especialidad
 	    String nombre = rev3[0];
 	    String correo = rev3[1];
 	    String especialidad = rev3[2];
 	    if (revisorController.findRevisor(nombre, correo, especialidad) == null) {
 		RevisorDto revisorDto3 = new RevisorDto();
 		revisorDto3.setIdRevisor(new Random().nextInt());
-		revisorDto3.setNombre(rev3[0]);
-		revisorDto3.setCorreo(rev3[1]);
-		revisorDto3.setEspecialidad(rev3[2]);
+		revisorDto3.setNombre(rev3[0].toLowerCase());
+		revisorDto3.setCorreo(rev3[1].toLowerCase());
+		revisorDto3.setEspecialidad(rev3[2].toLowerCase());
 		revisorDto3.setEstado("Sugerido");
 
 		autorController.sugerirRevisores(id_articulo, revisorDto3);
+		revisorController.addRevisor(revisorDto3);
+	    } else {
+		autorController.sugerirRevisores(id_articulo,
+			EntityAssembler.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
 	    }
 	}
     }

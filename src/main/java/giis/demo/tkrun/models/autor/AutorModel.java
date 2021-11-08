@@ -2,6 +2,7 @@ package giis.demo.tkrun.models.autor;
 
 import java.util.List;
 
+import giis.demo.tkrun.models.dtos.ArticuloDeAutorDto;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.AutorDto;
 import giis.demo.util.Database;
@@ -54,15 +55,15 @@ public class AutorModel {
     }
 
     public void addAutor(AutorDto autor) {
-	String sql = "insert into autores(idAutor, nombre, dni) values ?, ?, ?";
+	String sql = "insert into autores(idAutor, nombre, dni) values (?, ?, ?)";
 	db.executeUpdate(sql, autor.getIdAutor(), autor.getNombre(), autor.getDni());
 
     }
 
-    public List<Integer> findOtrosAutores(int idArticulo) {
+    public List<ArticuloDeAutorDto> findOtrosAutores(int idArticulo) {
 	String sql = "select * from articulosdeautores where idArticulo = ?";
 
-	return db.executeQueryPojo(Integer.class, sql, idArticulo);
+	return db.executeQueryPojo(ArticuloDeAutorDto.class, sql, idArticulo);
     }
 
 }

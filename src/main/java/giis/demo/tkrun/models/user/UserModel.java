@@ -16,7 +16,7 @@ public class UserModel {
     }
 
     public void addUser(UserDto user) {
-	String sql = "insert into usuarios(idUsuario, nombre, tipoUsuario) values ?, ?, ?";
+	String sql = "insert into usuarios(idUsuario, nombre, tipoUsuario) values (?, ?, ?)";
 	db.executeUpdate(sql, user.getIdUsuario(), user.getNombre(), user.getTipoUsuario());
     }
 }

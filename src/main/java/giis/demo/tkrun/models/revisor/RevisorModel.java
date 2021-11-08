@@ -39,4 +39,10 @@ public class RevisorModel {
 	sql = "insert into sugerencias(idArticulo, idRevisor) values (?, ?)";
 	db.executeUpdate(sql, id_articulo, revisor.getIdRevisor());
     }
+
+    public void addRevisor(RevisorDto revisorDto) {
+	String sql = "insert into revisores values (?, ?, ?, ?, ?)";
+	db.executeUpdate(sql, revisorDto.getIdRevisor(), revisorDto.getNombre(), revisorDto.getEstado(),
+		revisorDto.getCorreo(), revisorDto.getEspecialidad());
+    }
 }

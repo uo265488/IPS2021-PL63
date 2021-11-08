@@ -181,12 +181,18 @@ public class ArticuloModel {
     }
 
     public void actualizarBorrador(ArticuloDto articuloDto) {
-	String remove = "delete from articulos where idArticulo = ?";
-	String remove_autor = "delete from articulosdeautores where idArticulo = ?";
-	db.executeUpdate(remove, articuloDto.getIdArticulo());
-	db.executeUpdate(remove_autor, articuloDto.getIdArticulo());
 
-	crearBorrador(articuloDto);
+	String sql = "update articulos set titulo = ?, resumen = ?, palabrasClave = ?,ficheroFuente = ? "
+		+ ", cartaPresentacion = ?, CV = ?, firma = ? where idArticulo = ?";
+
+	db.executeUpdate(sql, articuloDto.getTitulo(), articuloDto.getResumen(), articuloDto.getPalabrasClave(),
+		articuloDto.getFicheroFuente(), articuloDto.getCartaPresentacion(), articuloDto.getCV(),
+		articuloDto.isFirma(), articuloDto.getIdArticulo());
+
+	System.out.println(
+		db.executeQueryPojo(ArticuloDto.class, "select idArticulo, titulo from articulos where idArticulo = ?",
+			articuloDto.getIdArticulo()).get(0).getTitulo());
+
     }
 
     public void enviarBorrador(ArticuloDto articuloDto) {

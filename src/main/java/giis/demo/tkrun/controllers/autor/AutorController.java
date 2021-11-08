@@ -8,12 +8,12 @@ import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.AutorEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.autor.AutorModel;
+import giis.demo.tkrun.models.dtos.ArticuloDeAutorDto;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.AutorDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.dtos.UserDto;
 import giis.demo.tkrun.models.revisor.RevisorModel;
-import giis.demo.tkrun.models.sugerencia.SugerenciaModel;
 import giis.demo.tkrun.models.user.UserModel;
 import giis.demo.tkrun.views.autor.MenuAutor;
 import giis.demo.util.EntityAssembler;
@@ -28,7 +28,6 @@ public class AutorController {
     private MenuAutor view;
     private RevisorModel revisorModel;
     private UserModel userModel;
-    private SugerenciaModel sugerenciaModel;
 
     // public AutorController(AutorModel m, EditorView v) {
     // this.model = m;
@@ -43,7 +42,7 @@ public class AutorController {
 	articuloModel = new ArticuloModel();
 	revisorModel = new RevisorModel();
 	userModel = new UserModel();
-	sugerenciaModel = new SugerenciaModel();
+
 	initView();
     }
 
@@ -86,20 +85,24 @@ public class AutorController {
     }
 
     public void parseOtrosAutores(int id_Articulo, String otrosAutores) {
-	String[] autores = otrosAutores.split(";");
-	if (autores.length > 1) {
-	    for (String line : autores) {
-		String[] autorAParsear = line.split("-");
-		AutorDto autor = new AutorDto();
-		autor.setIdAutor(new Random().nextInt());
-		autor.setNombre(autorAParsear[0]);
-		autor.setDni(autorAParsear[1]);
-		if (model.findAutor(autor.getNombre(), autor.getDni()) == null) {
-		    model.addAutor(autor);
-		    createUser(autor);
-		}
+	if (!otrosAutores.replaceAll("//s", "").isBlank()) {
+	    String[] autores = otrosAutores.split(";");
+	    if (autores.length > 0) {
+		for (String line : autores) {
+		    String[] autorAParsear = line.split("-");
+		    AutorDto autor = new AutorDto();
+		    autor.setNombre(autorAParsear[0].toLowerCase());
+		    autor.setDni(autorAParsear[1].toLowerCase());
+		    if (model.findAutor(autor.getNombre(), autor.getDni()) == null) {
+			autor.setIdAutor(new Random().nextInt());
+			model.addAutor(autor);
+			createUser(autor);
+		    } else {
+			autor.setIdAutor(model.findAutor(autor.getNombre(), autor.getDni()).getIdAutor());
+		    }
 
-		articuloModel.asignarOtroAutor(id_Articulo, autor.getIdAutor());
+		    articuloModel.asignarOtroAutor(id_Articulo, autor.getIdAutor());
+		}
 	    }
 	}
 
@@ -119,21 +122,22 @@ public class AutorController {
     }
 
     public void actualizarBorrador(ArticuloDto articuloDto) {
-
 	articuloModel.actualizarBorrador(articuloDto);
+	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
 
     }
 
     public void enviarBorrador(ArticuloDto articuloDto) {
 	articuloModel.enviarBorrador(articuloDto);
+	articuloModel.asignarAutor(articuloDto, id_autor);
 	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
     }
 
     public List<AutorEntity> findOtrosAutorEntities(int idArticulo) {
-	List<Integer> ids = model.findOtrosAutores(idArticulo);
+	List<ArticuloDeAutorDto> ids = model.findOtrosAutores(idArticulo);
 	List<AutorEntity> autores = new ArrayList<>();
-	for (Integer id : ids) {
-	    autores.add(EntityAssembler.toAutorEntity(model.findById(id)));
+	for (ArticuloDeAutorDto id : ids) {
+	    autores.add(EntityAssembler.toAutorEntity(model.findById(id.getIdAutor())));
 	}
 
 	return autores;

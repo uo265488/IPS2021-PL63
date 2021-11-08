@@ -5,6 +5,7 @@ import java.util.List;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
+import giis.demo.tkrun.models.dtos.SugerenciaDto;
 import giis.demo.util.Database;
 
 public class RevisionModel {
@@ -119,9 +120,9 @@ public class RevisionModel {
 	}
     }
 
-    public List<Integer> findSugeridos(int idArticulo) {
-	String sql = "select idRevisor from sugerencias where idArticulo = ?";
+    public List<SugerenciaDto> findSugeridos(int idArticulo) {
+	String sql = "select * from sugerencias where idArticulo = ?";
 
-	return db.executeQueryPojo(Integer.class, sql, idArticulo);
+	return db.executeQueryPojo(SugerenciaDto.class, sql, idArticulo);
     }
 }

@@ -7,11 +7,13 @@ import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.AutorEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
+import giis.demo.tkrun.controllers.entities.SugerenciaEntity;
 import giis.demo.tkrun.controllers.entities.UserEntity;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.AutorDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
+import giis.demo.tkrun.models.dtos.SugerenciaDto;
 import giis.demo.tkrun.models.dtos.UserDto;
 
 public class EntityAssembler {
@@ -34,6 +36,8 @@ public class EntityAssembler {
 	ent.setEstado(rev.getEstado());
 	ent.setNombre(rev.getNombre());
 	ent.setId(rev.getIdRevisor());
+	ent.setCorreo(rev.getCorreo());
+	ent.setEspecialidad(rev.getEspecialidad());
 
 	return ent;
     }
@@ -149,6 +153,23 @@ public class EntityAssembler {
 	}
 
 	return entities;
+    }
+
+    public static List<SugerenciaEntity> toSugerenciaEntityList(List<SugerenciaDto> dtos) {
+	List<SugerenciaEntity> ents = new ArrayList<>();
+	for (SugerenciaDto sug : dtos) {
+	    ents.add(toSugerenciaEntity(sug));
+	}
+
+	return ents;
+    }
+
+    private static SugerenciaEntity toSugerenciaEntity(SugerenciaDto dto) {
+	SugerenciaEntity ent = new SugerenciaEntity();
+	ent.setIdArticulo(dto.getIdArticulo());
+	ent.setIdRevisor(dto.getIdRevisor());
+
+	return ent;
     }
 
 }
