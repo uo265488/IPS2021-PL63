@@ -27,6 +27,7 @@ import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.views.articulo.ArticuloCambiosView;
 import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
 
 public class AutorView extends JDialog {
@@ -53,6 +54,7 @@ public class AutorView extends JDialog {
     private int id_autor;
     private JButton btnModificarBorrador;
     private JList<ArticuloEntity> listArticulos;
+    private JButton btnCambiosSugeridos;
 
     /// **
     // * Launch the application.
@@ -99,6 +101,7 @@ public class AutorView extends JDialog {
 	contentPane.add(getBtnEnviarArticulo());
 	contentPane.add(getBtVisualizar());
 	contentPane.add(getBtnModificarBorrador());
+	contentPane.add(getBtnCambiosSugeridos());
 	setVisible(true);
 	setResizable(false);
     }
@@ -152,8 +155,8 @@ public class AutorView extends JDialog {
 			articulosAceptadosSinVersionDefinitiva.clear();
 			rellenarComboBox();
 			try {
-			    int idAutor = Integer.parseInt(getTxId().getText());
-			    articulosDelEditor = controller.getArticulosPropios(idAutor);
+			    id_autor = Integer.parseInt(getTxId().getText());
+			    articulosDelEditor = controller.getArticulosPropios(id_autor);
 			    getListArticulos().setModel(addModel());
 			} catch (Exception e1) {
 			    JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id",
@@ -300,7 +303,7 @@ public class AutorView extends JDialog {
 		}
 	    });
 	    btnModificarBorrador.setEnabled(false);
-	    btnModificarBorrador.setBounds(10, 498, 121, 22);
+	    btnModificarBorrador.setBounds(10, 498, 178, 23);
 	}
 	return btnModificarBorrador;
     }
@@ -322,8 +325,13 @@ public class AutorView extends JDialog {
 		public void mouseClicked(MouseEvent e) {
 		    if (isBorrador()) {
 			getBtnModificarBorrador().setEnabled(true);
-		    } else {
+		    } else if (!isBorrador()) {
 			getBtnModificarBorrador().setEnabled(false);
+		    }
+		    if (isRevisado()) {
+			getBtnCambiosSugeridos().setEnabled(true);
+		    } else if (!isRevisado()) {
+			getBtnCambiosSugeridos().setEnabled(false);
 		    }
 		}
 	    });
@@ -336,5 +344,39 @@ public class AutorView extends JDialog {
 	AutorCreacionView ver = new AutorCreacionView(controller, id_autor, getListArticulos().getSelectedValue());
 	ver.setVisible(true);
 	ver.setModal(true);
+    }
+
+    private JButton getBtnCambiosSugeridos() {
+	if (btnCambiosSugeridos == null) {
+	    btnCambiosSugeridos = new JButton("Cambios sugeridos");
+	    btnCambiosSugeridos.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    modificarArticulo();
+		}
+	    });
+	    btnCambiosSugeridos.setEnabled(false);
+	    btnCambiosSugeridos.setBounds(223, 498, 178, 23);
+	}
+	return btnCambiosSugeridos;
+    }
+
+    private boolean isRevisado() {
+	ArticuloEntity articulo = getListArticulos().getSelectedValue();
+
+	if (articulo.getVecesRevisado() == 1 && articulo.getEstado().equals("aceptado")) {
+	    return true;
+	}
+	return false;
+    }
+
+    private void modificarArticulo() {
+	ArticuloEntity articulo = getListArticulos().getSelectedValue();
+
+	// TEST
+	System.out.println(id_autor);
+
+	ArticuloCambiosView acw = new ArticuloCambiosView(articulo, id_autor);
+	acw.setVisible(true);
+	acw.setModal(true);
     }
 }

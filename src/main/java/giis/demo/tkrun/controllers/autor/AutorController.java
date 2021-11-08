@@ -143,4 +143,9 @@ public class AutorController {
 	return autores;
     }
 
+    public void modificarArticulo(ArticuloDto articuloDto) {
+	articuloModel.modificarArticulo(articuloDto);
+
+    }
+
 }

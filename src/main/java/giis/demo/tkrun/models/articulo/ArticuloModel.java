@@ -188,11 +188,6 @@ public class ArticuloModel {
 	db.executeUpdate(sql, articuloDto.getTitulo(), articuloDto.getResumen(), articuloDto.getPalabrasClave(),
 		articuloDto.getFicheroFuente(), articuloDto.getCartaPresentacion(), articuloDto.getCV(),
 		articuloDto.isFirma(), articuloDto.getIdArticulo());
-
-	System.out.println(
-		db.executeQueryPojo(ArticuloDto.class, "select idArticulo, titulo from articulos where idArticulo = ?",
-			articuloDto.getIdArticulo()).get(0).getTitulo());
-
     }
 
     public void enviarBorrador(ArticuloDto articuloDto) {
@@ -202,6 +197,16 @@ public class ArticuloModel {
 	db.executeUpdate(remove_autor, articuloDto.getIdArticulo());
 
 	crearArticulo(articuloDto);
+
+    }
+
+    public void modificarArticulo(ArticuloDto articuloDto) {
+	String sql = "update articulos set titulo = ?, resumen = ?, palabrasClave = ?, ficheroFuente = ? "
+		+ ", cartaPresentacion = ?, CV = ?, firma = ? where idArticulo = ?";
+
+	db.executeUpdate(sql, articuloDto.getTitulo(), articuloDto.getResumen(), articuloDto.getPalabrasClave(),
+		articuloDto.getFicheroFuente(), articuloDto.getCartaPresentacion(), articuloDto.getCV(),
+		articuloDto.isFirma(), articuloDto.getIdArticulo());
 
     }
 

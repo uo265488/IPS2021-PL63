@@ -88,10 +88,14 @@ public class AutorCreacionView extends JDialog {
 	this.posibleBorrador = borrador;
 	revisorController = new RevisorController();
 	articuloController = new ArticuloController();
-	// TEST
-	System.out.println(posibleBorrador.getIdArticulo());
+
 	initialize();
 	fillFields();
+	if (borrador.getVecesRevisado() > 0) {
+	    getBtnBorrador().setEnabled(false);
+	    getTxtFOtrosAutores().setEnabled(false);
+	}
+
     }
 
     /**
@@ -430,6 +434,7 @@ public class AutorCreacionView extends JDialog {
 	ArticuloDto articuloDto = new ArticuloDto();
 	articuloDto.setTitulo(getTxtFTitulo().getText());
 	articuloDto.setPrimerAutor(getTxtFAutor().getText());
+	articuloDto.setEstado(posibleBorrador.getEstado());
 	articuloDto.setOtrosAutores(getTxtFOtrosAutores().getText());
 	articuloDto.setResumen(getTxtFResumen().getText());
 	articuloDto.setPalabrasClave(getTxtFPalabrasClave().getText());
@@ -437,8 +442,8 @@ public class AutorCreacionView extends JDialog {
 	articuloDto.setCartaPresentacion(getTxtFCartaPresentacion().getText());
 	articuloDto.setCV(getTxtFCVAutor().getText());
 	articuloDto.setFirma(getChckBoxFirmaPlagio().isSelected());
-	articuloDto.setVecesRevisado(0);
-	articuloDto.setVersionDefinitiva(false);
+	articuloDto.setVecesRevisado(posibleBorrador.getVecesRevisado());
+	articuloDto.setVersionDefinitiva(posibleBorrador.isVersionDefinitiva());
 	articuloDto.setDOI("");
 	articuloDto.setFecha("");
 	articuloDto.setVolumen(0);
@@ -450,7 +455,12 @@ public class AutorCreacionView extends JDialog {
 	    int id = articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor())
 		    .getIdArticulo();
 	    articuloDto.setIdArticulo(id);
-	    autorController.enviarBorrador(articuloDto);
+	    if (articuloDto.getVecesRevisado() > 0) {
+		autorController.modificarArticulo(articuloDto);
+	    } else {
+		autorController.enviarBorrador(articuloDto);
+	    }
+
 	}
 	revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(), getTextFSugerido2().getText(),
 		getTextFSugerido3().getText());
