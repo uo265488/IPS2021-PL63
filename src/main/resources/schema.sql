@@ -1,5 +1,5 @@
 --Primero se deben borrar todas las tablas(de detalle a maestro) y lugo anyadirlas (de maestro a detalle)
---(en este caso en cada una de las aplicaciones (tkrun y descuento) se usa solo una tabla, por lo que no hace falta) 
+--(en este caso en cada una de las aplicaciones (tkrun y descuento) se usa solo una tabla, por lo que no hace falta)
 
 --Para giis.demo.tkrun:
 
@@ -19,4 +19,4 @@ drop table ArticulosDeAutores;
 create table articulosDeAutores (idArticulo int foreing key, idAutor int foreing key);
 
 drop table Revisiones;
-create table Revisiones (idArticulo int foreing key, idRevisor int foreing key, fecha varchar(32), comentariosAutor varchar(100), comentariosEditor varchar(100), decision varchar(50), enviarAlEditor varchar(32));
+create table Revisiones (idArticulo int foreing key, idRevisor int foreing key, fecha varchar(32), comentariosAutor varchar(100), comentariosEditor varchar(100), decision varchar(50), enviarAlEditor varchar(32), estadoDeLaPropuesta varchar(32));

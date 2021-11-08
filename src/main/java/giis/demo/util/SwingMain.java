@@ -18,7 +18,7 @@ import giis.demo.tkrun.views.revisor.RevisorView;
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las pantallas 
  * de las aplicaciones de ejemplo
- * y acciones de inicializacion de la base de datos
+ * y acciones de inicializacion de la base de datos.
  * No sigue MVC pues es solamente temporal para que durante el desarrollo se tenga posibilidad
  * de realizar acciones de inicializacion
  */
