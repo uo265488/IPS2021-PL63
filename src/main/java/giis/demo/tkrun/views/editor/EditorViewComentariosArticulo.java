@@ -26,7 +26,7 @@ import javax.swing.JButton;
 
 
 
-public class EditorViewVerComentarios extends JDialog {
+public class EditorViewComentariosArticulo extends JDialog {
 
 	/**
 	 * 
@@ -64,7 +64,7 @@ public class EditorViewVerComentarios extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public EditorViewVerComentarios(ArticuloEntity articulo, EditorController controller) {
+	public EditorViewComentariosArticulo(ArticuloEntity articulo, EditorController controller) {
 		setTitle("Comentarios Revision");
 		this.articulo = articulo;
 		this.controller = controller;
@@ -284,7 +284,7 @@ public class EditorViewVerComentarios extends JDialog {
 	}
 	
 	private void visualizarComentariosAutor() {
-		EditorViewEnviarComentarios comentariosAutor = new EditorViewEnviarComentarios(articulo, controller, this);
+		EditorViewComentariosAutor comentariosAutor = new EditorViewComentariosAutor(articulo, controller, this);
 		comentariosAutor.setModal(true);
 		comentariosAutor.setLocationRelativeTo(this);
 		comentariosAutor.setVisible(true);

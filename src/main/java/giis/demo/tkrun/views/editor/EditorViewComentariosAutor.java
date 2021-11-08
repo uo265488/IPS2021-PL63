@@ -13,7 +13,6 @@ import giis.demo.tkrun.controllers.articulo.ArticuloController;
 import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
-import giis.demo.tkrun.models.articulo.ArticuloModel;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -26,7 +25,7 @@ import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class EditorViewEnviarComentarios extends JDialog {
+public class EditorViewComentariosAutor extends JDialog {
 	
 	private static final String PUBLICAR = "Publicar";
 	private static final String ACEPTAR = "Aceptar";
@@ -46,7 +45,7 @@ public class EditorViewEnviarComentarios extends JDialog {
 	private JRadioButton rdBtnRechazar;
 	private JTextArea txtComentarios;
 	private JLabel lblComentariosDecision;
-	private EditorViewVerComentarios comentariosView;
+	private EditorViewComentariosArticulo comentariosView;
 	private ButtonGroup decisiones;
 	private JRadioButton rdBtnAceptarCambiosMenores;
 	private EditorController controller;
@@ -68,7 +67,7 @@ public class EditorViewEnviarComentarios extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public EditorViewEnviarComentarios( ArticuloEntity articulo, EditorController controller, EditorViewVerComentarios comentariosView) {
+	public EditorViewComentariosAutor( ArticuloEntity articulo, EditorController controller, EditorViewComentariosArticulo comentariosView) {
 		getContentPane().setBackground(Color.WHITE);
 		this.revisiones = controller.getRevisionesFiltradas(articulo.getIdArticulo(), (articulo.getVecesRevisado() +1));
 		this.articulo = articulo;

@@ -30,7 +30,7 @@ public class EditorViewPublicarArticulo extends JDialog {
 	private JTextField txtVolumen;
 	private ArticuloController artController;
 	private ArticuloEntity articulo;
-	private EditorViewEnviarComentarios ventanaAnterior;
+	private EditorViewComentariosAutor ventanaAnterior;
 	private EditorController controller;
 
 	/**
@@ -49,7 +49,7 @@ public class EditorViewPublicarArticulo extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public EditorViewPublicarArticulo(EditorViewEnviarComentarios ventanaAnterior, ArticuloEntity articulo, EditorController controller) {
+	public EditorViewPublicarArticulo(EditorViewComentariosAutor ventanaAnterior, ArticuloEntity articulo, EditorController controller) {
 		this.artController = new ArticuloController();
 		this.ventanaAnterior = ventanaAnterior;
 		this.articulo = articulo;
