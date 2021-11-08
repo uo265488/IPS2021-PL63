@@ -23,14 +23,15 @@ public class EntityAssembler {
 		return ents;
 	}
 
-	private static RevisorEntity toRevisorEntity(RevisorDto rev) {
+	public static RevisorEntity toRevisorEntity(RevisorDto rev) {
 		RevisorEntity ent = new RevisorEntity();
 		
 		ent.setEstado(rev.getEstado());
 		ent.setNombre(rev.getNombre());
 		ent.setId(rev.getIdRevisor());
+		ent.setCorreo(rev.getCorreo());
+		ent.setEspecialidad(rev.getEspecialidad());
 
-		
 		return ent;
 	}
 
@@ -97,6 +98,7 @@ public class EntityAssembler {
 		ent.setEnviarAlEditor(art.isEnviarAlEditor());
 		ent.setFecha(art.getFecha());
 		ent.setDecision(art.getDecision());
+		ent.setEstadoDeLaPropuesta(art.getEstadoDeLaPropuesta());
 		
 		return ent;
 	}

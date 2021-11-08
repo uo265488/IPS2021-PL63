@@ -44,11 +44,15 @@ public class RevisionController {
 	}
 
 
-
+//---------------------------------OSCAR--------------------------------------------------------------------
 	public List<RevisionEntity> getRevisionesDelArticulo(ArticuloEntity articulo) {
 		
 		return EntityAssembler.toRevisionEntityList(model.getRevisionesDeUnArticulo(DtoMapper.toArticuloDto(articulo)));
 	}
+
+
+
+
 	
 	
 	
