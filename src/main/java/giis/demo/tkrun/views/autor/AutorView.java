@@ -53,6 +53,7 @@ public class AutorView extends JDialog {
     private int id_autor;
     private JButton btnModificarBorrador;
     private JList<ArticuloEntity> listArticulos;
+    private JButton btnEditarArticulo;
 
     /// **
     // * Launch the application.
@@ -99,6 +100,7 @@ public class AutorView extends JDialog {
 	contentPane.add(getBtnEnviarArticulo());
 	contentPane.add(getBtVisualizar());
 	contentPane.add(getBtnModificarBorrador());
+	contentPane.add(getBtnEditarArticulo());
 	setVisible(true);
 	setResizable(false);
     }
@@ -336,5 +338,13 @@ public class AutorView extends JDialog {
 	AutorCreacionView ver = new AutorCreacionView(controller, id_autor, getListArticulos().getSelectedValue());
 	ver.setVisible(true);
 	ver.setModal(true);
+    }
+
+    private JButton getBtnEditarArticulo() {
+	if (btnEditarArticulo == null) {
+	    btnEditarArticulo = new JButton("Editar articulo");
+	    btnEditarArticulo.setBounds(156, 498, 121, 22);
+	}
+	return btnEditarArticulo;
     }
 }
