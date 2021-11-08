@@ -57,11 +57,10 @@ public class SwingMain {
 	btnEjecutarTkrun.addActionListener(new ActionListener() { // NOSONAR codigo autogenerado
 	    public void actionPerformed(ActionEvent e) {
 		// new EditorController(generarArticulo());
-		// new RevisorView(new RevisorController(new RevisionModel()));
-		// new AutorView(new AutorController(new AutorModel()));
+		// new RevisorView(new RevisorController(1));
+		// new AutorView(new AutorController());
 		// new EditorViewDecisionArticulo(new EditorController());
 		new UserController();
-//		new EditorPrincipalView(new EditorController());
 	    }
 	});
 	frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));

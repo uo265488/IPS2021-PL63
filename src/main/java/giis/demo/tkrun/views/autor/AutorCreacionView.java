@@ -380,6 +380,7 @@ public class AutorCreacionView extends JDialog {
 	    articuloDto.setIdArticulo(new Random().nextInt());
 	    autorController.crearBorrador(articuloDto);
 	}
+
 	revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(), getTextFSugerido2().getText(),
 		getTextFSugerido3().getText());
 
@@ -401,6 +402,7 @@ public class AutorCreacionView extends JDialog {
 	if (autor.replaceAll("\\s", "").length() == 0) {
 	    return false;
 	}
+
 	if (otrosAutores.replaceAll("\\s", "").length() == 0) {
 	    return false;
 	}

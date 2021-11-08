@@ -89,13 +89,14 @@ public class RevisionModel {
 	return db.executeQueryPojo(RevisionDto.class, sql, idRevisor, idArticulo).get(0);
     }
 
-    public List<ArticuloDto> articulosSinRevisar(int idRevisor) {
-	String sql = "select articulos.idArticulo, titulo " + "from revisiones, articulos "
-		+ "where idRevisor = ? and enviarAlEditor = false and articulos.idArticulo = revisiones.idArticulo and estado = 'en revision'";
+	public List<ArticuloDto> articulosSinRevisar(int idRevisor){
+		String sql = "select articulos.idArticulo, titulo, vecesRevisado "
+				+ "from revisiones, articulos "
+				+ "where idRevisor = ? and enviarAlEditor = false and articulos.idArticulo = revisiones.idArticulo and estado = 'en revision'";
+		
+		return db.executeQueryPojo(ArticuloDto.class, sql, idRevisor);
 
-	return db.executeQueryPojo(ArticuloDto.class, sql, idRevisor);
-
-    }
+	}
 
     public RevisorDto findRevisor(String nombre, String correo, String especialidad) {
 	String sql = "select * from revisores where nombre = ? and correo = ? and especialidad = ?";

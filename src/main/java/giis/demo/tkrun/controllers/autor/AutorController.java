@@ -36,6 +36,11 @@ public class AutorController {
     // this.initView();
     // }
 
+	public AutorController() {
+		this.model = new AutorModel();
+		initView();
+	}
+    
     public AutorController(int id_autor) {
 	this.model = new AutorModel();
 	this.id_autor = id_autor;

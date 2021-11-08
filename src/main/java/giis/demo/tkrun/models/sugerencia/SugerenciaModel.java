@@ -16,5 +16,4 @@ public class SugerenciaModel {
 	return db.executeQueryPojo(RevisorDto.class, sql, idArticulo);
 
     }
-
 }

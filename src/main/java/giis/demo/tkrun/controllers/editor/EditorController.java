@@ -7,13 +7,13 @@ import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.models.revisor.RevisorModel;
+import giis.demo.tkrun.views.editor.EditorPrincipalView;
 import giis.demo.tkrun.views.editor.EditorView;
 import giis.demo.tkrun.views.editor.MenuEditor;
 import giis.demo.util.DtoMapper;
 import giis.demo.util.EntityAssembler;
 
 public class EditorController {
-
 
 	private MenuEditor principalView;
 	private EditorView view;
@@ -26,7 +26,7 @@ public class EditorController {
 		this.principalView = new MenuEditor(this);
 		this.principalView.setVisible(true);
 	}
-
+	
 	public EditorController() {
 		this.revisionModel = new RevisionModel();
 		this.articuloModel = new ArticuloModel();
@@ -39,7 +39,7 @@ public class EditorController {
 
 		return EntityAssembler.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
 	}
-
+	
 	public boolean asignarRevisoresAlArticulo(List<RevisorEntity> revisores, ArticuloEntity articulo, String fecha) {
 
 		// validaciones:
@@ -103,7 +103,6 @@ public class EditorController {
 	}
 
 	public List<ArticuloEntity> getArticulosTomarDecision() {
-
 		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosTomarDecision());
 	}
 	
@@ -121,6 +120,5 @@ public class EditorController {
 	
 	public List<ArticuloEntity> getArticulosFiltradoAutor(String autor){
 		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoAutor(autor));
-	}
-
+	}	
 }

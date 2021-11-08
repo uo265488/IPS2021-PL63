@@ -21,12 +21,12 @@ public class ArticuloModel {
 	String sql = "update articulos set cartaPresentacion = ?, CV = ?, estado=?, ficheroFuente = ?, palabrasClave=?, primerAutor=?, resumen=?, titulo=?, vecesRevisado=?, firma=?, versionDefinitiva=?, DOI=?, fecha=?, volumen=? where idArticulo = ?";
 
 	db.executeUpdate(sql, articuloDto.getCartaPresentacion(), articuloDto.getCV(), articuloDto.getEstado(),
-		articuloDto.getFicheroFuente(), articuloDto.getPalabrasClave(), articuloDto.getPrimerAutor(),
-		articuloDto.getResumen(), articuloDto.getTitulo(), articuloDto.getVecesRevisado(),
-		articuloDto.isFirma(), articuloDto.isVersionDefinitiva(), articuloDto.getIdArticulo(),
-		articuloDto.getDOI(), articuloDto.getFecha(), articuloDto.getVolumen(), articuloDto.getIdArticulo());
+			articuloDto.getFicheroFuente(), articuloDto.getPalabrasClave(),
+			articuloDto.getPrimerAutor(), articuloDto.getResumen(), articuloDto.getTitulo(),
+			articuloDto.getVecesRevisado(), articuloDto.isFirma(), articuloDto.isVersionDefinitiva(),
+			articuloDto.getIdArticulo(), articuloDto.getDOI(), articuloDto.getFecha(), articuloDto.getVolumen());
 
-    }
+}
 
     /**
      * Listado de los articulos nuevos
