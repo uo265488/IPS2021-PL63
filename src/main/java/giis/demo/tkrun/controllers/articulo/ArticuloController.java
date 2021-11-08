@@ -125,7 +125,7 @@ public class ArticuloController {
 		
 	}
 	
-	public List<RevisionEntity> getRevisionesRechazadas() {
+	public List<RevisionEntity> getRevisionesRechazadas() { 
 	    return EntityAssembler.toRevisionEntityList(revisionesModel.findRevisionesRechazadas());
 	}
 
