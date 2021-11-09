@@ -1,7 +1,5 @@
 package giis.demo.tkrun.controllers.articulo;
 
-
-
 import java.util.List;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
@@ -75,7 +73,9 @@ public class ArticuloController {
 	}
 	
 
-	
+	public ArticuloEntity findArticulo(String titulo, String autor) {
+		return EntityAssembler.toArticuloEntity(artModel.findArticulo(titulo, autor));
+	}	
 	
 	
 	

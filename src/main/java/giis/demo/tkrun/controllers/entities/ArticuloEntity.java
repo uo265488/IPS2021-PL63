@@ -1,6 +1,7 @@
 package giis.demo.tkrun.controllers.entities;
 
 public class ArticuloEntity {
+<<<<<<< HEAD
 	
 	private int idArticulo;
 	private String titulo;
@@ -26,155 +27,192 @@ public class ArticuloEntity {
 	public static String ACEPTADO = "aceptado";
 	public static final String EN_REVISION = "en revision";
 	public static final String PUBLICADO = "publicado";
+=======
+>>>>>>> refs/heads/master
 
+<<<<<<< HEAD
 	public int getIdArticulo() {
 		return idArticulo;
 	}
+=======
+    private int idArticulo;
+    private String titulo;
+    private String primerAutor;
+    private String otrosAutores; // como almacenar varios autores?????
+    private String resumen;
+    private String palabrasClave;
+    private String ficheroFuente;
+    private String cartaPresentacion;
+    private String CV;
+    private boolean firma; // para asegurarse d q no hay plagios (string, boolean... da lo mismo)
+    private String estado;
+    private int vecesRevisado;
+    private boolean versionDefinitiva;
+    private String cartaDecision;
+    private String DOI;
+    private String fecha;
+    private int volumen;
 
-	public void setIdArticulo(int idArticulo) {
-		this.idArticulo = idArticulo;
-	}
+    public static String CON_EL_EDITOR = "con el editor";
+    public static String BORRADOR = "borrador";
+    public static String RECHAZADO = "rechazado";
+    public static String ACEPTADO = "aceptado";
+    public static final String EN_REVISION = "en revision";
+    public static final String PUBLICADO = "publicado";
 
-	public String getTitulo() {
-		return titulo;
-	}
+    public int getIdArticulo() {
+	return idArticulo;
+    }
+>>>>>>> refs/heads/master
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
+    public void setIdArticulo(int idArticulo) {
+	this.idArticulo = idArticulo;
+    }
 
-	public String getPrimerAutor() {
-		return primerAutor;
-	}
+    public String getTitulo() {
+	return titulo;
+    }
 
-	public void setPrimerAutor(String primerAutor) {
-		this.primerAutor = primerAutor;
-	}
+    public void setTitulo(String titulo) {
+	this.titulo = titulo;
+    }
 
-	public String getOtrosAutores() {
-		return otrosAutores;
-	}
+    public String getPrimerAutor() {
+	return primerAutor;
+    }
 
-	public void setOtrosAutores(String otrosAutores) {
-		this.otrosAutores = otrosAutores;
-	}
+    public void setPrimerAutor(String primerAutor) {
+	this.primerAutor = primerAutor;
+    }
 
-	public String getResumen() {
-		return resumen;
-	}
+    public String getOtrosAutores() {
+	return otrosAutores;
+    }
 
-	public void setResumen(String resumen) {
-		this.resumen = resumen;
-	}
+    public void setOtrosAutores(String otrosAutores) {
+	this.otrosAutores = otrosAutores;
+    }
 
-	public String getPalabrasClave() {
-		return palabrasClave;
-	}
+    public String getResumen() {
+	return resumen;
+    }
 
-	public void setPalabrasClave(String palabrasClave) {
-		this.palabrasClave = palabrasClave;
-	}
+    public void setResumen(String resumen) {
+	this.resumen = resumen;
+    }
 
-	public String getFicheroFuente() {
-		return ficheroFuente;
-	}
+    public String getPalabrasClave() {
+	return palabrasClave;
+    }
 
-	public void setFicheroFuente(String ficheroFuente) {
-		this.ficheroFuente = ficheroFuente;
-	}
+    public void setPalabrasClave(String palabrasClave) {
+	this.palabrasClave = palabrasClave;
+    }
 
-	public String getCartaPresentacion() {
-		return cartaPresentacion;
-	}
+    public String getFicheroFuente() {
+	return ficheroFuente;
+    }
 
-	public void setCartaPresentacion(String cartaPresentacion) {
-		this.cartaPresentacion = cartaPresentacion;
-	}
+    public void setFicheroFuente(String ficheroFuente) {
+	this.ficheroFuente = ficheroFuente;
+    }
 
-	public String getCV() {
-		return CV;
-	}
+    public String getCartaPresentacion() {
+	return cartaPresentacion;
+    }
 
-	public void setCV(String cV) {
-		CV = cV;
-	}
+    public void setCartaPresentacion(String cartaPresentacion) {
+	this.cartaPresentacion = cartaPresentacion;
+    }
 
-	public boolean isFirma() {
-		return firma;
-	}
+    public String getCV() {
+	return CV;
+    }
 
-	public void setFirma(boolean firma) {
-		this.firma = firma;
-	}
+    public void setCV(String cV) {
+	CV = cV;
+    }
 
-	public String getEstado() {
-		return estado;
-	}
+    public boolean isFirma() {
+	return firma;
+    }
 
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+    public void setFirma(boolean firma) {
+	this.firma = firma;
+    }
 
-	public int getVecesRevisado() {
-		return vecesRevisado;
-	}
+    public String getEstado() {
+	return estado;
+    }
 
-	public void setVecesRevisado(int vecesRevisado) {
-		this.vecesRevisado = vecesRevisado;
-	}
+    public void setEstado(String estado) {
+	this.estado = estado;
+    }
 
-	public boolean isVersionDefinitiva() {
-		return versionDefinitiva;
-	}
+    public int getVecesRevisado() {
+	return vecesRevisado;
+    }
 
-	public void setVersionDefinitiva(boolean versionDefinitiva) {
-		this.versionDefinitiva = versionDefinitiva;
-	}
+    public void setVecesRevisado(int vecesRevisado) {
+	this.vecesRevisado = vecesRevisado;
+    }
 
-	@Override
-	public String toString() {
-		String str = "" + idArticulo;
-		if(titulo != null)
-			str += " - " + titulo;
-		if(primerAutor != null)
-			str += " - Autor: " + primerAutor;
-		if(estado != null)
-			str += " - Estado: " + estado;
-		str += " - Veces Revisado: " + vecesRevisado;
-		return str;
-	}
+    public boolean isVersionDefinitiva() {
+	return versionDefinitiva;
+    }
 
-	public String getCartaDecision() {
-		return cartaDecision;
-	}
+    public void setVersionDefinitiva(boolean versionDefinitiva) {
+	this.versionDefinitiva = versionDefinitiva;
+    }
 
-	public void setCartaDecision(String cartaDecision) {
-		this.cartaDecision = cartaDecision;
-	}
+    @Override
+    public String toString() {
+	String str = "";
+	if (titulo != null)
+	    str += " - " + titulo;
+	if (primerAutor != null)
+	    str += " - Autor: " + primerAutor;
+	if (estado != null)
+	    str += " - Estado: " + estado;
+	str += " - Veces Revisado: " + vecesRevisado;
+	return str;
+    }
 
-	public String getDOI() {
-		return DOI;
-	}
+    public String getCartaDecision() {
+	return cartaDecision;
+    }
 
-	public void setDOI(String dOI) {
-		DOI = dOI;
-	}
+    public void setCartaDecision(String cartaDecision) {
+	this.cartaDecision = cartaDecision;
+    }
 
-	public String getFecha() {
-		return fecha;
-	}
+    public String getDOI() {
+	return DOI;
+    }
 
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
+    public void setDOI(String dOI) {
+	DOI = dOI;
+    }
 
-	public int getVolumen() {
-		return volumen;
-	}
+    public String getFecha() {
+	return fecha;
+    }
 
+    public void setFecha(String fecha) {
+	this.fecha = fecha;
+    }
+
+    public int getVolumen() {
+	return volumen;
+    }
+
+<<<<<<< HEAD
 	public void setVolumen(int volumen) {
 		this.volumen = volumen;
 	}	
+=======
+    public void setVolumen(int volumen) {
+	this.volumen = volumen;
+    }
+>>>>>>> refs/heads/master
 }
-
-

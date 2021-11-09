@@ -9,8 +9,6 @@ import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.util.Database;
 
 public class RevisorModel {
-	
-	private Database db = new Database();
 
 	/**
 	 * Actualiza el revisor dado por parametro
@@ -34,4 +32,18 @@ public class RevisorModel {
 
 		return db.executeQueryPojo(RevisorDto.class, sql);
 	}
+	
+	 public void sugerirRevisores(int id_articulo, RevisorDto revisor) {
+			String sql = "delete from sugerencias where idArticulo = ?";
+			db.executeUpdate(sql, id_articulo);
+
+			sql = "insert into sugerencias(idArticulo, idRevisor) values (?, ?)";
+			db.executeUpdate(sql, id_articulo, revisor.getIdRevisor());
+		    }
+
+		    public void addRevisor(RevisorDto revisorDto) {
+			String sql = "insert into revisores values (?, ?, ?, ?, ?)";
+			db.executeUpdate(sql, revisorDto.getIdRevisor(), revisorDto.getNombre(), revisorDto.getEstado(),
+				revisorDto.getCorreo(), revisorDto.getEspecialidad());
+		    }
 }

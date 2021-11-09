@@ -1,4 +1,10 @@
 --Datos para carga inicial de la base de datos
+
+delete from sugerencias;
+insert into sugerencias (idArticulo, idRevisor) values
+    (20, 20),  
+    (20, 21),
+    (22, 22);
 	
 delete from revisores;
 insert into revisores(idRevisor,nombre,estado) values 
@@ -14,7 +20,8 @@ delete from autores;
 insert into autores(idAutor,nombre,dni) values 
 	(4,'antonio','435135'),
 	(5,'lucia','156723'),
-	(6,'ariadna','810582');
+	(6,'ariadna','810582'),
+	(2, 'Hugo', '3647867');
 	
 delete from articulos;
 insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV, firma, vecesRevisado, versionDefinitiva) values 
