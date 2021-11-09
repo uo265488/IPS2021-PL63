@@ -8,20 +8,21 @@ insert into sugerencias (idArticulo, idRevisor) values
 	
 delete from revisores;
 insert into revisores(idRevisor,nombre,estado) values 
-	(1,'felipe','disponible'),
-	(2,'ernesto','disponible'),
-	(3,'maria','no disponible'),
-	(4,'carmen', 'no disponible'),
-	(5,'pablo','no disponible'),
-	(6,'julio','no disponible'),
-	(7,'ruben','disponible');
+	(1,'felipe','disponible','felipe@uniovi.es', 'Violencia'),
+	(2,'ernesto','disponible', 'ernesto@uniovi.es', 'Bases de datos'),
+	(3,'maria','no disponible', 'mperez@uniovi.es', 'Biologia'),
+	(4,'carmen', 'no disponible', 'carmen@uniovi.es', 'Economia'),
+	(5,'pablo','no disponible', 'peibol@uniovi.es', 'Futbol'),
+	(6,'julio','no disponible', 'jfer@uniovi.es', 'Meses'),
+	(7,'ruben','disponible', 'rub@uniovi.es','Comida'),
+	(12, 'Oscar', 'disponible', 'oscar@uniovi.es', 'Lesiones');
 	
 delete from autores;
 insert into autores(idAutor,nombre,dni) values 
-	(4,'antonio','435135'),
-	(5,'lucia','156723'),
-	(6,'ariadna','810582'),
-	(2, 'Hugo', '3647867');
+	(8,'antonio','435135'),
+	(9,'lucia','156723'),
+	(10,'ariadna','810582'),
+	(11, 'Hugo', '3647867');
 	
 delete from articulos;
 insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV, firma, vecesRevisado, versionDefinitiva) values 
@@ -38,14 +39,14 @@ insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave
 
 delete from autoresSecundarios;
 insert into autoresSecundarios(idArticulo, idAutor) values
-	(7,4),
-	(8,5),
-	(8,4),
-	(9,6),
-	(10,6),
-	(11,6),
-	(12,4),
-	(13,5);
+	(7,8),
+	(8,9),
+	(8,8),
+	(9,10),
+	(10,10),
+	(11,10),
+	(12,8),
+	(13,9);
 	
 delete from articulosDeAutores;
 insert into articulosDeAutores(idArticulo, idAutor) values
@@ -94,6 +95,16 @@ insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, comentarios
 	
 delete from usuarios;
 insert into usuarios (idUsuario, nombre, tipoUsuario) values
-	(1, 'Alex', 'Editor'),
-	(2, 'Hugo', 'Autor'),
-	(3, 'Oscar', 'Revisor');
+	(0, 'Alex', 'Editor'),
+	(1, 'felipe', 'Revisor'),
+	(2, 'ernesto', 'Revisor)',
+	(3,'maria', 'Revisor'),
+	(4,'carmen', 'Revisor'),
+	(5,'pablo', 'Revisor'),
+	(6,'julio''Revisor'),
+	(7,'ruben', 'Revisor')
+	(8,'antonio', 'Autor'),
+	(9,'lucia', 'Autor'),
+	(10,'ariadna', 'Autor'),
+	(11, 'Hugo', 'Autor'),
+	(12, 'Oscar', 'Revisor');
