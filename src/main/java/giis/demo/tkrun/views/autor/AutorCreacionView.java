@@ -326,7 +326,6 @@ public class AutorCreacionView extends JDialog {
 	    btnBorrador.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    crearBorrador();
-		    dispose();
 		}
 	    });
 	    btnBorrador.setMnemonic('B');
@@ -345,7 +344,7 @@ public class AutorCreacionView extends JDialog {
 			enviarARevista();
 			dispose();
 		    } else {
-			JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos");
+			JOptionPane.showMessageDialog(getContentPane(), "Todos los campos deben estar completos");
 		    }
 		}
 	    });
@@ -384,6 +383,9 @@ public class AutorCreacionView extends JDialog {
 	if (!revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(),
 		getTextFSugerido2().getText(), getTextFSugerido3().getText())) {
 	    JOptionPane.showMessageDialog(this, "Mal formato de revisores");
+	} else {
+	    JOptionPane.showMessageDialog(this, "Borrador creado/actualizado");
+	    dispose();
 	}
 
     }
