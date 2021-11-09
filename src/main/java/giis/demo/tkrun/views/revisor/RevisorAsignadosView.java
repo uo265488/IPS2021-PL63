@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,7 +15,7 @@ import javax.swing.border.EmptyBorder;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
 
-public class RevisorAsignadosView extends JFrame {
+public class RevisorAsignadosView extends JDialog {
 
 	/**
 	 * 
@@ -56,7 +56,7 @@ public class RevisorAsignadosView extends JFrame {
 	 * Create the frame.
 	 */
 	public void initialize() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 413, 228);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.List;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -47,7 +46,7 @@ public class ComentariosDeRevisionView extends JDialog {
 		setTitle("Comentarios de revision del artículo:");
 		setResizable(false);
 		setBounds(100, 100, 635, 357);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
 		setComentarios();
 

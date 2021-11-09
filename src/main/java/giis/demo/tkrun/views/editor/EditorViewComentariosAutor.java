@@ -1,32 +1,33 @@
 package giis.demo.tkrun.views.editor;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import giis.demo.tkrun.controllers.articulo.ArticuloController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
-import giis.demo.tkrun.models.articulo.ArticuloModel;
-
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import javax.swing.JTextArea;
-import javax.swing.border.LineBorder;
-import javax.swing.JRadioButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class EditorViewComentariosAutor extends JDialog {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final String PUBLICAR = "Publicar";
 	private static final String ACEPTAR = "Aceptar";
 	private static final String RECHAZAR = "Rechazar";
@@ -65,6 +66,7 @@ public class EditorViewComentariosAutor extends JDialog {
 	 */
 	public EditorViewComentariosAutor(List<RevisionEntity> revisiones, ArticuloEntity articulo, EditorViewComentariosArticulo comentariosView) {
 		getContentPane().setBackground(Color.WHITE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.revisiones = revisiones;
 		this.articulo = articulo;
 		this.artController = new ArticuloController();

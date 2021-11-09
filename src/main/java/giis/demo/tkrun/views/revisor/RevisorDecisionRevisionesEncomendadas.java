@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -25,7 +25,7 @@ import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.views.articulo.DetallesMasImportantesArticulo;
 import giis.demo.util.DtoMapper;
 
-public class RevisorDecisionRevisionesEncomendadas extends JFrame {
+public class RevisorDecisionRevisionesEncomendadas extends JDialog {
 
 	/**
 	 * 
@@ -59,7 +59,7 @@ public class RevisorDecisionRevisionesEncomendadas extends JFrame {
 	 * Create the frame.
 	 */
 	public void inicialice() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setResizable(false);
 		setBounds(100, 100, 953, 532);
 		contentPane = new JPanel();

@@ -42,6 +42,11 @@ public class AutorController {
 		this.articuloModel = new ArticuloModel();
 		initView();
 	}
+	
+	public AutorController(boolean vista) {
+		this.model = new AutorModel();
+		this.articuloModel = new ArticuloModel();
+	}
     
     public AutorController(int id_autor) {
 	this.model = new AutorModel();
@@ -56,6 +61,7 @@ public class AutorController {
     private void initView() {
 	this.view = new MenuAutor(this, id_autor);
 	view.setVisible(true);
+	//view.setModal(true);
     }
 
     public List<ArticuloEntity> getArticulosPropios(int id) {

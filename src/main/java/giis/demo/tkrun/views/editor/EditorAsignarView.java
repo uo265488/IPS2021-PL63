@@ -8,7 +8,6 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -87,7 +86,7 @@ public class EditorAsignarView extends JDialog {
 	 */
 	public void initialize() {
 		setBackground(Color.WHITE);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 603, 344);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);

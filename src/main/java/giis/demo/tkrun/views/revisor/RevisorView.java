@@ -1,7 +1,22 @@
 package giis.demo.tkrun.views.revisor;
 
-import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.articulo.ArticuloController;
@@ -9,23 +24,7 @@ import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import java.awt.Color;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.awt.event.ActionEvent;
-
-public class RevisorView extends JFrame {
+public class RevisorView extends JDialog {
 
 	/**
 	 * 
@@ -68,7 +67,7 @@ public class RevisorView extends JFrame {
 	}
 
 	private void inicialice() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1048, 539);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -234,7 +233,6 @@ public class RevisorView extends JFrame {
 	private JComboBox<String> getChDecision() {
 		if (chDecision == null) {
 			chDecision = new JComboBox<String>();
-			chDecision.setModel(new DefaultComboBoxModel(new String[] {"aceptar", "aceptar con cambios menores", "aceptar con cambios mayores", "rechazar"}));
 			chDecision.setModel(new DefaultComboBoxModel<String>(new String[] { "aceptar",
 					"aceptar con cambios menores", "aceptar con cambios mayores", "rechazar" }));
 			chDecision.setBounds(152, 365, 280, 22);

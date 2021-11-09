@@ -1,18 +1,18 @@
 package giis.demo.tkrun.views.articulo;
 
 
+import java.awt.Checkbox;
+import java.awt.Color;
+
 import javax.swing.JDialog;
-import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import java.awt.Checkbox;
-import javax.swing.border.LineBorder;
 
 public class VisualizarArticuloView extends JDialog {
 
@@ -80,7 +80,7 @@ public class VisualizarArticuloView extends JDialog {
 		setTitle("Visualizar articulo: " + articulo.getTitulo());
 		setBackground(Color.WHITE);
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 508, 582);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);

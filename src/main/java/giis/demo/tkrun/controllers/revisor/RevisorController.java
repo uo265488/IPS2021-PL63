@@ -58,7 +58,7 @@ public class RevisorController {
 
 		rav = new RevisorAsignadosView(this, idRevisor);
 		rav.setVisible(true);
-
+		//rav.setModal(true);
 	}
 
 	public RevisionEntity getArticulosSinRevisar(int id, int idArt) {

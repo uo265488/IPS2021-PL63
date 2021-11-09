@@ -63,10 +63,10 @@ public class SwingMain {
 	    public void actionPerformed(ActionEvent e) {
 		// new EditorController(generarArticulo());
 		// new RevisorView(new RevisorController(1));
-		 new AutorView(new AutorController(),1);
+		// new AutorView(new AutorController(),1);
 	    //	new RevisorDecisionRevisionesEncomendadas(new RevisorController());
 		// new EditorViewDecisionArticulo(new EditorController());
-		//new UserController();
+		new UserController();
 	    }
 	});
 	frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));

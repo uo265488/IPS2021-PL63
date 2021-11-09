@@ -15,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -28,7 +27,6 @@ import javax.swing.border.EmptyBorder;
 import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.views.articulo.ArticuloCambiosView;
-import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
 
 public class AutorView extends JDialog {
 
@@ -74,15 +72,22 @@ public class AutorView extends JDialog {
 
     /**
      * Create the frame.
+     * @wbp.parser.constructor
      */
     public AutorView(AutorController controller, int id_autor) {
 	this.controller = controller;
 	this.id_autor = id_autor;
 	inicialize();
     }
+    
+    public AutorView(int id_autor) {
+    	this.controller = new AutorController(false);
+    	this.id_autor = id_autor;
+    	inicialize();
+        }
 
     private void inicialize() {
-	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	setBounds(100, 100, 1174, 586);
 	setTitle("Vista de Autor");
 	contentPane = new JPanel();
@@ -254,9 +259,7 @@ public class AutorView extends JDialog {
 			btnEnviarArticulo = new JButton("Enviar Versión Definitiva");
 			btnEnviarArticulo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(!getChCopy().isSelected())
-						JOptionPane.showMessageDialog(null, "Tiene que confirmar la firma de CopyRight");
-					else {
+					if(getChCopy().isSelected()) {
 						ArticuloEntity articulo = (ArticuloEntity)getCbArticulosSinPublicar().getSelectedItem();
 						if(articulo != null) {
 							controller.getEnviarVersionDefinitiva(articulo.getIdArticulo());
