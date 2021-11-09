@@ -71,7 +71,7 @@ insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, comentarios
 	(8, 3, 1,'31/12/2021', 'Articulo normal','Se puede aceptar','aceptar',true, 'ACEPTADA'),
 	(7, 1, 1,'31/12/2021', '','','',false, 'ACEPTADA'),
 	(7, 2, 1,'31/12/2021', '','','',false, 'ACEPTADA'),
-	(7, 3, 1,'31/12/2021', '','','',false, 'PENDIENTE'),
+	(7, 3, 1,'31/12/2021', '','','',false, 'ACEPTADA'),
 	(11, 4, 1,'31/12/2021', 'Muy buen artículo', 'Debe ser publicado', 'aceptar con cambios menores', true, 'ACEPTADA'),
 	(11, 5, 1,'31/12/2021', 'Mejorable', 'Tengo mis dudas de aceptarlo', 'aceptar con cambios mayores', true, 'ACEPTADA'),
 	(11, 6, 1,'31/12/2021', 'Buen artículo', 'Aceptable', 'aceptar', true, 'ACEPTADA'),
