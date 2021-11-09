@@ -103,7 +103,7 @@ public class EntityAssembler {
 		ent.setEnviarAlEditor(art.isEnviarAlEditor());
 		ent.setFecha(art.getFecha());
 		ent.setDecision(art.getDecision());
-		ent.setEstadoDeLaPropuesta(art.getEstadoDeLaPropuesta());
+		//ent.setEstadoDeLaPropuesta(art.getEstadoDeLaPropuesta());
 		
 		return ent;
 	}

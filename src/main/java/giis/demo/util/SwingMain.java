@@ -49,52 +49,6 @@ public class SwingMain {
 	initialize();
     }
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setTitle("Main");
-		frame.setBounds(0, 0, 287, 185);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
-		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
-			public void actionPerformed(ActionEvent e) {
-//				EditorAsignarView frame = new EditorAsignarView(new ArticuloEntity
-//						(20,"Poesia clasica","ariadna","publicado", "explicacion sobre la poesia clasica", "poesia, españa", "FicheroFuente.pdf", "Presentacion.pdf", "cv.pdf", true, "cv.pdf", 1, true,"cv.pdf", "cv.pdf", "cv.pdf", 1));
-//				frame.setVisible(true);
-				
-				MenuEditor menu = new MenuEditor(new EditorController());
-				menu.setVisible(true);
-				
-//				EditorPrincipalView v = new EditorPrincipalView(new EditorController());				
-//				v.setVisible(true);
-			}
-		});
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-		frame.getContentPane().add(btnEjecutarTkrun);
-		
-			
-		JButton btnInicializarBaseDeDatos = new JButton("Inicializar Base de Datos en Blanco");
-		btnInicializarBaseDeDatos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
-			public void actionPerformed(ActionEvent e) {
-				Database db=new Database();
-				db.createDatabase(false);
-			}
-		});
-		frame.getContentPane().add(btnInicializarBaseDeDatos);
-			
-		JButton btnCargarDatosIniciales = new JButton("Cargar Datos Iniciales para Pruebas");
-		btnCargarDatosIniciales.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
-			public void actionPerformed(ActionEvent e) {
-				Database db=new Database();
-				db.createDatabase(false);
-				db.loadDatabase();
-			}
-		});
-		frame.getContentPane().add(btnCargarDatosIniciales);
-	}
     /**
      * Initialize the contents of the frame.
      */

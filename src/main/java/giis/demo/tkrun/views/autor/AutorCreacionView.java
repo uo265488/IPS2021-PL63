@@ -25,6 +25,7 @@ import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
+import giis.demo.util.DtoMapper;
 import giis.demo.util.EntityAssembler;
 
 public class AutorCreacionView extends JDialog {
@@ -550,7 +551,7 @@ public class AutorCreacionView extends JDialog {
 		revisorController.addRevisor(revisorDto1);
 	    } else {
 		autorController.sugerirRevisores(id_articulo,
-			EntityAssembler.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
+			DtoMapper.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
 	    }
 	}
 
@@ -571,7 +572,7 @@ public class AutorCreacionView extends JDialog {
 		revisorController.addRevisor(revisorDto2);
 	    } else {
 		autorController.sugerirRevisores(id_articulo,
-			EntityAssembler.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
+			DtoMapper.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
 	    }
 	}
 
@@ -592,7 +593,7 @@ public class AutorCreacionView extends JDialog {
 		revisorController.addRevisor(revisorDto3);
 	    } else {
 		autorController.sugerirRevisores(id_articulo,
-			EntityAssembler.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
+			DtoMapper.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
 	    }
 	}
     }
