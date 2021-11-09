@@ -41,7 +41,7 @@ public class AutorDto {
 
 	@Override
 	public String toString() {
-		return "RevisorDto [id=" + idAutor + ", nombre=" + nombre + ", dni=" + dni + "]";
+		return "" + nombre + " ("+ dni + ")";
 	}
 	
 }
