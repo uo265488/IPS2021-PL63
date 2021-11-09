@@ -12,6 +12,7 @@ import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.models.revisor.RevisorModel;
 import giis.demo.tkrun.models.sugerencia.SugerenciaModel;
+import giis.demo.tkrun.views.editor.MenuEditor;
 import giis.demo.util.DtoMapper;
 import giis.demo.util.EntityAssembler;
 
@@ -25,6 +26,8 @@ public class EditorController {
 //------------------------------ OSCAR ---------------------------------------------------------	
 
 	public EditorController() {
+		MenuEditor menu = new MenuEditor(this);
+		menu.setVisible(true);
 	}
 
 	/**

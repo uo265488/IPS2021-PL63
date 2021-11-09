@@ -14,6 +14,7 @@ import giis.demo.tkrun.controllers.user.UserController;
 import giis.demo.tkrun.views.editor.EditorAsignarView;
 import giis.demo.tkrun.views.editor.EditorPrincipalView;
 import giis.demo.tkrun.views.editor.MenuEditor;
+import giis.demo.tkrun.views.user.UserView;
 
 
 
@@ -68,7 +69,9 @@ public class SwingMain {
 //						(20,"Poesia clasica","ariadna","publicado", "explicacion sobre la poesia clasica", "poesia, españa", "FicheroFuente.pdf", "Presentacion.pdf", "cv.pdf", true, "cv.pdf", 1, true,"cv.pdf", "cv.pdf", "cv.pdf", 1));
 //				frame.setVisible(true);
 				
-				MenuEditor menu = new MenuEditor(new EditorController());
+//				MenuEditor menu = new MenuEditor(new EditorController());
+//				menu.setVisible(true);
+				UserView menu = new UserView(new UserController());
 				menu.setVisible(true);
 				
 //				EditorPrincipalView v = new EditorPrincipalView(new EditorController());				
