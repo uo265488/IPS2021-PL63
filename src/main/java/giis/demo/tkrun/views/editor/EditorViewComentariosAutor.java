@@ -48,19 +48,6 @@ public class EditorViewComentariosAutor extends JDialog {
 
 
 	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		try {
-			EditorViewComentariosAutor dialog = new EditorViewComentariosAutor();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
-
-	/**
 	 * Create the dialog.
 	 */
 	public EditorViewComentariosAutor(List<RevisionEntity> revisiones, ArticuloEntity articulo, EditorViewComentariosArticulo comentariosView) {
