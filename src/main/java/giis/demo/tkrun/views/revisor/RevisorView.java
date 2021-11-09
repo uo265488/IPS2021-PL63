@@ -257,6 +257,13 @@ public class RevisorView extends JDialog {
 							controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(),
 									(String) getChDecision().getSelectedItem(), true,
 									Integer.parseInt(getTxId().getText()), idArt, numeroRevision);
+							if (controller.todasLasRevisionesEnviadas(idArt, numeroRevision)) {
+								ArticuloEntity art = contArt.getArticulo(idArt);
+								if (art != null) {
+									art.setEstado(ArticuloEntity.CON_EL_EDITOR);
+									contArt.actualizarArticulo(art);
+								}
+							}
 							limpiar();
 							getBtEnviar().setEnabled(false);
 							getBtGuardarCambios().setEnabled(false);
