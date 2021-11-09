@@ -58,6 +58,7 @@ public class UserView extends JFrame {
 	this.userController = controller;
 	this.users = userController.getUsers();
 	initialize();
+	System.out.println("kjsdngfñkajn");
     }
 
     /**
