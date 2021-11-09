@@ -171,4 +171,30 @@ public class RevisionModel {
 
 			return db.executeQueryPojo(RevisionDto.class, sql, idArt, numeroRevision);
 		}
+		
+		public List<RevisionDto> getRevisionesFiltradoNumeroRevision(int idArticulo, int numeroRevision) {
+			String sql = "select * from revisiones where idArticulo=? and numeroRevision=?";
+			
+			return db.executeQueryPojo(RevisionDto.class, sql, idArticulo, numeroRevision);
+		}
+
+		public List<RevisionDto> getRevisionesArticuloDeUnRevisor(int idArticulo, int idRevisor) {
+			String sql = "select * from revisiones where idArticulo=? and idRevisor=?";
+			
+			return db.executeQueryPojo(RevisionDto.class, sql, idArticulo, idRevisor);
+		}
+
+		public List<RevisionDto> getRevisionPorNumeroRevision(int idArticulo, int idRevisor, int numeroRevision) {
+			String sql = "select * from revisiones where idArticulo=? and idRevisor=? and numeroRevision=?";
+			
+			return db.executeQueryPojo(RevisionDto.class, sql, idArticulo, idRevisor, numeroRevision);
+		}
+
+		public void generarSegundaRevision(int idArticulo, int idRevisor, String fecha) {
+			String sql = "insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, estadoDeLaPropuesta) values (?,?,?,?,?)";
+
+			db.executeUpdate(sql, idArticulo, idRevisor, 2, fecha,
+					"ACEPTADO");
+			
+		}
 }

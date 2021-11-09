@@ -18,6 +18,7 @@ public class EditorController {
 	private RevisionModel revisionModel;
 	private ArticuloModel articuloModel;
 	private RevisorModel revisoresModel;
+	private SugerenciaModel sugerenciaModel = new SugerenciaModel();
 
 	private void initView() {
 		this.principalView = new MenuEditor(this);
@@ -124,4 +125,181 @@ public class EditorController {
 	public List<ArticuloEntity> getArticulosFiltradoAutor(String autor) {
 		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoAutor(autor));
 	}
+
+
+	public void rechazarDefinitivimenteArticulo(ArticuloEntity articulo) {
+		articuloModel.rechazarDefinitivamente(DtoMapper.toArticuloDto(articulo));
+
+	}
+	public List<RevisionEntity> getRevisionesFiltradas(int idArticulo, int numeroRevision) {
+		return EntityAssembler.toRevisionEntityList(revisionModel.getRevisionesFiltradoNumeroRevision(idArticulo, numeroRevision));
+	}
+	public List<RevisionEntity> getRevisionesArticulo(ArticuloEntity articulo){
+		return EntityAssembler.toRevisionEntityList(revisionModel.getRevisionesDeUnArticulo(DtoMapper.toArticuloDto(articulo)));
+	}
+	
+	public List<RevisionEntity> getRevisionesArticuloDeUnRevisor(int idArticulo, int idRevisor){
+		return EntityAssembler.toRevisionEntityList(revisionModel.getRevisionesArticuloDeUnRevisor(idArticulo, idRevisor));
+	}
+	
+	public List<RevisionEntity> getRevisionPorNumeroRevision(int numeroRevision, int idRevisor, int idArticulo) {
+		return EntityAssembler.toRevisionEntityList(revisionModel.getRevisionPorNumeroRevision(idArticulo, idRevisor, numeroRevision));
+	}
+	public void generarSegundaRevision(int idArticulo, int idRevisor, String fecha) {
+		revisionModel.generarSegundaRevision(idArticulo, idRevisor, fecha);
+	}
+	//------------------------------ OSCAR ---------------------------------------------------------	
+
+		public EditorController() {
+		}
+
+		/**
+		 * Devuelve una lista con todos los revisores disponibles
+		 * 
+		 * @return
+		 */
+		public List<RevisorEntity> getRevisoresDisponibles(ArticuloEntity articulo) {
+
+			List<RevisorEntity> revisoresDisponibles = EntityAssembler
+					.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
+
+			return revisoresDisponibles
+					.stream()
+					//.filter(r -> revisionModel.findRevisionRechazada(articulo.getIdArticulo(), r.getId()).isEmpty())
+					.filter(r -> !revisionModel.findRevisionRechazada(articulo.getIdArticulo(), r.getId()).isPresent())
+					.collect(Collectors.toList());
+
+		}
+
+		/**
+		 * Metodo para asignar el revisor (generar revision, marcar articulo como 'en
+		 * revision' y el revisor como 'no disponible'
+		 * 
+		 * @param revisor
+		 * @param articulo
+		 * @param fecha
+		 */
+		public void asignarRevisor(RevisorEntity revisor, ArticuloEntity articulo, String fecha) {
+
+			cambiarEstadoRevisorNoDisponible(revisor);
+
+			generarRevision(revisor, articulo, fecha);
+
+			if (getNumeroDeRevisoresAsignados(articulo) == 3)
+				cambiarEstadoArticuloEnRevision(articulo);
+
+		}
+
+		/**
+		 * Cambia el estado de los revisores a no disponibles
+		 * 
+		 * @param revisores
+		 */
+		private void cambiarEstadoRevisorNoDisponible(RevisorEntity revisor) {
+
+			revisor.setEstado(RevisorEntity.NO_DISPONIBLE);
+
+			revisoresModel.update(DtoMapper.toRevisorDto(revisor));
+
+		}
+
+		/**
+		 * Cambia el estado del articulo a "En revision"
+		 * 
+		 * @param articulo
+		 */
+		private void cambiarEstadoArticuloEnRevision(ArticuloEntity articulo) {
+
+			articulo.setEstado(ArticuloEntity.EN_REVISION);
+
+			articuloModel.update(DtoMapper.toArticuloDto(articulo));
+
+		}
+
+		/**
+		 * Metodo que genera las revisiones a partir del articulo, los revisores y la
+		 * fecha
+		 * 
+		 * @return
+		 */
+		private void generarRevision(RevisorEntity revisor, ArticuloEntity articulo, String fecha) {
+
+			revisionModel.add(DtoMapper.toRevisionDto(revisor, articulo, fecha));
+		}
+
+		/**
+		 * Devuelve el numero de revisores asignados a un articulo
+		 * 
+		 * @param articulo
+		 * @return
+		 */
+		public int getNumeroDeRevisoresAsignados(ArticuloEntity articulo) {
+			return revisionModel.findByIdArticulo(articulo.getIdArticulo()).size();
+		}
+
+		/**
+		 * Devuelve una lista con los revisores de las sugerencias en funcion del
+		 * articulo
+		 * 
+		 * @param articulo
+		 * @return
+		 */
+		public List<RevisorEntity> getRevisoresSugeridos(ArticuloEntity articulo) {
+			List<RevisorEntity> list = new ArrayList<>();
+			for (RevisorDto dto : sugerenciaModel.getRevisoresSugeridos(articulo.getIdArticulo())) {
+				list.add(EntityAssembler.toRevisorEntity(revisoresModel.findById(dto.getIdRevisor())));
+			}
+			return list;
+		}
+
+		/**
+		 * Devuelve una lista con los revisores de las sugerencias en funcion del
+		 * articulo
+		 * 
+		 * @param articulo
+		 * @return
+		 */
+		public List<RevisorEntity> getRevisoresAsignados(ArticuloEntity articulo) {
+
+			List<RevisionEntity> revisiones = EntityAssembler
+					.toRevisionEntityList(revisionModel.getRevisionesDeUnArticulo(DtoMapper.toArticuloDto(articulo)));
+			List<RevisorEntity> revisores = new ArrayList<>();
+
+			for (RevisionEntity r : revisiones) {
+				revisores.add(EntityAssembler.toRevisorEntity(revisoresModel.findById(r.getIdRevisor())));
+			}
+
+			return revisores;
+		}
+
+		/**
+		 * Devuelve true si el articulo se encuentra en estado 'con el editor'
+		 * 
+		 * @param articulo
+		 * @return
+		 */
+		public boolean checkArticuloParaAsignar(ArticuloEntity articulo) {
+
+			return EntityAssembler.toArticuloEntity(articuloModel.findById(articulo.getIdArticulo()).get(0)).getEstado()
+					.equals(ArticuloEntity.CON_EL_EDITOR);
+		}
+
+		/**
+		 * Añade el revisor a la lista de revisores si es que no esta añadido
+		 * 
+		 * @param selectedValue
+		 * @return
+		 */
+		public boolean añadirRevisorAListaDeRevisores(RevisorEntity selectedValue) {
+			if (revisoresModel.findById(selectedValue.getId()).getEstado().equals(RevisorEntity.SUGERIDO)) {
+				RevisorDto dto = DtoMapper.toRevisorDto(selectedValue);
+				dto.setEstado(RevisorEntity.DISPONIBLE);
+				revisoresModel.update(dto);
+				return true;
+			}
+			return false;
+		}
+
+	//-------------------------------------------------------------------------------------------------------
+
 }
