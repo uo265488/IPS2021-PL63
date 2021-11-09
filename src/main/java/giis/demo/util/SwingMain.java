@@ -10,11 +10,6 @@ import javax.swing.JFrame;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.user.UserController;
-import giis.demo.tkrun.views.editor.EditorAsignarView;
-import giis.demo.tkrun.views.editor.EditorPrincipalView;
-import giis.demo.tkrun.views.editor.MenuEditor;
-
-
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las

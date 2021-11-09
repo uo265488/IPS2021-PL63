@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.articulo.ArticuloController;
-import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 
 import java.awt.Color;
@@ -31,7 +30,6 @@ public class EditorViewPublicarArticulo extends JDialog {
 	private ArticuloController artController;
 	private ArticuloEntity articulo;
 	private EditorViewComentariosAutor ventanaAnterior;
-	private EditorController controller;
 
 	/**
 	 * Launch the application.
@@ -49,11 +47,10 @@ public class EditorViewPublicarArticulo extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public EditorViewPublicarArticulo(EditorViewComentariosAutor ventanaAnterior, ArticuloEntity articulo, EditorController controller) {
+	public EditorViewPublicarArticulo(EditorViewComentariosAutor ventanaAnterior, ArticuloEntity articulo) {
 		this.artController = new ArticuloController();
 		this.ventanaAnterior = ventanaAnterior;
 		this.articulo = articulo;
-		this.controller = controller;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		getContentPane().setBackground(Color.WHITE);
 		setBackground(Color.WHITE);

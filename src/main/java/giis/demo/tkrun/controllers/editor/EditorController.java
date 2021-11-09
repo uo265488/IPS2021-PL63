@@ -3,11 +3,11 @@ package giis.demo.tkrun.controllers.editor;
 import java.util.List;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
-import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.models.revisor.RevisorModel;
+import giis.demo.tkrun.views.editor.EditorPrincipalView;
 import giis.demo.tkrun.views.editor.EditorView;
 import giis.demo.tkrun.views.editor.MenuEditor;
 import giis.demo.util.DtoMapper;
@@ -121,24 +121,4 @@ public class EditorController {
 	public List<ArticuloEntity> getArticulosFiltradoAutor(String autor){
 		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoAutor(autor));
 	}	
-
-	public void rechazarDefinitivimenteArticulo(ArticuloEntity articulo) {
-		articuloModel.rechazarDefinitivamente(DtoMapper.toArticuloDto(articulo));
-
-	}
-	public List<RevisionEntity> getRevisionesFiltradas(int idArticulo, int numeroRevision) {
-		return EntityAssembler.toRevisionEntityList(revisionModel.getRevisionesFiltradoNumeroRevision(idArticulo, numeroRevision));
-	}
-	public List<RevisionEntity> getRevisionesArticulo(ArticuloEntity articulo){
-		return EntityAssembler.toRevisionEntityList(revisionModel.getRevisionesDeUnArticulo(DtoMapper.toArticuloDto(articulo)));
-	}
-	
-	public List<RevisionEntity> getRevisionesArticuloDeUnRevisor(int idArticulo, int idRevisor){
-		return EntityAssembler.toRevisionEntityList(revisionModel.getRevisionesArticuloDeUnRevisor(idArticulo, idRevisor));
-	}
-	
-	public List<RevisionEntity> getRevisionPorNumeroRevision(int numeroRevision, int idRevisor, int idArticulo) {
-		return EntityAssembler.toRevisionEntityList(revisionModel.getRevisionPorNumeroRevision(idArticulo, idRevisor, numeroRevision));
-	}
-
 }

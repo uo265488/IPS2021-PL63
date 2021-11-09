@@ -9,12 +9,6 @@ public class RevisionDto {
 	private String comentariosEditor;
 	private String decision;
 	private boolean enviarAlEditor;
-	private int numeroRevision;
-//	
-//	private boolean decisionArticulo;
-//	private boolean decisionTomada;
-
-	private String estadoDeLaPropuesta;
 	
 
 	public int getIdRevisor() {
@@ -59,26 +53,6 @@ public class RevisionDto {
 	public void setDecision(String decision) {
 		this.decision = decision;
 	}
-
-	public int getNumeroRevision() {
-		return numeroRevision;
-	}
-	public void setNumeroRevision(int numeroRevision) {
-		this.numeroRevision = numeroRevision;
-	}
-//	public boolean isDecisionArticulo() {
-//		return decisionArticulo;
-//	}
-//	public void setDecisionArticulo(boolean decisionArticulo) {
-//		this.decisionArticulo = decisionArticulo;
-//	}
-//	public boolean isDecisionTomada() {
-//		return decisionTomada;
-//	}
-//	public void setDecisionTomada(boolean decisionTomada) {
-//		this.decisionTomada = decisionTomada;
-//	}
-
 	
 	
 	

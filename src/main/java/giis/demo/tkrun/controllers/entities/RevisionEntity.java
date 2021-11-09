@@ -9,7 +9,6 @@ public class RevisionEntity {
 	private String comentariosEditor;
 	private String decision;
 	private boolean enviarAlEditor;
-	private int numeroRevision;
 	
 	public int getIdArticulo() {
 		return idArticulo;
@@ -53,13 +52,6 @@ public class RevisionEntity {
 	}
 	public void setDecision(String decision) {
 		this.decision = decision;
-	}
-	
-	public int getNumeroRevision() {
-		return numeroRevision;
-	}
-	public void setNumeroRevision(int numeroRevision) {
-		this.numeroRevision = numeroRevision;
 	}
 	public String toString() {
 		return String.valueOf(this.idRevisor);
