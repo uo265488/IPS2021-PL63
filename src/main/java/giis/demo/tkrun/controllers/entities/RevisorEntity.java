@@ -2,67 +2,78 @@ package giis.demo.tkrun.controllers.entities;
 
 public class RevisorEntity {
 
-    public static final String NO_DISPONIBLE = "no disponible";
+	public static final String NO_DISPONIBLE = "no disponible";
+	public static final String DISPONIBLE = "disponible";
+	public static final String SUGERIDO = "sugerido";
 
-    private int id;
-    private String nombre;
-    private String estado;
-    private String correo;
-    private String especialidad;
+	private int id;
+	private String nombre;
+	private String estado;
+	private String correo;
+	private String especialidad;
 
-    public RevisorEntity(int id, String nombre, String estado) {
-	super();
-	this.id = id;
-	this.nombre = nombre;
-	this.estado = estado;
-    }
+	public String getEspecialidad() {
+		return especialidad;
+	}
 
-    public RevisorEntity() {
-    }
+	public void setEspecialidad(String especialidad) {
+		this.especialidad = especialidad;
+	}
 
-    public int getId() {
-	return id;
-    }
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
 
-    public void setId(int id) {
-	this.id = id;
-    }
+	public RevisorEntity(int id, String nombre, String estado) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.estado = estado;
+	}
 
-    public String getNombre() {
-	return nombre;
-    }
+	public RevisorEntity() {
+	}
 
-    public void setNombre(String nombre) {
-	this.nombre = nombre;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getEstado() {
-	return estado;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setEstado(String estado) {
-	this.estado = estado;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public String getCorreo() {
-	return correo;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setCorreo(String correo) {
-	this.correo = correo;
-    }
+	public String getEstado() {
+		return estado;
+	}
 
-    public String getEspecialidad() {
-	return especialidad;
-    }
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 
-    public void setEspecialidad(String especialidad) {
-	this.especialidad = especialidad;
-    }
+	public RevisorEntity(int id, String nombre, String estado, String correo, String especialidad) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.estado = estado;
+		this.correo = correo;
+		this.especialidad = especialidad;
+	}
 
-    @Override
-    public String toString() {
-	return nombre + " - " + id;
-    }
+	public String getCorreo() {
+		return correo;
+	}
+
+	@Override
+	public String toString() {
+		return id + " - " + nombre + " - "  + correo + " - " + especialidad;
+	}
 
 }

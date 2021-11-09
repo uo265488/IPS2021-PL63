@@ -231,5 +231,20 @@ public class ArticuloModel {
 	String sql = "SELECT * from articulos where idArticulo = ?";
 	return db.executeQueryPojo(ArticuloDto.class, sql, idArt);
     }
+    
+	public void rechazarDefinitivamente(ArticuloDto articuloDto) {
+
+		String sql = "update articulos set estado = 'rechazado', vecesRevisado=2 where idArticulo = ?";
+
+		db.executeUpdate(sql, articuloDto.getIdArticulo());
+		
+	}
+	
+	public List<ArticuloDto> findById(int idArticulo) {
+		
+		String sql = "SELECT * from articulos where idArticulo=?";
+
+		return db.executeQueryPojo(ArticuloDto.class, sql, idArticulo);
+	}
 
 }

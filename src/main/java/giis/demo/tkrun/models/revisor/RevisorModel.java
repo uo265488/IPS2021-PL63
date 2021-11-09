@@ -40,9 +40,16 @@ public class RevisorModel {
 			db.executeUpdate(sql, id_articulo, revisor.getIdRevisor());
 		    }
 
-		    public void addRevisor(RevisorDto revisorDto) {
-			String sql = "insert into revisores values (?, ?, ?, ?, ?)";
-			db.executeUpdate(sql, revisorDto.getIdRevisor(), revisorDto.getNombre(), revisorDto.getEstado(),
-				revisorDto.getCorreo(), revisorDto.getEspecialidad());
-		    }
+	 public void addRevisor(RevisorDto revisorDto) {
+		String sql = "insert into revisores values (?, ?, ?, ?, ?)";
+		db.executeUpdate(sql, revisorDto.getIdRevisor(), revisorDto.getNombre(), revisorDto.getEstado(),
+			revisorDto.getCorreo(), revisorDto.getEspecialidad());
+	}
+
+	 public RevisorDto findById(int idRevisor) {
+			String sql = "SELECT * from revisores where idRevisor=?";
+
+			return db.executeQueryPojo(RevisorDto.class, sql, idRevisor).get(0);
+		}
+
 }
