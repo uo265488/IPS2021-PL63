@@ -8,10 +8,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.controllers.user.UserController;
 import giis.demo.tkrun.views.revisor.RevisorView;
+import giis.demo.tkrun.views.autor.AutorView;
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las

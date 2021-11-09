@@ -45,21 +45,24 @@ public class RevisorController {
 			this.model = new RevisionModel();
 			this.articuloModel = new ArticuloModel();
 			this.revisoresModel = new RevisorModel();
+			//no hay inicializacion especifica del modelo, solo de la vista
+			this.initView();
 		}
-
-    // public AutorController(AutorModel m, EditorView v) {
-    // this.model = m;
-    // this.view = v;
-    // no hay inicializacion especifica del modelo, solo de la vista
-    // this.initView();
-    // }
-
+		
 		private void initView() {
-
 			rav = new RevisorAsignadosView(this, idRevisor);
 			rav.setVisible(true);
-
-		    }
+		}
+		
+		public RevisionEntity getArticulosSinRevisar(int id, int idArt) {
+			
+			return EntityAssembler.toRevisionEntity(model.visualizarSinRevisar(id, idArt));
+		}
+		
+		public List<ArticuloEntity> getArticulosAsignados(int id){
+			return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosAsignados(id));
+		}
+		
 		
 		public List<ArticuloEntity> getArticulosSinResponder(int id){
 			return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosSinResponder(id));
@@ -99,11 +102,6 @@ public class RevisorController {
 			return revisores;
 		}
 		    
-		    public RevisionEntity getArticulosSinRevisar(int id, int idArt) { 
-				
-				return EntityAssembler.toRevisionEntity(model.visualizarSinRevisar(id, idArt));
-			}
-			
 			public List<ArticuloEntity> getTituloArticulosSinRevisar(int id) {
 				
 				return EntityAssembler.toArticuloEntityList(model.articulosSinRevisar(id));
@@ -114,10 +112,6 @@ public class RevisorController {
 				model.revisarArticulo(comAutor, comEditor, decision, enviarAlEditor, idArt, id, numeroRevision);
 			}
 			
-			public List<ArticuloEntity> getArticulosAsignados(int id){
-				return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosAsignados(id));
-			}
-
 			public int numeroRevisiones(int idArt, int idRev) {
 				List<RevisionEntity> revisiones = EntityAssembler.toRevisionEntityList(model.numeroRevisiones(idRev, idArt));
 				return revisiones.size();

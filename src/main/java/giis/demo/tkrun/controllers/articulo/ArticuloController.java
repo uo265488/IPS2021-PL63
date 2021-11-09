@@ -10,14 +10,32 @@ import giis.demo.util.EntityAssembler;
 
 public class ArticuloController {
 
-    private ArticuloModel artModel;
+	private ArticuloModel artModel;
+	
+	public ArticuloController() {
+		this.artModel = new ArticuloModel();
+	}
+	
+	/**
+	 * Obtiene del ArticuloModel una lista con los articulos nuevos
+	 * @return List de ArticuloEntity
+	 */
+	public List<ArticuloEntity> getArticulosNuevos() {
+		return EntityAssembler.toArticuloEntityList(artModel.listArticulosNuevos());
+	}
 
-    public ArticuloController() {
-	this.artModel = new ArticuloModel();
-    }
 
 	public void aceptarArticulo(ArticuloEntity articulo) {
 		articulo.setEstado(ArticuloEntity.ACEPTADO);
+		artModel.update(DtoMapper.toArticuloDto(articulo));
+	}
+	
+	/**
+	 * Rechaza el articulo que recibe por parametro
+	 * @param selectedItem
+	 */
+	public void rechazarArticulo(ArticuloEntity articulo) {
+		articulo.setEstado(ArticuloEntity.RECHAZADO);
 		artModel.update(DtoMapper.toArticuloDto(articulo));
 	}
 	
@@ -25,15 +43,6 @@ public class ArticuloController {
 		artModel.update(DtoMapper.toArticuloDto(articulo));
 	}
 
-    /**
-     * Rechaza el articulo que recibe por parametro
-     * 
-     * @param selectedItem
-     */
-    public void rechazarArticulo(ArticuloEntity articulo) {
-	articulo.setEstado(ArticuloEntity.RECHAZADO);
-	artModel.update(DtoMapper.toArticuloDto(articulo));
-    }
 
 	public void visualizarArticulo(ArticuloEntity articulo) {
 		articulo.setEstado(ArticuloEntity.CON_EL_EDITOR);

@@ -10,47 +10,60 @@ import giis.demo.util.Database;
 
 public class RevisionModel {
 
-    private Database db = new Database();
+	private Database db = new Database();
 
-    /**
-     * Añade una revision a la base de datos
-     * 
-     * @param revisionDto
-     */
-    public void add(RevisionDto revisionDto) {
-	String sql = "insert into revisiones(idArticulo, idRevisor, fecha) values (?,?,?)";
+	/**
+	 * Añade una revision a la base de datos
+	 * 
+	 * @param revisionDto
+	 */
+	public void add(RevisionDto revisionDto) {
+		String sql = "insert into revisiones(idArticulo, idRevisor, fecha) values (?,?,?)";
 
-	db.executeUpdate(sql, revisionDto.getIdArticulo(), revisionDto.getIdRevisor(), revisionDto.getFecha());
+		db.executeUpdate(sql, revisionDto.getIdArticulo(), revisionDto.getIdRevisor(), revisionDto.getFecha());
 
-    }
+	}
 
-    /**
-     * Obtiene la revision atraves del id del articulo y el revisor
-     * 
-     * @param articulo
-     * @param revisor
-     * @return
-     */
-    public RevisionDto getRevision(ArticuloDto articulo, RevisorDto revisor) {
+	/**
+	 * Obtiene la revision atraves del id del articulo y el revisor
+	 * 
+	 * @param articulo
+	 * @param revisor
+	 * @return
+	 */
+	public RevisionDto getRevision(ArticuloDto articulo, RevisorDto revisor) {
 
-	String sql = "select * from revisiones where idArticulo = ? and idRevisor = ?";
+		String sql = "select * from revisiones where idArticulo = ? and idRevisor = ?";
 
-	return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo(), revisor.getIdRevisor()).get(0);
+		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo(), revisor.getIdRevisor()).get(0);
 
-    }
+	}
 
-    /**
-     * Obtiene todas las revisiones hechas sobre un articulo
-     * 
-     * @param articuloDto
-     * @return
-     */
-    public List<RevisionDto> getComentariosDeRevisionDeUnArticulo(ArticuloDto articulo, RevisorDto revisor) {
+	/**
+	 * Obtiene todas las revisiones hechas sobre un articulo
+	 * 
+	 * @param articuloDto
+	 * @return
+	 */
+	public List<RevisionDto> getComentariosDeRevisionDeUnArticulo(ArticuloDto articulo, RevisorDto revisor) {
 
-	String sql = "select * from revisiones where idArticulo = ? and idRevisor <> ?";
+		String sql = "select * from revisiones where idArticulo = ? and idRevisor <> ?";
 
-	return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo(), revisor.getIdRevisor());
-    }
+		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo(), revisor.getIdRevisor());
+	}
+
+	/**
+	 * Obtiene todas las revisiones hechas sobre un articulo
+	 * 
+	 * @param articuloDto
+	 * @return
+	 */
+	public List<RevisionDto> getRevisionesDeUnArticulo(ArticuloDto articulo) {
+
+		String sql = "select * from Revisiones where idArticulo = ?";
+
+		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo());
+	}
 
 	/*
 	 * public void add(RevisionDto revisionDto) { String sql =
@@ -61,80 +74,74 @@ public class RevisionModel {
 	 * 
 	 * }
 	 */
-	
-    public void revisarArticulo(String comentariosAutor, String comentariosEditor, String decision, boolean enviarAlEditor, int idArticulo, int idRevisor, int numeroRevision) {
+
+	public void revisarArticulo(String comentariosAutor, String comentariosEditor, String decision,
+			boolean enviarAlEditor, int idArticulo, int idRevisor, int numeroRevision) {
 		// validaciones (en este caso nada)
 		String sql = "update revisiones set comentariosAutor = ?, comentariosEditor = ?, decision = ?, enviarAlEditor = ? where idArticulo = ? and idRevisor = ? and numeroRevision = ?";
-		db.executeUpdate(sql, comentariosAutor, comentariosEditor, decision, enviarAlEditor, idArticulo, idRevisor, numeroRevision);
+		db.executeUpdate(sql, comentariosAutor, comentariosEditor, decision, enviarAlEditor, idArticulo, idRevisor,
+				numeroRevision);
 	}
-	
-	public RevisionDto visualizarSinRevisar(int idRevisor, int idArticulo){
-		String sql = "select * "
-				+ "from revisiones "
+
+	public RevisionDto visualizarSinRevisar(int idRevisor, int idArticulo) {
+		String sql = "select * " + "from revisiones "
 				+ "where idRevisor = ? and enviarAlEditor = false and idArticulo = ?";
-		
+
 		return db.executeQueryPojo(RevisionDto.class, sql, idRevisor, idArticulo).get(0);
 	}
-	
-	public List<ArticuloDto> articulosSinRevisar(int idRevisor){
-		String sql = "select articulos.idArticulo, titulo, vecesRevisado "
-				+ "from revisiones, articulos "
+
+	public List<ArticuloDto> articulosSinRevisar(int idRevisor) {
+		String sql = "select articulos.idArticulo, titulo, vecesRevisado " + "from revisiones, articulos "
 				+ "where idRevisor = ? and enviarAlEditor = false and articulos.idArticulo = revisiones.idArticulo and estado = 'en revision'";
-		
+
 		return db.executeQueryPojo(ArticuloDto.class, sql, idRevisor);
 
 	}
 
 	public List<RevisionDto> numeroRevisiones(int idRev, int idArt) {
-		String sql = "select * "
-				+ "from revisiones "
-				+ "where idRevisor = ? and idArticulo = ?"; 
-		
+		String sql = "select * " + "from revisiones " + "where idRevisor = ? and idArticulo = ?";
+
 		return db.executeQueryPojo(RevisionDto.class, sql, idRev, idArt);
 	}
 
 	public RevisionDto primeraRevision(int idRev, int idArt) {
-		String sql = "select * "
-				+ "from revisiones "
-				+ "where idRevisor = ? and idArticulo = ? and numeroRevision = 1";
-		
+		String sql = "select * " + "from revisiones " + "where idRevisor = ? and idArticulo = ? and numeroRevision = 1";
+
 		return db.executeQueryPojo(RevisionDto.class, sql, idRev, idArt).get(0);
 	}
 
 	public List<RevisionDto> revisionesEnviadas(int idArt, int numeroRevision) {
-		String sql = "select * "
-				+ "from revisiones "
+		String sql = "select * " + "from revisiones "
 				+ "where idArticulo = ? and numeroRevision = ? and enviarAlEditor = true";
-		
+
 		return db.executeQueryPojo(RevisionDto.class, sql, idArt, numeroRevision);
 	}
-	
+
 	public RevisorDto findRevisor(String nombre, String correo, String especialidad) {
 		String sql = "select * from revisores where nombre = ? and correo = ? and especialidad = ?";
 
 		List<RevisorDto> revisores = db.executeQueryPojo(RevisorDto.class, sql, nombre, correo, especialidad);
 
 		if (revisores.isEmpty()) {
-		    return null;
+			return null;
 		} else {
-		    return revisores.get(0);
+			return revisores.get(0);
 		}
-	    }
+	}
 
-	    public RevisorDto findById(int id) {
+	public RevisorDto findById(int id) {
 		String sql = "select * from revisores where idRevisor = ?";
 		List<RevisorDto> revisores = db.executeQueryPojo(RevisorDto.class, sql, id);
 
 		if (revisores.isEmpty()) {
-		    return null;
+			return null;
 		} else {
-		    return revisores.get(0);
+			return revisores.get(0);
 		}
-	    }
+	}
 
-	    public List<SugerenciaDto> findSugeridos(int idArticulo) {
+	public List<SugerenciaDto> findSugeridos(int idArticulo) {
 		String sql = "select * from sugerencias where idArticulo = ?";
-
 		return db.executeQueryPojo(SugerenciaDto.class, sql, idArticulo);
-	    }
+	}
 }
