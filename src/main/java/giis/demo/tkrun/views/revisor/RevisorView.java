@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import giis.demo.tkrun.controllers.articulo.ArticuloController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
@@ -50,16 +51,19 @@ public class RevisorView extends JFrame {
 	private JButton btGuardarCambios;
 	private JButton btVerArticulos;
 	private RevisorController controller;
+	private ArticuloController contArt;
 	private List<ArticuloEntity> articulosSinRevisar = new ArrayList<ArticuloEntity>();
 	private int idArt;
 	private RevisionEntity articuloRevisando;
 	private JButton btCancelar;
+	private JButton btRevisionAnterior;
 
 	/**
 	 * Create the frame.
 	 */
 	public RevisorView(RevisorController controller) {
 		this.controller = controller;
+		this.contArt = new ArticuloController();
 		inicialice();
 	}
 
@@ -86,6 +90,7 @@ public class RevisorView extends JFrame {
 		contentPane.add(getBtGuardarCambios());
 		contentPane.add(getBtVerArticulos());
 		contentPane.add(getBtCancelar());
+		contentPane.add(getBtRevisionAnterior());
 		setVisible(true);
 		setResizable(false);
 	}
@@ -143,18 +148,19 @@ public class RevisorView extends JFrame {
 					ArticuloEntity art = (ArticuloEntity) chArticulos.getSelectedItem();
 					if (art != null) {
 						try {
-						idArt = art.getIdArticulo();
-						if (idArt != -1) {
-							getTxId().setEnabled(false);
-							articuloRevisando = controller.getArticulosSinRevisar(Integer.parseInt(getTxId().getText()),
-									idArt);
-							getTxAutor().setText(articuloRevisando.getComentariosAutor());
-							getTxEditor().setText(articuloRevisando.getComentariosEditor());
-							getBtEnviar().setEnabled(true);
-							getBtGuardarCambios().setEnabled(true);
-						}
-						}catch(Exception e1) {
-							JOptionPane.showMessageDialog(null, "No hay artículos para este Id", "Sin artículos", JOptionPane.ERROR_MESSAGE);
+							idArt = art.getIdArticulo();
+							if (idArt != -1) {
+								getTxId().setEnabled(false);
+								articuloRevisando = controller
+										.getArticulosSinRevisar(Integer.parseInt(getTxId().getText()), idArt);
+								getTxAutor().setText(articuloRevisando.getComentariosAutor());
+								getTxEditor().setText(articuloRevisando.getComentariosEditor());
+								getBtEnviar().setEnabled(true);
+								getBtGuardarCambios().setEnabled(true);
+							}
+						} catch (Exception e1) {
+							JOptionPane.showMessageDialog(null, "No hay artículos para este Id", "Sin artículos",
+									JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				}
@@ -229,6 +235,8 @@ public class RevisorView extends JFrame {
 		if (chDecision == null) {
 			chDecision = new JComboBox<String>();
 			chDecision.setModel(new DefaultComboBoxModel(new String[] {"aceptar", "aceptar con cambios menores", "aceptar con cambios mayores", "rechazar"}));
+			chDecision.setModel(new DefaultComboBoxModel<String>(new String[] { "aceptar",
+					"aceptar con cambios menores", "aceptar con cambios mayores", "rechazar" }));
 			chDecision.setBounds(152, 365, 280, 22);
 		}
 		return chDecision;
@@ -240,12 +248,29 @@ public class RevisorView extends JFrame {
 			btEnviar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (idArt != -1 && pasaCondiciones()) {
-						controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(),
-								(String) getChDecision().getSelectedItem(), true, Integer.parseInt(getTxId().getText()),
-								idArt);
-						limpiar();
-						getBtEnviar().setEnabled(false);
-						getBtGuardarCambios().setEnabled(false);
+						if (getTxAutor().getText().strip().length() == 0
+								|| getTxEditor().getText().strip().length() == 0)
+							JOptionPane.showMessageDialog(null,
+									"Debe rellenar tanto los comentarios del autor como los del editor para poder enviar la revisión",
+									"Error de campos", JOptionPane.ERROR_MESSAGE);
+						else {
+							int numeroRevision = controller.numeroRevisiones(idArt,
+									Integer.parseInt(getTxId().getText()));
+							controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(),
+									(String) getChDecision().getSelectedItem(), true,
+									Integer.parseInt(getTxId().getText()), idArt, numeroRevision);
+							if (controller.todasLasRevisionesEnviadas(idArt, numeroRevision)) {
+								ArticuloEntity art = contArt.getArticulo(idArt);
+								if (art != null) {
+									art.setEstado(ArticuloEntity.CON_EL_EDITOR);
+									contArt.actualizarArticulo(art);
+								}
+							}
+							limpiar();
+							getBtEnviar().setEnabled(false);
+							getBtGuardarCambios().setEnabled(false);
+						}
+						
 					}
 				}
 			});
@@ -284,9 +309,10 @@ public class RevisorView extends JFrame {
 			btGuardarCambios.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (idArt != -1 && pasaCondiciones()) {
+						int numeroRevision = controller.numeroRevisiones(idArt, Integer.parseInt(getTxId().getText()));
 						controller.actualizarRevision(getTxAutor().getText(), getTxEditor().getText(),
 								(String) getChDecision().getSelectedItem(), false,
-								Integer.parseInt(getTxId().getText()), idArt);
+								Integer.parseInt(getTxId().getText()), idArt, numeroRevision);
 						limpiar();
 						getBtEnviar().setEnabled(false);
 						getBtGuardarCambios().setEnabled(false);
@@ -309,11 +335,13 @@ public class RevisorView extends JFrame {
 					try {
 						articulosSinRevisar.clear();
 						idArt = -1;
-						if(getTxId().getText().strip().length() > 0)
-							articulosSinRevisar = controller.getTituloArticulosSinRevisar(Integer.parseInt(getTxId().getText()));
+						if (getTxId().getText().strip().length() > 0)
+							articulosSinRevisar = controller
+									.getTituloArticulosSinRevisar(Integer.parseInt(getTxId().getText()));
 						rellenarComboBox();
-					}catch(Exception e1) {
-						JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id", JOptionPane.ERROR_MESSAGE);
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id",
+								JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});
@@ -350,5 +378,48 @@ public class RevisorView extends JFrame {
 			btCancelar.setBounds(132, 455, 185, 23);
 		}
 		return btCancelar;
+	}
+
+	private JButton getBtRevisionAnterior() {
+		if (btRevisionAnterior == null) {
+			btRevisionAnterior = new JButton("Visualizar Revisión anterior");
+			btRevisionAnterior.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+						if (idArt == -1)
+							JOptionPane.showMessageDialog(null,
+									"Seleccione un artículo para poder ver su revisión anterior", "Error de Id",
+									JOptionPane.ERROR_MESSAGE);
+						else if (controller.numeroRevisiones(idArt, Integer.parseInt(getTxId().getText())) != 2)
+							JOptionPane.showMessageDialog(null, "No hay una revisión anterior para este artículo",
+									"Sin revisiones anteriores", JOptionPane.ERROR_MESSAGE);
+						else {
+							RevisionEntity revision = controller.getRevisionAnterior(idArt,
+									Integer.parseInt(getTxId().getText()));
+							mostrarRevisionAnterior(revision);
+						}
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			});
+			btRevisionAnterior.setBackground(new Color(245, 245, 220));
+			btRevisionAnterior.setFont(new Font("Tahoma", Font.PLAIN, 17));
+			btRevisionAnterior.setBounds(540, 236, 271, 30);
+		}
+		return btRevisionAnterior;
+	}
+
+	private void mostrarRevisionAnterior(RevisionEntity revision) {
+		if (revision == null)
+			JOptionPane.showMessageDialog(null,
+					"Parece que no se ha podido encontrar la revisión anterior de este artículo",
+					"Fallo en la base de datos", JOptionPane.ERROR_MESSAGE);
+		else {
+			RevisionAnteriorView vista = new RevisionAnteriorView(revision);
+			vista.setModal(true);
+			vista.setVisible(true);
+		}
 	}
 }

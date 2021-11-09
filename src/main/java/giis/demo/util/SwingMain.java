@@ -8,12 +8,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import giis.demo.tkrun.controllers.editor.EditorController;
+import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.controllers.user.UserController;
-import giis.demo.tkrun.views.editor.EditorViewDecisionArticulo;
 import giis.demo.tkrun.views.revisor.RevisorDecisionRevisionesEncomendadas;
+import giis.demo.tkrun.views.revisor.RevisorView;
+import giis.demo.tkrun.views.autor.AutorView;
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las
@@ -62,9 +63,9 @@ public class SwingMain {
 	    public void actionPerformed(ActionEvent e) {
 		// new EditorController(generarArticulo());
 		// new RevisorView(new RevisorController(1));
-		// new AutorView(new AutorController());
+		 new AutorView(new AutorController(),1);
+	    //	new RevisorDecisionRevisionesEncomendadas(new RevisorController());
 		// new EditorViewDecisionArticulo(new EditorController());
-	    new RevisorDecisionRevisionesEncomendadas(new RevisorController());
 		//new UserController();
 	    }
 	});
