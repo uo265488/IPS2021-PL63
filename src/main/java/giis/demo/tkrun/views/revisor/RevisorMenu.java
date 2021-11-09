@@ -18,7 +18,7 @@ public class RevisorMenu extends JDialog {
     private JButton btnNewButton;
     private JButton btnNewButton_1;
     private JButton btnNewButton_1_1;
-
+    private RevisorController revisorController;
 //    /**
 //     * Launch the application.
 //     */
@@ -35,10 +35,10 @@ public class RevisorMenu extends JDialog {
     /**
      * Create the dialog.
      */
-    public RevisorMenu(int id_revisor) {
-	setModal(true);
+    public RevisorMenu(int id_revisor, RevisorController controller) {
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	this.id_revisor = id_revisor;
+	this.revisorController = controller;
 	setResizable(false);
 	setBounds(100, 100, 401, 300);
 	getContentPane().setLayout(null);
@@ -52,7 +52,7 @@ public class RevisorMenu extends JDialog {
 	    btnNewButton = new JButton("Ver articulos revisados");
 	    btnNewButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		    RevisorAsignadosView rav = new RevisorAsignadosView(new RevisorController(), id_revisor);
+		    RevisorAsignadosView rav = new RevisorAsignadosView(revisorController, id_revisor);
 		    rav.setVisible(true);
 		}
 	    });
@@ -66,8 +66,9 @@ public class RevisorMenu extends JDialog {
 	    btnNewButton_1 = new JButton("Ver articulos pendientes");
 	    btnNewButton_1.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			RevisorDecisionRevisionesEncomendadas vista = new RevisorDecisionRevisionesEncomendadas(new RevisorController());
-			vista.setVisible(true);
+		    RevisorDecisionRevisionesEncomendadas vista = new RevisorDecisionRevisionesEncomendadas(
+			    revisorController);
+		    vista.setVisible(true);
 		}
 	    });
 	    btnNewButton_1.setBounds(79, 114, 206, 30);
@@ -80,7 +81,7 @@ public class RevisorMenu extends JDialog {
 	    btnNewButton_1_1 = new JButton("Revisar articulos");
 	    btnNewButton_1_1.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		    RevisorView rv = new RevisorView(new RevisorController());
+		    RevisorView rv = new RevisorView(revisorController);
 		    rv.setVisible(true);
 		}
 	    });

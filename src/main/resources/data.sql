@@ -9,7 +9,7 @@ insert into sugerencias (idArticulo, idRevisor) values
 delete from revisores;
 insert into revisores(idRevisor,nombre,estado, correo, especialidad) values 
 	(1,'felipe','no disponible','felipe@uniovi.es', 'Violencia'),
-	(2,'ernesto','disponible', 'ernesto@uniovi.es', 'Bases de datos'),
+	(2,'ernesto','no disponible', 'ernesto@uniovi.es', 'Bases de datos'),
 	(3,'maria','no disponible', 'mperez@uniovi.es', 'Biologia'),
 	(4,'carmen', 'no disponible', 'carmen@uniovi.es', 'Economia'),
 	(5,'pablo','no disponible', 'peibol@uniovi.es', 'Futbol'),
