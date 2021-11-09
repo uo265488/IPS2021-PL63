@@ -1,12 +1,17 @@
 package giis.demo.tkrun.controllers.editor;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
+import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.models.revisor.RevisorModel;
+import giis.demo.tkrun.models.sugerencia.SugerenciaModel;
 import giis.demo.tkrun.views.editor.MenuEditor;
 import giis.demo.util.DtoMapper;
 import giis.demo.util.EntityAssembler;
@@ -150,9 +155,6 @@ public class EditorController {
 	}
 	//------------------------------ OSCAR ---------------------------------------------------------	
 
-		public EditorController() {
-		}
-
 		/**
 		 * Devuelve una lista con todos los revisores disponibles
 		 * 
@@ -208,13 +210,6 @@ public class EditorController {
 		 * 
 		 * @param articulo
 		 */
-		private void cambiarEstadoArticuloEnRevision(ArticuloEntity articulo) {
-
-			articulo.setEstado(ArticuloEntity.EN_REVISION);
-
-			articuloModel.update(DtoMapper.toArticuloDto(articulo));
-
-		}
 
 		/**
 		 * Metodo que genera las revisiones a partir del articulo, los revisores y la

@@ -2,6 +2,7 @@ package giis.demo.tkrun.models.articulo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
@@ -49,7 +50,7 @@ public class ArticuloModel {
 //		
 //		db.executeQueryPojo(ArticuloDto.class, sql, articuloDto.getId());
 //	}
-
+    
     /**
      * Obtiene la lista de articulos que han sido enviados por los autores.
      * 
@@ -66,6 +67,7 @@ public class ArticuloModel {
 
 	return db.executeQueryPojo(ArticuloDto.class, sql, id);
     }
+  
 
     /**
      * Obtiene la lista de articulos que deben ser evaluados por el editor
