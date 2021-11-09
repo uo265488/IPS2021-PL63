@@ -1,246 +1,324 @@
 package giis.demo.tkrun.views.editor;
 
-import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
-import giis.demo.tkrun.controllers.articulo.ArticuloController;
+import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
-import giis.demo.tkrun.models.articulo.ArticuloModel;
+import giis.demo.tkrun.controllers.revision.RevisionController;
 
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.JButton;
 
-import java.awt.Font;
-import javax.swing.JTextArea;
-import javax.swing.border.LineBorder;
-import javax.swing.JRadioButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class EditorViewComentariosAutor extends JDialog {
-	
-	private static final String PUBLICAR = "Publicar";
-	private static final String ACEPTAR = "Aceptar";
-	private static final String RECHAZAR = "Rechazar";
 
-	private final JPanel contentPanel = new JPanel();
-	private List<RevisionEntity> revisiones;
-	private ArticuloEntity articulo;
-	private ArticuloController artController;
-	private JLabel lblComentariosAutor;
-	private JTextArea txtComentariosRevisiones;
-	private JLabel lblDecision;
-	private JRadioButton rdBtnPublicar;
-	private JRadioButton rdBtnAceptar;
-	private JRadioButton rdBtnRechazar;
-	private JTextArea txtComentarios;
-	private JLabel lblComentariosDecision;
-	private EditorViewComentariosArticulo comentariosView;
-	private ButtonGroup decisiones;
-
+public class EditorViewComentariosArticulo extends JDialog {
 
 	/**
-	 * Launch the application.
+	 * 
 	 */
-	/*public static void main(String[] args) {
-		try {
-			EditorViewComentariosAutor dialog = new EditorViewComentariosAutor();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
+	private static final long serialVersionUID = 1L;
+	private static String INDIVIDUALES = "individuales";
+	private static String COLECTIVAS = "Colectivas";
+	private static String COMENTARIOS = "Comentarios";
+	private static final String DECISIONES = "Decisiones";
+	private static final String TODA_LA_INFORMACION = "Toda la informacion";
+	private static final String PRIMERA = "1ª";
+	private static final String SEGUNDA = "2ª";
+	private static final String TODAS = "Todas";
+	private static final int PRIMERA_REVISION = 0;
+
+	private JPanel contentPane;
+	private ArticuloEntity articulo;
+	private List<RevisionEntity> revisiones;
+	
+	private JLabel lblArticulo;
+	private JLabel lblTituloArticulo;
+	private JComboBox cbSeleccionarRevisiones;
+	private JLabel lblSeleccionarRevisiones;
+	private JComboBox cbFormatoVisualizacion;
+	private JComboBox cbSeleccionarRevisor;
+	private JLabel lblRevisor;
+	private JLabel lblFormato;
+	private JTextArea txtRevisiones;
+	private JButton btnEnviarComentariosAutor;
+	private EditorController controller;
+	private JComboBox cbSeleccionarRevision;
+	private JLabel lblRevision;
+
 
 	/**
 	 * Create the dialog.
 	 */
-	public EditorViewComentariosAutor(List<RevisionEntity> revisiones, ArticuloEntity articulo, EditorViewComentariosArticulo comentariosView) {
-		getContentPane().setBackground(Color.WHITE);
-		this.revisiones = revisiones;
+	public EditorViewComentariosArticulo(ArticuloEntity articulo, EditorController controller) {
+		setTitle("Comentarios Revision");
 		this.articulo = articulo;
-		this.artController = new ArticuloController();
-		this.comentariosView = comentariosView;
-		setTitle("Enviar comentarios al autor");
-		setBounds(100, 100, 550, 509);
-		getContentPane().setLayout(null);
-		contentPanel.setBounds(0, 0, 534, 400);
-		contentPanel.setBackground(Color.WHITE);
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel);
-		contentPanel.setLayout(null);
-		contentPanel.add(getLblComentariosAutor());
-		contentPanel.add(getTxtComentariosRevisiones());
-		contentPanel.add(getLblDecision());
-		contentPanel.add(getRdBtnPublicar());
-		contentPanel.add(getRdBtnAceptar());
-		contentPanel.add(getRdBtnRechazar());
-		agruparButtons();
-		
-		contentPanel.add(getTxtComentarios());
-		contentPanel.add(getLblComentariosDecision());
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setBounds(0, 411, 534, 48);
-			buttonPane.setBackground(Color.WHITE);
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane);
-			{
-				JButton btnEnviar = new JButton("Enviar");
-				btnEnviar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						enviarDecision();
-					}
-				});
-				btnEnviar.setForeground(new Color(255, 255, 255));
-				btnEnviar.setBackground(new Color(50, 205, 50));
-				btnEnviar.setActionCommand("OK");
-				buttonPane.add(btnEnviar);
-				getRootPane().setDefaultButton(btnEnviar);
-			}
-			{
-				JButton btnCancelar = new JButton("Cancelar");
-				btnCancelar.setForeground(new Color(255, 255, 255));
-				btnCancelar.setBackground(new Color(255, 0, 0));
-				btnCancelar.setActionCommand("Cancel");
-				buttonPane.add(btnCancelar);
-			}
-		}
+		this.controller = controller;
+		this.revisiones = controller.getRevisionesArticulo(articulo);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 585, 492);
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(getLblArticulo());
+		contentPane.add(getLblTituloArticulo());
+		contentPane.add(getCbSeleccionarRevisiones());
+		contentPane.add(getLblSeleccionarRevisiones());
+		contentPane.add(getCbFormatoVisualizacion());
+		contentPane.add(getCbSeleccionarRevisor());
+		contentPane.add(getLblRevisor());
+		contentPane.add(getLblFormato());
+		contentPane.add(getTxtRevisiones());
+		contentPane.add(getBtnEnviarComentariosAutor());
+		contentPane.add(getCbSeleccionarRevision());
+		contentPane.add(getLblRevision());
 	}
+
+	private JLabel getLblArticulo() {
+		if (lblArticulo == null) {
+			lblArticulo = new JLabel("Articulo:");
+			lblArticulo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			lblArticulo.setBounds(10, 11, 147, 23);
+		}
+		return lblArticulo;
+	}
+	private JLabel getLblTituloArticulo() {
+		if (lblTituloArticulo == null) {
+			lblTituloArticulo = new JLabel("");
+			lblTituloArticulo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			lblTituloArticulo.setBounds(10, 45, 268, 30);
+			lblTituloArticulo.setText(articulo.toString());
+		}
+		return lblTituloArticulo;
+	}
+	private JComboBox getCbSeleccionarRevisiones() {
+		if (cbSeleccionarRevisiones == null) {
+			cbSeleccionarRevisiones = new JComboBox();
+			cbSeleccionarRevisiones.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setCbFormatoVisualizacion();
+					setTextoRevisiones();
+				}
+			});
+			cbSeleccionarRevisiones.setBounds(10, 125, 105, 23);
+			String[] opciones = {"Individuales", "Colectivas"};
+			cbSeleccionarRevisiones.setModel(new DefaultComboBoxModel(new String[] {INDIVIDUALES, COLECTIVAS}));
+		}
+		return cbSeleccionarRevisiones;
+	}
+
+	private JLabel getLblSeleccionarRevisiones() {
+		if (lblSeleccionarRevisiones == null) {
+			lblSeleccionarRevisiones = new JLabel("Revisiones:");
+			lblSeleccionarRevisiones.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			lblSeleccionarRevisiones.setBounds(10, 86, 83, 23);
+		}
+		return lblSeleccionarRevisiones;
+	}
+	private JComboBox getCbFormatoVisualizacion() {
+		if (cbFormatoVisualizacion == null) {
+			cbFormatoVisualizacion = new JComboBox();
+			cbFormatoVisualizacion.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setTextoRevisiones();
+				}
+			});
+			cbFormatoVisualizacion.setBounds(386, 126, 147, 23);
+			setCbFormatoVisualizacion();
+		}
+		return cbFormatoVisualizacion;
+	}
+	
+	private void setCbFormatoVisualizacion() {
+		String[] opciones;
+		if (getCbSeleccionarRevisiones().getSelectedItem().equals(INDIVIDUALES)) {
+			String[] opcionesInd = {COMENTARIOS, TODA_LA_INFORMACION};
+			opciones = opcionesInd;
+			getCbSeleccionarRevisor().setEnabled(true);
+			cbSeleccionarRevisor.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3"}));
+		}
+		else {
+			String[] opcionesCol = {COMENTARIOS, DECISIONES};
+			opciones = opcionesCol;
+			getCbSeleccionarRevisor().setEnabled(false);
+		}
+		getCbFormatoVisualizacion().setModel(new DefaultComboBoxModel(opciones));
+	}
+	
 	
 	/**
-	 * Envia la carta de decision con la decision y revisiones al autor si el articulo es aceptado o rechazado,
-	 * o publica el articulo directamente 
-	 * Dependiendo de la opcion seleccionada cambia el estado del articulo a PUBLICADO, ACEPTADO o RECHAZADO
+	 * Establece el texto de las revisiones dependiendo de la opcion seleccionada con las comboBoxes
 	 */
-	private void enviarDecision() {
-		switch (decisiones.getSelection().getActionCommand()) {
-		case PUBLICAR: {publicarArticulo(); break;}
-		case ACEPTAR: {enviarCartaDecision(ArticuloEntity.ACEPTADO); break;}
-		case RECHAZAR: { enviarCartaDecision(ArticuloEntity.RECHAZADO); break;}
-		}
-	}
-	
-	private void publicarArticulo() {
-		EditorViewPublicarArticulo ventanaPublicarArticulo = new EditorViewPublicarArticulo(this, this.articulo);
-		ventanaPublicarArticulo.setModal(true);
-		ventanaPublicarArticulo.setLocationRelativeTo(this);
-		ventanaPublicarArticulo.setVisible(true);
-	}
-	
-	private void enviarCartaDecision(String nuevoEstado) {
-		artController.enviarDecision(articulo, nuevoEstado);
-		JOptionPane.showMessageDialog(this, articulo.getCartaDecision() + " enviada correctamente");
-		this.setVisible(false);
-		comentariosView.setVisible(false);
-		this.dispose();
-		comentariosView.dispose();
-	}
-	private JLabel getLblComentariosAutor() {
-		if (lblComentariosAutor == null) {
-			lblComentariosAutor = new JLabel("Comentarios al autor:");
-			lblComentariosAutor.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			lblComentariosAutor.setBounds(10, 11, 152, 29);
-		}
-		return lblComentariosAutor;
-	}
-	private JTextArea getTxtComentariosRevisiones() {
-		if (txtComentariosRevisiones == null) {
-			txtComentariosRevisiones = new JTextArea();
-			txtComentariosRevisiones.setBorder(new LineBorder(new Color(0, 0, 0)));
-			txtComentariosRevisiones.setEditable(false);
-			txtComentariosRevisiones.setBounds(10, 42, 514, 201);
-			setTxtComentariosRevisores();
-		}
-		return txtComentariosRevisiones;
-	}
-	
-	private void setTxtComentariosRevisores() {
+	private void setTextoRevisiones() {
 		String text = "";
-		int iterator = 1;
-		for (RevisionEntity rev : revisiones) {
-			text += "Revision " + iterator + ": \n" + rev.getComentariosAutor() +"\n\n";
+		String selectedFormat =(String) getCbSeleccionarRevision().getSelectedItem();
+		switch (selectedFormat) {
+		case "1ª":{ revisiones = controller.getRevisionesFiltradas(articulo.getIdArticulo(), 1); break;}
+		case "2ª": { revisiones = controller.getRevisionesFiltradas(articulo.getIdArticulo(), 2); break;}
+		case "Todas": { revisiones = controller.getRevisionesArticulo(articulo); break;}
 		}
-		getTxtComentariosRevisiones().setText(text);
-	}
-	private JLabel getLblDecision() {
-		if (lblDecision == null) {
-			lblDecision = new JLabel("Decision:");
-			lblDecision.setFont(new Font("Tahoma", Font.PLAIN, 13));
-			lblDecision.setBounds(10, 254, 141, 19);
+		if (revisiones.size() != 0) {
+		if (getCbSeleccionarRevisiones().getSelectedItem().equals(INDIVIDUALES)) 
+			text = setTextoRevisionesIndividuales();
+		else 
+			text = setTextoRevisionesColectivas();
 		}
-		return lblDecision;
-	}
-	private JRadioButton getRdBtnPublicar() {
-		if (rdBtnPublicar == null) {
-			rdBtnPublicar = new JRadioButton(PUBLICAR);
-			rdBtnPublicar.setActionCommand(PUBLICAR);
-			rdBtnPublicar.setSelected(true);
-			rdBtnPublicar.setBackground(Color.WHITE);
-			rdBtnPublicar.setBounds(10, 274, 83, 23);
-		}
-		return rdBtnPublicar;
-	}
-	private JRadioButton getRdBtnAceptar() {
-		if (rdBtnAceptar == null) {
-			rdBtnAceptar = new JRadioButton(ACEPTAR);
-			rdBtnAceptar.setActionCommand(ACEPTAR);
-			rdBtnAceptar.setBackground(Color.WHITE);
-			rdBtnAceptar.setBounds(95, 274, 100, 23);
-			setEnabledRdBtnEnviarCambios();
-		}
-		return rdBtnAceptar;
+		else text = "No hay revisiones aun de este articulo";
+		getTxtRevisiones().setText(text);
 	}
 	
-	private void setEnabledRdBtnEnviarCambios() {
-		if (articulo.getVecesRevisado() > 1)
-			getRdBtnAceptar().setEnabled(false);
+	private String setTextoRevisionesIndividuales() {
+		String text = "";
+		int idRevisor = Integer.parseInt(getCbSeleccionarRevisor().getSelectedItem().toString());
+		String selectedRevision = getCbSeleccionarRevision().getSelectedItem().toString();
+		
+		if (selectedRevision.equals("Todas")) {
+			revisiones = controller.getRevisionesArticuloDeUnRevisor(articulo.getIdArticulo(), idRevisor);
+		}
+		else {
+			if (selectedRevision.equals("1ª"))
+				revisiones = controller.getRevisionPorNumeroRevision(1, idRevisor, articulo.getIdArticulo());
+			else
+				revisiones = controller.getRevisionPorNumeroRevision(2, idRevisor, articulo.getIdArticulo());
+		}
+		for (RevisionEntity revision : revisiones) {	
+			if (getCbFormatoVisualizacion().getSelectedItem().equals(COMENTARIOS)) {
+				text += "Revision " + revision.getNumeroRevision() 
+				+ "\n Comentarios: " + revision.getComentariosEditor() + "\n";
+			}
+			else {
+				text += "Revision " + revision.getNumeroRevision() 
+				+ "\nComentarios al editor: " + revision.getComentariosEditor()
+				+ "\nComentarios al autor: "+ revision.getComentariosAutor()
+				+ "\nDecision: " + revision.getDecision()+ "\n\n";
+			}
+		}
+		return text;
+	}
+	
+	private String setTextoRevisionesColectivas() {
+		String text = "";
+		if (getCbFormatoVisualizacion().getSelectedItem().equals(COMENTARIOS)) {
+			for (RevisionEntity revision : revisiones) {
+				text += "Revisor " + revision.getIdRevisor() + ": \n comentario: " + revision.getComentariosEditor() + "\n\n";
+			}
+		}
+		else {
+			for (RevisionEntity revision : revisiones) {
+				text += "Revisor " + revision.getIdRevisor() + ": \n decision: " + revision.getDecision() + "\n\n";
+			}				
+		}			
+		return text;
+	}
+	
+	private JComboBox getCbSeleccionarRevisor() {
+		if (cbSeleccionarRevisor == null) {
+			cbSeleccionarRevisor = new JComboBox();
+			cbSeleccionarRevisor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					setTextoRevisiones();
+				}
+			});
+			cbSeleccionarRevisor.setEnabled(false);
+			cbSeleccionarRevisor.setBounds(125, 125, 119, 23);
+		}
+		return cbSeleccionarRevisor;
+	}
+	
+	private JLabel getLblRevisor() {
+		if (lblRevisor == null) {
+			lblRevisor = new JLabel("Revisor:");
+			lblRevisor.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			lblRevisor.setBounds(125, 90, 105, 19);
+		}
+		return lblRevisor;
+	}
+	private JLabel getLblFormato() {
+		if (lblFormato == null) {
+			lblFormato = new JLabel("Formato:");
+			lblFormato.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			lblFormato.setBounds(386, 91, 147, 18);
+		}
+		return lblFormato;
+	}
+	private JTextArea getTxtRevisiones() {
+		if (txtRevisiones == null) {
+			txtRevisiones = new JTextArea();
+			txtRevisiones.setBorder(new LineBorder(new Color(0, 0, 0)));
+			txtRevisiones.setEditable(false);
+			txtRevisiones.setBounds(20, 159, 525, 237);
+			setTextoRevisiones();
+		}
+		return txtRevisiones;
+	}
+	private JButton getBtnEnviarComentariosAutor() {
+		if (btnEnviarComentariosAutor == null) {
+			btnEnviarComentariosAutor = new JButton("Enviar comentarios al autor");
+			btnEnviarComentariosAutor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					visualizarComentariosAutor();					
+				}
+			});
+			btnEnviarComentariosAutor.setBackground(new Color(50, 205, 50));
+			btnEnviarComentariosAutor.setForeground(new Color(255, 255, 255));
+			btnEnviarComentariosAutor.setBounds(321, 407, 212, 37);
+		}
+		return btnEnviarComentariosAutor;
+	}
+	
+	private void visualizarComentariosAutor() {
+		EditorViewComentariosAutor comentariosAutor = new EditorViewComentariosAutor(articulo, controller, this);
+		comentariosAutor.setModal(true);
+		comentariosAutor.setLocationRelativeTo(this);
+		comentariosAutor.setVisible(true);
+	}
+	private JComboBox getCbSeleccionarRevision() {
+		if (cbSeleccionarRevision == null) {
+			cbSeleccionarRevision = new JComboBox();
+			cbSeleccionarRevision.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setTextoRevisiones();
+				}
+			});
+			cbSeleccionarRevision.setModel(new DefaultComboBoxModel(setCbSeleccionarRevisionModel()));
+			cbSeleccionarRevision.setBounds(266, 125, 68, 23);
+		}
+		return cbSeleccionarRevision;
+	}
+	private String[] setCbSeleccionarRevisionModel() {
+		String[] modelOrdenado;
+		int numeroRevision = articulo.getVecesRevisado();
+		if (numeroRevision==PRIMERA_REVISION)
+			modelOrdenado = new String[] {PRIMERA, SEGUNDA, TODAS};
 		else
-			getRdBtnAceptar().setEnabled(true);
-	}
-	private JRadioButton getRdBtnRechazar() {
-		if (rdBtnRechazar == null) {
-			rdBtnRechazar = new JRadioButton(RECHAZAR);
-			rdBtnRechazar.setActionCommand("Rechazar");
-			rdBtnRechazar.setBackground(Color.WHITE);
-			rdBtnRechazar.setBounds(197, 274, 109, 23);
-		}
-		return rdBtnRechazar;
+			modelOrdenado = new String[] {SEGUNDA, PRIMERA, TODAS};
+		return modelOrdenado;
 	}
 	
-	private void  agruparButtons() {
-		decisiones = new ButtonGroup();
-		decisiones.add(getRdBtnPublicar());
-		decisiones.add(getRdBtnAceptar());
-		decisiones.add(getRdBtnRechazar());
-	}
-	private JTextArea getTxtComentarios() {
-		if (txtComentarios == null) {
-			txtComentarios = new JTextArea();
-			txtComentarios.setBorder(new LineBorder(new Color(0, 0, 0)));
-			txtComentarios.setBounds(10, 331, 514, 58);
-		}
-		return txtComentarios;
-	}
-	private JLabel getLblComentariosDecision() {
-		if (lblComentariosDecision == null) {
-			lblComentariosDecision = new JLabel("Comentarios de la decision:");
-			lblComentariosDecision.setFont(new Font("Tahoma", Font.PLAIN, 13));
-			lblComentariosDecision.setBounds(10, 304, 186, 19);
-		}
-		return lblComentariosDecision;
-	}
+	//Obtiene 
 	
-	public void disposeComentarioAutorWindow() {
-		this.comentariosView.dispose();
-		this.dispose();
+	private JLabel getLblRevision() {
+		if (lblRevision == null) {
+			lblRevision = new JLabel("Revision:");
+			lblRevision.setBounds(266, 91, 68, 18);
+		}
+		return lblRevision;
 	}
 }
