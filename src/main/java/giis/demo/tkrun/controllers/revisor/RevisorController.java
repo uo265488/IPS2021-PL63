@@ -13,131 +13,132 @@ import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.models.revisor.RevisorModel;
-import giis.demo.tkrun.views.revisor.RevisorAsignadosView;
+import giis.demo.tkrun.views.revisor.RevisorMenu;
 import giis.demo.util.EntityAssembler;
 
 public class RevisorController {
 
-	// private EditorView view; No hay vista todavía asi que esta todo comentado
-	private RevisionModel model;
-	// private RevisionModel revisionModel;
-	private ArticuloModel articuloModel;
-	private RevisorModel revisoresModel;
-	private RevisorAsignadosView rav;
-	private int idRevisor;
+    // private EditorView view; No hay vista todavía asi que esta todo comentado
+    private RevisionModel model;
+    // private RevisionModel revisionModel;
+    private ArticuloModel articuloModel;
+    private RevisorModel revisoresModel;
+    private RevisorMenu rm;
+    private int idRevisor;
 
-	// public AutorController(AutorModel m, EditorView v) {
-	// this.model = m;
-	// this.view = v;
+    // public AutorController(AutorModel m, EditorView v) {
+    // this.model = m;
+    // this.view = v;
+    // no hay inicializacion especifica del modelo, solo de la vista
+    // this.initView();
+    // }
+
+    public RevisorController() {
+	this.model = new RevisionModel();
+	this.articuloModel = new ArticuloModel();
+	this.revisoresModel = new RevisorModel();
+    }
+
+    public RevisorController(int idRevisor) {
+	this.model = new RevisionModel();
+	this.articuloModel = new ArticuloModel();
+	this.idRevisor = idRevisor;
 	// no hay inicializacion especifica del modelo, solo de la vista
-	// this.initView();
-	// }
+	this.initView();
+    }
 
-	public RevisorController(int idRevisor) {
-		this.model = new RevisionModel();
-		this.articuloModel = new ArticuloModel();
-		this.idRevisor = idRevisor;
-		// no hay inicializacion especifica del modelo, solo de la vista
-		this.initView();
+    private void initView() {
+
+	rm = new RevisorMenu(idRevisor);
+	rm.setVisible(true);
+
+    }
+
+    public RevisionEntity getArticulosSinRevisar(int id, int idArt) {
+
+	return EntityAssembler.toRevisionEntity(model.visualizarSinRevisar(id, idArt));
+    }
+
+    public List<ArticuloEntity> getTituloArticulosSinRevisar(int id) {
+
+	return EntityAssembler.toArticuloEntityList(model.articulosSinRevisar(id));
+    }
+
+    public List<ArticuloEntity> getArticulosAsignados(int id) {
+	return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosAsignados(id));
+    }
+
+    public RevisorEntity findRevisor(String nombre, String correo, String especialidad) {
+	return EntityAssembler.toRevisorEntity(model.findRevisor(nombre, correo, especialidad));
+    }
+
+    public List<RevisorEntity> findSugeridos(int idArticulo) {
+	List<SugerenciaEntity> ids = EntityAssembler.toSugerenciaEntityList(model.findSugeridos(idArticulo));
+	List<RevisorEntity> revisores = new ArrayList<RevisorEntity>();
+	for (SugerenciaEntity id : ids) {
+	    revisores.add(EntityAssembler.toRevisorEntity(model.findById(id.getIdRevisor())));
 	}
 
-	public RevisorController() {
-		this.model = new RevisionModel();
-		this.articuloModel = new ArticuloModel();
-		this.revisoresModel = new RevisorModel();
-	}
+	return revisores;
+    }
 
-	// public AutorController(AutorModel m, EditorView v) {
-	// this.model = m;
-	// this.view = v;
-	// no hay inicializacion especifica del modelo, solo de la vista
-	// this.initView();
-	// }
+    public RevisionEntity getRevisionAnterior(int idArt, int idRev) {
+	return EntityAssembler.toRevisionEntity(model.primeraRevision(idRev, idArt));
+    }
 
-	private void initView() {
+    public int numeroRevisiones(int idArt, int idRev) {
+	List<RevisionEntity> revisiones = EntityAssembler.toRevisionEntityList(model.numeroRevisiones(idRev, idArt));
+	return revisiones.size();
+    }
 
+<<<<<<< HEAD
 		rav = new RevisorAsignadosView(this, idRevisor);
 		rav.setVisible(true);
 		//rav.setModal(true);
 	}
+=======
+    // public void actualizarRevision(String comAutor, String comEditor, String
+    // decision, boolean enviarAlEditor, int id, int idArt) {
 
-	public RevisionEntity getArticulosSinRevisar(int id, int idArt) {
+    // model.revisarArticulo(comAutor, comEditor, decision, enviarAlEditor, idArt,
+    // id);
+    // }
+>>>>>>> branch 'master' of https://github.com/uo265488/IPS2021-PL63.git
 
-		return EntityAssembler.toRevisionEntity(model.visualizarSinRevisar(id, idArt));
-	}
+    public void actualizarRevision(String comAutor, String comEditor, String decision, boolean enviarAlEditor, int id,
+	    int idArt, int numeroRevision) {
 
-	public RevisionEntity getRevisionAnterior(int idArt, int idRev) {
-		return EntityAssembler.toRevisionEntity(model.primeraRevision(idRev, idArt));
-	}
+	model.revisarArticulo(comAutor, comEditor, decision, enviarAlEditor, idArt, id, numeroRevision);
+    }
 
-	public int numeroRevisiones(int idArt, int idRev) {
-		List<RevisionEntity> revisiones = EntityAssembler.toRevisionEntityList(model.numeroRevisiones(idRev, idArt));
-		return revisiones.size();
-	}
+    public List<ArticuloEntity> getArticulosSinResponder(int id) {
+	return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosSinResponder(id));
+    }
 
-	public List<ArticuloEntity> getTituloArticulosSinRevisar(int id) {
+    public void decisionArticulo(int idRev, int idArt, boolean decision) {
+	model.decisionArticulo(idRev, idArt, decision);
+    }
 
-		return EntityAssembler.toArticuloEntityList(model.articulosSinRevisar(id));
-	}
+    public boolean todasLasRevisionesEnviadas(int idArt, int numeroRevision) {
+	List<RevisionEntity> revisiones = EntityAssembler
+		.toRevisionEntityList(model.revisionesEnviadas(idArt, numeroRevision));
+	return revisiones.size() == 3;
+    }
 
-	// public void actualizarRevision(String comAutor, String comEditor, String
-	// decision, boolean enviarAlEditor, int id, int idArt) {
+    public RevisionDto getFecha(int idRev, int idArticulo) {
+	return model.getFecha(idRev, idArticulo);
+    }
 
-	// model.revisarArticulo(comAutor, comEditor, decision, enviarAlEditor, idArt,
-	// id);
-	// }
+    public void updateArticulo(ArticuloDto articulo) {
+	articuloModel.update(articulo);
+    }
 
-	public void actualizarRevision(String comAutor, String comEditor, String decision, boolean enviarAlEditor, int id,
-			int idArt, int numeroRevision) {
+    public List<RevisionEntity> getArticulosAceptados(int idArticulo) {
+	return EntityAssembler.toRevisionEntityList(model.articulosAceptados(idArticulo));
+    }
 
-		model.revisarArticulo(comAutor, comEditor, decision, enviarAlEditor, idArt, id, numeroRevision);
-	}
+    public void addRevisor(RevisorDto revisorDto) {
+	revisoresModel.addRevisor(revisorDto);
+    }
 
-	public List<ArticuloEntity> getArticulosAsignados(int id) {
-		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosAsignados(id));
-	}
-
-	public List<ArticuloEntity> getArticulosSinResponder(int id) {
-		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosSinResponder(id));
-	}
-
-	public void decisionArticulo(int idRev, int idArt, boolean decision) {
-		model.decisionArticulo(idRev, idArt, decision);
-	}
-
-	public boolean todasLasRevisionesEnviadas(int idArt, int numeroRevision) {
-		List<RevisionEntity> revisiones = EntityAssembler
-				.toRevisionEntityList(model.revisionesEnviadas(idArt, numeroRevision));
-		return revisiones.size() == 3;
-	}
-
-	public RevisionDto getFecha(int idRev, int idArticulo) {
-		return model.getFecha(idRev, idArticulo);
-	}
-
-	public void updateArticulo(ArticuloDto articulo) {
-		articuloModel.update(articulo);
-	}
-
-	public List<RevisionEntity> getArticulosAceptados(int idArticulo) {
-		return EntityAssembler.toRevisionEntityList(model.articulosAceptados(idArticulo));
-	}
-
-	public void addRevisor(RevisorDto revisorDto) {
-		revisoresModel.addRevisor(revisorDto);
-	}
-
-	public RevisorEntity findRevisor(String nombre, String correo, String especialidad) {
-		return EntityAssembler.toRevisorEntity(model.findRevisor(nombre, correo, especialidad));
-	}
-
-	public List<RevisorEntity> findSugeridos(int idArticulo) {
-		List<SugerenciaEntity> ids = EntityAssembler.toSugerenciaEntityList(model.findSugeridos(idArticulo));
-		List<RevisorEntity> revisores = new ArrayList<RevisorEntity>();
-		for (SugerenciaEntity id : ids) {
-			revisores.add(EntityAssembler.toRevisorEntity(model.findById(id.getIdRevisor())));
-		}
-
-		return revisores;
-	}
 }

@@ -26,7 +26,12 @@ import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+<<<<<<< HEAD
 import giis.demo.tkrun.views.articulo.ArticuloCambiosView;
+=======
+import giis.demo.tkrun.views.articulo.ArticuloCambiosView;
+import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
+>>>>>>> branch 'master' of https://github.com/uo265488/IPS2021-PL63.git
 
 public class AutorView extends JDialog {
 

@@ -8,13 +8,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
-import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.controllers.user.UserController;
-import giis.demo.tkrun.views.revisor.RevisorDecisionRevisionesEncomendadas;
-import giis.demo.tkrun.views.revisor.RevisorView;
-import giis.demo.tkrun.views.autor.AutorView;
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las
@@ -62,9 +57,12 @@ public class SwingMain {
 	btnEjecutarTkrun.addActionListener(new ActionListener() { // NOSONAR codigo autogenerado
 	    public void actionPerformed(ActionEvent e) {
 		// new EditorController(generarArticulo());
+<<<<<<< HEAD
 		// new RevisorView(new RevisorController(1));
 		// new AutorView(new AutorController(),1);
 	    //	new RevisorDecisionRevisionesEncomendadas(new RevisorController());
+=======
+>>>>>>> branch 'master' of https://github.com/uo265488/IPS2021-PL63.git
 		// new EditorViewDecisionArticulo(new EditorController());
 		new UserController();
 	    }

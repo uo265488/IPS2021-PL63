@@ -28,7 +28,11 @@ public class MenuAutor extends JDialog {
     public MenuAutor(AutorController controller, int id_autor) {
 	this.controller = controller;
 	this.id_autor = id_autor;
+<<<<<<< HEAD
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+=======
+	setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+>>>>>>> branch 'master' of https://github.com/uo265488/IPS2021-PL63.git
 	setBounds(100, 100, 450, 300);
 	contentPane = new JPanel();
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -54,13 +58,19 @@ public class MenuAutor extends JDialog {
     private void mostrarCrear() {
 	AutorCreacionView ver = new AutorCreacionView(controller, id_autor);
 	ver.setVisible(true);
+<<<<<<< HEAD
 	//ver.setModal(true);
+=======
+>>>>>>> branch 'master' of https://github.com/uo265488/IPS2021-PL63.git
     }
 
     private void mostrarEstado() {
 	AutorView ver = new AutorView(controller, id_autor);
 	ver.setVisible(true);
+<<<<<<< HEAD
 	//ver.setModal(true);
+=======
+>>>>>>> branch 'master' of https://github.com/uo265488/IPS2021-PL63.git
     }
 
     private JButton getBtEstado() {
