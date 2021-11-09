@@ -8,8 +8,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.user.UserController;
+import giis.demo.tkrun.views.autor.AutorView;
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las
@@ -58,9 +60,9 @@ public class SwingMain {
 	    public void actionPerformed(ActionEvent e) {
 		// new EditorController(generarArticulo());
 		// new RevisorView(new RevisorController(1));
-		// new AutorView(new AutorController());
+		 AutorView v = new AutorView(new AutorController(), 1);
 		// new EditorViewDecisionArticulo(new EditorController());
-		new UserController();
+		//new UserController();
 	    }
 	});
 	frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));

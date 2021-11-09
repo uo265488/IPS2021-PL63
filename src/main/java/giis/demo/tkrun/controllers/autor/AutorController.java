@@ -76,11 +76,6 @@ public class AutorController {
 	return EntityAssembler.toAutorEntity(model.findById(id));
     }
 
-    public void getEnviarVersionDefinitiva(int id) {
-
-	model.enviarVersionDefinitiva(id);
-    }
-
     public void crearBorrador(ArticuloDto articuloDto) {
 	articuloModel.crearBorrador(articuloDto);
 	articuloModel.asignarAutor(articuloDto, id_autor);
@@ -149,22 +144,9 @@ public class AutorController {
 	return autores;
     }
 	
-	public List<ArticuloEntity> getArticulosAceptadosSinVersionDefinitiva(int id) {
-		
-		return EntityAssembler.toArticuloEntityList(model.articulosAceptadosSinVersionDefinitiva(id));
-	}
-	
 	public void getEnviarVersionDefinitiva(int id) {
 		
 		model.enviarVersionDefinitiva(id);
-	}
-	
-	public void crearBorrador(ArticuloDto articuloDto) {
-		articuloModel.crearBorrador(articuloDto);
-	}
-	
-	public void crearArticulo(ArticuloDto articuloDto) {
-		articuloModel.crearArticulo(articuloDto);
 	}
 	
 	public void editarArticulo(ArticuloDto articuloDto) {

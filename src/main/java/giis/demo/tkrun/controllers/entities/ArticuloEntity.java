@@ -1,7 +1,6 @@
 package giis.demo.tkrun.controllers.entities;
 
 public class ArticuloEntity {
-<<<<<<< HEAD
 	
 	private int idArticulo;
 	private String titulo;
@@ -27,43 +26,10 @@ public class ArticuloEntity {
 	public static String ACEPTADO = "aceptado";
 	public static final String EN_REVISION = "en revision";
 	public static final String PUBLICADO = "publicado";
-=======
->>>>>>> refs/heads/master
-
-<<<<<<< HEAD
+	
 	public int getIdArticulo() {
 		return idArticulo;
 	}
-=======
-    private int idArticulo;
-    private String titulo;
-    private String primerAutor;
-    private String otrosAutores; // como almacenar varios autores?????
-    private String resumen;
-    private String palabrasClave;
-    private String ficheroFuente;
-    private String cartaPresentacion;
-    private String CV;
-    private boolean firma; // para asegurarse d q no hay plagios (string, boolean... da lo mismo)
-    private String estado;
-    private int vecesRevisado;
-    private boolean versionDefinitiva;
-    private String cartaDecision;
-    private String DOI;
-    private String fecha;
-    private int volumen;
-
-    public static String CON_EL_EDITOR = "con el editor";
-    public static String BORRADOR = "borrador";
-    public static String RECHAZADO = "rechazado";
-    public static String ACEPTADO = "aceptado";
-    public static final String EN_REVISION = "en revision";
-    public static final String PUBLICADO = "publicado";
-
-    public int getIdArticulo() {
-	return idArticulo;
-    }
->>>>>>> refs/heads/master
 
     public void setIdArticulo(int idArticulo) {
 	this.idArticulo = idArticulo;
@@ -206,13 +172,8 @@ public class ArticuloEntity {
 	return volumen;
     }
 
-<<<<<<< HEAD
 	public void setVolumen(int volumen) {
 		this.volumen = volumen;
 	}	
-=======
-    public void setVolumen(int volumen) {
-	this.volumen = volumen;
-    }
->>>>>>> refs/heads/master
+
 }

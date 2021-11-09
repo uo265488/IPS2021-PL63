@@ -18,6 +18,9 @@ create table Articulos (idArticulo int primary key, titulo varchar(32), primerAu
 drop table Autores;
 create table Autores (idAutor int primary key, nombre varchar(32), dni varchar(32));
 
+drop table AutoresSecundarios;
+create table AutoresSecundarios (idArticulo int foreing key, idAutor int foreing key);
+
 drop table ArticulosDeAutores;
 create table articulosDeAutores (idArticulo int foreing key, idAutor int foreing key);
 

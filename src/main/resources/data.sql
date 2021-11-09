@@ -32,6 +32,17 @@ insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave
 	(11,'El Quijote, la obra maestra','ariadna','aceptado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
 	(12,'Xavi será nuevo técnico del Barcelona','antonio','pendiente', 'Xavi será nuevo DT', 'fútbol, leyenda, Xavi, Barcelona', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
 	(13,'Nuevo Articulo','lucia','pendiente', 'algo', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false);
+
+delete from autoresSecundarios;
+insert into autoresSecundarios(idArticulo, idAutor) values
+	(7,4),
+	(8,5),
+	(8,4),
+	(9,6),
+	(10,6),
+	(11,6),
+	(12,4),
+	(13,5);
 	
 delete from articulosDeAutores;
 insert into articulosDeAutores(idArticulo, idAutor) values

@@ -5,9 +5,12 @@ import java.util.List;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
+import giis.demo.tkrun.controllers.entities.RevisorEntity;
+import giis.demo.tkrun.controllers.entities.SugerenciaEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
+import giis.demo.tkrun.models.revisor.RevisorModel;
 import giis.demo.tkrun.views.revisor.RevisorAsignadosView;
 import giis.demo.util.EntityAssembler;
 
@@ -17,7 +20,7 @@ public class RevisorController {
 		private RevisionModel model;
 		//private RevisionModel revisionModel;
 		private ArticuloModel articuloModel;
-		//private RevisorModel revisoresModel;
+		private RevisorModel revisoresModel;
 		private RevisorAsignadosView rav;
 		private int idRevisor;
 		
