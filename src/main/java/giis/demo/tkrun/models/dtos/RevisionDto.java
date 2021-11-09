@@ -10,6 +10,12 @@ public class RevisionDto {
 	private String decision;
 	private boolean enviarAlEditor;
 	
+	private String estadoDeLaPropuesta;
+	
+	public static String PENDIENTE = "PENDIENTE";
+	public static String ACEPTADA = "ACEPTADA";
+	public static String RECHAZADA = "RECHAZADA";
+	
 
 	public int getIdRevisor() {
 		return idRevisor;
@@ -52,6 +58,12 @@ public class RevisionDto {
 	}
 	public void setDecision(String decision) {
 		this.decision = decision;
+	}
+	public String getEstadoDeLaPropuesta() {
+		return estadoDeLaPropuesta;
+	}
+	public void setEstadoDeLaPropuesta(String estadoDeLaPropuesta) {
+		this.estadoDeLaPropuesta = estadoDeLaPropuesta;
 	}
 	
 	

@@ -25,13 +25,16 @@ insert into autores(idAutor,nombre,dni) values
 	
 delete from articulos;
 insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV, firma, vecesRevisado, versionDefinitiva) values 
-	(7,'Economia Española','antonio','en revision', 'La economia española esta en decadencia', 'economia, euro', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
+	(7,'Economia Española','antonio','pendiente', 'La economia española esta en decadencia', 'economia, euro', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
 	(8,'Gasol se retira','lucia','con el editor', 'Gasol anuncia su retirada del baloncesto', 'gasol, leyenda, Barca', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
 	(9,'La caida de Facebook','ariadna','aceptado', 'Se caen los servidores de Facebook durante 6 horas con perdidas multimillonarias', 'facebook, red, caida', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
 	(10,'Poesia clasica','ariadna','publicado', 'explicacion sobre la poesia clasica', 'poesia, españa', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, 1, true),
 	(11,'El Quijote, la obra maestra','ariadna','aceptado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
 	(12,'Xavi será nuevo técnico del Barcelona','antonio','pendiente', 'Xavi será nuevo DT', 'fútbol, leyenda, Xavi, Barcelona', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
-	(13,'Nuevo Articulo','lucia','en revision', 'algo', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false);
+	(13,'Nuevo Articulo','lucia','en revision', 'algo', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
+	(14,'Volcan de la Palma','hugo','pendiente', 'el volcan no cesa', 'geología, volcan', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
+	(15,'La luz no para de subir','ariadna','en revision', 'otro máximo histórico de la luz en España', 'luz, máximo, economía', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
+	(16,'Violencia en los colegios', 'lucia','con el editor','la violecia es cada vez más preocupente en los colegios','violencia, colegios','FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false);
 
 delete from autoresSecundarios;
 insert into autoresSecundarios(idArticulo, idAutor) values
@@ -53,20 +56,25 @@ insert into articulosDeAutores(idArticulo, idAutor) values
 	(10,6),
 	(11,6),
 	(12,4),
-	(13,5);
+	(13,5),
+	(14,2),
+	(15,6),
+	(16,5);
 	
 delete from revisiones;
 insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, comentariosAutor, comentariosEditor, decision, enviarAlEditor, estadoDeLaPropuesta) values
-	(10, 1, 1,'31/12/2021', 'Muy buen artículo', 'Debe ser publicado', 'aceptar', true, 'ACEPTADO'),
-	(10, 2, 1,'31/12/2021', 'Mejorable', 'Tengo mis dudas de aceptarlo', 'rechazar', true, 'ACEPTADO'),
-	(10, 3, 1,'31/12/2021', 'Buen artículo', 'Aceptable', 'aceptar con cambios mayores', true, 'ACEPTADO'),
+	(10, 1, 1,'31/12/2021', 'Muy buen artículo', 'Debe ser publicado', 'aceptar', true, 'ACEPTADA'),
+	(10, 2, 1,'31/12/2021', 'Mejorable', 'Tengo mis dudas de aceptarlo', 'rechazar', true, 'ACEPTADA'),
+	(10, 3, 1,'31/12/2021', 'Buen artículo', 'Aceptable', 'aceptar con cambios mayores', true, 'ACEPTADA'),
 	(8, 1, 1,'31/12/2021', 'No me esta gustando','No aceptaria','rechazar',true, 'ACEPTADO'),
-	(8, 2, 1,'31/12/2021', 'Me esta gustando','Aceptaria','aceptar con cambios menores',true, 'ACEPTADO'),
-	(8, 3, 1,'31/12/2021', 'Articulo normal','Se puede aceptar','aceptar',true, 'ACEPTADO'),
-	(7, 3, 1,'31/12/2021', 'Me esta gustando mucho','Aceptaria','aceptar con cambios menores',false, 'ACEPTADO'),
-	(11, 4, 1,'31/12/2021', 'Muy buen artículo', 'Debe ser publicado', 'aceptar con cambios menores', true, 'ACEPTADO'),
-	(11, 5, 1,'31/12/2021', 'Mejorable', 'Tengo mis dudas de aceptarlo', 'aceptar con cambios mayores', true, 'ACEPTADO'),
-	(11, 6, 1,'31/12/2021', 'Buen artículo', 'Aceptable', 'aceptar', true, 'ACEPTADO'),
+	(8, 2, 1,'31/12/2021', 'Me esta gustando','Aceptaria','aceptar con cambios menores',true, 'ACEPTADA'),
+	(8, 3, 1,'31/12/2021', 'Articulo normal','Se puede aceptar','aceptar',true, 'ACEPTADA'),
+	(7, 1, 1,'31/12/2021', '','','',false, 'ACEPTADA'),
+	(7, 2, 1,'31/12/2021', '','','',false, 'ACEPTADA'),
+	(7, 3, 1,'31/12/2021', '','','',false, 'PENDIENTE'),
+	(11, 4, 1,'31/12/2021', 'Muy buen artículo', 'Debe ser publicado', 'aceptar con cambios menores', true, 'ACEPTADA'),
+	(11, 5, 1,'31/12/2021', 'Mejorable', 'Tengo mis dudas de aceptarlo', 'aceptar con cambios mayores', true, 'ACEPTADA'),
+	(11, 6, 1,'31/12/2021', 'Buen artículo', 'Aceptable', 'aceptar', true, 'ACEPTADA'),
 	(12, 3, 1,'10/12/2021', '', '', '', false, 'PENDIENTE'),
 	(13, 3, 1,'25/12/2021', 'hola', 'quetal', 'aceptar', true, 'ACEPTADA'),
 	(14, 1, 1,'31/12/2021', 'Muy buen artículo', 'Debe ser publicado', 'aceptar con cambios menores', true, 'ACEPTADA'),
@@ -76,8 +84,11 @@ insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, comentarios
 	(15, 2, 1,'31/12/2021', 'Artículo regular', 'Tengo mis dudas de aceptarlo', 'aceptar con cambios mayores', true, 'ACEPTADA'),
 	(15, 3, 1,'31/12/2021', 'No tiene ni pies ni cabeza', 'Sin comentarios, es malísimo', 'rechazar', true, 'ACEPTADA'),
 	(15, 1, 2,'31/12/2021', 'Es increíble lo que ha mejorado', 'publicar', 'aceptar', true, 'ACEPTADA'),
-	(15, 2, 2,'31/12/2021', 'Es increíble lo que ha mejorado', 'publicar sin lugar a dudas', 'aceptar', false, 'ACEPTADA'),
-	(13, 3, 2,'31/12/2021', '', '', '', false, 'ACEPTADA');
+	(15, 2, 2,'31/12/2021', 'Es increíble lo que ha mejorado', 'publicar sin lugar a dudas', 'aceptar', true, 'ACEPTADA'),
+	(15, 3, 2,'31/12/2021', 'Es increíble lo que ha mejorado', 'publicar sin lugar a dudas', 'aceptar', false, 'ACEPTADA'),
+	(16, 2, 1,'31/12/2021', '', '', '', false, 'RECHAZADA'),
+	(16, 1, 2,'31/12/2021', '', '', '', false, 'ACEPTADA'),
+	(16, 3, 2,'31/12/2021', '', '', '', false, 'PENDIENTE');
 	
 delete from usuarios;
 insert into usuarios (idUsuario, nombre, tipoUsuario) values

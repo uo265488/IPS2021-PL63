@@ -2,6 +2,7 @@ package giis.demo.tkrun.models.revision;
 
 import java.util.List;
 
+import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
@@ -101,9 +102,9 @@ public class RevisionModel {
 	public void decisionArticulo(int idRev, int idArt, boolean condicion) {
 		String decision = "";
 		if(condicion)
-			decision = "'ACEPTADO'";
+			decision = RevisionEntity.ACEPTADA;
 		else
-			decision = "'RECHAZADO'";
+			decision = RevisionEntity.RECHAZADA;
 		String sql = "update revisiones set estadoDeLaPropuesta = ? where idArticulo = ? and idRevisor = ?";
 		
 		db.executeUpdate(sql, decision, idArt, idRev);
