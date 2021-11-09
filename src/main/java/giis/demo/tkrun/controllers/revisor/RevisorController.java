@@ -61,11 +61,6 @@ public class RevisorController {
 
 		    }
 		
-		public void actualizarRevision(String comAutor, String comEditor, String decision, boolean enviarAlEditor, int id, int idArt) {
-			
-			model.revisarArticulo(comAutor, comEditor, decision, enviarAlEditor, idArt, id);
-		}
-		
 		public List<ArticuloEntity> getArticulosSinResponder(int id){
 			return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosSinResponder(id));
 		}

@@ -9,7 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.controllers.user.UserController;
+import giis.demo.tkrun.views.revisor.RevisorView;
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las
@@ -57,10 +59,10 @@ public class SwingMain {
 	btnEjecutarTkrun.addActionListener(new ActionListener() { // NOSONAR codigo autogenerado
 	    public void actionPerformed(ActionEvent e) {
 		// new EditorController(generarArticulo());
-		// new RevisorView(new RevisorController(1));
+		 new RevisorView(new RevisorController(1));
 		// new AutorView(new AutorController());
 		// new EditorViewDecisionArticulo(new EditorController());
-		new UserController();
+		//new UserController();
 	    }
 	});
 	frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
