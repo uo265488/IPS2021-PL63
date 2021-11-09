@@ -228,8 +228,7 @@ public class RevisorView extends JFrame {
 	private JComboBox<String> getChDecision() {
 		if (chDecision == null) {
 			chDecision = new JComboBox<String>();
-			chDecision.setModel(new DefaultComboBoxModel<String>(new String[] { "aceptar",
-					"aceptar con cambios menores", "aceptar con cambios mayores", "rechazar" }));
+			chDecision.setModel(new DefaultComboBoxModel(new String[] {"aceptar", "aceptar con cambios menores", "aceptar con cambios mayores", "rechazar"}));
 			chDecision.setBounds(152, 365, 280, 22);
 		}
 		return chDecision;
