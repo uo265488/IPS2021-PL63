@@ -372,6 +372,8 @@ public class AutorCreacionView extends JDialog {
 	articuloDto.setFecha("");
 	articuloDto.setVolumen(0);
 
+	System.out.println(posibleBorrador.getIdArticulo());
+
 	if (posibleBorrador.getIdArticulo() != 0) {
 	    articuloDto.setIdArticulo(posibleBorrador.getIdArticulo());
 	    autorController.actualizarBorrador(articuloDto);
@@ -627,7 +629,8 @@ public class AutorCreacionView extends JDialog {
     }
 
     private void fillOtrosAutores() {
-	List<AutorEntity> otrosAutores = autorController.findOtrosAutorEntities(posibleBorrador.getIdArticulo());
+	List<AutorEntity> otrosAutores = autorController.findOtrosAutorEntities(posibleBorrador.getIdArticulo(),
+		id_autor);
 	for (AutorEntity autor : otrosAutores) {
 	    getTxtFOtrosAutores().setText(autor.getNombre() + "-" + autor.getDni() + ";");
 	}

@@ -2,13 +2,13 @@
 
 delete from sugerencias;
 insert into sugerencias (idArticulo, idRevisor) values
-    (20, 20),  
-    (20, 21),
-    (22, 22);
+    (9, 4),
+    (13, 2),
+    (16, 12);
 	
 delete from revisores;
-insert into revisores(idRevisor,nombre,estado) values 
-	(1,'felipe','disponible','felipe@uniovi.es', 'Violencia'),
+insert into revisores(idRevisor,nombre,estado, correo, especialidad) values 
+	(1,'felipe','no disponible','felipe@uniovi.es', 'Violencia'),
 	(2,'ernesto','disponible', 'ernesto@uniovi.es', 'Bases de datos'),
 	(3,'maria','no disponible', 'mperez@uniovi.es', 'Biologia'),
 	(4,'carmen', 'no disponible', 'carmen@uniovi.es', 'Economia'),
@@ -22,7 +22,7 @@ insert into autores(idAutor,nombre,dni) values
 	(8,'antonio','435135'),
 	(9,'lucia','156723'),
 	(10,'ariadna','810582'),
-	(11, 'Hugo', '3647867');
+	(11, 'hugo', '364786');
 	
 delete from articulos;
 insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV, firma, vecesRevisado, versionDefinitiva) values 
@@ -35,7 +35,8 @@ insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave
 	(13,'Nuevo Articulo','lucia','con el editor', 'algo', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
 	(14,'Volcan de la Palma','hugo','en revision', 'el volcan no cesa', 'geología, volcan', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
 	(15,'La luz no para de subir','ariadna','en revision', 'otro máximo histórico de la luz en España', 'luz, máximo, economía', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
-	(16,'Violencia en los colegios', 'lucia','con el editor','la violecia es cada vez más preocupente en los colegios','violencia, colegios','FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false);
+	(16,'Violencia en los colegios', 'lucia','con el editor','la violecia es cada vez más preocupente en los colegios','violencia, colegios','FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
+	(17,'Hola','hugo','borrador','','','','','',false, 0, false);
 
 delete from autoresSecundarios;
 insert into autoresSecundarios(idArticulo, idAutor) values
@@ -46,21 +47,8 @@ insert into autoresSecundarios(idArticulo, idAutor) values
 	(10,10),
 	(11,10),
 	(12,8),
-	(13,9);
-	
-delete from articulosDeAutores;
-insert into articulosDeAutores(idArticulo, idAutor) values
-	(7,4),
-	(8,5),
-	(8,4),
-	(9,6),
-	(10,6),
-	(11,6),
-	(12,4),
-	(13,5),
-	(14,2),
-	(15,6),
-	(16,5);
+	(13,9),
+	(17, 11);
 	
 delete from revisiones;
 insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, comentariosAutor, comentariosEditor, decision, enviarAlEditor, estadoDeLaPropuesta) values
@@ -97,14 +85,15 @@ delete from usuarios;
 insert into usuarios (idUsuario, nombre, tipoUsuario) values
 	(0, 'Alex', 'Editor'),
 	(1, 'felipe', 'Revisor'),
-	(2, 'ernesto', 'Revisor)',
+	(2, 'ernesto', 'Revisor'),
 	(3,'maria', 'Revisor'),
 	(4,'carmen', 'Revisor'),
 	(5,'pablo', 'Revisor'),
-	(6,'julio''Revisor'),
-	(7,'ruben', 'Revisor')
+	(6,'julio','Revisor'),
+	(7,'ruben', 'Revisor'),
+	(12, 'Oscar', 'Revisor'),
 	(8,'antonio', 'Autor'),
 	(9,'lucia', 'Autor'),
 	(10,'ariadna', 'Autor'),
-	(11, 'Hugo', 'Autor'),
-	(12, 'Oscar', 'Revisor');
+	(11, 'Hugo', 'Autor');
+	

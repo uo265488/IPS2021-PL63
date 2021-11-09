@@ -72,6 +72,7 @@ public class AutorView extends JDialog {
 
     /**
      * Create the frame.
+     * 
      * @wbp.parser.constructor
      */
     public AutorView(AutorController controller, int id_autor) {
@@ -79,15 +80,15 @@ public class AutorView extends JDialog {
 	this.id_autor = id_autor;
 	inicialize();
     }
-    
+
     public AutorView(int id_autor) {
-    	this.controller = new AutorController(false);
-    	this.id_autor = id_autor;
-    	inicialize();
-        }
+	this.controller = new AutorController(false);
+	this.id_autor = id_autor;
+	inicialize();
+    }
 
     private void inicialize() {
-	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 	setBounds(100, 100, 1174, 586);
 	setTitle("Vista de Autor");
 	contentPane = new JPanel();
@@ -254,26 +255,26 @@ public class AutorView extends JDialog {
 	return chCopy;
     }
 
-	private JButton getBtnEnviarArticulo() {
-		if (btnEnviarArticulo == null) {
-			btnEnviarArticulo = new JButton("Enviar Versión Definitiva");
-			btnEnviarArticulo.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if(getChCopy().isSelected()) {
-						ArticuloEntity articulo = (ArticuloEntity)getCbArticulosSinPublicar().getSelectedItem();
-						if(articulo != null) {
-							controller.getEnviarVersionDefinitiva(articulo.getIdArticulo());
-							articulosAceptadosSinVersionDefinitiva.remove(articulo);
-							rellenarComboBox();
-						}
-					}
-				}
-			});
-			btnEnviarArticulo.setForeground(new Color(255, 255, 255));
-			btnEnviarArticulo.setBackground(new Color(0, 0, 128));
-			btnEnviarArticulo.setBounds(915, 396, 225, 23);
-			btnEnviarArticulo.setEnabled(false);
+    private JButton getBtnEnviarArticulo() {
+	if (btnEnviarArticulo == null) {
+	    btnEnviarArticulo = new JButton("Enviar Versión Definitiva");
+	    btnEnviarArticulo.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    if (getChCopy().isSelected()) {
+			ArticuloEntity articulo = (ArticuloEntity) getCbArticulosSinPublicar().getSelectedItem();
+			if (articulo != null) {
+			    controller.getEnviarVersionDefinitiva(articulo.getIdArticulo());
+			    articulosAceptadosSinVersionDefinitiva.remove(articulo);
+			    rellenarComboBox();
+			}
+		    }
 		}
+	    });
+	    btnEnviarArticulo.setForeground(new Color(255, 255, 255));
+	    btnEnviarArticulo.setBackground(new Color(0, 0, 128));
+	    btnEnviarArticulo.setBounds(915, 396, 225, 23);
+	    btnEnviarArticulo.setEnabled(false);
+	}
 	return btnEnviarArticulo;
     }
 
@@ -298,20 +299,21 @@ public class AutorView extends JDialog {
 	    btnModificarBorrador.setBounds(10, 498, 178, 23);
 	}
 	return btnModificarBorrador;
-	}
-	private JButton getBtVisualizar() {
-		if (btVisualizar == null) {
-			btVisualizar = new JButton("Editar Artículo");
-			btVisualizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			btVisualizar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					mostrarVentanaVisualizacion();
-				}
-			});
-			btVisualizar.setForeground(Color.WHITE);
-			btVisualizar.setBackground(new Color(173, 216, 230));
-			btVisualizar.setBounds(784, 259, 225, 23);
+    }
+
+    private JButton getBtVisualizar() {
+	if (btVisualizar == null) {
+	    btVisualizar = new JButton("Editar Artículo");
+	    btVisualizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+	    btVisualizar.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    mostrarVentanaVisualizacion();
 		}
+	    });
+	    btVisualizar.setForeground(Color.WHITE);
+	    btVisualizar.setBackground(new Color(173, 216, 230));
+	    btVisualizar.setBounds(784, 259, 225, 23);
+	}
 	return btVisualizar;
     }
 
@@ -345,12 +347,11 @@ public class AutorView extends JDialog {
 	}
 	return listArticulos;
 
-	}
+    }
 
     private void modificarBorrador() {
 	AutorCreacionView ver = new AutorCreacionView(controller, id_autor, getListArticulos().getSelectedValue());
 	ver.setVisible(true);
-	ver.setModal(true);
     }
 
     private JButton getBtnCambiosSugeridos() {
@@ -379,11 +380,7 @@ public class AutorView extends JDialog {
     private void modificarArticulo() {
 	ArticuloEntity articulo = getListArticulos().getSelectedValue();
 
-	// TEST
-	System.out.println(id_autor);
-
 	ArticuloCambiosView acw = new ArticuloCambiosView(articulo, id_autor);
 	acw.setVisible(true);
-	acw.setModal(true);
     }
 }
