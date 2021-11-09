@@ -531,7 +531,7 @@ public class AutorCreacionView extends JDialog {
 	if (lbConstraintsSugeridos == null) {
 	    lbConstraintsSugeridos = new JLabel("*Formato:  Nombre - Correo - Especialidad");
 	    lbConstraintsSugeridos.setFont(new Font("Tahoma", Font.PLAIN, 10));
-	    lbConstraintsSugeridos.setBounds(23, 365, 315, 14);
+	    lbConstraintsSugeridos.setBounds(23, 365, 207, 14);
 	}
 	return lbConstraintsSugeridos;
     }
