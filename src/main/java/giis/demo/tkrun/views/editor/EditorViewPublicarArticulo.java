@@ -105,7 +105,6 @@ public class EditorViewPublicarArticulo extends JDialog {
 			artController.publicarArticulo(articulo, getTxtDOI().getText(), getTxtFecha().getText(), Integer.parseInt(getTxtVolumen().getText()));
 			JOptionPane.showMessageDialog(this, "articulo " + articulo.getTitulo() + "-" + articulo.getPrimerAutor() + " publicado correctamente");
 			this.setVisible(false);
-			this.ventanaAnterior.disposeComentarioAutorWindow();
 			this.dispose();
 		}
 	}

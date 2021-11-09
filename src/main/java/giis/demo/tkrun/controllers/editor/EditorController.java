@@ -219,5 +219,8 @@ public class EditorController {
 	public List<RevisionEntity> getRevisionPorNumeroRevision(int numeroRevision, int idRevisor, int idArticulo) {
 		return EntityAssembler.toRevisionEntityList(revisionModel.getRevisionPorNumeroRevision(idArticulo, idRevisor, numeroRevision));
 	}
+	public void generarSegundaRevision(int idArticulo, int idRevisor, String fecha) {
+		revisionModel.generarSegundaRevision(idArticulo, idRevisor, fecha);
+	}
 
 }

@@ -1,6 +1,7 @@
 package giis.demo.tkrun.views.editor;
 
 import java.awt.FlowLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -13,6 +14,7 @@ import giis.demo.tkrun.controllers.articulo.ArticuloController;
 import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
+import giis.demo.tkrun.controllers.entities.RevisorEntity;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -45,7 +47,6 @@ public class EditorViewComentariosAutor extends JDialog {
 	private JRadioButton rdBtnRechazar;
 	private JTextArea txtComentarios;
 	private JLabel lblComentariosDecision;
-	private EditorViewComentariosArticulo comentariosView;
 	private ButtonGroup decisiones;
 	private JRadioButton rdBtnAceptarCambiosMenores;
 	private EditorController controller;
@@ -54,13 +55,13 @@ public class EditorViewComentariosAutor extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public EditorViewComentariosAutor( ArticuloEntity articulo, EditorController controller, EditorViewComentariosArticulo comentariosView) {
+	public EditorViewComentariosAutor( ArticuloEntity articulo, EditorController controller) {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		getContentPane().setBackground(Color.WHITE);
 		this.revisiones = controller.getRevisionesFiltradas(articulo.getIdArticulo(), (articulo.getVecesRevisado() +1));
 		this.articulo = articulo;
 		this.controller = controller;
 		this.artController = new ArticuloController();
-		this.comentariosView = comentariosView;
 		setTitle("Enviar comentarios al autor");
 		setBounds(100, 100, 680, 509);
 		getContentPane().setLayout(null);
@@ -99,13 +100,6 @@ public class EditorViewComentariosAutor extends JDialog {
 				buttonPane.add(btnEnviar);
 				getRootPane().setDefaultButton(btnEnviar);
 			}
-			{
-				JButton btnCancelar = new JButton("Cancelar");
-				btnCancelar.setForeground(new Color(255, 255, 255));
-				btnCancelar.setBackground(new Color(255, 0, 0));
-				btnCancelar.setActionCommand("Cancel");
-				buttonPane.add(btnCancelar);
-			}
 		}
 	}
 	
@@ -117,11 +111,43 @@ public class EditorViewComentariosAutor extends JDialog {
 	private void enviarDecision() {
 		switch (decisiones.getSelection().getActionCommand()) {
 		case PUBLICAR: {publicarArticulo(); break;}
-		case ACEPTAR_CAMBIOS_MENORES:{enviarCartaDecision(ArticuloEntity.ACEPTADO_CAMBIOS_MENORES); break;}
-		case ACEPTAR_CAMBIOS_MAYORES:{enviarCartaDecision(ArticuloEntity.ACEPTADO_CAMBIOS_MAYORES); break;}
-		case ACEPTAR: {enviarCartaDecision(ArticuloEntity.ACEPTADO); break;}
-		case RECHAZAR: { enviarCartaDecision(ArticuloEntity.RECHAZADO); break;}
+		case ACEPTAR_CAMBIOS_MENORES:{
+			enviarCartaDecision(ArticuloEntity.ACEPTADO_CAMBIOS_MENORES);
+			JOptionPane.showMessageDialog(this, articulo.getCartaDecision() + " enviada correctamente");
+			break;
+			}
+		case ACEPTAR_CAMBIOS_MAYORES:{	
+			crearVentanaAsignarFechas();
+			enviarCartaDecision(ArticuloEntity.ACEPTADO_CAMBIOS_MAYORES);			 
+			break;
+			}
+		case ACEPTAR: {
+			enviarCartaDecision(ArticuloEntity.ACEPTADO); 
+			JOptionPane.showMessageDialog(this, articulo.getCartaDecision() + " enviada correctamente");
+			break;
+			}
+		case RECHAZAR: { 			
+			crearVentanaAsignarFechas();
+			enviarCartaDecision(ArticuloEntity.RECHAZADO);
+			break;
+			}
 		}
+	}
+	
+	private void crearVentanaAsignarFechas() {
+		if (articulo.getVecesRevisado() < 1) {
+			this.setVisible(false);
+			this.dispose();
+			List<RevisorEntity> revisores = controller.getRevisoresAsignados(articulo);
+			RevisorEntity revisor1 = revisores.get(0);
+			RevisorEntity revisor2 = revisores.get(1);
+			RevisorEntity revisor3 = revisores.get(2);
+			EditorAsignarFechasSegundaRevision ventana = new EditorAsignarFechasSegundaRevision(controller, articulo, revisor1, revisor2,revisor3);
+			ventana.setVisible(true);
+			ventana.setLocationRelativeTo(this);
+			ventana.setModal(true);
+		}
+		
 	}
 	
 	private void publicarArticulo() {
@@ -133,11 +159,8 @@ public class EditorViewComentariosAutor extends JDialog {
 	
 	private void enviarCartaDecision(String nuevoEstado) {
 		artController.enviarDecision(articulo, nuevoEstado);
-		JOptionPane.showMessageDialog(this, articulo.getCartaDecision() + " enviada correctamente");
 		this.setVisible(false);
-		comentariosView.setVisible(false);
 		this.dispose();
-		comentariosView.dispose();
 	}
 	private JLabel getLblComentariosAutor() {
 		if (lblComentariosAutor == null) {
@@ -163,6 +186,7 @@ public class EditorViewComentariosAutor extends JDialog {
 		int iterator = 1;
 		for (RevisionEntity rev : revisiones) {
 			text += "Revision " + iterator + ": \n" + rev.getComentariosAutor() +"\n\n";
+			iterator++;
 		}
 		getTxtComentariosRevisiones().setText(text);
 	}
@@ -228,10 +252,6 @@ public class EditorViewComentariosAutor extends JDialog {
 		return lblComentariosDecision;
 	}
 	
-	public void disposeComentarioAutorWindow() {
-		this.comentariosView.dispose();
-		this.dispose();
-	}
 	private boolean isPrimeraRevision() {
 		for (RevisionEntity revision : revisiones) {
 			if (revision.getNumeroRevision() > 1) {

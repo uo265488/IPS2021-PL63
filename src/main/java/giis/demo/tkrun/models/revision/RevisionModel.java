@@ -154,4 +154,12 @@ public class RevisionModel {
 		return db.executeQueryPojo(RevisionDto.class, sql, idArticulo, idRevisor, numeroRevision);
 	}
 
+	public void generarSegundaRevision(int idArticulo, int idRevisor, String fecha) {
+		String sql = "insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, estadoDeLaPropuesta) values (?,?,?,?,?)";
+
+		db.executeUpdate(sql, idArticulo, idRevisor, 2, fecha,
+				"ACEPTADO");
+		
+	}
+
 }
