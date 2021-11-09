@@ -57,8 +57,6 @@ public class SwingMain {
 	btnEjecutarTkrun.addActionListener(new ActionListener() { // NOSONAR codigo autogenerado
 	    public void actionPerformed(ActionEvent e) {
 		// new EditorController(generarArticulo());
-//		new RevisorView(new RevisorController(1));
-		// new AutorView(new AutorController());
 		// new EditorViewDecisionArticulo(new EditorController());
 		new UserController();
 	    }

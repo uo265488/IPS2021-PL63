@@ -83,7 +83,7 @@ public class AutorView extends JDialog {
 
     private void inicialize() {
 	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	setBounds(100, 100, 1083, 586);
+	setBounds(100, 100, 1174, 586);
 	setTitle("Vista de Autor");
 	contentPane = new JPanel();
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -236,7 +236,7 @@ public class AutorView extends JDialog {
     private JComboBox<ArticuloEntity> getCbArticulosSinPublicar() {
 	if (cbArticulosSinPublicar == null) {
 	    cbArticulosSinPublicar = new JComboBox<ArticuloEntity>();
-	    cbArticulosSinPublicar.setBounds(605, 168, 462, 22);
+	    cbArticulosSinPublicar.setBounds(605, 168, 508, 22);
 	}
 	return cbArticulosSinPublicar;
     }
@@ -249,48 +249,37 @@ public class AutorView extends JDialog {
 	return chCopy;
     }
 
-    private JButton getBtnEnviarArticulo() {
-	if (btnEnviarArticulo == null) {
-	    btnEnviarArticulo = new JButton("Enviar Versión Definitiva");
-	    btnEnviarArticulo.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-		    if (!getChCopy().isSelected())
-			JOptionPane.showMessageDialog(null, "Tiene que confirmar la firma de CopyRight");
-		    else {
-			ArticuloEntity articulo = (ArticuloEntity) getCbArticulosSinPublicar().getSelectedItem();
-			if (articulo != null)
-			    controller.getEnviarVersionDefinitiva(articulo.getIdArticulo());
-		    }
+	private JButton getBtnEnviarArticulo() {
+		if (btnEnviarArticulo == null) {
+			btnEnviarArticulo = new JButton("Enviar Versión Definitiva");
+			btnEnviarArticulo.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(!getChCopy().isSelected())
+						JOptionPane.showMessageDialog(null, "Tiene que confirmar la firma de CopyRight");
+					else {
+						ArticuloEntity articulo = (ArticuloEntity)getCbArticulosSinPublicar().getSelectedItem();
+						if(articulo != null) {
+							controller.getEnviarVersionDefinitiva(articulo.getIdArticulo());
+							articulosAceptadosSinVersionDefinitiva.remove(articulo);
+							rellenarComboBox();
+						}
+					}
+				}
+			});
+			btnEnviarArticulo.setForeground(new Color(255, 255, 255));
+			btnEnviarArticulo.setBackground(new Color(0, 0, 128));
+			btnEnviarArticulo.setBounds(915, 396, 225, 23);
+			btnEnviarArticulo.setEnabled(false);
 		}
-	    });
-	    btnEnviarArticulo.setForeground(new Color(255, 255, 255));
-	    btnEnviarArticulo.setBackground(new Color(0, 0, 128));
-	    btnEnviarArticulo.setBounds(842, 396, 225, 23);
-	    btnEnviarArticulo.setEnabled(false);
-	}
 	return btnEnviarArticulo;
-    }
-
-    private JButton getBtVisualizar() {
-	if (btVisualizar == null) {
-	    btVisualizar = new JButton("Visualizar Artículo");
-	    btVisualizar.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-		    mostrarVentanaVisualizacion();
-		}
-	    });
-	    btVisualizar.setForeground(Color.WHITE);
-	    btVisualizar.setBackground(new Color(173, 216, 230));
-	    btVisualizar.setBounds(727, 259, 225, 23);
-	}
-	return btVisualizar;
     }
 
     private void mostrarVentanaVisualizacion() {
 	if (getCbArticulosSinPublicar().getSelectedItem() != null) {
-	    VisualizarArticuloView vA = new VisualizarArticuloView(
+	    AutorEditarArticuloView vA = new AutorEditarArticuloView(
 		    (ArticuloEntity) getCbArticulosSinPublicar().getSelectedItem());
 	    vA.setVisible(true);
+	    vA.setModal(true);
 	}
     }
 
@@ -306,6 +295,21 @@ public class AutorView extends JDialog {
 	    btnModificarBorrador.setBounds(10, 498, 178, 23);
 	}
 	return btnModificarBorrador;
+	}
+	private JButton getBtVisualizar() {
+		if (btVisualizar == null) {
+			btVisualizar = new JButton("Editar Artículo");
+			btVisualizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			btVisualizar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					mostrarVentanaVisualizacion();
+				}
+			});
+			btVisualizar.setForeground(Color.WHITE);
+			btVisualizar.setBackground(new Color(173, 216, 230));
+			btVisualizar.setBounds(784, 259, 225, 23);
+		}
+	return btVisualizar;
     }
 
     private boolean isBorrador() {
@@ -335,10 +339,10 @@ public class AutorView extends JDialog {
 		    }
 		}
 	    });
-
 	}
 	return listArticulos;
-    }
+
+	}
 
     private void modificarBorrador() {
 	AutorCreacionView ver = new AutorCreacionView(controller, id_autor, getListArticulos().getSelectedValue());

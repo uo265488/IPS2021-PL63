@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -57,6 +58,7 @@ public class UserView extends JFrame {
 	this.userController = controller;
 	this.users = userController.getUsers();
 	initialize();
+	System.out.println("kjsdngfñkajn");
     }
 
     /**

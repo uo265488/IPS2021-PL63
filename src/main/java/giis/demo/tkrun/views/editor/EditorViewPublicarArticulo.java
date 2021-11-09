@@ -1,24 +1,31 @@
 package giis.demo.tkrun.views.editor;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.articulo.ArticuloController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 public class EditorViewPublicarArticulo extends JDialog {
+
+	private static boolean isNumeric(String cadena) {
+		try {
+			Integer.parseInt(cadena);
+			return true;
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+	}
 
 	private final JPanel contentPanel = new JPanel();
 	private JLabel lblDOI;
@@ -29,23 +36,19 @@ public class EditorViewPublicarArticulo extends JDialog {
 	private JTextField txtVolumen;
 	private ArticuloController artController;
 	private ArticuloEntity articulo;
+
 	private EditorViewComentariosAutor ventanaAnterior;
 
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
-		try {
-			EditorViewPublicarArticulo dialog = new EditorViewPublicarArticulo();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}/*
-
-	/**
-	 * Create the dialog.
+	/*
+	 * public static void main(String[] args) { try { EditorViewPublicarArticulo
+	 * dialog = new EditorViewPublicarArticulo();
+	 * dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	 * dialog.setVisible(true); } catch (Exception e) { e.printStackTrace(); } }/*
+	 * 
+	 * /** Create the dialog.
 	 */
 	public EditorViewPublicarArticulo(EditorViewComentariosAutor ventanaAnterior, ArticuloEntity articulo) {
 		this.artController = new ArticuloController();
@@ -77,6 +80,7 @@ public class EditorViewPublicarArticulo extends JDialog {
 			{
 				JButton btnPublicar = new JButton("Publicar");
 				btnPublicar.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent arg0) {
 						publicarArticulo();
 					}
@@ -96,49 +100,23 @@ public class EditorViewPublicarArticulo extends JDialog {
 			}
 		}
 	}
-	
-	private void publicarArticulo() {
-		if (checkTextFields()) {
-			artController.publicarArticulo(articulo, getTxtDOI().getText(), getTxtFecha().getText(), Integer.parseInt(getTxtVolumen().getText()));
-			JOptionPane.showMessageDialog(this, "articulo " + articulo.getTitulo() + "-" + articulo.getPrimerAutor() + " publicado correctamente");
-			this.setVisible(false);
-			this.ventanaAnterior.disposeComentarioAutorWindow();
-			this.dispose();
-		}
-	}
-	
+
 	private boolean checkTextFields() {
 		if (getTxtDOI().getText().trim().equals("")) {
-			JOptionPane.showMessageDialog(this,"DOI invalido");
+			JOptionPane.showMessageDialog(this, "DOI invalido");
 			return false;
 		}
 		if (getTxtFecha().getText().trim().equals("")) {
-			JOptionPane.showMessageDialog(this,"Fecha invalida");
+			JOptionPane.showMessageDialog(this, "Fecha invalida");
 			return false;
 		}
-		if (!isValid(getTxtVolumen().getText().trim())){
-			JOptionPane.showMessageDialog(this,"Volumen invalido");
+		if (!isValid(getTxtVolumen().getText().trim())) {
+			JOptionPane.showMessageDialog(this, "Volumen invalido");
 			return false;
 		}
 		return true;
 	}
-	
-	private boolean isValid(String number) {
-		if (isNumeric(number)) {
-			if (Integer.parseInt(number) < 0)
-				return false;
-			return true;
-		}
-		return false;
-	}
-	private static boolean isNumeric(String cadena){
-		try {
-			Integer.parseInt(cadena);
-			return true;
-		} catch (NumberFormatException nfe){
-			return false;
-		}
-	}
+
 	private JLabel getLblDOI() {
 		if (lblDOI == null) {
 			lblDOI = new JLabel("DOI:");
@@ -146,6 +124,23 @@ public class EditorViewPublicarArticulo extends JDialog {
 		}
 		return lblDOI;
 	}
+
+	private JLabel getLblFecha() {
+		if (lblFecha == null) {
+			lblFecha = new JLabel("Fecha:");
+			lblFecha.setBounds(20, 80, 80, 23);
+		}
+		return lblFecha;
+	}
+
+	private JLabel getLblVolumen() {
+		if (lblVolumen == null) {
+			lblVolumen = new JLabel("Volumen:");
+			lblVolumen.setBounds(10, 114, 90, 23);
+		}
+		return lblVolumen;
+	}
+
 	private JTextField getTxtDOI() {
 		if (txtDOI == null) {
 			txtDOI = new JTextField();
@@ -154,20 +149,7 @@ public class EditorViewPublicarArticulo extends JDialog {
 		}
 		return txtDOI;
 	}
-	private JLabel getLblFecha() {
-		if (lblFecha == null) {
-			lblFecha = new JLabel("Fecha:");
-			lblFecha.setBounds(20, 80, 80, 23);
-		}
-		return lblFecha;
-	}
-	private JLabel getLblVolumen() {
-		if (lblVolumen == null) {
-			lblVolumen = new JLabel("Volumen:");
-			lblVolumen.setBounds(10, 114, 90, 23);
-		}
-		return lblVolumen;
-	}
+
 	private JTextField getTxtFecha() {
 		if (txtFecha == null) {
 			txtFecha = new JTextField();
@@ -176,6 +158,7 @@ public class EditorViewPublicarArticulo extends JDialog {
 		}
 		return txtFecha;
 	}
+
 	private JTextField getTxtVolumen() {
 		if (txtVolumen == null) {
 			txtVolumen = new JTextField();
@@ -183,5 +166,27 @@ public class EditorViewPublicarArticulo extends JDialog {
 			txtVolumen.setColumns(10);
 		}
 		return txtVolumen;
+	}
+
+	private boolean isValid(String number) {
+		if (isNumeric(number)) {
+			if (Integer.parseInt(number) < 0) {
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	private void publicarArticulo() {
+		if (checkTextFields()) {
+			artController.publicarArticulo(articulo, getTxtDOI().getText(), getTxtFecha().getText(),
+					Integer.parseInt(getTxtVolumen().getText()));
+			JOptionPane.showMessageDialog(this,
+					"articulo " + articulo.getTitulo() + "-" + articulo.getPrimerAutor() + " publicado correctamente");
+			this.setVisible(false);
+			this.ventanaAnterior.disposeComentarioAutorWindow();
+			this.dispose();
+		}
 	}
 }

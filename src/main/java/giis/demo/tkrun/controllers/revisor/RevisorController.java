@@ -8,6 +8,8 @@ import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.controllers.entities.SugerenciaEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
+import giis.demo.tkrun.models.dtos.ArticuloDto;
+import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.models.revisor.RevisorModel;
@@ -31,19 +33,18 @@ public class RevisorController {
     // this.initView();
     // }
 
-    public RevisorController(int idRevisor) {
-	this.model = new RevisionModel();
-	this.articuloModel = new ArticuloModel();
-	this.revisoresModel = new RevisorModel();
-	this.idRevisor = idRevisor;
-	// no hay inicializacion especifica del modelo, solo de la vista
-	this.initView();
-    }
-
     public RevisorController() {
 	this.model = new RevisionModel();
 	this.articuloModel = new ArticuloModel();
 	this.revisoresModel = new RevisorModel();
+    }
+
+    public RevisorController(int idRevisor) {
+	this.model = new RevisionModel();
+	this.articuloModel = new ArticuloModel();
+	this.idRevisor = idRevisor;
+	// no hay inicializacion especifica del modelo, solo de la vista
+	this.initView();
     }
 
     private void initView() {
@@ -61,12 +62,6 @@ public class RevisorController {
     public List<ArticuloEntity> getTituloArticulosSinRevisar(int id) {
 
 	return EntityAssembler.toArticuloEntityList(model.articulosSinRevisar(id));
-    }
-
-    public void actualizarRevision(String comAutor, String comEditor, String decision, boolean enviarAlEditor, int id,
-	    int idArt) {
-
-	model.revisarArticulo(comAutor, comEditor, decision, enviarAlEditor, idArt, id);
     }
 
     public List<ArticuloEntity> getArticulosAsignados(int id) {
@@ -87,7 +82,56 @@ public class RevisorController {
 	return revisores;
     }
 
+    public RevisionEntity getRevisionAnterior(int idArt, int idRev) {
+	return EntityAssembler.toRevisionEntity(model.primeraRevision(idRev, idArt));
+    }
+
+    public int numeroRevisiones(int idArt, int idRev) {
+	List<RevisionEntity> revisiones = EntityAssembler.toRevisionEntityList(model.numeroRevisiones(idRev, idArt));
+	return revisiones.size();
+    }
+
+    // public void actualizarRevision(String comAutor, String comEditor, String
+    // decision, boolean enviarAlEditor, int id, int idArt) {
+
+    // model.revisarArticulo(comAutor, comEditor, decision, enviarAlEditor, idArt,
+    // id);
+    // }
+
+    public void actualizarRevision(String comAutor, String comEditor, String decision, boolean enviarAlEditor, int id,
+	    int idArt, int numeroRevision) {
+
+	model.revisarArticulo(comAutor, comEditor, decision, enviarAlEditor, idArt, id, numeroRevision);
+    }
+
+    public List<ArticuloEntity> getArticulosSinResponder(int id) {
+	return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosSinResponder(id));
+    }
+
+    public void decisionArticulo(int idRev, int idArt, boolean decision) {
+	model.decisionArticulo(idRev, idArt, decision);
+    }
+
+    public boolean todasLasRevisionesEnviadas(int idArt, int numeroRevision) {
+	List<RevisionEntity> revisiones = EntityAssembler
+		.toRevisionEntityList(model.revisionesEnviadas(idArt, numeroRevision));
+	return revisiones.size() == 3;
+    }
+
+    public RevisionDto getFecha(int idRev, int idArticulo) {
+	return model.getFecha(idRev, idArticulo);
+    }
+
+    public void updateArticulo(ArticuloDto articulo) {
+	articuloModel.update(articulo);
+    }
+
+    public List<RevisionEntity> getArticulosAceptados(int idArticulo) {
+	return EntityAssembler.toRevisionEntityList(model.articulosAceptados(idArticulo));
+    }
+
     public void addRevisor(RevisorDto revisorDto) {
 	revisoresModel.addRevisor(revisorDto);
     }
+
 }
