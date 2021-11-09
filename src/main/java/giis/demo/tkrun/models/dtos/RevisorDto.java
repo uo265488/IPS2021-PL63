@@ -2,59 +2,55 @@ package giis.demo.tkrun.models.dtos;
 
 public class RevisorDto {
 
-	private int idRevisor;
-	private String nombre;
-	private String estado;
-	private String correo;
-	private String especialidad;
+    private int idRevisor;
+    private String nombre;
+    private String estado;
+    private String correo;
+    private String especialidad;
 
+    public String getCorreo() {
+	return correo;
+    }
 
+    public void setCorreo(String correo) {
+	this.correo = correo;
+    }
 
-	public String getCorreo() {
-		return correo;
-	}
+    public String getEspecialidad() {
+	return especialidad;
+    }
 
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
+    public void setEspecialidad(String especialidad) {
+	this.especialidad = especialidad;
+    }
 
-	public String getEspecialidad() {
-		return especialidad;
-	}
+    public String getNombre() {
+	return nombre;
+    }
 
-	public void setEspecialidad(String especialidad) {
-		this.especialidad = especialidad;
-	}
+    public void setNombre(String nombre) {
+	this.nombre = nombre;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public String getEstado() {
+	return estado;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setEstado(String estado) {
+	this.estado = estado;
+    }
 
-	public String getEstado() {
-		return estado;
-	}
+    @Override
+    public String toString() {
+	return nombre + " - " + idRevisor;
+    }
 
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+    public int getIdRevisor() {
+	return idRevisor;
+    }
 
-	@Override
-	public String toString() {
-		return nombre + " - " + idRevisor;
-	}
-
-	public int getIdRevisor() {
-		return idRevisor;
-	}
-
-	public void setIdRevisor(int idRevisor) {
-		this.idRevisor = idRevisor;
-	}
-	
-	
+    public void setIdRevisor(int idRevisor) {
+	this.idRevisor = idRevisor;
+    }
 
 }

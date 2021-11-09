@@ -23,21 +23,21 @@ delete from autores;
 insert into autores(idAutor,nombre,dni) values 
 	(4,'antonio','435135'),
 	(5,'lucia','156723'),
-	(6,'ariadna','810582');
+	(6,'ariadna','810582'),
+	(2, 'Hugo', '3647867');
 	
 delete from articulos;
-insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV,firma, vecesRevisado, versionDefinitiva) values 
+insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV, firma, vecesRevisado, versionDefinitiva) values 
 	(7,'Economia Española','antonio','en revision', 'La economia española esta en decadencia', 'economia, euro', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
 	(8,'Gasol se retira','lucia','con el editor', 'Gasol anuncia su retirada del baloncesto', 'gasol, leyenda, Barca', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
 	(2,'Alex se retira de ips','lucia','con el editor', 'Gasol anuncia su retirada del baloncesto', 'gasol, leyenda, Barca', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
 	(9,'La caida de Facebook','ariadna','aceptado', 'Se caen los servidores de Facebook durante 6 horas con perdidas multimillonarias', 'facebook, red, caida', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
 	(10,'Poesia clasica','ariadna','publicado', 'explicacion sobre la poesia clasica', 'poesia, españa', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, 1, true),
 	(11,'El Quijote, la obra maestra','ariadna','aceptado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
-	(12,'Teo va a la escuela','ariadna','rechazado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
-	(20,'Poesia clasica','ariadna','con el editor', 'explicacion sobre la poesia clasica', 'poesia, españa', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, 1, true),
-	(21,'El Quijote, la obra maestra','ariadna','aceptado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
-	(22,'Teo va a la escuela','ariadna','rechazado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false);
-	
+	(12,'Xavi será nuevo técnico del Barcelona','antonio','pendiente', 'Xavi será nuevo DT', 'fútbol, leyenda, Xavi, Barcelona', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
+	(13,'Nuevo Articulo','lucia','pendiente', 'algo', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
+	(14,'Volcán de la Palma, el porqué','lucia','en revision', 'razones de la explosión del volcán', 'geología, Palma', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
+	(15,'La luz no para de subir','lucia','en revision', 'la luz alcanza otro máximo histórico', 'luz, economía', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false);
 delete from autoresSecundarios;
 insert into autoresSecundarios(idArticulo, idAutor) values
 	(7,4),
@@ -45,8 +45,9 @@ insert into autoresSecundarios(idArticulo, idAutor) values
 	(8,4),
 	(9,6),
 	(10,6),
-	(20,5),
-	(20, 6);
+	(11,6),
+	(12,4),
+	(13,5);
 	
 delete from revisiones;
 insert into revisiones(idArticulo, idRevisor, fecha, comentariosAutor, comentariosEditor, decision, enviarAlEditor, estadoDeLaPropuesta) values
@@ -59,12 +60,12 @@ insert into revisiones(idArticulo, idRevisor, fecha, comentariosAutor, comentari
 	(7, 3, '2020-10-2','Me esta gustando mucho','Aceptaria','altamente recomendable aceptar',false, 'RECHAZADA'),
 	(11, 4, '2020-10-2','Muy buen artículo', 'Debe ser publicado', 'altamente recomendable aceptar', true, 'ACEPTADA'),
 	(11, 5,'2020-10-2', 'Mejorable', 'Tengo mis dudas de aceptarlo', 'poco recomendable aceptar', true, 'PENDIENTE'),
-	(11, 6, '2020-10-2','Buen artículo', 'Aceptable', 'aceptardo', true, 'RECHAZADA');
+	(11, 6, '2020-10-2','Buen artículo', 'Aceptable', 'aceptardo', true, 'RECHAZADA'),
+	(12, 3, '10/12/2021', '', '', '', false, 'PENDIENTE'),
+	(13, 3, '25/12/2021', '', '', '', false, 'PENDIENTE');
 	
 delete from usuarios;
 insert into usuarios (idUsuario, nombre, tipoUsuario) values
 	(1, 'Alex', 'Editor'),
 	(2, 'Hugo', 'Autor'),
-	(3, 'Oscar', 'Revisor');
-	
-
+	(3, 'Oscar', 'Revisor');;

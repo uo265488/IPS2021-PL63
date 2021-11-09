@@ -74,9 +74,9 @@ public class ComentariosDeRevisionView extends JDialog {
 
 	private JLabel getLblRevisor1() {
 		if (lblRevisor1 == null) {
-			lblRevisor1 = new JLabel("Comentarios de revisión del Revisor 1:");
+			lblRevisor1 = new JLabel("Revisor 1:");
 			lblRevisor1.setLabelFor(getTxtRevisor1());
-			lblRevisor1.setBounds(43, 36, 274, 14);
+			lblRevisor1.setBounds(43, 36, 200, 14);
 		}
 		return lblRevisor1;
 	}
@@ -107,8 +107,8 @@ public class ComentariosDeRevisionView extends JDialog {
 
 	private JLabel getLblRevisor2() {
 		if (lblRevisor2 == null) {
-			lblRevisor2 = new JLabel("Comentarios de revisión del Revisor 2:");
-			lblRevisor2.setBounds(43, 169, 380, 14);
+			lblRevisor2 = new JLabel("Revisor 2:");
+			lblRevisor2.setBounds(43, 169, 200, 14);
 		}
 		return lblRevisor2;
 	}
