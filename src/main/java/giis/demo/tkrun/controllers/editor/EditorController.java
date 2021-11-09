@@ -13,138 +13,115 @@ import giis.demo.util.EntityAssembler;
 
 public class EditorController {
 
-<<<<<<< HEAD
 	private MenuEditor principalView;
-	//private EditorView view;
+	// private EditorView view;
 	private RevisionModel revisionModel;
 	private ArticuloModel articuloModel;
 	private RevisorModel revisoresModel;
-=======
-    private MenuEditor principalView;
-    private RevisionModel revisionModel;
-    private ArticuloModel articuloModel;
-    private RevisorModel revisoresModel;
->>>>>>> branch 'master' of https://github.com/uo265488/IPS2021-PL63.git
 
-<<<<<<< HEAD
-	
 	private void initView() {
 		this.principalView = new MenuEditor(this);
 		this.principalView.setVisible(true);
-		//this.principalView.setModal(true);
+		// this.principalView.setModal(true);
 	}
-	
+
 	public EditorController() {
 		this.revisionModel = new RevisionModel();
 		this.articuloModel = new ArticuloModel();
 		this.revisoresModel = new RevisorModel();
-		
+
 		initView();
-=======
-    private void initView() {
-	this.principalView = new MenuEditor(this);
-	this.principalView.setVisible(true);
-    }
-
-    public EditorController() {
-	this.revisionModel = new RevisionModel();
-	this.articuloModel = new ArticuloModel();
-	this.revisoresModel = new RevisorModel();
-
-	initView();
-    }
-
-    public List<RevisorEntity> getRevisoresDisponibles() {
-
-	return EntityAssembler.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
-    }
-
-    public boolean asignarRevisoresAlArticulo(List<RevisorEntity> revisores, ArticuloEntity articulo, String fecha) {
-
-	// validaciones:
-	// -articulo q no sea null y demas
-
-	// model.asignarRevisores( DtoMapper.toRevisorDtoList(revisores), articulo);
-
-	generarRevisiones(revisores, articulo, fecha); // Generamos una revsion con los datos y enviamos el dto al model
-						       // para añadirlo a la base de datos
-
-	cambiarEstadoArticuloEnRevision(articulo);// cambiar el estado del articulo
-
-	cambiarEstadoRevisoresNoDisponible(revisores);// cambiar el estado del revisor a no disponible
-
-	return false;
-
-    }
-
-    /**
-     * Cambia el estado de los revisores a no disponibles
-     * 
-     * @param revisores
-     */
-    private void cambiarEstadoRevisoresNoDisponible(List<RevisorEntity> revisores) {
-
-	for (RevisorEntity rev : revisores) {
-	    rev.setEstado(RevisorEntity.NO_DISPONIBLE);
-	    revisoresModel.update(DtoMapper.toRevisorDto(rev));
->>>>>>> branch 'master' of https://github.com/uo265488/IPS2021-PL63.git
 	}
-	
+
+	public List<RevisorEntity> getRevisoresDisponibles() {
+
+		return EntityAssembler.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
+	}
+
+	public boolean asignarRevisoresAlArticulo(List<RevisorEntity> revisores, ArticuloEntity articulo, String fecha) {
+
+		// validaciones:
+		// -articulo q no sea null y demas
+
+		// model.asignarRevisores( DtoMapper.toRevisorDtoList(revisores), articulo);
+
+		generarRevisiones(revisores, articulo, fecha); // Generamos una revsion con los datos y enviamos el dto al model
+		// para añadirlo a la base de datos
+
+		cambiarEstadoArticuloEnRevision(articulo);// cambiar el estado del articulo
+
+		cambiarEstadoRevisoresNoDisponible(revisores);// cambiar el estado del revisor a no disponible
+
+		return false;
+
+	}
+
+	/**
+	 * Cambia el estado de los revisores a no disponibles
+	 * 
+	 * @param revisores
+	 */
+	private void cambiarEstadoRevisoresNoDisponible(List<RevisorEntity> revisores) {
+
+		for (RevisorEntity rev : revisores) {
+			rev.setEstado(RevisorEntity.NO_DISPONIBLE);
+			revisoresModel.update(DtoMapper.toRevisorDto(rev));
+		}
+	}
+
 	public EditorController(boolean mostrarVista) {
 		this.revisionModel = new RevisionModel();
 		this.articuloModel = new ArticuloModel();
 		this.revisoresModel = new RevisorModel();
 	}
 
-    }
+	/**
+	 * Cambia el estado del articulo a "En revision"
+	 * 
+	 * @param articulo
+	 */
+	private void cambiarEstadoArticuloEnRevision(ArticuloEntity articulo) {
 
-    /**
-     * Cambia el estado del articulo a "En revision"
-     * 
-     * @param articulo
-     */
-    private void cambiarEstadoArticuloEnRevision(ArticuloEntity articulo) {
+		articulo.setEstado(ArticuloEntity.EN_REVISION);
 
-	articulo.setEstado(ArticuloEntity.EN_REVISION);
+		articuloModel.update(DtoMapper.toArticuloDto(articulo));
 
-	articuloModel.update(DtoMapper.toArticuloDto(articulo));
-
-    }
-
-    /**
-     * Metodo que genera las revisiones a partir del articulo, los revisores y la
-     * fecha
-     * 
-     * @return
-     */
-    private void generarRevisiones(List<RevisorEntity> revisores, ArticuloEntity articulo, String fecha) {
-	for (RevisorEntity rev : revisores) {
-
-	    revisionModel.add(DtoMapper.toRevisionDto(rev, articulo, fecha));
 	}
-    }
 
-    public List<ArticuloEntity> getArticulos() {
-	return EntityAssembler.toArticuloEntityList(articuloModel.getArticulos());
-    }
+	/**
+	 * Metodo que genera las revisiones a partir del articulo, los revisores y la
+	 * fecha
+	 * 
+	 * @return
+	 */
+	private void generarRevisiones(List<RevisorEntity> revisores, ArticuloEntity articulo, String fecha) {
+		for (RevisorEntity rev : revisores) {
 
-    public List<ArticuloEntity> getArticulosTomarDecision() {
-	return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosTomarDecision());
-    }
+			revisionModel.add(DtoMapper.toRevisionDto(rev, articulo, fecha));
+		}
+	}
 
-    public void aceptarArticulo(ArticuloEntity articulo) {
-	articuloModel.aceptar(DtoMapper.toArticuloDto(articulo));
-    }
+	public List<ArticuloEntity> getArticulos() {
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulos());
+	}
 
-    public void rechazarArticulo(ArticuloEntity articulo) {
-	articuloModel.rechazar(DtoMapper.toArticuloDto(articulo));
-    }
+	public List<ArticuloEntity> getArticulosTomarDecision() {
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosTomarDecision());
+	}
 
-    public List<ArticuloEntity> getArticulosFiltradoTitulo(String titulo) {
-	return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoTitulo(titulo));
-    }
+	public void aceptarArticulo(ArticuloEntity articulo) {
+		articuloModel.aceptar(DtoMapper.toArticuloDto(articulo));
+	}
 
-    public List<ArticuloEntity> getArticulosFiltradoAutor(String autor) {
-	return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoAutor(autor));
-    }
+	public void rechazarArticulo(ArticuloEntity articulo) {
+		articuloModel.rechazar(DtoMapper.toArticuloDto(articulo));
+	}
+
+	public List<ArticuloEntity> getArticulosFiltradoTitulo(String titulo) {
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoTitulo(titulo));
+	}
+
+	public List<ArticuloEntity> getArticulosFiltradoAutor(String autor) {
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoAutor(autor));
+	}
 }

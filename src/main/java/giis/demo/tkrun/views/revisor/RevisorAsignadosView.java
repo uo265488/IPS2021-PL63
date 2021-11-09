@@ -58,7 +58,7 @@ public class RevisorAsignadosView extends JDialog {
      * Create the frame.
      */
     public void initialize() {
-	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	setBounds(100, 100, 413, 228);
 	contentPane = new JPanel();
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -80,15 +80,6 @@ public class RevisorAsignadosView extends JDialog {
 	return lbArticulosAsignados;
     }
 
-    private JComboBox<ArticuloEntity> getCmBoxArticulosAsigados() {
-	if (cmBoxArticulosAsigados == null) {
-	    cmBoxArticulosAsigados = new JComboBox<ArticuloEntity>();
-	    cmBoxArticulosAsigados.setBounds(38, 85, 205, 25);
-	    setComboBoxModel();
-	}
-	return cmBoxArticulosAsigados;
-    }
-
     private JButton getBtnRevisar() {
 	if (btnRevisar == null) {
 	    btnRevisar = new JButton("Revisar");
@@ -104,38 +95,6 @@ public class RevisorAsignadosView extends JDialog {
 	return btnRevisar;
     }
 
-    private void setComboBoxModel() {
-	ArticuloEntity[] articulosEntity = new ArticuloEntity[articulosAsignados.size()];
-	for (int i = 0; i < articulosEntity.length; i++) {
-	    articulosEntity[i] = articulosAsignados.get(i);
-	}
-
-<<<<<<< HEAD
-	/**
-	 * Create the frame.
-	 */
-	public void initialize() {
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 413, 228);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		contentPane.add(getLbArticulosAsignados());
-		contentPane.add(getCmBoxArticulosAsigados());
-		contentPane.add(getBtnRevisar());
-	}
-
-	private JLabel getLbArticulosAsignados() {
-		if (lbArticulosAsignados == null) {
-			lbArticulosAsignados = new JLabel("Articulos asignados para revisar:");
-			lbArticulosAsignados.setLabelFor(getCmBoxArticulosAsigados());
-			lbArticulosAsignados.setDisplayedMnemonic('A');
-			lbArticulosAsignados.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lbArticulosAsignados.setBounds(38, 49, 205, 25);
-		}
-		return lbArticulosAsignados;
-	}
 	private JComboBox<ArticuloEntity> getCmBoxArticulosAsigados() {
 		if (cmBoxArticulosAsigados == null) {
 			cmBoxArticulosAsigados = new JComboBox<ArticuloEntity>();
@@ -143,16 +102,6 @@ public class RevisorAsignadosView extends JDialog {
 			setComboBoxModel();
 		}
 		return cmBoxArticulosAsigados;
-	}
-	private JButton getBtnRevisar() {
-		if (btnRevisar == null) {
-			btnRevisar = new JButton("Revisar");
-			btnRevisar.setForeground(new Color(255, 255, 255));
-			btnRevisar.setBackground(new Color(0, 100, 0));
-			btnRevisar.setMnemonic('R');
-			btnRevisar.setBounds(284, 86, 89, 23);
-		}
-		return btnRevisar;
 	}
 	
 	private void setComboBoxModel() {
@@ -163,8 +112,4 @@ public class RevisorAsignadosView extends JDialog {
 		
 		getCmBoxArticulosAsigados().setModel(new DefaultComboBoxModel<ArticuloEntity>(articulosEntity));
 	}
-=======
-	getCmBoxArticulosAsigados().setModel(new DefaultComboBoxModel<ArticuloEntity>(articulosEntity));
-    }
->>>>>>> branch 'master' of https://github.com/uo265488/IPS2021-PL63.git
 }

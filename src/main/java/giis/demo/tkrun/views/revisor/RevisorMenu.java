@@ -37,9 +37,10 @@ public class RevisorMenu extends JDialog {
      */
     public RevisorMenu(int id_revisor) {
 	setModal(true);
+	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	this.id_revisor = id_revisor;
 	setResizable(false);
-	setBounds(100, 100, 338, 300);
+	setBounds(100, 100, 401, 300);
 	getContentPane().setLayout(null);
 	getContentPane().add(getBtnNewButton());
 	getContentPane().add(getBtnNewButton_1());
@@ -55,7 +56,7 @@ public class RevisorMenu extends JDialog {
 		    rav.setVisible(true);
 		}
 	    });
-	    btnNewButton.setBounds(79, 42, 164, 30);
+	    btnNewButton.setBounds(79, 42, 206, 30);
 	}
 	return btnNewButton;
     }
@@ -65,9 +66,11 @@ public class RevisorMenu extends JDialog {
 	    btnNewButton_1 = new JButton("Ver articulos pendientes");
 	    btnNewButton_1.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
+			RevisorDecisionRevisionesEncomendadas vista = new RevisorDecisionRevisionesEncomendadas(new RevisorController());
+			vista.setVisible(true);
 		}
 	    });
-	    btnNewButton_1.setBounds(79, 114, 164, 30);
+	    btnNewButton_1.setBounds(79, 114, 206, 30);
 	}
 	return btnNewButton_1;
     }
@@ -81,7 +84,7 @@ public class RevisorMenu extends JDialog {
 		    rv.setVisible(true);
 		}
 	    });
-	    btnNewButton_1_1.setBounds(79, 186, 164, 30);
+	    btnNewButton_1_1.setBounds(79, 186, 206, 30);
 	}
 	return btnNewButton_1_1;
     }
