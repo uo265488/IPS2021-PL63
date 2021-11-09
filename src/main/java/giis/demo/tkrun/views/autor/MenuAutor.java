@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -29,7 +28,7 @@ public class MenuAutor extends JDialog {
     public MenuAutor(AutorController controller, int id_autor) {
 	this.controller = controller;
 	this.id_autor = id_autor;
-	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	setBounds(100, 100, 450, 300);
 	contentPane = new JPanel();
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -55,13 +54,15 @@ public class MenuAutor extends JDialog {
     private void mostrarCrear() {
 	AutorCreacionView ver = new AutorCreacionView(controller, id_autor);
 	ver.setVisible(true);
-	ver.setModal(true);
+
+	//ver.setModal(true);
     }
 
     private void mostrarEstado() {
 	AutorView ver = new AutorView(controller, id_autor);
 	ver.setVisible(true);
-	ver.setModal(true);
+
+	//ver.setModal(true);
     }
 
     private JButton getBtEstado() {

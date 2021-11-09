@@ -19,8 +19,8 @@ import giis.demo.tkrun.views.autor.MenuAutor;
 import giis.demo.util.EntityAssembler;
 
 public class AutorController {
-
-    private int id_autor;
+	
+	private int id_autor;
     // private EditorView view; No hay vista todavía asi que esta todo comentado
     private AutorModel model;
     // private RevisionModel revisionModel;
@@ -28,17 +28,24 @@ public class AutorController {
     private MenuAutor view;
     private RevisorModel revisorModel;
     private UserModel userModel;
-
-    // public AutorController(AutorModel m, EditorView v) {
-    // this.model = m;
-    // this.view = v;
-    // no hay inicializacion especifica del modelo, solo de la vista
-    // this.initView();
-    // }
-
+	//private RevisorModel revisoresModel;
+	
+	//public AutorController(AutorModel m, EditorView v) {
+		//this.model = m;
+		//this.view = v;
+		//no hay inicializacion especifica del modelo, solo de la vista
+		//this.initView();
+	//}
+	
 	public AutorController() {
 		this.model = new AutorModel();
+		this.articuloModel = new ArticuloModel();
 		initView();
+	}
+	
+	public AutorController(boolean vista) {
+		this.model = new AutorModel();
+		this.articuloModel = new ArticuloModel();
 	}
     
     public AutorController(int id_autor) {
@@ -54,6 +61,7 @@ public class AutorController {
     private void initView() {
 	this.view = new MenuAutor(this, id_autor);
 	view.setVisible(true);
+	//view.setModal(true);
     }
 
     public List<ArticuloEntity> getArticulosPropios(int id) {
@@ -72,11 +80,6 @@ public class AutorController {
 
     public AutorEntity findById(int id) {
 	return EntityAssembler.toAutorEntity(model.findById(id));
-    }
-
-    public void getEnviarVersionDefinitiva(int id) {
-
-	model.enviarVersionDefinitiva(id);
     }
 
     public void crearBorrador(ArticuloDto articuloDto) {
@@ -144,13 +147,21 @@ public class AutorController {
 	for (ArticuloDeAutorDto id : ids) {
 	    autores.add(EntityAssembler.toAutorEntity(model.findById(id.getIdAutor())));
 	}
-
 	return autores;
     }
+	
+	public void getEnviarVersionDefinitiva(int id) {
+		
+		model.enviarVersionDefinitiva(id);
+	}
+	
+	public void editarArticulo(ArticuloDto articuloDto) {
+		articuloModel.update(articuloDto);
+	}
+	
+	public void modificarArticulo(ArticuloDto articuloDto) {
+		articuloModel.modificarArticulo(articuloDto);
 
-    public void modificarArticulo(ArticuloDto articuloDto) {
-	articuloModel.modificarArticulo(articuloDto);
-
-    }
+	    }
 
 }

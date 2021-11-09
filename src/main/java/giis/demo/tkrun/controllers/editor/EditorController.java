@@ -7,8 +7,6 @@ import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.models.revisor.RevisorModel;
-import giis.demo.tkrun.views.editor.EditorPrincipalView;
-import giis.demo.tkrun.views.editor.EditorView;
 import giis.demo.tkrun.views.editor.MenuEditor;
 import giis.demo.util.DtoMapper;
 import giis.demo.util.EntityAssembler;
@@ -16,22 +14,22 @@ import giis.demo.util.EntityAssembler;
 public class EditorController {
 
 	private MenuEditor principalView;
-	private EditorView view;
+	// private EditorView view;
 	private RevisionModel revisionModel;
 	private ArticuloModel articuloModel;
 	private RevisorModel revisoresModel;
 
-	
 	private void initView() {
 		this.principalView = new MenuEditor(this);
 		this.principalView.setVisible(true);
+		// this.principalView.setModal(true);
 	}
-	
+
 	public EditorController() {
 		this.revisionModel = new RevisionModel();
 		this.articuloModel = new ArticuloModel();
 		this.revisoresModel = new RevisorModel();
-		
+
 		initView();
 	}
 
@@ -39,7 +37,7 @@ public class EditorController {
 
 		return EntityAssembler.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
 	}
-	
+
 	public boolean asignarRevisoresAlArticulo(List<RevisorEntity> revisores, ArticuloEntity articulo, String fecha) {
 
 		// validaciones:
@@ -48,7 +46,7 @@ public class EditorController {
 		// model.asignarRevisores( DtoMapper.toRevisorDtoList(revisores), articulo);
 
 		generarRevisiones(revisores, articulo, fecha); // Generamos una revsion con los datos y enviamos el dto al model
-														// para añadirlo a la base de datos
+		// para añadirlo a la base de datos
 
 		cambiarEstadoArticuloEnRevision(articulo);// cambiar el estado del articulo
 
@@ -69,7 +67,12 @@ public class EditorController {
 			rev.setEstado(RevisorEntity.NO_DISPONIBLE);
 			revisoresModel.update(DtoMapper.toRevisorDto(rev));
 		}
+	}
 
+	public EditorController(boolean mostrarVista) {
+		this.revisionModel = new RevisionModel();
+		this.articuloModel = new ArticuloModel();
+		this.revisoresModel = new RevisorModel();
 	}
 
 	/**
@@ -105,20 +108,20 @@ public class EditorController {
 	public List<ArticuloEntity> getArticulosTomarDecision() {
 		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosTomarDecision());
 	}
-	
+
 	public void aceptarArticulo(ArticuloEntity articulo) {
 		articuloModel.aceptar(DtoMapper.toArticuloDto(articulo));
 	}
-	
+
 	public void rechazarArticulo(ArticuloEntity articulo) {
 		articuloModel.rechazar(DtoMapper.toArticuloDto(articulo));
 	}
-	
-	public List<ArticuloEntity> getArticulosFiltradoTitulo(String titulo){
+
+	public List<ArticuloEntity> getArticulosFiltradoTitulo(String titulo) {
 		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoTitulo(titulo));
 	}
-	
-	public List<ArticuloEntity> getArticulosFiltradoAutor(String autor){
+
+	public List<ArticuloEntity> getArticulosFiltradoAutor(String autor) {
 		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoAutor(autor));
-	}	
+	}
 }

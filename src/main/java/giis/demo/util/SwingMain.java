@@ -58,7 +58,8 @@ public class SwingMain {
 	    public void actionPerformed(ActionEvent e) {
 		// new EditorController(generarArticulo());
 		// new RevisorView(new RevisorController(1));
-		// new AutorView(new AutorController());
+		// new AutorView(new AutorController(),1);
+	    //	new RevisorDecisionRevisionesEncomendadas(new RevisorController());
 		// new EditorViewDecisionArticulo(new EditorController());
 		new UserController();
 	    }
