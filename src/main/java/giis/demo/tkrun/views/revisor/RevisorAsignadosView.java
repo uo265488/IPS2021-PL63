@@ -82,9 +82,10 @@ public class RevisorAsignadosView extends JDialog {
 
     private JButton getBtnRevisar() {
 	if (btnRevisar == null) {
-	    btnRevisar = new JButton("Revisar");
+	    btnRevisar = new JButton("Visualizar");
 	    btnRevisar.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
+
 		}
 	    });
 	    btnRevisar.setForeground(new Color(255, 255, 255));
@@ -95,21 +96,21 @@ public class RevisorAsignadosView extends JDialog {
 	return btnRevisar;
     }
 
-	private JComboBox<ArticuloEntity> getCmBoxArticulosAsigados() {
-		if (cmBoxArticulosAsigados == null) {
-			cmBoxArticulosAsigados = new JComboBox<ArticuloEntity>();
-			cmBoxArticulosAsigados.setBounds(38, 85, 205, 25);
-			setComboBoxModel();
-		}
-		return cmBoxArticulosAsigados;
+    private JComboBox<ArticuloEntity> getCmBoxArticulosAsigados() {
+	if (cmBoxArticulosAsigados == null) {
+	    cmBoxArticulosAsigados = new JComboBox<ArticuloEntity>();
+	    cmBoxArticulosAsigados.setBounds(38, 85, 205, 25);
+	    setComboBoxModel();
 	}
-	
-	private void setComboBoxModel() {
-		ArticuloEntity[] articulosEntity = new ArticuloEntity[articulosAsignados.size()]; 
-		for(int i = 0; i < articulosEntity.length; i++) {
-			articulosEntity[i] = articulosAsignados.get(i);
-		}
-		
-		getCmBoxArticulosAsigados().setModel(new DefaultComboBoxModel<ArticuloEntity>(articulosEntity));
+	return cmBoxArticulosAsigados;
+    }
+
+    private void setComboBoxModel() {
+	ArticuloEntity[] articulosEntity = new ArticuloEntity[articulosAsignados.size()];
+	for (int i = 0; i < articulosEntity.length; i++) {
+	    articulosEntity[i] = articulosAsignados.get(i);
 	}
+
+	getCmBoxArticulosAsigados().setModel(new DefaultComboBoxModel<ArticuloEntity>(articulosEntity));
+    }
 }
