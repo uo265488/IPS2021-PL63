@@ -11,24 +11,6 @@ import giis.demo.tkrun.models.dtos.RevisorDto;
 
 public class DtoMapper {
 
-	public static List<RevisorDto> toRevisorDtoList(List<RevisorEntity> revisores) {
-		List<RevisorDto> dtos = new ArrayList<>();
-		for (RevisorEntity rev : revisores) {
-			dtos.add(toRevisorDto(rev));
-		}
-		return dtos;
-	}
-
-	public static RevisorDto toRevisorDto(RevisorEntity rev) {
-		RevisorDto dto = new RevisorDto();
-
-		dto.setIdRevisor(rev.getId());
-		dto.setNombre(rev.getNombre());
-		dto.setEstado(rev.getEstado());
-
-		return dto;
-	}
-
 	public static ArticuloDto toArticuloDto(ArticuloEntity articulo) {
 		ArticuloDto dto = new ArticuloDto();
 
@@ -52,15 +34,34 @@ public class DtoMapper {
 		return dto;
 	}
 
-	public static RevisionDto toRevisionDto(RevisorEntity rev, ArticuloEntity articulo, String fecha) {
+	public static RevisionDto toRevisionDto(RevisorEntity rev, ArticuloEntity articulo, String fecha, String estado) {
 		RevisionDto dto = new RevisionDto();
 
 		dto.setIdArticulo(articulo.getIdArticulo());
 		dto.setIdRevisor(rev.getId());
 		dto.setFecha(fecha);
+		dto.setEstadoDeLaPropuesta(estado);
 
 		return dto;
 
+	}
+
+	public static RevisorDto toRevisorDto(RevisorEntity rev) {
+		RevisorDto dto = new RevisorDto();
+
+		dto.setIdRevisor(rev.getId());
+		dto.setNombre(rev.getNombre());
+		dto.setEstado(rev.getEstado());
+
+		return dto;
+	}
+
+	public static List<RevisorDto> toRevisorDtoList(List<RevisorEntity> revisores) {
+		List<RevisorDto> dtos = new ArrayList<>();
+		for (RevisorEntity rev : revisores) {
+			dtos.add(toRevisorDto(rev));
+		}
+		return dtos;
 	}
 
 }

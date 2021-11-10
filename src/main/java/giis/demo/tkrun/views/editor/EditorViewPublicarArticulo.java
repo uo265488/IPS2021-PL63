@@ -18,6 +18,11 @@ import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 
 public class EditorViewPublicarArticulo extends JDialog {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static boolean isNumeric(String cadena) {
 		try {
 			Integer.parseInt(cadena);
@@ -47,7 +52,7 @@ public class EditorViewPublicarArticulo extends JDialog {
 	 * dialog = new EditorViewPublicarArticulo();
 	 * dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	 * dialog.setVisible(true); } catch (Exception e) { e.printStackTrace(); } }/*
-	 * 
+	 *
 	 * /** Create the dialog.
 	 */
 	public EditorViewPublicarArticulo(EditorViewComentariosAutor ventanaAnterior, ArticuloEntity articulo) {
