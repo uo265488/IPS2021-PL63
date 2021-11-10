@@ -6,7 +6,7 @@ import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.util.Database;
 
 public class RevisorModel {
-	
+
 	private Database db = new Database();
 
 	/**
@@ -19,9 +19,9 @@ public class RevisorModel {
 		String sql = "update revisores set estado = ?, nombre = ? where idRevisor = ?";
 
 		db.executeUpdate(sql, revisorDto.getEstado(), revisorDto.getNombre(), revisorDto.getIdRevisor());
-		
+
 	}
-	
+
 	/**
 	 * Obtiene la lista de revisores disponibles en forma de objetos
 	 */
@@ -31,18 +31,24 @@ public class RevisorModel {
 
 		return db.executeQueryPojo(RevisorDto.class, sql);
 	}
-	
-	 public void sugerirRevisores(int id_articulo, RevisorDto revisor) {
-			String sql = "delete from sugerencias where idArticulo = ?";
-			db.executeUpdate(sql, id_articulo);
 
-			sql = "insert into sugerencias(idArticulo, idRevisor) values (?, ?)";
-			db.executeUpdate(sql, id_articulo, revisor.getIdRevisor());
-		    }
+	public void sugerirRevisores(int id_articulo, RevisorDto revisor) {
+		String sql = "delete from sugerencias where idArticulo = ?";
+		db.executeUpdate(sql, id_articulo);
 
-		    public void addRevisor(RevisorDto revisorDto) {
-			String sql = "insert into revisores values (?, ?, ?, ?, ?)";
-			db.executeUpdate(sql, revisorDto.getIdRevisor(), revisorDto.getNombre(), revisorDto.getEstado(),
+		sql = "insert into sugerencias(idArticulo, idRevisor) values (?, ?)";
+		db.executeUpdate(sql, id_articulo, revisor.getIdRevisor());
+	}
+
+	public void addRevisor(RevisorDto revisorDto) {
+		String sql = "insert into revisores values (?, ?, ?, ?, ?)";
+		db.executeUpdate(sql, revisorDto.getIdRevisor(), revisorDto.getNombre(), revisorDto.getEstado(),
 				revisorDto.getCorreo(), revisorDto.getEspecialidad());
-		    }
+	}
+
+	public RevisorDto findById(int idRevisor) {
+		String sql = "SELECT * from revisores where idRevisor=?";
+
+		return db.executeQueryPojo(RevisorDto.class, sql, idRevisor).get(0);
+	}
 }
