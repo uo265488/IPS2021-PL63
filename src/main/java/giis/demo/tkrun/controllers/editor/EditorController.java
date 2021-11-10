@@ -12,20 +12,18 @@ import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.models.revisor.RevisorModel;
 import giis.demo.tkrun.models.sugerencia.SugerenciaModel;
-import giis.demo.tkrun.views.editor.MenuEditor;
 import giis.demo.util.DtoMapper;
 import giis.demo.util.EntityAssembler;
 
 public class EditorController {
 
-	private MenuEditor principalView;
 	private RevisionModel revisionModel = new RevisionModel();
 	private ArticuloModel articuloModel = new ArticuloModel();
 	private RevisorModel revisoresModel = new RevisorModel();
 	private SugerenciaModel sugerenciaModel = new SugerenciaModel();
 
 	public EditorController() {
-		initView();
+
 	}
 
 	public EditorController(boolean mostrarVista) {
@@ -236,12 +234,6 @@ public class EditorController {
 			list.add(EntityAssembler.toRevisorEntity(revisoresModel.findById(dto.getIdRevisor())));
 		}
 		return list;
-	}
-
-	private void initView() {
-		this.principalView = new MenuEditor(this);
-		this.principalView.setVisible(true);
-		// this.principalView.setModal(true);
 	}
 
 	public void rechazarArticulo(ArticuloEntity articulo) {

@@ -14,11 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.autor.AutorController;
-import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.UserEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.controllers.user.UserController;
-import giis.demo.tkrun.views.editor.EditorPrincipalView;
+import giis.demo.tkrun.views.editor.MenuEditor;
 
 public class UserView extends JFrame {
 
@@ -32,6 +31,7 @@ public class UserView extends JFrame {
 	private JLabel lbLogin;
 	private JComboBox<UserEntity> cbUsers;
 	private JButton btnLogin;
+	private MenuEditor principalView;
 
 //	/**
 //	 * Launch the application.
@@ -116,8 +116,10 @@ public class UserView extends JFrame {
 	}
 
 	private void launchEditor() {
-		EditorPrincipalView vista = new EditorPrincipalView(new EditorController());
-		vista.setVisible(true);
+		this.principalView = new MenuEditor();
+		this.principalView.setVisible(true);
+		this.principalView.setLocationRelativeTo(this);
+		// this.principalView.setModal(true);
 
 	}
 

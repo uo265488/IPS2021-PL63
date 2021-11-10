@@ -20,7 +20,7 @@ import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 public class EditorViewPublicarArticulo extends JDialog {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -54,10 +54,11 @@ public class EditorViewPublicarArticulo extends JDialog {
 	 * dialog = new EditorViewPublicarArticulo();
 	 * dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	 * dialog.setVisible(true); } catch (Exception e) { e.printStackTrace(); } }/*
-	 * 
+	 *
 	 * /** Create the dialog.
 	 */
-	public EditorViewPublicarArticulo(EditorViewComentariosAutor ventanaAnterior, ArticuloEntity articulo, EditorController controller) {
+	public EditorViewPublicarArticulo(EditorViewComentariosAutor ventanaAnterior, ArticuloEntity articulo,
+			EditorController controller) {
 		this.artController = new ArticuloController();
 		this.ventanaAnterior = ventanaAnterior;
 		this.articulo = articulo;
@@ -108,16 +109,6 @@ public class EditorViewPublicarArticulo extends JDialog {
 			}
 		}
 	}
-	
-	private void publicarArticulo() {
-		if (checkTextFields()) {
-			artController.publicarArticulo(articulo, getTxtDOI().getText(), getTxtFecha().getText(), Integer.parseInt(getTxtVolumen().getText()));
-			JOptionPane.showMessageDialog(this, "articulo " + articulo.getTitulo() + "-" + articulo.getPrimerAutor() + " publicado correctamente");
-			this.setVisible(false);
-			this.dispose();
-		}
-	}
-	
 
 	private boolean checkTextFields() {
 		if (getTxtDOI().getText().trim().equals("")) {
@@ -194,6 +185,17 @@ public class EditorViewPublicarArticulo extends JDialog {
 			return true;
 		}
 		return false;
+	}
+
+	private void publicarArticulo() {
+		if (checkTextFields()) {
+			artController.publicarArticulo(articulo, getTxtDOI().getText(), getTxtFecha().getText(),
+					Integer.parseInt(getTxtVolumen().getText()));
+			JOptionPane.showMessageDialog(this,
+					"articulo " + articulo.getTitulo() + "-" + articulo.getPrimerAutor() + " publicado correctamente");
+			this.setVisible(false);
+			this.dispose();
+		}
 	}
 
 }
