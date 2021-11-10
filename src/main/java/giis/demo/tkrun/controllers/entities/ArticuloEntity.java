@@ -8,6 +8,9 @@ public class ArticuloEntity {
 	public static String ACEPTADO = "aceptado";
 	public static final String EN_REVISION = "en revision";
 	public static final String PUBLICADO = "publicado";
+	public static final String ACEPTADO_CAMBIOS_MENORES = "aceptado con cambios menores";
+	public static final String ACEPTADO_CAMBIOS_MAYORES = "aceptado con cambios mayores";
+	
 	private int idArticulo;
 	private String titulo;
 	private String primerAutor;

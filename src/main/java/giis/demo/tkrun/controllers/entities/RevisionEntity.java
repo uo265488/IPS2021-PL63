@@ -15,6 +15,7 @@ public class RevisionEntity {
 	private String decision;
 	private boolean enviarAlEditor;
 	private String estadoDeLaPropuesta;
+	private int numeroRevision;
 
 //	private boolean decisionArticulo;
 //	private boolean decisionTomada;
@@ -95,6 +96,14 @@ public class RevisionEntity {
 		this.idRevisor = idRevisor;
 	}
 
+	
+	public int getNumeroRevision() {
+		return numeroRevision;
+	}
+	public void setNumeroRevision(int numeroRevision) {
+		this.numeroRevision = numeroRevision;
+	}
+	
 	@Override
 	public String toString() {
 		return "RevisionEntity [idArticulo=" + idArticulo + ", idRevisor=" + idRevisor + ", fecha=" + fecha

@@ -14,12 +14,13 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.articulo.ArticuloController;
+import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 
 public class EditorViewPublicarArticulo extends JDialog {
 
 	/**
-	 *
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -43,6 +44,7 @@ public class EditorViewPublicarArticulo extends JDialog {
 	private ArticuloEntity articulo;
 
 	private EditorViewComentariosAutor ventanaAnterior;
+	private EditorController controller;
 
 	/**
 	 * Launch the application.
@@ -52,13 +54,14 @@ public class EditorViewPublicarArticulo extends JDialog {
 	 * dialog = new EditorViewPublicarArticulo();
 	 * dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	 * dialog.setVisible(true); } catch (Exception e) { e.printStackTrace(); } }/*
-	 *
+	 * 
 	 * /** Create the dialog.
 	 */
-	public EditorViewPublicarArticulo(EditorViewComentariosAutor ventanaAnterior, ArticuloEntity articulo) {
+	public EditorViewPublicarArticulo(EditorViewComentariosAutor ventanaAnterior, ArticuloEntity articulo, EditorController controller) {
 		this.artController = new ArticuloController();
 		this.ventanaAnterior = ventanaAnterior;
 		this.articulo = articulo;
+		this.controller = controller;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		getContentPane().setBackground(Color.WHITE);
 		setBackground(Color.WHITE);
@@ -105,6 +108,16 @@ public class EditorViewPublicarArticulo extends JDialog {
 			}
 		}
 	}
+	
+	private void publicarArticulo() {
+		if (checkTextFields()) {
+			artController.publicarArticulo(articulo, getTxtDOI().getText(), getTxtFecha().getText(), Integer.parseInt(getTxtVolumen().getText()));
+			JOptionPane.showMessageDialog(this, "articulo " + articulo.getTitulo() + "-" + articulo.getPrimerAutor() + " publicado correctamente");
+			this.setVisible(false);
+			this.dispose();
+		}
+	}
+	
 
 	private boolean checkTextFields() {
 		if (getTxtDOI().getText().trim().equals("")) {
@@ -183,15 +196,4 @@ public class EditorViewPublicarArticulo extends JDialog {
 		return false;
 	}
 
-	private void publicarArticulo() {
-		if (checkTextFields()) {
-			artController.publicarArticulo(articulo, getTxtDOI().getText(), getTxtFecha().getText(),
-					Integer.parseInt(getTxtVolumen().getText()));
-			JOptionPane.showMessageDialog(this,
-					"articulo " + articulo.getTitulo() + "-" + articulo.getPrimerAutor() + " publicado correctamente");
-			this.setVisible(false);
-			this.ventanaAnterior.disposeComentarioAutorWindow();
-			this.dispose();
-		}
-	}
 }

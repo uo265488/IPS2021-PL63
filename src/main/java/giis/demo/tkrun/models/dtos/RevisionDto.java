@@ -2,18 +2,22 @@ package giis.demo.tkrun.models.dtos;
 
 public class RevisionDto {
 
-	public static final String RECHAZADA = "RECHAZADA";
-	public static final String ACEPTADA = "ACEPTADA";
-	public static final String PENDIENTE = "PENDIENTE";
-
+	public static String PENDIENTE = "PENDIENTE";
+	public static String ACEPTADA = "ACEPTADA";
+	public static String RECHAZADA = "RECHAZADA";
 	private int idRevisor;
 	private int idArticulo;
 	private String fecha;
 	private String comentariosAutor;
 	private String comentariosEditor;
-	private String decision;
-	private boolean enviarAlEditor;
 
+	private String decision;
+
+	private boolean enviarAlEditor;
+	private int numeroRevision;
+//
+//	private boolean decisionArticulo;
+//	private boolean decisionTomada;
 	private String estadoDeLaPropuesta;
 
 	public String getComentariosAutor() {
@@ -42,6 +46,10 @@ public class RevisionDto {
 
 	public int getIdRevisor() {
 		return idRevisor;
+	}
+
+	public int getNumeroRevision() {
+		return numeroRevision;
 	}
 
 	public boolean isEnviarAlEditor() {
@@ -79,5 +87,21 @@ public class RevisionDto {
 	public void setIdRevisor(int idRevisor) {
 		this.idRevisor = idRevisor;
 	}
+
+	public void setNumeroRevision(int numeroRevision) {
+		this.numeroRevision = numeroRevision;
+	}
+//	public boolean isDecisionArticulo() {
+//		return decisionArticulo;
+//	}
+//	public void setDecisionArticulo(boolean decisionArticulo) {
+//		this.decisionArticulo = decisionArticulo;
+//	}
+//	public boolean isDecisionTomada() {
+//		return decisionTomada;
+//	}
+//	public void setDecisionTomada(boolean decisionTomada) {
+//		this.decisionTomada = decisionTomada;
+//	}
 
 }

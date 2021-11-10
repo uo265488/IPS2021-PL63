@@ -38,6 +38,7 @@ public class DetallesMasImportantesArticulo extends JDialog {
 	 */
 	public DetallesMasImportantesArticulo(ArticuloEntity art, String fecha) {
 		setTitle("Detalles Artículo Revisor");
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.fecha = fecha;
 		this.articulo = art;
 		setBounds(100, 100, 685, 539);

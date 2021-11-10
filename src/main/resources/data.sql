@@ -2,10 +2,10 @@
 
 delete from sugerencias;
 insert into sugerencias (idArticulo, idRevisor) values
-    (20, 20),  
-    (20, 21),
-    (22, 22),
-    (16, 13);
+    (16, 13),
+    (9, 4),
+    (13, 2),
+    (16, 12);
 	
 delete from revisores;
 insert into revisores(idRevisor,nombre,estado, correo, especialidad) values 
@@ -21,10 +21,10 @@ insert into revisores(idRevisor,nombre,estado, correo, especialidad) values
 	
 delete from autores;
 insert into autores(idAutor,nombre,dni) values 
-	(4,'antonio','435135'),
-	(5,'lucia','156723'),
-	(6,'ariadna','810582'),
-	(2, 'Hugo', '3647867');
+	(8,'antonio','435135'),
+	(9,'lucia','156723'),
+	(10,'ariadna','810582'),
+	(11, 'hugo', '364786');
 	
 delete from articulos;
 insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV, firma, vecesRevisado, versionDefinitiva) values 
@@ -38,33 +38,21 @@ insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave
 	(14,'Volcan de la Palma','hugo','en revision', 'el volcan no cesa', 'geología, volcan', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
 	(15,'La luz no para de subir','ariadna','en revision', 'otro máximo histórico de la luz en España', 'luz, máximo, economía', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
 	(16,'Violencia en los colegios', 'lucia','con el editor','la violecia es cada vez más preocupente en los colegios','violencia, colegios','FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
-	
+	(17,'Hola','hugo','borrador','','','','','',false, 0, false),
+		
 	(101, 'Articulo sin asginar para rechazar', 'Oscar', 'con el editor', 'si', 'no', 'fichero', 'presentacion', 'cv', false, 0, false);
 
 delete from autoresSecundarios;
 insert into autoresSecundarios(idArticulo, idAutor) values
-	(7,4),
-	(8,5),
-	(8,4),
-	(9,6),
-	(10,6),
-	(11,6),
-	(12,4),
-	(13,5);
-	
-delete from articulosDeAutores;
-insert into articulosDeAutores(idArticulo, idAutor) values
-	(7,4),
-	(8,5),
-	(8,4),
-	(9,6),
-	(10,6),
-	(11,6),
-	(12,4),
-	(13,5),
-	(14,2),
-	(15,6),
-	(16,5);
+	(7,8),
+	(8,9),
+	(8,8),
+	(9,10),
+	(10,10),
+	(11,10),
+	(12,8),
+	(13,9),
+	(17, 11);
 	
 delete from revisiones;
 insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, comentariosAutor, comentariosEditor, decision, enviarAlEditor, estadoDeLaPropuesta) values
@@ -99,6 +87,16 @@ insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, comentarios
 	
 delete from usuarios;
 insert into usuarios (idUsuario, nombre, tipoUsuario) values
-	(1, 'Alex', 'Editor'),
-	(2, 'Hugo', 'Autor'),
-	(3, 'Oscar', 'Revisor');
+	(0, 'Alex', 'Editor'),
+	(1, 'felipe', 'Revisor'),
+	(2, 'ernesto', 'Revisor'),
+	(3,'maria', 'Revisor'),
+	(4,'carmen', 'Revisor'),
+	(5,'pablo', 'Revisor'),
+	(6,'julio','Revisor'),
+	(7,'ruben', 'Revisor'),
+	(12, 'Oscar', 'Revisor'),
+	(8,'antonio', 'Autor'),
+	(9,'lucia', 'Autor'),
+	(10,'ariadna', 'Autor'),
+	(11, 'Hugo', 'Autor');

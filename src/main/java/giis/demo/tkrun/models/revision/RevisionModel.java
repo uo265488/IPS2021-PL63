@@ -3,6 +3,7 @@ package giis.demo.tkrun.models.revision;
 import java.util.List;
 import java.util.Optional;
 
+import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
@@ -42,9 +43,9 @@ public class RevisionModel {
 	public void decisionArticulo(int idRev, int idArt, boolean condicion) {
 		String decision = "";
 		if (condicion) {
-			decision = "'ACEPTADO'";
+			decision = RevisionEntity.ACEPTADA;
 		} else {
-			decision = "'RECHAZADO'";
+			decision = RevisionEntity.RECHAZADA;
 		}
 		String sql = "update revisiones set estadoDeLaPropuesta = ? where idArticulo = ? and idRevisor = ?";
 
@@ -57,16 +58,6 @@ public class RevisionModel {
 		return db.executeQueryPojo(RevisionDto.class, sql);
 	}
 
-	/*
-	 * public void add(RevisionDto revisionDto) { String sql =
-	 * "insert into revisiones(revisor_id, articulo_id, fecha) values (?,?,?)";
-	 *
-	 * db.executeQueryPojo(RevisorDto.class, sql, revisionDto.getRevisor().getId(),
-	 * revisionDto.getArticulo().getIdArticulo(), revisionDto.getFecha());
-	 *
-	 * }
-	 */
-
 	public RevisorDto findById(int id) {
 		String sql = "select * from revisores where idRevisor = ?";
 		List<RevisorDto> revisores = db.executeQueryPojo(RevisorDto.class, sql, id);
@@ -77,6 +68,16 @@ public class RevisionModel {
 			return revisores.get(0);
 		}
 	}
+
+	/*
+	 * public void add(RevisionDto revisionDto) { String sql =
+	 * "insert into revisiones(revisor_id, articulo_id, fecha) values (?,?,?)";
+	 *
+	 * db.executeQueryPojo(RevisorDto.class, sql, revisionDto.getRevisor().getId(),
+	 * revisionDto.getArticulo().getIdArticulo(), revisionDto.getFecha());
+	 *
+	 * }
+	 */
 
 	/**
 	 * Encuentra revisiones en funcion del idArticulo
@@ -126,6 +127,13 @@ public class RevisionModel {
 		return db.executeQueryPojo(SugerenciaDto.class, sql, idArticulo);
 	}
 
+	public void generarSegundaRevision(int idArticulo, int idRevisor, String fecha) {
+		String sql = "insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, estadoDeLaPropuesta) values (?,?,?,?,?)";
+
+		db.executeUpdate(sql, idArticulo, idRevisor, 2, fecha, "ACEPTADO");
+
+	}
+
 	/**
 	 * Obtiene todas las revisiones hechas sobre un articulo
 	 *
@@ -159,6 +167,12 @@ public class RevisionModel {
 
 	}
 
+	public List<RevisionDto> getRevisionesArticuloDeUnRevisor(int idArticulo, int idRevisor) {
+		String sql = "select * from revisiones where idArticulo=? and idRevisor=?";
+
+		return db.executeQueryPojo(RevisionDto.class, sql, idArticulo, idRevisor);
+	}
+
 	public List<RevisionDto> getRevisionesAsignadasDeUnArticulo(int idArticulo) {
 		String sql = "select * from revisiones where estadoDeLaPropuesta='" + RevisionDto.ACEPTADA
 				+ "' and idArticulo=?";
@@ -179,11 +193,23 @@ public class RevisionModel {
 		return db.executeQueryPojo(RevisionDto.class, sql, articulo.getIdArticulo());
 	}
 
+	public List<RevisionDto> getRevisionesFiltradoNumeroRevision(int idArticulo, int numeroRevision) {
+		String sql = "select * from revisiones where idArticulo=? and numeroRevision=?";
+
+		return db.executeQueryPojo(RevisionDto.class, sql, idArticulo, numeroRevision);
+	}
+
 	public List<RevisionDto> getRevisionesPendientesDeUnArticulo(int idArticulo) {
 		String sql = "select * from revisiones where estadoDeLaPropuesta='" + RevisionDto.PENDIENTE
 				+ "' and idArticulo=?";
 
 		return db.executeQueryPojo(RevisionDto.class, sql, idArticulo);
+	}
+
+	public List<RevisionDto> getRevisionPorNumeroRevision(int idArticulo, int idRevisor, int numeroRevision) {
+		String sql = "select * from revisiones where idArticulo=? and idRevisor=? and numeroRevision=?";
+
+		return db.executeQueryPojo(RevisionDto.class, sql, idArticulo, idRevisor, numeroRevision);
 	}
 
 	public List<RevisionDto> numeroRevisiones(int idRev, int idArt) {

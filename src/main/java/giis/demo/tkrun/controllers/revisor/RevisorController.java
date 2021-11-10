@@ -13,7 +13,7 @@ import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.models.revisor.RevisorModel;
-import giis.demo.tkrun.views.revisor.RevisorAsignadosView;
+import giis.demo.tkrun.views.revisor.RevisorMenu;
 import giis.demo.util.EntityAssembler;
 
 public class RevisorController {
@@ -23,7 +23,7 @@ public class RevisorController {
 	// private RevisionModel revisionModel;
 	private ArticuloModel articuloModel;
 	private RevisorModel revisoresModel;
-	private RevisorAsignadosView rav;
+	private RevisorMenu rm;
 	private int idRevisor;
 
 	// public AutorController(AutorModel m, EditorView v) {
@@ -129,9 +129,8 @@ public class RevisorController {
 	}
 
 	private void initView() {
-
-		rav = new RevisorAsignadosView(this, idRevisor);
-		rav.setVisible(true);
+		rm = new RevisorMenu(idRevisor, this);
+		rm.setVisible(true);
 
 	}
 

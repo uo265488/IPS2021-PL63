@@ -2,6 +2,7 @@ package giis.demo.tkrun.views.editor;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,17 +20,32 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import giis.demo.tkrun.controllers.articulo.ArticuloController;
+import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
+import giis.demo.tkrun.controllers.entities.RevisorEntity;
+
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.JTextArea;
+import javax.swing.border.LineBorder;
+import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EditorViewComentariosAutor extends JDialog {
-
+	
 	/**
-	 *
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final String PUBLICAR = "Publicar";
 	private static final String ACEPTAR = "Aceptar";
+	private static final String ACEPTAR_CAMBIOS_MENORES = "Aceptar con cambios menores";
+	private static final String ACEPTAR_CAMBIOS_MAYORES = "Aceptar con cambios mayores";
 	private static final String RECHAZAR = "Rechazar";
 
 	private final JPanel contentPanel = new JPanel();
@@ -39,38 +55,31 @@ public class EditorViewComentariosAutor extends JDialog {
 	private JLabel lblComentariosAutor;
 	private JTextArea txtComentariosRevisiones;
 	private JLabel lblDecision;
-	private JRadioButton rdBtnPublicar;
+	private JRadioButton rdBtnAceptarCambiosMayores;
 	private JRadioButton rdBtnAceptar;
 	private JRadioButton rdBtnRechazar;
 	private JTextArea txtComentarios;
 	private JLabel lblComentariosDecision;
-	private EditorViewComentariosArticulo comentariosView;
 	private ButtonGroup decisiones;
+	private JRadioButton rdBtnAceptarCambiosMenores;
+	private EditorController controller;
 
-	/**
-	 * Launch the application.
-	 */
-	/*
-	 * public static void main(String[] args) { try { EditorViewComentariosAutor
-	 * dialog = new EditorViewComentariosAutor();
-	 * dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	 * dialog.setVisible(true); } catch (Exception e) { e.printStackTrace(); } }
-	 */
 
 	/**
 	 * Create the dialog.
 	 */
-	public EditorViewComentariosAutor(List<RevisionEntity> revisiones, ArticuloEntity articulo,
-			EditorViewComentariosArticulo comentariosView) {
+	public EditorViewComentariosAutor( ArticuloEntity articulo, EditorController controller) {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		getContentPane().setBackground(Color.WHITE);
-		this.revisiones = revisiones;
+
+		this.revisiones = controller.getRevisionesFiltradas(articulo.getIdArticulo(), (articulo.getVecesRevisado() +1));
 		this.articulo = articulo;
+		this.controller = controller;
 		this.artController = new ArticuloController();
-		this.comentariosView = comentariosView;
 		setTitle("Enviar comentarios al autor");
-		setBounds(100, 100, 550, 509);
+		setBounds(100, 100, 680, 509);
 		getContentPane().setLayout(null);
-		contentPanel.setBounds(0, 0, 534, 400);
+		contentPanel.setBounds(0, 0, 664, 400);
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
@@ -78,23 +87,23 @@ public class EditorViewComentariosAutor extends JDialog {
 		contentPanel.add(getLblComentariosAutor());
 		contentPanel.add(getTxtComentariosRevisiones());
 		contentPanel.add(getLblDecision());
-		contentPanel.add(getRdBtnPublicar());
+		contentPanel.add(getRdBtnAceptarCambiosMayores());
 		contentPanel.add(getRdBtnAceptar());
 		contentPanel.add(getRdBtnRechazar());
 		agruparButtons();
-
+		
 		contentPanel.add(getTxtComentarios());
 		contentPanel.add(getLblComentariosDecision());
+		contentPanel.add(getRdBtnAceptarCambiosMenores());
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBounds(0, 411, 534, 48);
+			buttonPane.setBounds(0, 411, 654, 48);
 			buttonPane.setBackground(Color.WHITE);
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane);
 			{
 				JButton btnEnviar = new JButton("Enviar");
 				btnEnviar.addActionListener(new ActionListener() {
-					@Override
 					public void actionPerformed(ActionEvent arg0) {
 						enviarDecision();
 					}
@@ -105,60 +114,68 @@ public class EditorViewComentariosAutor extends JDialog {
 				buttonPane.add(btnEnviar);
 				getRootPane().setDefaultButton(btnEnviar);
 			}
-			{
-				JButton btnCancelar = new JButton("Cancelar");
-				btnCancelar.setForeground(new Color(255, 255, 255));
-				btnCancelar.setBackground(new Color(255, 0, 0));
-				btnCancelar.setActionCommand("Cancel");
-				buttonPane.add(btnCancelar);
-			}
 		}
 	}
-
-	private void agruparButtons() {
-		decisiones = new ButtonGroup();
-		decisiones.add(getRdBtnPublicar());
-		decisiones.add(getRdBtnAceptar());
-		decisiones.add(getRdBtnRechazar());
-	}
-
-	public void disposeComentarioAutorWindow() {
-		this.comentariosView.dispose();
-		this.dispose();
-	}
-
-	private void enviarCartaDecision(String nuevoEstado) {
-		artController.enviarDecision(articulo, nuevoEstado);
-		JOptionPane.showMessageDialog(this, articulo.getCartaDecision() + " enviada correctamente");
-		this.setVisible(false);
-		comentariosView.setVisible(false);
-		this.dispose();
-		comentariosView.dispose();
-	}
-
+	
 	/**
-	 * Envia la carta de decision con la decision y revisiones al autor si el
-	 * articulo es aceptado o rechazado, o publica el articulo directamente
-	 * Dependiendo de la opcion seleccionada cambia el estado del articulo a
-	 * PUBLICADO, ACEPTADO o RECHAZADO
+	 * Envia la carta de decision con la decision y revisiones al autor si el articulo es aceptado o rechazado,
+	 * o publica el articulo directamente 
+	 * Dependiendo de la opcion seleccionada cambia el estado del articulo a PUBLICADO, ACEPTADO o RECHAZADO
 	 */
 	private void enviarDecision() {
 		switch (decisiones.getSelection().getActionCommand()) {
-		case PUBLICAR: {
-			publicarArticulo();
+		case PUBLICAR: {publicarArticulo(); break;}
+		case ACEPTAR_CAMBIOS_MENORES:{
+			enviarCartaDecision(ArticuloEntity.ACEPTADO_CAMBIOS_MENORES);
+			JOptionPane.showMessageDialog(this, articulo.getCartaDecision() + " enviada correctamente");
 			break;
-		}
+			}
+		case ACEPTAR_CAMBIOS_MAYORES:{	
+			crearVentanaAsignarFechas();
+			enviarCartaDecision(ArticuloEntity.ACEPTADO_CAMBIOS_MAYORES);			 
+			break;
+			}
 		case ACEPTAR: {
-			enviarCartaDecision(ArticuloEntity.ACEPTADO);
+			enviarCartaDecision(ArticuloEntity.ACEPTADO); 
+			JOptionPane.showMessageDialog(this, articulo.getCartaDecision() + " enviada correctamente");
 			break;
-		}
-		case RECHAZAR: {
+			}
+		case RECHAZAR: { 			
+			crearVentanaAsignarFechas();
 			enviarCartaDecision(ArticuloEntity.RECHAZADO);
 			break;
-		}
+			}
 		}
 	}
-
+	
+	private void crearVentanaAsignarFechas() {
+		if (articulo.getVecesRevisado() < 1) {
+			this.setVisible(false);
+			this.dispose();
+			List<RevisorEntity> revisores = controller.getRevisoresAsignados(articulo);
+			RevisorEntity revisor1 = revisores.get(0);
+			RevisorEntity revisor2 = revisores.get(1);
+			RevisorEntity revisor3 = revisores.get(2);
+			EditorAsignarFechasSegundaRevision ventana = new EditorAsignarFechasSegundaRevision(controller, articulo, revisor1, revisor2,revisor3);
+			ventana.setVisible(true);
+			ventana.setLocationRelativeTo(this);
+			ventana.setModal(true);
+		}
+		
+	}
+	
+	private void publicarArticulo() {
+		EditorViewPublicarArticulo ventanaPublicarArticulo = new EditorViewPublicarArticulo(this, this.articulo, controller);
+		ventanaPublicarArticulo.setModal(true);
+		ventanaPublicarArticulo.setLocationRelativeTo(this);
+		ventanaPublicarArticulo.setVisible(true);
+	}
+	
+	private void enviarCartaDecision(String nuevoEstado) {
+		artController.enviarDecision(articulo, nuevoEstado);
+		this.setVisible(false);
+		this.dispose();
+	}
 	private JLabel getLblComentariosAutor() {
 		if (lblComentariosAutor == null) {
 			lblComentariosAutor = new JLabel("Comentarios al autor:");
@@ -167,16 +184,26 @@ public class EditorViewComentariosAutor extends JDialog {
 		}
 		return lblComentariosAutor;
 	}
-
-	private JLabel getLblComentariosDecision() {
-		if (lblComentariosDecision == null) {
-			lblComentariosDecision = new JLabel("Comentarios de la decision:");
-			lblComentariosDecision.setFont(new Font("Tahoma", Font.PLAIN, 13));
-			lblComentariosDecision.setBounds(10, 304, 186, 19);
+	private JTextArea getTxtComentariosRevisiones() {
+		if (txtComentariosRevisiones == null) {
+			txtComentariosRevisiones = new JTextArea();
+			txtComentariosRevisiones.setBorder(new LineBorder(new Color(0, 0, 0)));
+			txtComentariosRevisiones.setEditable(false);
+			txtComentariosRevisiones.setBounds(10, 42, 644, 201);
+			setTxtComentariosRevisores();
 		}
-		return lblComentariosDecision;
+		return txtComentariosRevisiones;
 	}
-
+	
+	private void setTxtComentariosRevisores() {
+		String text = "";
+		int iterator = 1;
+		for (RevisionEntity rev : revisiones) {
+			text += "Revision " + iterator + ": \n" + rev.getComentariosAutor() +"\n\n";
+			iterator++;
+		}
+		getTxtComentariosRevisiones().setText(text);
+	}
 	private JLabel getLblDecision() {
 		if (lblDecision == null) {
 			lblDecision = new JLabel("Decision:");
@@ -185,80 +212,76 @@ public class EditorViewComentariosAutor extends JDialog {
 		}
 		return lblDecision;
 	}
-
+	private JRadioButton getRdBtnAceptarCambiosMayores() {
+		if (rdBtnAceptarCambiosMayores == null) {
+			rdBtnAceptarCambiosMayores = new JRadioButton("Aceptar con cambios mayores");
+			rdBtnAceptarCambiosMayores.setActionCommand(ACEPTAR_CAMBIOS_MAYORES);
+			rdBtnAceptarCambiosMayores.setBackground(Color.WHITE);
+			rdBtnAceptarCambiosMayores.setBounds(319, 274, 207, 23);
+			rdBtnAceptarCambiosMayores.setEnabled(isPrimeraRevision());
+		}
+		return rdBtnAceptarCambiosMayores;
+	}
 	private JRadioButton getRdBtnAceptar() {
 		if (rdBtnAceptar == null) {
 			rdBtnAceptar = new JRadioButton(ACEPTAR);
+			rdBtnAceptar.setSelected(true);
 			rdBtnAceptar.setActionCommand(ACEPTAR);
 			rdBtnAceptar.setBackground(Color.WHITE);
-			rdBtnAceptar.setBounds(95, 274, 100, 23);
-			setEnabledRdBtnEnviarCambios();
+			rdBtnAceptar.setBounds(20, 274, 83, 23);
 		}
 		return rdBtnAceptar;
-	}
-
-	private JRadioButton getRdBtnPublicar() {
-		if (rdBtnPublicar == null) {
-			rdBtnPublicar = new JRadioButton(PUBLICAR);
-			rdBtnPublicar.setActionCommand(PUBLICAR);
-			rdBtnPublicar.setSelected(true);
-			rdBtnPublicar.setBackground(Color.WHITE);
-			rdBtnPublicar.setBounds(10, 274, 83, 23);
-		}
-		return rdBtnPublicar;
 	}
 
 	private JRadioButton getRdBtnRechazar() {
 		if (rdBtnRechazar == null) {
 			rdBtnRechazar = new JRadioButton(RECHAZAR);
-			rdBtnRechazar.setActionCommand("Rechazar");
+			rdBtnRechazar.setActionCommand(RECHAZAR);
 			rdBtnRechazar.setBackground(Color.WHITE);
-			rdBtnRechazar.setBounds(197, 274, 109, 23);
+			rdBtnRechazar.setBounds(528, 274, 92, 23);
 		}
 		return rdBtnRechazar;
 	}
-
+	
+	private void  agruparButtons() {
+		decisiones = new ButtonGroup();
+		decisiones.add(getRdBtnAceptarCambiosMayores());
+		decisiones.add(getRdBtnAceptar());
+		decisiones.add(getRdBtnRechazar());
+	}
 	private JTextArea getTxtComentarios() {
 		if (txtComentarios == null) {
 			txtComentarios = new JTextArea();
 			txtComentarios.setBorder(new LineBorder(new Color(0, 0, 0)));
-			txtComentarios.setBounds(10, 331, 514, 58);
+			txtComentarios.setBounds(10, 331, 644, 58);
 		}
 		return txtComentarios;
 	}
-
-	private JTextArea getTxtComentariosRevisiones() {
-		if (txtComentariosRevisiones == null) {
-			txtComentariosRevisiones = new JTextArea();
-			txtComentariosRevisiones.setBorder(new LineBorder(new Color(0, 0, 0)));
-			txtComentariosRevisiones.setEditable(false);
-			txtComentariosRevisiones.setBounds(10, 42, 514, 201);
-			setTxtComentariosRevisores();
+	private JLabel getLblComentariosDecision() {
+		if (lblComentariosDecision == null) {
+			lblComentariosDecision = new JLabel("Comentarios de la decision:");
+			lblComentariosDecision.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			lblComentariosDecision.setBounds(10, 304, 186, 19);
 		}
-		return txtComentariosRevisiones;
+		return lblComentariosDecision;
 	}
-
-	private void publicarArticulo() {
-		EditorViewPublicarArticulo ventanaPublicarArticulo = new EditorViewPublicarArticulo(this, this.articulo);
-		ventanaPublicarArticulo.setModal(true);
-		ventanaPublicarArticulo.setLocationRelativeTo(this);
-		ventanaPublicarArticulo.setVisible(true);
-	}
-
-	private void setEnabledRdBtnEnviarCambios() {
-		if (articulo.getVecesRevisado() > 1) {
-			getRdBtnAceptar().setEnabled(false);
-		} else {
-			getRdBtnAceptar().setEnabled(true);
+	
+	private boolean isPrimeraRevision() {
+		for (RevisionEntity revision : revisiones) {
+			if (revision.getNumeroRevision() > 1) {
+				return false;
+			}
 		}
+		return true;
 	}
-
-	private void setTxtComentariosRevisores() {
-		String text = "";
-		int iterator = 1;
-		for (RevisionEntity rev : revisiones) {
-			text += "Revision " + iterator + ": \n" + rev.getComentariosAutor() + "\n\n";
+	private JRadioButton getRdBtnAceptarCambiosMenores() {
+		if (rdBtnAceptarCambiosMenores == null) {
+			rdBtnAceptarCambiosMenores = new JRadioButton("Aceptar con cambios menores");
+			rdBtnAceptarCambiosMenores.setBackground(Color.WHITE);
+			rdBtnAceptarCambiosMenores.setActionCommand(ACEPTAR_CAMBIOS_MENORES);
+			rdBtnAceptarCambiosMenores.setBounds(110, 274, 207, 23);
+			rdBtnAceptarCambiosMenores.setEnabled(isPrimeraRevision());
 		}
-		getTxtComentariosRevisiones().setText(text);
+		return rdBtnAceptarCambiosMenores;
 	}
 }

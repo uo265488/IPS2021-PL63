@@ -62,7 +62,7 @@ public class AutorEditarArticuloView extends JDialog {
 //	}
 	
 	public AutorEditarArticuloView(ArticuloEntity articulo) {
-		this.autorController = new AutorController();
+		this.autorController = new AutorController(false);
 		this.articulo = articulo;
 		initialize();
 	}

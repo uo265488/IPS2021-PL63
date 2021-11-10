@@ -15,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -73,9 +72,17 @@ public class AutorView extends JDialog {
 
 	/**
 	 * Create the frame.
+	 * 
+	 * @wbp.parser.constructor
 	 */
 	public AutorView(AutorController controller, int id_autor) {
 		this.controller = controller;
+		this.id_autor = id_autor;
+		inicialize();
+	}
+
+	public AutorView(int id_autor) {
+		this.controller = new AutorController(false);
 		this.id_autor = id_autor;
 		inicialize();
 	}
@@ -172,9 +179,7 @@ public class AutorView extends JDialog {
 			btnEnviarArticulo.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if (!getChCopy().isSelected()) {
-						JOptionPane.showMessageDialog(null, "Tiene que confirmar la firma de CopyRight");
-					} else {
+					if (getChCopy().isSelected()) {
 						ArticuloEntity articulo = (ArticuloEntity) getCbArticulosSinPublicar().getSelectedItem();
 						if (articulo != null) {
 							controller.getEnviarVersionDefinitiva(articulo.getIdArticulo());
@@ -313,7 +318,7 @@ public class AutorView extends JDialog {
 	}
 
 	private void inicialize() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 		setBounds(100, 100, 1174, 586);
 		setTitle("Vista de Autor");
 		contentPane = new JPanel();
@@ -357,18 +362,13 @@ public class AutorView extends JDialog {
 	private void modificarArticulo() {
 		ArticuloEntity articulo = getListArticulos().getSelectedValue();
 
-		// TEST
-		System.out.println(id_autor);
-
 		ArticuloCambiosView acw = new ArticuloCambiosView(articulo, id_autor);
 		acw.setVisible(true);
-		acw.setModal(true);
 	}
 
 	private void modificarBorrador() {
 		AutorCreacionView ver = new AutorCreacionView(controller, id_autor, getListArticulos().getSelectedValue());
 		ver.setVisible(true);
-		ver.setModal(true);
 	}
 
 	private void mostrarVentanaVisualizacion() {

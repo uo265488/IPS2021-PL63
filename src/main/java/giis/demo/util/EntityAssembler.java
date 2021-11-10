@@ -134,6 +134,7 @@ public class EntityAssembler {
 		return ents;
 	}
 
+
 	private static SugerenciaEntity toSugerenciaEntity(SugerenciaDto dto) {
 		SugerenciaEntity ent = new SugerenciaEntity();
 		ent.setIdArticulo(dto.getIdArticulo());

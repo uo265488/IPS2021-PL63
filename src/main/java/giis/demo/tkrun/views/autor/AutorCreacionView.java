@@ -326,7 +326,6 @@ public class AutorCreacionView extends JDialog {
 	    btnBorrador.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    crearBorrador();
-		    dispose();
 		}
 	    });
 	    btnBorrador.setMnemonic('B');
@@ -345,7 +344,7 @@ public class AutorCreacionView extends JDialog {
 			enviarARevista();
 			dispose();
 		    } else {
-			JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos");
+			JOptionPane.showMessageDialog(getContentPane(), "Todos los campos deben estar completos");
 		    }
 		}
 	    });
@@ -373,6 +372,8 @@ public class AutorCreacionView extends JDialog {
 	articuloDto.setFecha("");
 	articuloDto.setVolumen(0);
 
+	System.out.println(posibleBorrador.getIdArticulo());
+
 	if (posibleBorrador.getIdArticulo() != 0) {
 	    articuloDto.setIdArticulo(posibleBorrador.getIdArticulo());
 	    autorController.actualizarBorrador(articuloDto);
@@ -381,8 +382,13 @@ public class AutorCreacionView extends JDialog {
 	    autorController.crearBorrador(articuloDto);
 	}
 
-	revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(), getTextFSugerido2().getText(),
-		getTextFSugerido3().getText());
+	if (!revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(),
+		getTextFSugerido2().getText(), getTextFSugerido3().getText())) {
+	    JOptionPane.showMessageDialog(this, "Mal formato de revisores");
+	} else {
+	    JOptionPane.showMessageDialog(this, "Borrador creado/actualizado");
+	    dispose();
+	}
 
     }
 
@@ -460,8 +466,10 @@ public class AutorCreacionView extends JDialog {
 	    }
 
 	}
-	revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(), getTextFSugerido2().getText(),
-		getTextFSugerido3().getText());
+	if (!revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(),
+		getTextFSugerido2().getText(), getTextFSugerido3().getText())) {
+	    JOptionPane.showMessageDialog(this, "Mal formato de revisores");
+	}
 
     }
 
@@ -527,14 +535,17 @@ public class AutorCreacionView extends JDialog {
 	if (lbConstraintsSugeridos == null) {
 	    lbConstraintsSugeridos = new JLabel("*Formato:  Nombre - Correo - Especialidad");
 	    lbConstraintsSugeridos.setFont(new Font("Tahoma", Font.PLAIN, 10));
-	    lbConstraintsSugeridos.setBounds(23, 365, 315, 14);
+	    lbConstraintsSugeridos.setBounds(23, 365, 207, 14);
 	}
 	return lbConstraintsSugeridos;
     }
 
-    private void revisoresSugeridos(int id_articulo, String revisor1, String revisor2, String revisor3) {
+    private boolean revisoresSugeridos(int id_articulo, String revisor1, String revisor2, String revisor3) {
 	if (!revisor1.isEmpty()) {
 	    String[] rev1 = revisor1.split("-"); // *Formato: Nombre - Correo - Especialidad
+	    if (rev1.length != 3) {
+		return false;
+	    }
 	    String nombre = rev1[0].toLowerCase();
 	    String correo = rev1[1].toLowerCase();
 	    String especialidad = rev1[2].toLowerCase();
@@ -544,7 +555,7 @@ public class AutorCreacionView extends JDialog {
 		revisorDto1.setNombre(rev1[0]);
 		revisorDto1.setCorreo(rev1[1]);
 		revisorDto1.setEspecialidad(rev1[2]);
-		revisorDto1.setEstado("Sugerido");
+		revisorDto1.setEstado("SUGERIDO");
 
 		autorController.sugerirRevisores(id_articulo, revisorDto1);
 		revisorController.addRevisor(revisorDto1);
@@ -556,6 +567,9 @@ public class AutorCreacionView extends JDialog {
 
 	if (!revisor2.isEmpty()) {
 	    String[] rev2 = revisor2.split("-"); // *Formato: Nombre - Correo - Especialidad
+	    if (rev2.length != 3) {
+		return false;
+	    }
 	    String nombre = rev2[0].toLowerCase();
 	    String correo = rev2[1].toLowerCase();
 	    String especialidad = rev2[2].toLowerCase();
@@ -565,7 +579,7 @@ public class AutorCreacionView extends JDialog {
 		revisorDto2.setNombre(rev2[0]);
 		revisorDto2.setCorreo(rev2[1]);
 		revisorDto2.setEspecialidad(rev2[2]);
-		revisorDto2.setEstado("Sugerido");
+		revisorDto2.setEstado("SUGERIDO");
 
 		autorController.sugerirRevisores(id_articulo, revisorDto2);
 		revisorController.addRevisor(revisorDto2);
@@ -577,6 +591,9 @@ public class AutorCreacionView extends JDialog {
 
 	if (!revisor3.isEmpty()) {
 	    String[] rev3 = revisor3.split("-"); // *Formato: Nombre - Correo - Especialidad
+	    if (rev3.length != 3) {
+		return false;
+	    }
 	    String nombre = rev3[0];
 	    String correo = rev3[1];
 	    String especialidad = rev3[2];
@@ -586,7 +603,7 @@ public class AutorCreacionView extends JDialog {
 		revisorDto3.setNombre(rev3[0].toLowerCase());
 		revisorDto3.setCorreo(rev3[1].toLowerCase());
 		revisorDto3.setEspecialidad(rev3[2].toLowerCase());
-		revisorDto3.setEstado("Sugerido");
+		revisorDto3.setEstado("SUGERIDO");
 
 		autorController.sugerirRevisores(id_articulo, revisorDto3);
 		revisorController.addRevisor(revisorDto3);
@@ -595,6 +612,8 @@ public class AutorCreacionView extends JDialog {
 			EntityAssembler.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
 	    }
 	}
+
+	return true;
     }
 
     private void fillFields() {
@@ -610,7 +629,8 @@ public class AutorCreacionView extends JDialog {
     }
 
     private void fillOtrosAutores() {
-	List<AutorEntity> otrosAutores = autorController.findOtrosAutorEntities(posibleBorrador.getIdArticulo());
+	List<AutorEntity> otrosAutores = autorController.findOtrosAutorEntities(posibleBorrador.getIdArticulo(),
+		id_autor);
 	for (AutorEntity autor : otrosAutores) {
 	    getTxtFOtrosAutores().setText(autor.getNombre() + "-" + autor.getDni() + ";");
 	}
