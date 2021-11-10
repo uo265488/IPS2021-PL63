@@ -47,7 +47,7 @@ public class RevisionModel {
 		} else {
 			decision = RevisionEntity.RECHAZADA;
 		}
-		String sql = "update revisiones set estadoDeLaPropuesta = ? where idArticulo = ? and idRevisor = ?";
+		String sql = "update revisiones set estadoDeLaPropuesta = ?, enviarAlEditor = false where idArticulo = ? and idRevisor = ?";
 
 		db.executeUpdate(sql, decision, idArt, idRev);
 	}
