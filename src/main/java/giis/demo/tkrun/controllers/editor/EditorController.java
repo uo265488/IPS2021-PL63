@@ -18,17 +18,36 @@ import giis.demo.util.EntityAssembler;
 
 public class EditorController {
 
-	private RevisionModel revisionModel = new RevisionModel();
-	private ArticuloModel articuloModel = new ArticuloModel();
-	private RevisorModel revisoresModel = new RevisorModel();
-	private SugerenciaModel sugerenciaModel = new SugerenciaModel();
+	private MenuEditor principalView;
+	// private EditorView view;
+	private RevisionModel revisionModel;
+	private ArticuloModel articuloModel;
+	private RevisorModel revisoresModel;
+	private SugerenciaModel sugerenciaModel;
+	
 
-//------------------------------ OSCAR ---------------------------------------------------------	
+	private void initView() {
+		this.principalView = new MenuEditor(this);
+		this.principalView.setVisible(true);
+		// this.principalView.setModal(true);
+	}
 
 	public EditorController() {
-		MenuEditor menu = new MenuEditor(this);
-		menu.setVisible(true);
+		this.revisionModel = new RevisionModel();
+		this.articuloModel = new ArticuloModel();
+		this.revisoresModel = new RevisorModel();
+		this.sugerenciaModel = new SugerenciaModel();
+
+		initView();
 	}
+	
+	public EditorController(boolean mostrarVista) {
+		this.revisionModel = new RevisionModel();
+		this.articuloModel = new ArticuloModel();
+		this.revisoresModel = new RevisorModel();
+		this.sugerenciaModel = new SugerenciaModel();
+	}
+
 
 	/**
 	 * Devuelve una lista con todos los revisores disponibles
@@ -177,7 +196,6 @@ public class EditorController {
 		return false;
 	}
 
-//-------------------------------------------------------------------------------------------------------
 
 	public List<ArticuloEntity> getArticulos() {
 		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulos());

@@ -1,16 +1,16 @@
 package giis.demo.tkrun.views.editor;
 
-import javax.swing.JFrame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.editor.EditorController;
 
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class MenuEditor extends JFrame {
+public class MenuEditor extends JDialog {
 
 	/**
 	 * 
@@ -26,7 +26,7 @@ public class MenuEditor extends JFrame {
 	 */
 	public MenuEditor(EditorController controller) {
 		this.controller = controller;
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -51,7 +51,7 @@ public class MenuEditor extends JFrame {
 	private void mostrarDisponibles() {
 		EditorPrincipalView ven = new EditorPrincipalView(controller);
 		ven.setVisible(true);
-		ven.setModal(true);
+		//ven.setModal(true);
 	}
 	private JButton getBtAsignados() {
 		if (btAsignados == null) {
@@ -68,7 +68,6 @@ public class MenuEditor extends JFrame {
 	private void mostrarAsignados() {
 		EditorViewDecisionArticulo ven = new EditorViewDecisionArticulo(controller);
 		ven.setVisible(true);
-//		ven.setModal(true);
-		ven.setLocationRelativeTo(this);
+		//ven.setModal(true);
 	}
 }

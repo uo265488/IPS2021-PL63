@@ -1,23 +1,22 @@
 package giis.demo.tkrun.views.editor;
 
-import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
-
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.awt.event.ActionEvent;
 
 public class EditorViewDecisionArticulo extends JDialog {
 
@@ -45,7 +44,7 @@ public class EditorViewDecisionArticulo extends JDialog {
 	}
 	
 	private void inicialice() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 916, 345);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

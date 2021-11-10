@@ -94,10 +94,4 @@ public class RevisionEntity {
 	public String toString() {
 		return String.valueOf(this.idRevisor);
 	}
-	
-	
-	
-	
-	
-
 }

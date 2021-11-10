@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.List;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -47,7 +46,7 @@ public class ComentariosDeRevisionView extends JDialog {
 		setTitle("Comentarios de revision del artículo:");
 		setResizable(false);
 		setBounds(100, 100, 635, 357);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
 		setComentarios();
 
@@ -74,9 +73,9 @@ public class ComentariosDeRevisionView extends JDialog {
 
 	private JLabel getLblRevisor1() {
 		if (lblRevisor1 == null) {
-			lblRevisor1 = new JLabel("Comentarios de revisión del Revisor 1:");
+			lblRevisor1 = new JLabel("Revisor 1:");
 			lblRevisor1.setLabelFor(getTxtRevisor1());
-			lblRevisor1.setBounds(43, 36, 274, 14);
+			lblRevisor1.setBounds(43, 36, 200, 14);
 		}
 		return lblRevisor1;
 	}
@@ -107,8 +106,8 @@ public class ComentariosDeRevisionView extends JDialog {
 
 	private JLabel getLblRevisor2() {
 		if (lblRevisor2 == null) {
-			lblRevisor2 = new JLabel("Comentarios de revisión del Revisor 2:");
-			lblRevisor2.setBounds(43, 169, 380, 14);
+			lblRevisor2 = new JLabel("Revisor 2:");
+			lblRevisor2.setBounds(43, 169, 200, 14);
 		}
 		return lblRevisor2;
 	}
