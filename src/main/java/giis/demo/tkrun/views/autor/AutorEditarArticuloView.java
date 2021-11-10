@@ -143,6 +143,7 @@ public class AutorEditarArticuloView extends JDialog {
 	private JTextField getTxtFAutor() {
 		if (txtFAutor == null) {
 			txtFAutor = new JTextField();
+			txtFAutor.setEditable(false);
 			txtFAutor.setColumns(10);
 			txtFAutor.setBounds(170, 89, 348, 20);
 		}
