@@ -3,9 +3,11 @@ package giis.demo.tkrun.models.revision;
 import java.util.List;
 import java.util.Optional;
 
+import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
+import giis.demo.tkrun.models.dtos.SugerenciaDto;
 import giis.demo.util.Database;
 
 public class RevisionModel {
@@ -159,5 +161,79 @@ public class RevisionModel {
 		db.executeUpdate(sql, idArticulo, idRevisor, 2, fecha, "ACEPTADO");
 
 	}
+	
+	public RevisionDto getFecha(int idRev, int idArticulo) {
+		String sql = "select fecha "
+				+ "from revisiones "
+				+ "where idRevisor = ? and idArticulo = ?";
+		return db.executeQueryPojo(RevisionDto.class, sql, idRev, idArticulo).get(0);
+	}
+	
+	public void decisionArticulo(int idRev, int idArt, boolean condicion) {
+		String decision = "";
+		if(condicion)
+			decision = RevisionEntity.ACEPTADA;
+		else
+			decision = RevisionEntity.RECHAZADA;
+		String sql = "update revisiones set estadoDeLaPropuesta = ? where idArticulo = ? and idRevisor = ?";
+		
+		db.executeUpdate(sql, decision, idArt, idRev);
+	}
+
+
+	public List<RevisionDto> articulosAceptados(int idArticulo) {
+		String sql = "select * "
+				+ "from revisiones "
+				+ "where idArticulo = ? and estadoDeLaPropuesta = 'ACEPTADA'";
+		return db.executeQueryPojo(RevisionDto.class, sql, idArticulo);
+	}
+	
+	public RevisorDto findRevisor(String nombre, String correo, String especialidad) {
+		String sql = "select * from revisores where nombre = ? and correo = ? and especialidad = ?";
+
+		List<RevisorDto> revisores = db.executeQueryPojo(RevisorDto.class, sql, nombre, correo, especialidad);
+
+		if (revisores.isEmpty()) {
+		    return null;
+		} else {
+		    return revisores.get(0);
+		}
+	    }
+
+	    public RevisorDto findById(int id) {
+		String sql = "select * from revisores where idRevisor = ?";
+		List<RevisorDto> revisores = db.executeQueryPojo(RevisorDto.class, sql, id);
+
+		if (revisores.isEmpty()) {
+		    return null;
+		} else {
+		    return revisores.get(0);
+		}
+	    }
+
+	    public List<SugerenciaDto> findSugeridos(int idArticulo) {
+		String sql = "select * from sugerencias where idArticulo = ?";
+
+		return db.executeQueryPojo(SugerenciaDto.class, sql, idArticulo);
+	    }
+	    
+	    public List<RevisionDto> numeroRevisiones(int idRev, int idArt) {
+			String sql = "select * " + "from revisiones " + "where idRevisor = ? and idArticulo = ?";
+
+			return db.executeQueryPojo(RevisionDto.class, sql, idRev, idArt);
+		}
+
+		public RevisionDto primeraRevision(int idRev, int idArt) {
+			String sql = "select * " + "from revisiones " + "where idRevisor = ? and idArticulo = ? and numeroRevision = 1";
+
+			return db.executeQueryPojo(RevisionDto.class, sql, idRev, idArt).get(0);
+		}
+		
+		public List<RevisionDto> revisionesEnviadas(int idArt, int numeroRevision) {
+			String sql = "select * " + "from revisiones "
+					+ "where idArticulo = ? and numeroRevision = ? and enviarAlEditor = true";
+
+			return db.executeQueryPojo(RevisionDto.class, sql, idArt, numeroRevision);
+		}
 
 }

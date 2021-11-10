@@ -66,6 +66,11 @@ public class EditorController {
 				.collect(Collectors.toList());
 
 	}
+	
+	public List<RevisorEntity> getRevisoresDisponibles() {
+
+		return EntityAssembler.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
+	}
 
 	/**
 	 * Metodo para asignar el revisor (generar revision, marcar articulo como 'en
