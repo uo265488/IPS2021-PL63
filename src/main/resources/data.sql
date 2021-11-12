@@ -56,8 +56,7 @@ insert into autoresSecundarios(idArticulo, idAutor) values
 	(16,9),
 	(101,11),
 	(14,11),
-	(15,10),
-	(16,9);
+	(15,10);
 	
 delete from revisiones;
 insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, comentariosAutor, comentariosEditor, decision, enviarAlEditor, estadoDeLaPropuesta) values

@@ -246,6 +246,7 @@ public class EditorViewComentariosAutor extends JDialog {
 	decisiones.add(getRdBtnAceptarCambiosMayores());
 	decisiones.add(getRdBtnAceptar());
 	decisiones.add(getRdBtnRechazar());
+	decisiones.add(getRdBtnAceptarCambiosMenores());
     }
 
     private JTextArea getTxtComentarios() {
