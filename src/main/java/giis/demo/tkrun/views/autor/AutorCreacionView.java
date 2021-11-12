@@ -2,10 +2,9 @@ package giis.demo.tkrun.views.autor;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.Random;
+import java.util.UUID;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -54,7 +53,7 @@ public class AutorCreacionView extends JDialog {
     private JButton btnBorrador;
     private JButton btnEnviar;
     private AutorController autorController;
-    private int id_autor;
+    private String id_autor;
     private JLabel lbContstraints;
     private JLabel lbSugerirRevisores;
     private JPanel panelSugeridos;
@@ -82,7 +81,7 @@ public class AutorCreacionView extends JDialog {
 //		});
 //	}
 
-    public AutorCreacionView(AutorController autorController, int id_autor, ArticuloEntity borrador) {
+    public AutorCreacionView(AutorController autorController, String id_autor, ArticuloEntity borrador) {
 	this.autorController = autorController;
 	this.id_autor = id_autor;
 	this.posibleBorrador = borrador;
@@ -101,7 +100,7 @@ public class AutorCreacionView extends JDialog {
     /**
      * @wbp.parser.constructor
      */
-    public AutorCreacionView(AutorController autorController, int id_autor) {
+    public AutorCreacionView(AutorController autorController, String id_autor) {
 	this.autorController = autorController;
 	this.id_autor = id_autor;
 	revisorController = new RevisorController();
@@ -374,11 +373,11 @@ public class AutorCreacionView extends JDialog {
 
 	System.out.println(posibleBorrador.getIdArticulo());
 
-	if (posibleBorrador.getIdArticulo() != 0) {
+	if (posibleBorrador.getIdArticulo() != null) {
 	    articuloDto.setIdArticulo(posibleBorrador.getIdArticulo());
 	    autorController.actualizarBorrador(articuloDto);
 	} else {
-	    articuloDto.setIdArticulo(new Random().nextInt());
+	    articuloDto.setIdArticulo(UUID.randomUUID().toString());
 	    autorController.crearBorrador(articuloDto);
 	}
 
@@ -453,10 +452,10 @@ public class AutorCreacionView extends JDialog {
 	articuloDto.setVolumen(0);
 
 	if (articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor()) == null) {
-	    articuloDto.setIdArticulo(new Random().nextInt());
+	    articuloDto.setIdArticulo(UUID.randomUUID().toString());
 	    autorController.crearArticulo(articuloDto);
 	} else {
-	    int id = articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor())
+	    String id = articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor())
 		    .getIdArticulo();
 	    articuloDto.setIdArticulo(id);
 	    if (articuloDto.getVecesRevisado() > 0) {
@@ -542,7 +541,7 @@ public class AutorCreacionView extends JDialog {
 	return lbConstraintsSugeridos;
     }
 
-    private boolean revisoresSugeridos(int id_articulo, String revisor1, String revisor2, String revisor3) {
+    private boolean revisoresSugeridos(String id_articulo, String revisor1, String revisor2, String revisor3) {
 	if (!revisor1.isEmpty()) {
 	    String[] rev1 = revisor1.split("-"); // *Formato: Nombre - Correo - Especialidad
 	    if (rev1.length != 3) {
@@ -553,7 +552,7 @@ public class AutorCreacionView extends JDialog {
 	    String especialidad = rev1[2].toLowerCase();
 	    if (revisorController.findRevisor(nombre, correo, especialidad) == null) {
 		RevisorDto revisorDto1 = new RevisorDto();
-		revisorDto1.setIdRevisor(new Random().nextInt());
+		revisorDto1.setIdRevisor(UUID.randomUUID().toString());
 		revisorDto1.setNombre(rev1[0]);
 		revisorDto1.setCorreo(rev1[1]);
 		revisorDto1.setEspecialidad(rev1[2]);
@@ -577,7 +576,7 @@ public class AutorCreacionView extends JDialog {
 	    String especialidad = rev2[2].toLowerCase();
 	    if (revisorController.findRevisor(nombre, correo, especialidad) == null) {
 		RevisorDto revisorDto2 = new RevisorDto();
-		revisorDto2.setIdRevisor(new Random().nextInt());
+		revisorDto2.setIdRevisor(UUID.randomUUID().toString());
 		revisorDto2.setNombre(rev2[0]);
 		revisorDto2.setCorreo(rev2[1]);
 		revisorDto2.setEspecialidad(rev2[2]);
@@ -601,7 +600,7 @@ public class AutorCreacionView extends JDialog {
 	    String especialidad = rev3[2];
 	    if (revisorController.findRevisor(nombre, correo, especialidad) == null) {
 		RevisorDto revisorDto3 = new RevisorDto();
-		revisorDto3.setIdRevisor(new Random().nextInt());
+		revisorDto3.setIdRevisor(UUID.randomUUID().toString());
 		revisorDto3.setNombre(rev3[0].toLowerCase());
 		revisorDto3.setCorreo(rev3[1].toLowerCase());
 		revisorDto3.setEspecialidad(rev3[2].toLowerCase());

@@ -47,7 +47,7 @@ public class EditorController {
      * @return
      */
     public boolean añadirRevisorAListaDeRevisores(RevisorEntity selectedValue) {
-	if (revisoresModel.findById(selectedValue.getId()).getEstado().equals(RevisorEntity.SUGERIDO)) {
+	if (revisoresModel.findByIdRevisor(selectedValue.getId()).getEstado().equals(RevisorEntity.SUGERIDO)) {
 	    RevisorDto dto = DtoMapper.toRevisorDto(selectedValue);
 	    dto.setEstado(RevisorEntity.DISPONIBLE);
 	    revisoresModel.update(dto);
@@ -111,8 +111,8 @@ public class EditorController {
      */
     public boolean checkArticuloParaAsignar(ArticuloEntity articulo) {
 
-	return EntityAssembler.toArticuloEntity(articuloModel.findById(articulo.getIdArticulo()).get(0)).getEstado()
-		.equals(ArticuloEntity.CON_EL_EDITOR);
+	return EntityAssembler.toArticuloEntity(articuloModel.findByIdRevisor(articulo.getIdArticulo()).get(0))
+		.getEstado().equals(ArticuloEntity.CON_EL_EDITOR);
     }
 
     /**
@@ -126,7 +126,7 @@ public class EditorController {
 	revisionModel.add(DtoMapper.toRevisionDto(revisor, articulo, fecha, RevisionEntity.PENDIENTE));
     }
 
-    public void generarSegundaRevision(int idArticulo, int idRevisor, String fecha) {
+    public void generarSegundaRevision(String idArticulo, String idRevisor, String fecha) {
 	revisionModel.generarSegundaRevision(idArticulo, idRevisor, fecha);
     }
 
@@ -195,7 +195,7 @@ public class EditorController {
 	for (RevisionEntity r : revisiones) {
 
 	    if (!r.getEstadoDeLaPropuesta().equals(RevisionEntity.RECHAZADA)) {
-		revisores.add(EntityAssembler.toRevisorEntity(revisoresModel.findById(r.getIdRevisor())));
+		revisores.add(EntityAssembler.toRevisorEntity(revisoresModel.findByIdRevisor(r.getIdRevisor())));
 	    }
 
 	}

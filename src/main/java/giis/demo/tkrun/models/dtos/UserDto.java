@@ -4,9 +4,9 @@ public class UserDto {
 
     private String nombre;
     private String tipoUsuario; // If the user is an editor, author or reviewer.
-    private int idUsuario;
+    private String idUsuario;
 
-    public UserDto(String userName, String type, int idUsuario) {
+    public UserDto(String userName, String type, String idUsuario) {
 	super();
 	this.nombre = userName;
 	this.tipoUsuario = type;
@@ -32,11 +32,11 @@ public class UserDto {
 	this.tipoUsuario = type;
     }
 
-    public int getIdUsuario() {
+    public String getIdUsuario() {
 	return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(String idUsuario) {
 	this.idUsuario = idUsuario;
     }
 

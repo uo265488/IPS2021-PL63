@@ -20,7 +20,7 @@ import giis.demo.util.EntityAssembler;
 
 public class AutorController {
 
-    private int id_autor;
+    private String id_autor;
     // private EditorView view; No hay vista todavía asi que esta todo comentado
     private AutorModel model;
     // private RevisionModel revisionModel;
@@ -48,7 +48,7 @@ public class AutorController {
 	this.articuloModel = new ArticuloModel();
     }
 
-    public AutorController(int id_autor) {
+    public AutorController(String id_autor) {
 	this.model = new AutorModel();
 	this.id_autor = id_autor;
 	articuloModel = new ArticuloModel();
@@ -64,12 +64,12 @@ public class AutorController {
 	// view.setModal(true);
     }
 
-    public List<ArticuloEntity> getArticulosPropios(int id) {
+    public List<ArticuloEntity> getArticulosPropios(String id) {
 
 	return EntityAssembler.toArticuloEntityList(model.articulosDeUnAutor(id));
     }
 
-    public List<ArticuloEntity> getArticulosAceptadosSinVersionDefinitiva(int id) {
+    public List<ArticuloEntity> getArticulosAceptadosSinVersionDefinitiva(String id) {
 
 	return EntityAssembler.toArticuloEntityList(model.articulosAceptadosSinVersionDefinitiva(id));
     }
@@ -78,7 +78,7 @@ public class AutorController {
 	return EntityAssembler.toAutorEntity(model.findAutor(nombre, dni));
     }
 
-    public AutorEntity findById(int id) {
+    public AutorEntity findById(String id) {
 	return EntityAssembler.toAutorEntity(model.findById(id));
     }
 
@@ -94,7 +94,7 @@ public class AutorController {
 	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
     }
 
-    public void parseOtrosAutores(int id_Articulo, String otrosAutores) {
+    public void parseOtrosAutores(String id_Articulo, String otrosAutores) {
 	if (!otrosAutores.replaceAll("//s", "").isBlank()) {
 	    String[] autores = otrosAutores.split(";");
 	    if (autores.length > 0) {
@@ -118,7 +118,7 @@ public class AutorController {
 
     }
 
-    public void sugerirRevisores(int id_articulo, RevisorDto revisor) {
+    public void sugerirRevisores(String id_articulo, RevisorDto revisor) {
 	revisorModel.sugerirRevisores(id_articulo, revisor);
     }
 
@@ -143,7 +143,7 @@ public class AutorController {
 	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
     }
 
-    public List<AutorEntity> findOtrosAutorEntities(int idArticulo, int id_autor) {
+    public List<AutorEntity> findOtrosAutorEntities(String idArticulo, String id_autor) {
 	List<ArticuloDeAutorDto> ids = model.findOtrosAutores(idArticulo, id_autor);
 	List<AutorEntity> autores = new ArrayList<>();
 	for (ArticuloDeAutorDto id : ids) {
@@ -152,7 +152,7 @@ public class AutorController {
 	return autores;
     }
 
-    public void getEnviarVersionDefinitiva(int id) {
+    public void getEnviarVersionDefinitiva(String id) {
 
 	model.enviarVersionDefinitiva(id);
     }

@@ -80,7 +80,7 @@ public class ArticuloController {
 					+ revisionesModel.getRevisionesAsignadasDeUnArticulo(r.getIdArticulo()).size());
 			if ((revisionesModel.getRevisionesPendientesDeUnArticulo(r.getIdArticulo()).size()
 					+ revisionesModel.getRevisionesAsignadasDeUnArticulo(r.getIdArticulo()).size()) < 3) {
-				articulos.add(EntityAssembler.toArticuloEntity(artModel.findById(r.getIdArticulo()).get(0)));
+				articulos.add(EntityAssembler.toArticuloEntity(artModel.findByIdRevisor(r.getIdArticulo()).get(0)));
 			}
 		}
 

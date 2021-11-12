@@ -2,95 +2,96 @@ package giis.demo.tkrun.models.dtos;
 
 public class RevisionDto {
 
-	public static String PENDIENTE = "PENDIENTE";
-	public static String ACEPTADA = "ACEPTADA";
-	public static String RECHAZADA = "RECHAZADA";
-	private int idRevisor;
-	private int idArticulo;
-	private String fecha;
-	private String comentariosAutor;
-	private String comentariosEditor;
+    public static String PENDIENTE = "PENDIENTE";
+    public static String ACEPTADA = "ACEPTADA";
+    public static String RECHAZADA = "RECHAZADA";
 
-	private String decision;
+    private String idRevisor;
+    private String idArticulo;
+    private String fecha;
+    private String comentariosAutor;
+    private String comentariosEditor;
 
-	private boolean enviarAlEditor;
-	private int numeroRevision;
+    private String decision;
+
+    private boolean enviarAlEditor;
+    private int numeroRevision;
 //
 //	private boolean decisionArticulo;
 //	private boolean decisionTomada;
-	private String estadoDeLaPropuesta;
+    private String estadoDeLaPropuesta;
 
-	public String getComentariosAutor() {
-		return comentariosAutor;
-	}
+    public String getComentariosAutor() {
+	return comentariosAutor;
+    }
 
-	public String getComentariosEditor() {
-		return comentariosEditor;
-	}
+    public String getComentariosEditor() {
+	return comentariosEditor;
+    }
 
-	public String getDecision() {
-		return decision;
-	}
+    public String getDecision() {
+	return decision;
+    }
 
-	public String getEstadoDeLaPropuesta() {
-		return estadoDeLaPropuesta;
-	}
+    public String getEstadoDeLaPropuesta() {
+	return estadoDeLaPropuesta;
+    }
 
-	public String getFecha() {
-		return fecha;
-	}
+    public String getFecha() {
+	return fecha;
+    }
 
-	public int getIdArticulo() {
-		return idArticulo;
-	}
+    public String getIdArticulo() {
+	return idArticulo;
+    }
 
-	public int getIdRevisor() {
-		return idRevisor;
-	}
+    public String getIdRevisor() {
+	return idRevisor;
+    }
 
-	public int getNumeroRevision() {
-		return numeroRevision;
-	}
+    public int getNumeroRevision() {
+	return numeroRevision;
+    }
 
-	public boolean isEnviarAlEditor() {
-		return enviarAlEditor;
-	}
+    public boolean isEnviarAlEditor() {
+	return enviarAlEditor;
+    }
 
-	public void setComentariosAutor(String comentariosAutor) {
-		this.comentariosAutor = comentariosAutor;
-	}
+    public void setComentariosAutor(String comentariosAutor) {
+	this.comentariosAutor = comentariosAutor;
+    }
 
-	public void setComentariosEditor(String comentariosEditor) {
-		this.comentariosEditor = comentariosEditor;
-	}
+    public void setComentariosEditor(String comentariosEditor) {
+	this.comentariosEditor = comentariosEditor;
+    }
 
-	public void setDecision(String decision) {
-		this.decision = decision;
-	}
+    public void setDecision(String decision) {
+	this.decision = decision;
+    }
 
-	public void setEnviarAlEditor(boolean enviarAlEditor) {
-		this.enviarAlEditor = enviarAlEditor;
-	}
+    public void setEnviarAlEditor(boolean enviarAlEditor) {
+	this.enviarAlEditor = enviarAlEditor;
+    }
 
-	public void setEstadoDeLaPropuesta(String estadoDeLaPropuesta) {
-		this.estadoDeLaPropuesta = estadoDeLaPropuesta;
-	}
+    public void setEstadoDeLaPropuesta(String estadoDeLaPropuesta) {
+	this.estadoDeLaPropuesta = estadoDeLaPropuesta;
+    }
 
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
+    public void setFecha(String fecha) {
+	this.fecha = fecha;
+    }
 
-	public void setIdArticulo(int idArticulo) {
-		this.idArticulo = idArticulo;
-	}
+    public void setIdArticulo(String idArticulo) {
+	this.idArticulo = idArticulo;
+    }
 
-	public void setIdRevisor(int idRevisor) {
-		this.idRevisor = idRevisor;
-	}
+    public void setIdRevisor(String idRevisor) {
+	this.idRevisor = idRevisor;
+    }
 
-	public void setNumeroRevision(int numeroRevision) {
-		this.numeroRevision = numeroRevision;
-	}
+    public void setNumeroRevision(int numeroRevision) {
+	this.numeroRevision = numeroRevision;
+    }
 //	public boolean isDecisionArticulo() {
 //		return decisionArticulo;
 //	}

@@ -40,12 +40,12 @@ public class ArticuloModel {
 //		db.executeQueryPojo(ArticuloDto.class, sql, articuloDto.getId());
 //	}
 
-    public void asignarAutor(ArticuloDto articulo, int id_autor) {
+    public void asignarAutor(ArticuloDto articulo, String id_autor) {
 	String sql = "insert into autoressecundarios(idArticulo, idAutor) values (?, ?)";
 	db.executeUpdate(sql, articulo.getIdArticulo(), id_autor);
     }
 
-    public void asignarOtroAutor(int id_articulo, int id_segundo_Autor) {
+    public void asignarOtroAutor(String id_articulo, String id_segundo_Autor) {
 	String sql = "insert into autoressecundarios(idArticulo, idAutor) values (?, ?)";
 	db.executeUpdate(sql, id_articulo, id_segundo_Autor);
     }
@@ -89,14 +89,14 @@ public class ArticuloModel {
 	}
     }
 
-    public List<ArticuloDto> findById(int idArticulo) {
+    public List<ArticuloDto> findById(String idArticulo) {
 
 	String sql = "SELECT * from articulos where idArticulo=?";
 
 	return db.executeQueryPojo(ArticuloDto.class, sql, idArticulo);
     }
 
-    public List<ArticuloDto> getArticulo(int idArt) {
+    public List<ArticuloDto> getArticulo(String idArt) {
 	String sql = "SELECT * from articulos where idArticulo = ?";
 	return db.executeQueryPojo(ArticuloDto.class, sql, idArt);
     }
@@ -112,25 +112,27 @@ public class ArticuloModel {
 	return db.executeQueryPojo(ArticuloDto.class, sql);
     }
 
-    public List<ArticuloDto> getArticulosAsignados(int id) {
+    public List<ArticuloDto> getArticulosAsignados(String id) {
 	String sql = "select * from articulos a, revisiones r where r.idRevisor = ? and a.idArticulo = r.idArticulo and r.estadoDeLaPropuesta = 'ACEPTADA'";
 
 	return db.executeQueryPojo(ArticuloDto.class, sql, id);
     }
 
+    // TODO: Arreglar query usando autoressecundarios.
     public List<ArticuloDto> getArticulosFiltradoAutor(String autor) {
 	String sql = "SELECT * from articulos where estado <> 'borrador' and primerAutor = ?";
 
 	return db.executeQueryPojo(ArticuloDto.class, sql, autor);
     }
 
+    // TODO: Arreglar query usando autoressecundarios.
     public List<ArticuloDto> getArticulosFiltradoTitulo(String titulo) {
 	String sql = "SELECT * from articulos where estado <> 'borrador' and titulo = ?";
 
 	return db.executeQueryPojo(ArticuloDto.class, sql, titulo);
     }
 
-    public List<ArticuloDto> getArticulosSinResponder(int id) {
+    public List<ArticuloDto> getArticulosSinResponder(String id) {
 	String sql = "select * from articulos a, revisiones r where r.idRevisor = ? and a.idArticulo = r.idArticulo and r.estadoDeLaPropuesta = 'PENDIENTE'";
 
 	return db.executeQueryPojo(ArticuloDto.class, sql, id);
