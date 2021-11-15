@@ -159,7 +159,6 @@ public class EditorViewComentariosAutor extends JDialog {
     private void publicarArticulo() {
 	EditorViewPublicarArticulo ventanaPublicarArticulo = new EditorViewPublicarArticulo(this, this.articulo,
 		controller);
-	ventanaPublicarArticulo.setModal(true);
 	ventanaPublicarArticulo.setLocationRelativeTo(this);
 	ventanaPublicarArticulo.setVisible(true);
     }

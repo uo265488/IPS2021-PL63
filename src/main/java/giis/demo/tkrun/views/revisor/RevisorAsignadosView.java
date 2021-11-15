@@ -48,7 +48,7 @@ public class RevisorAsignadosView extends JDialog {
 //		});
 //	}
 
-    public RevisorAsignadosView(RevisorController revisorController, int idRevisor) {
+    public RevisorAsignadosView(RevisorController revisorController, String idRevisor) {
 	setResizable(false);
 	setTitle("Revisor. Articulos asignados");
 	this.revisorController = revisorController;

@@ -14,7 +14,7 @@ public class RevisorMenu extends JDialog {
      * 
      */
     private static final long serialVersionUID = 1L;
-    private int id_revisor;
+    private String id_revisor;
     private JButton btnNewButton;
     private JButton btnNewButton_1;
     private JButton btnNewButton_1_1;
@@ -35,7 +35,7 @@ public class RevisorMenu extends JDialog {
     /**
      * Create the dialog.
      */
-    public RevisorMenu(int id_revisor, RevisorController controller) {
+    public RevisorMenu(String id_revisor, RevisorController controller) {
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	this.id_revisor = id_revisor;
 	this.revisorController = controller;
@@ -67,7 +67,7 @@ public class RevisorMenu extends JDialog {
 	    btnNewButton_1.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    RevisorDecisionRevisionesEncomendadas vista = new RevisorDecisionRevisionesEncomendadas(
-			    revisorController);
+			    revisorController, id_revisor);
 		    vista.setVisible(true);
 		}
 	    });
@@ -81,7 +81,7 @@ public class RevisorMenu extends JDialog {
 	    btnNewButton_1_1 = new JButton("Revisar articulos");
 	    btnNewButton_1_1.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		    RevisorView rv = new RevisorView(revisorController);
+		    RevisorView rv = new RevisorView(revisorController, id_revisor);
 		    rv.setVisible(true);
 		}
 	    });

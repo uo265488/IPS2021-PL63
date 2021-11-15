@@ -49,7 +49,7 @@ public class AutorView extends JDialog {
     private JCheckBox chCopy;
     private JButton btnEnviarArticulo;
     private JButton btVisualizar;
-    private int id_autor;
+    private String id_autor;
     private JButton btnModificarBorrador;
     private JList<ArticuloEntity> listArticulos;
     private JButton btnCambiosSugeridos;
@@ -75,13 +75,13 @@ public class AutorView extends JDialog {
      * 
      * @wbp.parser.constructor
      */
-    public AutorView(AutorController controller, int id_autor) {
+    public AutorView(AutorController controller, String id_autor) {
 	this.controller = controller;
 	this.id_autor = id_autor;
 	inicialize();
     }
 
-    public AutorView(int id_autor) {
+    public AutorView(String id_autor) {
 	this.controller = new AutorController(false);
 	this.id_autor = id_autor;
 	inicialize();
@@ -107,7 +107,7 @@ public class AutorView extends JDialog {
 			articulosAceptadosSinVersionDefinitiva.clear();
 			rellenarComboBox();
 			try {
-			    id_autor = Integer.parseInt(getTxId().getText());
+			    id_autor = getTxId().getText();
 			    articulosDelEditor = controller.getArticulosPropios(id_autor);
 			    getListArticulos().setModel(addModel());
 			} catch (Exception e1) {
@@ -136,7 +136,7 @@ public class AutorView extends JDialog {
 		    rellenarComboBox();
 		    if (!getTxId().getText().isEmpty()) {
 			try {
-			    int idAutor = Integer.parseInt(getTxId().getText());
+			    String idAutor = getTxId().getText();
 			    articulosAceptadosSinVersionDefinitiva = controller
 				    .getArticulosAceptadosSinVersionDefinitiva(idAutor);
 			    rellenarComboBox();
@@ -308,7 +308,8 @@ public class AutorView extends JDialog {
     private JTextField getTxId() {
 	if (txId == null) {
 	    txId = new JTextField();
-	    txId.setText("" + id_autor);
+	    txId.setEditable(false);
+	    txId.setText(id_autor);
 	    txId.setFont(new Font("Tahoma", Font.PLAIN, 15));
 	    txId.setBounds(318, 78, 191, 20);
 	    txId.setColumns(10);

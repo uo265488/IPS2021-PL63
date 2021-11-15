@@ -97,16 +97,16 @@ public class RevisionModel {
 	return db.executeQueryPojo(RevisionDto.class, sql);
     }
 
-    public Optional<RevisionDto> findRevisionRechazada(String idArticulo, int id) {
+    public Optional<RevisionDto> findRevisionRechazada(String idArticulo, String idRevisor) {
 
 	String sql = "select * from revisiones where idArticulo=? and idRevisor=? and estadoDeLaPropuesta='"
 		+ RevisionDto.RECHAZADA + "'";
 
-	if (db.executeQueryPojo(RevisionDto.class, sql, idArticulo, id).isEmpty()) {
+	if (db.executeQueryPojo(RevisionDto.class, sql, idArticulo, idRevisor).isEmpty()) {
 	    return Optional.ofNullable(null);
 	}
 
-	return Optional.ofNullable(db.executeQueryPojo(RevisionDto.class, sql, idArticulo, id).get(0));
+	return Optional.ofNullable(db.executeQueryPojo(RevisionDto.class, sql, idArticulo, idRevisor).get(0));
     }
 
     public RevisorDto findRevisor(String nombre, String correo, String especialidad) {
@@ -225,7 +225,7 @@ public class RevisionModel {
     }
 
     public void revisarArticulo(String comentariosAutor, String comentariosEditor, String decision,
-	    boolean enviarAlEditor, int idArticulo, int idRevisor, int numeroRevision) {
+	    boolean enviarAlEditor, String idArticulo, String idRevisor, int numeroRevision) {
 	// validaciones (en este caso nada)
 	String sql = "update revisiones set comentariosAutor = ?, comentariosEditor = ?, decision = ?, enviarAlEditor = ? where idArticulo = ? and idRevisor = ? and numeroRevision = ?";
 	db.executeUpdate(sql, comentariosAutor, comentariosEditor, decision, enviarAlEditor, idArticulo, idRevisor,

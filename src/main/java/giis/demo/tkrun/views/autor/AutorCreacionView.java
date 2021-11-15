@@ -2,6 +2,7 @@ package giis.demo.tkrun.views.autor;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.UUID;
@@ -323,7 +324,9 @@ public class AutorCreacionView extends JDialog {
 	if (btnBorrador == null) {
 	    btnBorrador = new JButton("Guardar BORRADOR");
 	    btnBorrador.addActionListener(new ActionListener() {
+		@Override
 		public void actionPerformed(ActionEvent e) {
+		    // TODO Auto-generated method stub
 		    crearBorrador();
 		}
 	    });

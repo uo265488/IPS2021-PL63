@@ -191,7 +191,7 @@ public class EditorViewComentariosArticulo extends JDialog {
 
     private String setTextoRevisionesIndividuales() {
 	String text = "";
-	int idRevisor = Integer.parseInt(getCbSeleccionarRevisor().getSelectedItem().toString());
+	String idRevisor = getCbSeleccionarRevisor().getSelectedItem().toString();
 	String selectedRevision = getCbSeleccionarRevision().getSelectedItem().toString();
 
 	if (selectedRevision.equals("Todas")) {

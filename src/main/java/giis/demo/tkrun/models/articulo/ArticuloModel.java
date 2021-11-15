@@ -96,6 +96,12 @@ public class ArticuloModel {
 	return db.executeQueryPojo(ArticuloDto.class, sql, idArticulo);
     }
 
+    public List<ArticuloDto> findByIdRevisor(String idRev) {
+	String sql = "select * from articulos as a, autoressecundarios as s where a.idArticulo = s.idArticulo and s.idAutor = ?";
+
+	return db.executeQueryPojo(ArticuloDto.class, sql, idRev);
+    }
+
     public List<ArticuloDto> getArticulo(String idArt) {
 	String sql = "SELECT * from articulos where idArticulo = ?";
 	return db.executeQueryPojo(ArticuloDto.class, sql, idArt);
@@ -113,7 +119,7 @@ public class ArticuloModel {
     }
 
     public List<ArticuloDto> getArticulosAsignados(String id) {
-	String sql = "select * from articulos a, revisiones r where r.idRevisor = ? and a.idArticulo = r.idArticulo and r.estadoDeLaPropuesta = 'ACEPTADA'";
+	String sql = "select * from articulos a, revisiones r where r.idRevisor = ? and a.idArticulo = r.idArticulo and r.enviarAlEditor = true";
 
 	return db.executeQueryPojo(ArticuloDto.class, sql, id);
     }

@@ -2,7 +2,7 @@ package giis.demo.tkrun.controllers.autor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.UUID;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.AutorEntity;
@@ -104,7 +104,7 @@ public class AutorController {
 		    autor.setNombre(autorAParsear[0].toLowerCase());
 		    autor.setDni(autorAParsear[1].toLowerCase());
 		    if (model.findAutor(autor.getNombre(), autor.getDni()) == null) {
-			autor.setIdAutor(new Random().nextInt());
+			autor.setIdAutor(UUID.randomUUID().toString());
 			model.addAutor(autor);
 			createUser(autor);
 		    } else {

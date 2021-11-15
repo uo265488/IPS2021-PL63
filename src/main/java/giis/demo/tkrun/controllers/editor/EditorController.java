@@ -47,7 +47,7 @@ public class EditorController {
      * @return
      */
     public boolean añadirRevisorAListaDeRevisores(RevisorEntity selectedValue) {
-	if (revisoresModel.findByIdRevisor(selectedValue.getId()).getEstado().equals(RevisorEntity.SUGERIDO)) {
+	if (revisoresModel.findById(selectedValue.getId()).getEstado().equals(RevisorEntity.SUGERIDO)) {
 	    RevisorDto dto = DtoMapper.toRevisorDto(selectedValue);
 	    dto.setEstado(RevisorEntity.DISPONIBLE);
 	    revisoresModel.update(dto);
@@ -161,19 +161,17 @@ public class EditorController {
 		.toRevisionEntityList(revisionModel.getRevisionesDeUnArticulo(DtoMapper.toArticuloDto(articulo)));
     }
 
-    public List<RevisionEntity> getRevisionesArticuloDeUnRevisor(int idArticulo, int idRevisor) {
+    public List<RevisionEntity> getRevisionesArticuloDeUnRevisor(String idArticulo, String idRevisor) {
 	return EntityAssembler
 		.toRevisionEntityList(revisionModel.getRevisionesArticuloDeUnRevisor(idArticulo, idRevisor));
     }
 
-    public List<RevisionEntity> getRevisionesFiltradas(int idArticulo, int numeroRevision) {
+    public List<RevisionEntity> getRevisionesFiltradas(String idArticulo, int numeroRevision) {
 	return EntityAssembler
 		.toRevisionEntityList(revisionModel.getRevisionesFiltradoNumeroRevision(idArticulo, numeroRevision));
     }
 
-//	-------------------------------------------
-
-    public List<RevisionEntity> getRevisionPorNumeroRevision(int numeroRevision, int idRevisor, int idArticulo) {
+    public List<RevisionEntity> getRevisionPorNumeroRevision(int numeroRevision, String idRevisor, String idArticulo) {
 	return EntityAssembler.toRevisionEntityList(
 		revisionModel.getRevisionPorNumeroRevision(idArticulo, idRevisor, numeroRevision));
     }
@@ -195,7 +193,7 @@ public class EditorController {
 	for (RevisionEntity r : revisiones) {
 
 	    if (!r.getEstadoDeLaPropuesta().equals(RevisionEntity.RECHAZADA)) {
-		revisores.add(EntityAssembler.toRevisorEntity(revisoresModel.findByIdRevisor(r.getIdRevisor())));
+		revisores.add(EntityAssembler.toRevisorEntity(revisoresModel.findById(r.getIdRevisor())));
 	    }
 
 	}
