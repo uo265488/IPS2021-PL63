@@ -20,7 +20,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
 
@@ -37,7 +36,6 @@ public class AutorView extends JDialog {
     private JPanel contentPane;
     private JLabel lbAutor;
     private JLabel lbId;
-    private JTextField txId;
     private JScrollPane scrollPane;
     private List<ArticuloEntity> articulosDelEditor = new ArrayList<ArticuloEntity>();
     private List<ArticuloEntity> articulosAceptadosSinVersionDefinitiva = new ArrayList<ArticuloEntity>();
@@ -103,11 +101,10 @@ public class AutorView extends JDialog {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 		    getBtnEnviarArticulo().setEnabled(false);
-		    if (!getTxId().getText().isEmpty()) {
+		    if (!id_autor.isEmpty()) {
 			articulosAceptadosSinVersionDefinitiva.clear();
 			rellenarComboBox();
 			try {
-			    id_autor = getTxId().getText();
 			    articulosDelEditor = controller.getArticulosPropios(id_autor);
 			    getListArticulos().setModel(addModel());
 			} catch (Exception e1) {
@@ -134,11 +131,10 @@ public class AutorView extends JDialog {
 		    articulosAceptadosSinVersionDefinitiva.clear();
 		    articulosDelEditor.clear();
 		    rellenarComboBox();
-		    if (!getTxId().getText().isEmpty()) {
+		    if (!id_autor.isEmpty()) {
 			try {
-			    String idAutor = getTxId().getText();
 			    articulosAceptadosSinVersionDefinitiva = controller
-				    .getArticulosAceptadosSinVersionDefinitiva(idAutor);
+				    .getArticulosAceptadosSinVersionDefinitiva(id_autor);
 			    rellenarComboBox();
 			    if (articulosAceptadosSinVersionDefinitiva.size() == 0) {
 				getBtnEnviarArticulo().setEnabled(false);
@@ -256,9 +252,10 @@ public class AutorView extends JDialog {
 
     private JLabel getLbId() {
 	if (lbId == null) {
-	    lbId = new JLabel("Meta su identificador para ver sus artículos:");
+	    lbId = new JLabel(
+		    "Identificador del autor:                " + controller.getAutorById(id_autor).toString());
 	    lbId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	    lbId.setBounds(10, 77, 298, 22);
+	    lbId.setBounds(10, 77, 675, 22);
 	}
 	return lbId;
     }
@@ -305,19 +302,6 @@ public class AutorView extends JDialog {
 	return scrollPane;
     }
 
-    private JTextField getTxId() {
-	if (txId == null) {
-	    txId = new JTextField();
-	    txId.setEditable(false);
-	    txId.setText(id_autor);
-	    txId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	    txId.setBounds(318, 78, 191, 20);
-	    txId.setColumns(10);
-
-	}
-	return txId;
-    }
-
     private void inicialize() {
 	setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 	setBounds(100, 100, 1174, 586);
@@ -328,7 +312,6 @@ public class AutorView extends JDialog {
 	contentPane.setLayout(null);
 	contentPane.add(getLbAutor());
 	contentPane.add(getLbId());
-	contentPane.add(getTxId());
 	contentPane.add(getScrollPane());
 	contentPane.add(getBtConfirmar());
 	contentPane.add(getBtMirarArticulos());

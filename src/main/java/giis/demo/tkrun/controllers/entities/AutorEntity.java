@@ -42,6 +42,6 @@ public class AutorEntity {
 
     @Override
     public String toString() {
-	return nombre + " - " + idAutor;
+	return nombre + " - " + dni;
     }
 }

@@ -166,4 +166,8 @@ public class AutorController {
 
     }
 
+    public AutorEntity getAutorById(String id_autor) {
+	return EntityAssembler.toAutorEntity(model.findById(id_autor));
+    }
+
 }
