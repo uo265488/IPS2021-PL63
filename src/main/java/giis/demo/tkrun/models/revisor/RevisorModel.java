@@ -32,8 +32,8 @@ public class RevisorModel {
     }
 
     public void sugerirRevisores(String id_articulo, RevisorDto revisor) {
-	String sql = "delete from sugerencias where idArticulo = ?";
-	db.executeUpdate(sql, id_articulo);
+	String sql = "delete from sugerencias where idArticulo = ? and idRevisor = ?";
+	db.executeUpdate(sql, id_articulo, revisor.getIdRevisor());
 
 	sql = "insert into sugerencias(idArticulo, idRevisor) values (?, ?)";
 	db.executeUpdate(sql, id_articulo, revisor.getIdRevisor());

@@ -65,4 +65,14 @@ public class AutorModel {
 	return db.executeQueryPojo(ArticuloDeAutorDto.class, sql, idArticulo, id_autor);
     }
 
+    public AutorDto findByIdArticulo(String idArticulo) {
+	String sql = "select a.idAutor, a.nombre, a.dni from autores as a, autoressecundarios as s where s.idArticulo = ? and s.idAutor = a.idAutor and s.tipoAutor = 'PRINCIPAL'";
+	List<AutorDto> list = db.executeQueryPojo(AutorDto.class, sql, idArticulo);
+	if (list.isEmpty()) {
+	    return null;
+	} else {
+	    return list.get(0);
+	}
+    }
+
 }

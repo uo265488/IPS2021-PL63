@@ -155,7 +155,7 @@ public class RevisorView extends JDialog {
 			    idArt = art.getIdArticulo();
 			    if (idArt != null) {
 				getTxId().setEnabled(false);
-				articuloRevisando = controller.getArticulosSinRevisar(idRev, idArt);
+				articuloRevisando = controller.getRevision(idArt, idRev);
 				getTxAutor().setText(articuloRevisando.getComentariosAutor());
 				getTxEditor().setText(articuloRevisando.getComentariosEditor());
 				getBtEnviar().setEnabled(true);
@@ -335,7 +335,7 @@ public class RevisorView extends JDialog {
 			articulosSinRevisar.clear();
 			idArt = null;
 			if (idRev.strip().length() > 0)
-			    articulosSinRevisar = controller.getTituloArticulosSinRevisar(idRev);
+			    articulosSinRevisar = controller.getArticulosSinRevisar(idRev);
 			rellenarComboBox();
 		    } catch (Exception e1) {
 			JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id",

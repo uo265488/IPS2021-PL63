@@ -111,8 +111,8 @@ public class EditorController {
      */
     public boolean checkArticuloParaAsignar(ArticuloEntity articulo) {
 
-	return EntityAssembler.toArticuloEntity(articuloModel.findByIdRevisor(articulo.getIdArticulo()).get(0))
-		.getEstado().equals(ArticuloEntity.CON_EL_EDITOR);
+	return EntityAssembler.toArticuloEntity(articuloModel.findById(articulo.getIdArticulo())).getEstado()
+		.equals(ArticuloEntity.CON_EL_EDITOR);
     }
 
     /**

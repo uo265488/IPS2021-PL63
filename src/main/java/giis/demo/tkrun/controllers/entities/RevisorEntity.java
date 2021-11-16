@@ -64,7 +64,7 @@ public class RevisorEntity {
 
     @Override
     public String toString() {
-	return id + " - " + nombre + " - " + correo + " - " + especialidad;
+	return nombre + " - " + correo + " - " + especialidad;
     }
 
 }

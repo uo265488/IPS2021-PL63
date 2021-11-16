@@ -43,20 +43,20 @@ insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave
 	('101', 'Articulo sin asginar para rechazar', 'Hugo', 'con el editor', 'si', 'no', 'fichero', 'presentacion', 'cv', false, 0, false);
 
 delete from autoresSecundarios;
-insert into autoresSecundarios(idArticulo, idAutor) values
-	('7','8b021e87-4868-49e7-bea3-c5f85674fb59'),
-	('8','183add42-5d3e-40b1-9200-23bab1f65c02'),
-	('8','8b021e87-4868-49e7-bea3-c5f85674fb59'),
-	('9','131c79b1-dc04-4a13-8325-5e480bcd3c86'),
-	('10','131c79b1-dc04-4a13-8325-5e480bcd3c86'),
-	('11','131c79b1-dc04-4a13-8325-5e480bcd3c86'),
-	('12','8b021e87-4868-49e7-bea3-c5f85674fb59'),
-	('13','183add42-5d3e-40b1-9200-23bab1f65c02'),
-	('17','1239272a-774c-4cad-a169-090df09f220f'),
-	('16','183add42-5d3e-40b1-9200-23bab1f65c02'),
-	('101','1239272a-774c-4cad-a169-090df09f220f'),
-	('14','1239272a-774c-4cad-a169-090df09f220f'),
-	('15','131c79b1-dc04-4a13-8325-5e480bcd3c86');
+insert into autoresSecundarios(idArticulo, idAutor, tipoAutor) values
+	('7','8b021e87-4868-49e7-bea3-c5f85674fb59', 'PRINCIPAL'),
+	('8','183add42-5d3e-40b1-9200-23bab1f65c02', 'PRINCIPAL'),
+	('8','8b021e87-4868-49e7-bea3-c5f85674fb59', 'SECUNDARIO'),
+	('9','131c79b1-dc04-4a13-8325-5e480bcd3c86', 'PRINCIPAL'),
+	('10','131c79b1-dc04-4a13-8325-5e480bcd3c86', 'PRINCIPAL'),
+	('11','131c79b1-dc04-4a13-8325-5e480bcd3c86', 'PRINCIPAL'),
+	('12','8b021e87-4868-49e7-bea3-c5f85674fb59', 'PRINCIPAL'),
+	('13','183add42-5d3e-40b1-9200-23bab1f65c02', 'PRINCIPAL'),
+	('17','1239272a-774c-4cad-a169-090df09f220f', 'PRINCIPAl'),
+	('16','183add42-5d3e-40b1-9200-23bab1f65c02', 'PRINCIPAL'),
+	('101','1239272a-774c-4cad-a169-090df09f220f', 'PRINCIPAL'),
+	('14','1239272a-774c-4cad-a169-090df09f220f', 'PRINCIPAL'),
+	('15','131c79b1-dc04-4a13-8325-5e480bcd3c86', 'PRINCIPAL');
 	
 delete from revisiones;
 insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, comentariosAutor, comentariosEditor, decision, enviarAlEditor, estadoDeLaPropuesta) values

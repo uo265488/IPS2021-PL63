@@ -41,13 +41,13 @@ public class ArticuloModel {
 //	}
 
     public void asignarAutor(ArticuloDto articulo, String id_autor) {
-	String sql = "insert into autoressecundarios(idArticulo, idAutor) values (?, ?)";
-	db.executeUpdate(sql, articulo.getIdArticulo(), id_autor);
+	String sql = "insert into autoressecundarios(idArticulo, idAutor, tipoAutor) values (?, ?, ?)";
+	db.executeUpdate(sql, articulo.getIdArticulo(), id_autor, "PRINCIPAL");
     }
 
     public void asignarOtroAutor(String id_articulo, String id_segundo_Autor) {
-	String sql = "insert into autoressecundarios(idArticulo, idAutor) values (?, ?)";
-	db.executeUpdate(sql, id_articulo, id_segundo_Autor);
+	String sql = "insert into autoressecundarios(idArticulo, idAutor, tipoAutor) values (?, ?, ?)";
+	db.executeUpdate(sql, id_articulo, id_segundo_Autor, "SECUNDARIO");
     }
 
     public void crearArticulo(ArticuloDto articulo) {
@@ -89,11 +89,11 @@ public class ArticuloModel {
 	}
     }
 
-    public List<ArticuloDto> findById(String idArticulo) {
+    public ArticuloDto findById(String idArticulo) {
 
 	String sql = "SELECT * from articulos where idArticulo=?";
 
-	return db.executeQueryPojo(ArticuloDto.class, sql, idArticulo);
+	return db.executeQueryPojo(ArticuloDto.class, sql, idArticulo).get(0);
     }
 
     public List<ArticuloDto> findByIdRevisor(String idRev) {

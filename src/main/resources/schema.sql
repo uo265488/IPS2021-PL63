@@ -19,7 +19,7 @@ drop table Autores;
 create table Autores (idAutor varchar(32) primary key, nombre varchar(32), dni varchar(32));
 
 drop table AutoresSecundarios;
-create table AutoresSecundarios (idArticulo varchar(32), idAutor varchar(32));
+create table AutoresSecundarios (idArticulo varchar(32), idAutor varchar(32), tipoAutor varchar(32));
 
 drop table Revisiones;
 create table Revisiones (idArticulo varchar(32), idRevisor varchar(32), numeroRevision int, fecha varchar(32), comentariosAutor varchar(100), comentariosEditor varchar(100), decision varchar(50), enviarAlEditor bool, estadoDeLaPropuesta varchar(32),

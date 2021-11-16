@@ -7,12 +7,12 @@ import giis.demo.util.Database;
 
 public class AutoresSecundariosModel {
 
-	private Database db = new Database();
+    private Database db = new Database();
 
-	public List<AutoresSecundariosDto> getAutoresSecundariosByIdArticulo(String idArticulo) {
+    public List<AutoresSecundariosDto> getAutoresSecundariosByIdArticulo(String idArticulo) {
 
-		String sql = "select * from AutoresSecundarios where idArticulo=?";
+	String sql = "select * from AutoresSecundarios where idArticulo=? and tipoAutor = 'SECUNDARIO'";
 
-		return db.executeQueryPojo(AutoresSecundariosDto.class, sql, idArticulo);
-	}
+	return db.executeQueryPojo(AutoresSecundariosDto.class, sql, idArticulo);
+    }
 }

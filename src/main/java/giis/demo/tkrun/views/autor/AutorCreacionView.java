@@ -397,7 +397,6 @@ public class AutorCreacionView extends JDialog {
     private boolean checkFields() {
 	String titulo = getTxtFTitulo().getText();
 	String autor = getTxtFAutor().getText();
-	String otrosAutores = getTxtFOtrosAutores().getText();
 	String resumen = getTxtFResumen().getText();
 	String palabrasClave = getTxtFPalabrasClave().getText();
 	String ficheroFuente = getTxtFFicheroFuente().getText();
@@ -408,10 +407,6 @@ public class AutorCreacionView extends JDialog {
 	    return false;
 	}
 	if (autor.replaceAll("\\s", "").length() == 0) {
-	    return false;
-	}
-
-	if (otrosAutores.replaceAll("\\s", "").length() == 0) {
 	    return false;
 	}
 	if (resumen.replaceAll("\\s", "").length() == 0) {

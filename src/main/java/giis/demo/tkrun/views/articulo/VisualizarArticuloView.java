@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import giis.demo.tkrun.controllers.articulo.ArticuloController;
+import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 
@@ -46,6 +47,7 @@ public class VisualizarArticuloView extends JDialog {
 
     private EditorController editorController = new EditorController();
     private ArticuloController articuloController = new ArticuloController();
+    private AutorController autorController = new AutorController();
 
     /**
      * Create the frame.
@@ -191,7 +193,7 @@ public class VisualizarArticuloView extends JDialog {
 	    txtAutoresSecundarios.setBackground(Color.WHITE);
 	    txtAutoresSecundarios.setBounds(34, 158, 501, 20);
 
-	    txtAutoresSecundarios.setText(articuloController.getOtrosAutores("" + articulo.getIdArticulo()));
+	    txtAutoresSecundarios.setText(articuloController.getOtrosAutores(articulo.getIdArticulo()));
 	}
 	return txtAutoresSecundarios;
     }

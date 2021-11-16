@@ -106,9 +106,20 @@ public class RevisorController {
 	return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosSinResponder(id));
     }
 
-    public RevisionEntity getArticulosSinRevisar(String id, String idArt) {
+    public List<ArticuloEntity> getArticulosSinRevisar(String idArt) {
 
-	return EntityAssembler.toRevisionEntity(model.visualizarSinRevisar(id, idArt));
+	List<RevisionDto> list = model.visualizarSinRevisar(idArt);
+	List<ArticuloDto> listArt = new ArrayList<>();
+
+	for (RevisionDto rev : list) {
+	    listArt.add(articuloModel.findById(rev.getIdArticulo()));
+	}
+
+	return EntityAssembler.toArticuloEntityList(listArt);
+    }
+
+    public RevisionEntity getRevision(String idArticulo, String idRevisor) {
+	return EntityAssembler.toRevisionEntity(model.getRevisionByIds(idArticulo, idRevisor));
     }
 
     public RevisionDto getFecha(String idRev, String idArticulo) {
