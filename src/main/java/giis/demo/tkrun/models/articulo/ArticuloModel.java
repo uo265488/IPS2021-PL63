@@ -147,7 +147,7 @@ public class ArticuloModel {
      * Obtiene la lista de articulos que deben ser evaluados por el editor
      */
     public List<ArticuloDto> getArticulosTomarDecision() {
-	String sql = "SELECT * from articulos where vecesRevisado <= 1 and estado = 'con el editor'";
+	String sql = "SELECT * from articulos where vecesRevisado <= 1 and (estado = 'con el editor' or estado = 'aceptado con cambios menores')";
 	List<ArticuloDto> idsArticulos = db.executeQueryPojo(ArticuloDto.class, sql);
 
 	List<RevisionDto> infoArtRevisados = new ArrayList<RevisionDto>();
