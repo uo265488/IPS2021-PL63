@@ -59,7 +59,7 @@ public class ArticuloController {
     }
 
     public ArticuloEntity getArticuloById(String idArticulo) {
-	return EntityAssembler.toArticuloEntity(artModel.findById(idArticulo).get(0));
+	return EntityAssembler.toArticuloEntity(artModel.findById(idArticulo));
     }
 
     /**
@@ -80,7 +80,7 @@ public class ArticuloController {
 		    + revisionesModel.getRevisionesAsignadasDeUnArticulo(r.getIdArticulo()).size());
 	    if ((revisionesModel.getRevisionesPendientesDeUnArticulo(r.getIdArticulo()).size()
 		    + revisionesModel.getRevisionesAsignadasDeUnArticulo(r.getIdArticulo()).size()) < 3) {
-		articulos.add(EntityAssembler.toArticuloEntity(artModel.findById(r.getIdArticulo()).get(0)));
+		articulos.add(EntityAssembler.toArticuloEntity(artModel.findById(r.getIdArticulo())));
 	    }
 	}
 
