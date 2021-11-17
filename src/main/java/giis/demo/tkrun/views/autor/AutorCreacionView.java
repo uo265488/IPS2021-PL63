@@ -469,6 +469,8 @@ public class AutorCreacionView extends JDialog {
 	if (!revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(),
 		getTextFSugerido2().getText(), getTextFSugerido3().getText())) {
 	    JOptionPane.showMessageDialog(this, "Mal formato de revisores");
+	} else {
+	    JOptionPane.showMessageDialog(this, "Articulo enviado a la revista.");
 	}
 
     }

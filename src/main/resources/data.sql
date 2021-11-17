@@ -40,7 +40,7 @@ insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave
 	(16,'Violencia en los colegios', 'lucia','con el editor','la violecia es cada vez más preocupente en los colegios','violencia, colegios','FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
 	(17,'Hola','hugo','borrador','','','','','',false, 0, false),
 		
-	(101, 'Articulo sin asginar para rechazar', 'Oscar', 'con el editor', 'si', 'no', 'fichero', 'presentacion', 'cv', false, 0, false);
+	(101, 'Articulo sin asginar para rechazar', 'Hugo', 'con el editor', 'si', 'no', 'fichero', 'presentacion', 'cv', false, 0, false);
 
 delete from autoresSecundarios;
 insert into autoresSecundarios(idArticulo, idAutor) values
@@ -52,7 +52,11 @@ insert into autoresSecundarios(idArticulo, idAutor) values
 	(11,10),
 	(12,8),
 	(13,9),
-	(17, 11);
+	(17, 11),
+	(16,9),
+	(101,11),
+	(14,11),
+	(15,10);
 	
 delete from revisiones;
 insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, comentariosAutor, comentariosEditor, decision, enviarAlEditor, estadoDeLaPropuesta) values

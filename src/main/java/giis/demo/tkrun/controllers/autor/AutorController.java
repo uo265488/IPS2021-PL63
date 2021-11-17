@@ -90,6 +90,8 @@ public class AutorController {
 
     public void crearArticulo(ArticuloDto articuloDto) {
 	articuloModel.crearArticulo(articuloDto);
+	articuloModel.asignarAutor(articuloDto, id_autor);
+	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
     }
 
     public void parseOtrosAutores(int id_Articulo, String otrosAutores) {
