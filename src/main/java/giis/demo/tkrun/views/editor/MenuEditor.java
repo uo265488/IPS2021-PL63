@@ -92,6 +92,7 @@ public class MenuEditor extends JDialog {
 		EditorAbrirDebateView vista = new EditorAbrirDebateView();
 		vista.setLocationRelativeTo(this);
 		vista.setVisible(true);
+		vista.setModal(false);
 
 	}
 
