@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -20,19 +21,25 @@ public class MenuEditor extends JDialog {
 	private JButton btDisponibles;
 	private JButton btAsignados;
 	private EditorController controller = new EditorController();
+	private JButton btnAbrirDebates;
+	private JLabel lblDebates;
+	private JButton btnCerrarDebates;
 
 	/**
 	 * Create the frame.
 	 */
 	public MenuEditor() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 452, 301);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		contentPane.add(getBtDisponibles());
 		contentPane.add(getBtAsignados());
+		contentPane.add(getBtnAbrirDebates());
+		contentPane.add(getLblDebates());
+		contentPane.add(getBtnCerrarDebates());
 	}
 
 	private JButton getBtAsignados() {
@@ -44,7 +51,7 @@ public class MenuEditor extends JDialog {
 					mostrarAsignados();
 				}
 			});
-			btAsignados.setBounds(115, 119, 182, 34);
+			btAsignados.setBounds(49, 119, 345, 34);
 		}
 		return btAsignados;
 	}
@@ -58,9 +65,50 @@ public class MenuEditor extends JDialog {
 					mostrarDisponibles();
 				}
 			});
-			btDisponibles.setBounds(115, 61, 182, 34);
+			btDisponibles.setBounds(49, 61, 345, 34);
 		}
 		return btDisponibles;
+	}
+
+	private JButton getBtnAbrirDebates() {
+		if (btnAbrirDebates == null) {
+			btnAbrirDebates = new JButton("Abrir debates");
+			btnAbrirDebates.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					displayVentanaAbrirDebate();
+				}
+			});
+			btnAbrirDebates.setBounds(49, 187, 154, 34);
+
+		}
+		return btnAbrirDebates;
+	}
+
+	/**
+	 * Muestra la ventana de abrir debate
+	 */
+	private void displayVentanaAbrirDebate() {
+		EditorAbrirDebateView vista = new EditorAbrirDebateView();
+		vista.setLocationRelativeTo(this);
+		vista.setVisible(true);
+
+	}
+
+	private JButton getBtnCerrarDebates() {
+		if (btnCerrarDebates == null) {
+			btnCerrarDebates = new JButton("Cerrar debates");
+			btnCerrarDebates.setBounds(230, 187, 164, 34);
+		}
+		return btnCerrarDebates;
+	}
+
+	private JLabel getLblDebates() {
+		if (lblDebates == null) {
+			lblDebates = new JLabel("Debates:");
+			lblDebates.setBounds(49, 164, 345, 14);
+		}
+		return lblDebates;
 	}
 
 	private void mostrarAsignados() {

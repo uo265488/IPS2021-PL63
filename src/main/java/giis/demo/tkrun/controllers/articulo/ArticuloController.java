@@ -2,6 +2,7 @@ package giis.demo.tkrun.controllers.articulo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
@@ -142,5 +143,16 @@ public class ArticuloController {
 	public void visualizarArticulo(ArticuloEntity articulo) {
 		articulo.setEstado(ArticuloEntity.CON_EL_EDITOR);
 		artModel.update(DtoMapper.toArticuloDto(articulo));
+	}
+
+	/**
+	 * Devuelve una list articulos debatibles
+	 *
+	 * @return
+	 */
+	public List<ArticuloEntity> getArticulosDebatibles() {
+		return EntityAssembler.toArticuloEntityList(artModel.getArticulosDebatibles()).stream()
+				.filter(a -> revisionesModel.checkArticuloRevisado(DtoMapper.toArticuloDto(a)))
+				.collect(Collectors.toList());
 	}
 }

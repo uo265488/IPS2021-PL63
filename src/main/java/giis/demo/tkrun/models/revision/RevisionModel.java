@@ -246,4 +246,11 @@ public class RevisionModel {
 		return db.executeQueryPojo(RevisionDto.class, sql, idRevisor, idArticulo).get(0);
 	}
 
+	public boolean checkArticuloRevisado(ArticuloDto a) {
+
+		String sql = "select * from revisiones where idArticulo = ? and enviarAlEditor=true";
+
+		return db.executeQueryPojo(RevisionDto.class, sql, a.getIdArticulo()).size() == 3;
+	}
+
 }

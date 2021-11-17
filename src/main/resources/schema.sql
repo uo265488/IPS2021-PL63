@@ -13,7 +13,7 @@ drop table Revisores;
 create table Revisores (idRevisor int primary key, nombre varchar(32), estado varchar(32), correo varchar(32), especialidad varchar(32));
 
 drop table Articulos;
-create table Articulos (idArticulo int primary key, titulo varchar(32), primerAutor varchar(32), estado varchar(32), resumen varchar(100), palabrasClave varchar(32), ficheroFuente varchar(32), cartaPresentacion varchar(32), CV varchar(32), firma bool, vecesRevisado int, versionDefinitiva bool, DOI varchar(32),fecha varchar(32), volumen int);
+create table Articulos (idArticulo int primary key, titulo varchar(32), primerAutor varchar(32), estado varchar(32), resumen varchar(100), palabrasClave varchar(32), ficheroFuente varchar(32), cartaPresentacion varchar(32), CV varchar(32), firma bool, vecesRevisado int, versionDefinitiva bool, DOI varchar(32),fecha varchar(32), volumen int, debatible bool);
 
 drop table Autores;
 create table Autores (idAutor int primary key, nombre varchar(32), dni varchar(32));

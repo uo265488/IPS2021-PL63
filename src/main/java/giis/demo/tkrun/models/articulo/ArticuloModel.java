@@ -247,4 +247,16 @@ public class ArticuloModel {
 
 	}
 
+	/**
+	 * Devuelve una lista con los articulos debatibles
+	 *
+	 * @return
+	 */
+	public List<ArticuloDto> getArticulosDebatibles() {
+
+		String sql = "SELECT * from articulos where debatible=false";
+
+		return db.executeQueryPojo(ArticuloDto.class, sql);
+	}
+
 }
