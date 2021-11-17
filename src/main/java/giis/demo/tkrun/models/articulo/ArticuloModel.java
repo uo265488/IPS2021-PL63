@@ -31,7 +31,7 @@ public class ArticuloModel {
     }
 
 //	/**
-//	 * Borrar articulo en funcion del id
+//	 * Borrar articulo en funcion del id 
 //	 * @param articuloDto
 //	 */
 //	public void delete(ArticuloDto articuloDto) {
