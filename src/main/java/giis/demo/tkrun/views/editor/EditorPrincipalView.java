@@ -1,16 +1,22 @@
 package giis.demo.tkrun.views.editor;
 
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.editor.EditorController;
@@ -18,19 +24,15 @@ import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.util.articulo.ArticuloComparatorAutor;
 import giis.demo.util.articulo.ArticuloComparatorTitulo;
 
-import java.awt.GridLayout;
-import javax.swing.JTextField;
-
 public class EditorPrincipalView extends JDialog {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private EditorController controller;
 	private List<ArticuloEntity> articulos;
 	private JPanel contentPane;
-	private JComboBox<ArticuloEntity> cbArticulos;
 	private JButton btnDetallesArticulo;
 	private JLabel lbArticulos;
 	private JLabel lbOrdenar;
@@ -42,6 +44,9 @@ public class EditorPrincipalView extends JDialog {
 	private JButton btnFiltrar;
 	private JTextField txtFFiltrado;
 	private JButton btnQuitarFiltros;
+	private JScrollPane sPArticulos;
+	private JList<ArticuloEntity> listArticulos;
+	private JButton btnEstadoAsignaciones;
 
 //	/**
 //	 * Launch the application.
@@ -58,48 +63,57 @@ public class EditorPrincipalView extends JDialog {
 //			}
 //		});
 //	}
-	
+
 	public EditorPrincipalView(EditorController controller) {
 		this.controller = controller;
 		this.articulos = this.controller.getArticulos();
 		initialize();
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public void initialize() {
-		setTitle("Editor: Articulos disponibles");
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 517, 363);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		contentPane.add(getCbArticulos());
-		contentPane.add(getBtnDetallesArticulo());
-		contentPane.add(getLbArticulos());
-		contentPane.add(getLbOrdenar());
-		contentPane.add(getPnOrdenar());
-		contentPane.add(getLbFiltrar());
-		contentPane.add(getCbBoxFiltrar());
-		contentPane.add(getBtnFiltrar());
-		contentPane.add(getTxtFFiltrado());
-		contentPane.add(getBtnQuitarFiltros());
+	protected void abrirVentanaEstadoDeAsignaciones() {
+		EstadoDeAsignacionesView vista = new EstadoDeAsignacionesView();
+		vista.setVisible(true);
+
 	}
-	private JComboBox<ArticuloEntity> getCbArticulos() {
-		if (cbArticulos == null) {
-			cbArticulos = new JComboBox<ArticuloEntity>();
-			cbArticulos.setBounds(50, 43, 220, 123);
-			setComboBoxModel();
+
+	private ListModel<ArticuloEntity> addModel() {
+		DefaultListModel<ArticuloEntity> model = new DefaultListModel<>();
+		for (ArticuloEntity articulo : articulos) {
+			model.addElement(articulo);
 		}
-		return cbArticulos;
+
+		return model;
 	}
+
+	private void filtrar() {
+		String filtrado = (String) getCbBoxFiltrar().getSelectedItem();
+		String filtro = getTxtFFiltrado().getText();
+
+		if (filtrado.equals("Titulo")) {
+			filtrarTitulo(filtro);
+		}
+		if (filtrado.equals("Autor")) {
+			filtrarAutor(filtro);
+		}
+	}
+
+	private void filtrarAutor(String autor) {
+		articulos = controller.getArticulosFiltradoAutor(autor);
+
+		setComboBoxModel();
+	}
+
+	private void filtrarTitulo(String titulo) {
+		articulos = controller.getArticulosFiltradoTitulo(titulo);
+
+		setComboBoxModel();
+	}
+
 	private JButton getBtnDetallesArticulo() {
 		if (btnDetallesArticulo == null) {
 			btnDetallesArticulo = new JButton("Detalles del articulo");
 			btnDetallesArticulo.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					launchAsignar();
 				}
@@ -109,34 +123,102 @@ public class EditorPrincipalView extends JDialog {
 		}
 		return btnDetallesArticulo;
 	}
+
+	private JButton getBtnEstadoAsignaciones() {
+		if (btnEstadoAsignaciones == null) {
+			btnEstadoAsignaciones = new JButton("Estado de asignaciones");
+			btnEstadoAsignaciones.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					abrirVentanaEstadoDeAsignaciones();
+				}
+			});
+			btnEstadoAsignaciones.setBackground(Color.GREEN);
+			btnEstadoAsignaciones.setBounds(319, 250, 150, 23);
+		}
+		return btnEstadoAsignaciones;
+	}
+
+	private JButton getBtnFiltrar() {
+		if (btnFiltrar == null) {
+			btnFiltrar = new JButton("Filtrar");
+			btnFiltrar.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					filtrar();
+				}
+			});
+			btnFiltrar.setBounds(187, 223, 89, 23);
+		}
+		return btnFiltrar;
+	}
+
+	private JButton getBtnOrdenarAutor() {
+		if (btnOrdenarAutor == null) {
+			btnOrdenarAutor = new JButton("Autor");
+			btnOrdenarAutor.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					ordenarPorAutor();
+				}
+			});
+		}
+		return btnOrdenarAutor;
+	}
+
+	private JButton getBtnOrdenarTitulo() {
+		if (btnOrdenarTitulo == null) {
+			btnOrdenarTitulo = new JButton("Titulo");
+			btnOrdenarTitulo.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					ordenarPorTitulo();
+				}
+			});
+		}
+		return btnOrdenarTitulo;
+	}
+
+	private JButton getBtnQuitarFiltros() {
+		if (btnQuitarFiltros == null) {
+			btnQuitarFiltros = new JButton("Quitar filtros");
+			btnQuitarFiltros.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					quitarFiltros();
+				}
+			});
+			btnQuitarFiltros.setBounds(161, 257, 115, 23);
+		}
+		return btnQuitarFiltros;
+	}
+
+	private JComboBox<String> getCbBoxFiltrar() {
+		if (cbBoxFiltrar == null) {
+			cbBoxFiltrar = new JComboBox<String>();
+			cbBoxFiltrar.setModel(new DefaultComboBoxModel<String>(new String[] { "Titulo", "Autor" }));
+			cbBoxFiltrar.setBounds(75, 191, 105, 21);
+		}
+		return cbBoxFiltrar;
+	}
+
 	private JLabel getLbArticulos() {
 		if (lbArticulos == null) {
 			lbArticulos = new JLabel("Articulos disponibles en la revista:");
-			lbArticulos.setLabelFor(getCbArticulos());
 			lbArticulos.setDisplayedMnemonic('A');
 			lbArticulos.setBounds(50, 11, 220, 21);
 		}
 		return lbArticulos;
 	}
-	
-	private void setComboBoxModel() {
-		ArticuloEntity[] articulosEntity = new ArticuloEntity[this.articulos.size()];
-		for (int i = 0; i<articulosEntity.length;  i++) {
-			articulosEntity[i] = articulos.get(i);
+
+	private JLabel getLbFiltrar() {
+		if (lbFiltrar == null) {
+			lbFiltrar = new JLabel("Filtrar por:");
+			lbFiltrar.setBounds(10, 195, 71, 14);
 		}
-		
-		getCbArticulos().setModel(new DefaultComboBoxModel<ArticuloEntity>(articulosEntity));
-		
+		return lbFiltrar;
 	}
-	
-	private void launchAsignar() {
-		ArticuloEntity articulo = (ArticuloEntity) getCbArticulos().getSelectedItem();
-		EditorAsignarView eV = new EditorAsignarView(controller, articulo);
-		eV.setLocationRelativeTo(this);
-		eV.setModal(true);
-		eV.setVisible(true);
-	}
-		
+
 	private JLabel getLbOrdenar() {
 		if (lbOrdenar == null) {
 			lbOrdenar = new JLabel("Ordenar por:");
@@ -144,6 +226,15 @@ public class EditorPrincipalView extends JDialog {
 		}
 		return lbOrdenar;
 	}
+
+	private JList<ArticuloEntity> getListArticulos() {
+		if (listArticulos == null) {
+			listArticulos = new JList<ArticuloEntity>();
+			listArticulos.setModel(addModel());
+		}
+		return listArticulos;
+	}
+
 	private JPanel getPnOrdenar() {
 		if (pnOrdenar == null) {
 			pnOrdenar = new JPanel();
@@ -154,65 +245,16 @@ public class EditorPrincipalView extends JDialog {
 		}
 		return pnOrdenar;
 	}
-	private JButton getBtnOrdenarAutor() {
-		if (btnOrdenarAutor == null) {
-			btnOrdenarAutor = new JButton("Autor");
-			btnOrdenarAutor.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					ordenarPorAutor();
-				}
-			});
+
+	private JScrollPane getSPArticulos() {
+		if (sPArticulos == null) {
+			sPArticulos = new JScrollPane();
+			sPArticulos.setBounds(26, 53, 244, 117);
+			sPArticulos.setViewportView(getListArticulos());
 		}
-		return btnOrdenarAutor;
+		return sPArticulos;
 	}
-	private JButton getBtnOrdenarTitulo() {
-		if (btnOrdenarTitulo == null) {
-			btnOrdenarTitulo = new JButton("Titulo");
-			btnOrdenarTitulo.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					ordenarPorTitulo();
-				}
-			});
-		}
-		return btnOrdenarTitulo;
-	}
-	
-	private void ordenarPorTitulo() {
-		articulos.sort(new ArticuloComparatorTitulo());
-		setComboBoxModel();
-	}
-	
-	private void ordenarPorAutor() {
-		articulos.sort(new ArticuloComparatorAutor());
-		setComboBoxModel();
-	}
-	private JLabel getLbFiltrar() {
-		if (lbFiltrar == null) {
-			lbFiltrar = new JLabel("Filtrar por:");
-			lbFiltrar.setBounds(10, 195, 71, 14);
-		}
-		return lbFiltrar;
-	}
-	private JComboBox<String> getCbBoxFiltrar() {
-		if (cbBoxFiltrar == null) {
-			cbBoxFiltrar = new JComboBox<String>();
-			cbBoxFiltrar.setModel(new DefaultComboBoxModel<String>(new String[] {"Titulo", "Autor"}));
-			cbBoxFiltrar.setBounds(75, 191, 105, 21);
-		}
-		return cbBoxFiltrar;
-	}
-	private JButton getBtnFiltrar() {
-		if (btnFiltrar == null) {
-			btnFiltrar = new JButton("Filtrar");
-			btnFiltrar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					filtrar();
-				}
-			});
-			btnFiltrar.setBounds(187, 223, 89, 23);
-		}
-		return btnFiltrar;
-	}
+
 	private JTextField getTxtFFiltrado() {
 		if (txtFFiltrado == null) {
 			txtFFiltrado = new JTextField();
@@ -221,46 +263,61 @@ public class EditorPrincipalView extends JDialog {
 		}
 		return txtFFiltrado;
 	}
-	
-	private void filtrar() {
-		String filtrado =(String) getCbBoxFiltrar().getSelectedItem();
-		String filtro = getTxtFFiltrado().getText();
-		
-		if(filtrado.equals("Titulo")) {
-			filtrarTitulo(filtro);
-		}
-		if(filtrado.equals("Autor")) {
-			filtrarAutor(filtro);
-		}	
+
+	/**
+	 * Create the frame.
+	 */
+	public void initialize() {
+		setTitle("Editor: Articulos disponibles");
+		setResizable(false);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 517, 363);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(getBtnDetallesArticulo());
+		contentPane.add(getLbArticulos());
+		contentPane.add(getLbOrdenar());
+		contentPane.add(getPnOrdenar());
+		contentPane.add(getLbFiltrar());
+		contentPane.add(getCbBoxFiltrar());
+		contentPane.add(getBtnFiltrar());
+		contentPane.add(getTxtFFiltrado());
+		contentPane.add(getBtnQuitarFiltros());
+		contentPane.add(getSPArticulos());
+		contentPane.add(getBtnEstadoAsignaciones());
 	}
-	
-	private void filtrarTitulo(String titulo) {
-		articulos = controller.getArticulosFiltradoTitulo(titulo);
-		
+
+	private void launchAsignar() {
+		ArticuloEntity articulo = getListArticulos().getSelectedValue();
+		EditorAsignarView eV = new EditorAsignarView(articulo);
+		eV.setLocationRelativeTo(this);
+		eV.setModal(true);
+		eV.setVisible(true);
+	}
+
+	private void ordenarPorAutor() {
+		articulos.sort(new ArticuloComparatorAutor());
 		setComboBoxModel();
 	}
-	
-	private void filtrarAutor(String autor) {
-		articulos = controller.getArticulosFiltradoAutor(autor);
-		
+
+	private void ordenarPorTitulo() {
+		articulos.sort(new ArticuloComparatorTitulo());
 		setComboBoxModel();
 	}
-	private JButton getBtnQuitarFiltros() {
-		if (btnQuitarFiltros == null) {
-			btnQuitarFiltros = new JButton("Quitar filtros");
-			btnQuitarFiltros.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					quitarFiltros();
-				}
-			});
-			btnQuitarFiltros.setBounds(161, 257, 115, 23);
-		}
-		return btnQuitarFiltros;
-	}
-	
+
 	private void quitarFiltros() {
 		articulos = controller.getArticulos();
-		
+
 		setComboBoxModel();
+	}
+
+	private void setComboBoxModel() {
+		ArticuloEntity[] articulosEntity = new ArticuloEntity[this.articulos.size()];
+		for (int i = 0; i < articulosEntity.length; i++) {
+			articulosEntity[i] = articulos.get(i);
+		}
+
 	}
 }
