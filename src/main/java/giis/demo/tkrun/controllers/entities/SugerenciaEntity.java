@@ -2,22 +2,22 @@ package giis.demo.tkrun.controllers.entities;
 
 public class SugerenciaEntity {
 
-    private int idArticulo;
-    private int idRevisor;
+    private String idArticulo;
+    private String idRevisor;
 
-    public int getIdArticulo() {
+    public String getIdArticulo() {
 	return idArticulo;
     }
 
-    public void setIdArticulo(int idArticulo) {
+    public void setIdArticulo(String idArticulo) {
 	this.idArticulo = idArticulo;
     }
 
-    public int getIdRevisor() {
+    public String getIdRevisor() {
 	return idRevisor;
     }
 
-    public void setIdRevisor(int idRevisor) {
+    public void setIdRevisor(String idRevisor) {
 	this.idRevisor = idRevisor;
     }
 

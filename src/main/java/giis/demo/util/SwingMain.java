@@ -3,6 +3,7 @@ package giis.demo.util;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.UUID;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -59,7 +60,7 @@ public class SwingMain {
 		// new EditorController(generarArticulo());
 		// new RevisorView(new RevisorController(1));
 		// new AutorView(new AutorController(),1);
-	    //	new RevisorDecisionRevisionesEncomendadas(new RevisorController());
+		// new RevisorDecisionRevisionesEncomendadas(new RevisorController());
 		// new EditorViewDecisionArticulo(new EditorController());
 		new UserController();
 	    }
@@ -102,7 +103,7 @@ public class SwingMain {
 		"Cada PL se dividirá en equipos, de 4 alumnos. Los alumnos formarán sus propios equipos,\r\n"
 			+ "aunque el profesor podrá realizar cambios para que se cumplan las cifras anteriores, o cuando\r\n"
 			+ "haya bajas o nuevas incorporaciones");
-	articulo.setIdArticulo(1);
+	articulo.setIdArticulo(UUID.randomUUID().toString());
 
 	return articulo;
     }

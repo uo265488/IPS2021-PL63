@@ -111,7 +111,7 @@ public class EditorController {
      */
     public boolean checkArticuloParaAsignar(ArticuloEntity articulo) {
 
-	return EntityAssembler.toArticuloEntity(articuloModel.findById(articulo.getIdArticulo()).get(0)).getEstado()
+	return EntityAssembler.toArticuloEntity(articuloModel.findById(articulo.getIdArticulo())).getEstado()
 		.equals(ArticuloEntity.CON_EL_EDITOR);
     }
 
@@ -126,7 +126,7 @@ public class EditorController {
 	revisionModel.add(DtoMapper.toRevisionDto(revisor, articulo, fecha, RevisionEntity.PENDIENTE));
     }
 
-    public void generarSegundaRevision(int idArticulo, int idRevisor, String fecha) {
+    public void generarSegundaRevision(String idArticulo, String idRevisor, String fecha) {
 	revisionModel.generarSegundaRevision(idArticulo, idRevisor, fecha);
     }
 
@@ -161,19 +161,17 @@ public class EditorController {
 		.toRevisionEntityList(revisionModel.getRevisionesDeUnArticulo(DtoMapper.toArticuloDto(articulo)));
     }
 
-    public List<RevisionEntity> getRevisionesArticuloDeUnRevisor(int idArticulo, int idRevisor) {
+    public List<RevisionEntity> getRevisionesArticuloDeUnRevisor(String idArticulo, String idRevisor) {
 	return EntityAssembler
 		.toRevisionEntityList(revisionModel.getRevisionesArticuloDeUnRevisor(idArticulo, idRevisor));
     }
 
-    public List<RevisionEntity> getRevisionesFiltradas(int idArticulo, int numeroRevision) {
+    public List<RevisionEntity> getRevisionesFiltradas(String idArticulo, int numeroRevision) {
 	return EntityAssembler
 		.toRevisionEntityList(revisionModel.getRevisionesFiltradoNumeroRevision(idArticulo, numeroRevision));
     }
 
-//	-------------------------------------------
-
-    public List<RevisionEntity> getRevisionPorNumeroRevision(int numeroRevision, int idRevisor, int idArticulo) {
+    public List<RevisionEntity> getRevisionPorNumeroRevision(int numeroRevision, String idRevisor, String idArticulo) {
 	return EntityAssembler.toRevisionEntityList(
 		revisionModel.getRevisionPorNumeroRevision(idArticulo, idRevisor, numeroRevision));
     }

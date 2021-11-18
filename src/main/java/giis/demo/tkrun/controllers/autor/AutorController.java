@@ -2,7 +2,7 @@ package giis.demo.tkrun.controllers.autor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.UUID;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.AutorEntity;
@@ -20,7 +20,7 @@ import giis.demo.util.EntityAssembler;
 
 public class AutorController {
 
-    private int id_autor;
+    private String id_autor;
     // private EditorView view; No hay vista todavía asi que esta todo comentado
     private AutorModel model;
     // private RevisionModel revisionModel;
@@ -48,7 +48,7 @@ public class AutorController {
 	this.articuloModel = new ArticuloModel();
     }
 
-    public AutorController(int id_autor) {
+    public AutorController(String id_autor) {
 	this.model = new AutorModel();
 	this.id_autor = id_autor;
 	articuloModel = new ArticuloModel();
@@ -64,12 +64,12 @@ public class AutorController {
 	// view.setModal(true);
     }
 
-    public List<ArticuloEntity> getArticulosPropios(int id) {
+    public List<ArticuloEntity> getArticulosPropios(String id) {
 
 	return EntityAssembler.toArticuloEntityList(model.articulosDeUnAutor(id));
     }
 
-    public List<ArticuloEntity> getArticulosAceptadosSinVersionDefinitiva(int id) {
+    public List<ArticuloEntity> getArticulosAceptadosSinVersionDefinitiva(String id) {
 
 	return EntityAssembler.toArticuloEntityList(model.articulosAceptadosSinVersionDefinitiva(id));
     }
@@ -78,47 +78,64 @@ public class AutorController {
 	return EntityAssembler.toAutorEntity(model.findAutor(nombre, dni));
     }
 
-    public AutorEntity findById(int id) {
+    public AutorEntity findById(String id) {
 	return EntityAssembler.toAutorEntity(model.findById(id));
     }
 
-    public void crearBorrador(ArticuloDto articuloDto) {
-	articuloModel.crearBorrador(articuloDto);
-	articuloModel.asignarAutor(articuloDto, id_autor);
-	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
+    public boolean crearBorrador(ArticuloDto articuloDto) {
+	if (!parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores())) {
+	    return false;
+	} else {
+	    articuloModel.crearBorrador(articuloDto);
+	    articuloModel.asignarAutor(articuloDto, id_autor);
+	    return true;
+
+	}
+
     }
 
-    public void crearArticulo(ArticuloDto articuloDto) {
+    public boolean crearArticulo(ArticuloDto articuloDto) {
+	if (!parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores())) {
+	    return false;
+	}
 	articuloModel.crearArticulo(articuloDto);
 	articuloModel.asignarAutor(articuloDto, id_autor);
-	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
+	return true;
+
     }
 
-    public void parseOtrosAutores(int id_Articulo, String otrosAutores) {
+    public boolean parseOtrosAutores(String id_Articulo, String otrosAutores) {
 	if (!otrosAutores.replaceAll("//s", "").isBlank()) {
 	    String[] autores = otrosAutores.split(";");
 	    if (autores.length > 0) {
 		for (String line : autores) {
 		    String[] autorAParsear = line.split("-");
-		    AutorDto autor = new AutorDto();
-		    autor.setNombre(autorAParsear[0].toLowerCase());
-		    autor.setDni(autorAParsear[1].toLowerCase());
-		    if (model.findAutor(autor.getNombre(), autor.getDni()) == null) {
-			autor.setIdAutor(new Random().nextInt());
-			model.addAutor(autor);
-			createUser(autor);
-		    } else {
-			autor.setIdAutor(model.findAutor(autor.getNombre(), autor.getDni()).getIdAutor());
-		    }
+		    if (autorAParsear.length > 1) {
+			AutorDto autor = new AutorDto();
+			autor.setNombre(autorAParsear[0].toLowerCase());
+			autor.setDni(autorAParsear[1].toLowerCase());
+			if (model.findAutor(autor.getNombre(), autor.getDni()) == null) {
+			    autor.setIdAutor(UUID.randomUUID().toString());
+			    model.addAutor(autor);
+			    createUser(autor);
+			} else {
+			    autor.setIdAutor(model.findAutor(autor.getNombre(), autor.getDni()).getIdAutor());
+			}
 
-		    articuloModel.asignarOtroAutor(id_Articulo, autor.getIdAutor());
+			articuloModel.asignarOtroAutor(id_Articulo, autor.getIdAutor());
+
+			return true;
+		    }
+		    return false;
 		}
 	    }
+	    return false;
 	}
+	return true;
 
     }
 
-    public void sugerirRevisores(int id_articulo, RevisorDto revisor) {
+    public void sugerirRevisores(String id_articulo, RevisorDto revisor) {
 	revisorModel.sugerirRevisores(id_articulo, revisor);
     }
 
@@ -131,19 +148,26 @@ public class AutorController {
 	userModel.addUser(user);
     }
 
-    public void actualizarBorrador(ArticuloDto articuloDto) {
+    public boolean actualizarBorrador(ArticuloDto articuloDto) {
+	if (!parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores())) {
+	    return false;
+	}
 	articuloModel.actualizarBorrador(articuloDto);
-	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
+	return true;
 
     }
 
-    public void enviarBorrador(ArticuloDto articuloDto) {
+    public boolean enviarBorrador(ArticuloDto articuloDto) {
+	if (!parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores())) {
+	    return false;
+	}
 	articuloModel.enviarBorrador(articuloDto);
 	articuloModel.asignarAutor(articuloDto, id_autor);
-	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
+	return true;
+
     }
 
-    public List<AutorEntity> findOtrosAutorEntities(int idArticulo, int id_autor) {
+    public List<AutorEntity> findOtrosAutorEntities(String idArticulo, String id_autor) {
 	List<ArticuloDeAutorDto> ids = model.findOtrosAutores(idArticulo, id_autor);
 	List<AutorEntity> autores = new ArrayList<>();
 	for (ArticuloDeAutorDto id : ids) {
@@ -152,7 +176,7 @@ public class AutorController {
 	return autores;
     }
 
-    public void getEnviarVersionDefinitiva(int id) {
+    public void getEnviarVersionDefinitiva(String id) {
 
 	model.enviarVersionDefinitiva(id);
     }
@@ -164,6 +188,14 @@ public class AutorController {
     public void modificarArticulo(ArticuloDto articuloDto) {
 	articuloModel.modificarArticulo(articuloDto);
 
+    }
+
+    public AutorEntity getAutorById(String id_autor) {
+	return EntityAssembler.toAutorEntity(model.findById(id_autor));
+    }
+
+    public AutorEntity findAutorByArticulo(String idArticulo) {
+	return EntityAssembler.toAutorEntity(model.findByIdArticulo(idArticulo));
     }
 
 }

@@ -113,7 +113,7 @@ public class UserView extends JFrame {
 	contentPane.add(getBtnActualizar());
     }
 
-    private void launchAutor(int idAutor) {
+    private void launchAutor(String idAutor) {
 	new AutorController(idAutor);
     }
 
@@ -125,7 +125,7 @@ public class UserView extends JFrame {
 
     }
 
-    private void launchRevisor(int idRevisor) {
+    private void launchRevisor(String idRevisor) {
 	new RevisorController(idRevisor);
     }
 

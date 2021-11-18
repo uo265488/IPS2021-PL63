@@ -191,7 +191,7 @@ public class VisualizarArticuloView extends JDialog {
 	    txtAutoresSecundarios.setBackground(Color.WHITE);
 	    txtAutoresSecundarios.setBounds(34, 158, 501, 20);
 
-	    txtAutoresSecundarios.setText(articuloController.getOtrosAutores("" + articulo.getIdArticulo()));
+	    txtAutoresSecundarios.setText(articuloController.getOtrosAutores(articulo.getIdArticulo()));
 	}
 	return txtAutoresSecundarios;
     }
