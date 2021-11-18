@@ -15,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
@@ -34,7 +33,6 @@ public class RevisorView extends JDialog {
     private JPanel contentPane;
     private JLabel lbRevision;
     private JLabel lbId;
-    private JTextField txId;
     private JLabel lbArticulo;
     private JComboBox<ArticuloEntity> chArticulos;
     private JButton btSeleccionar;
@@ -77,7 +75,6 @@ public class RevisorView extends JDialog {
 	contentPane.setLayout(null);
 	contentPane.add(getLbRevision());
 	contentPane.add(getLbId());
-	contentPane.add(getTxId());
 	contentPane.add(getLbArticulo());
 	contentPane.add(getChArticulos());
 	contentPane.add(getBtSeleccionar());
@@ -107,24 +104,11 @@ public class RevisorView extends JDialog {
 
     private JLabel getLbId() {
 	if (lbId == null) {
-	    lbId = new JLabel("Introduzca su ID para ver sus artículos:");
+	    lbId = new JLabel("Revisor: " + controller.getRevisorById(idRev).toString());
 	    lbId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	    lbId.setBounds(123, 56, 266, 24);
+	    lbId.setBounds(123, 56, 546, 24);
 	}
 	return lbId;
-    }
-
-    private JTextField getTxId() {
-	if (txId == null) {
-	    txId = new JTextField();
-	    txId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	    txId.setBounds(389, 60, 280, 20);
-	    txId.setColumns(10);
-	    txId.setText(idRev);
-	    txId.setEditable(false);
-	    txId.setEnabled(false);
-	}
-	return txId;
     }
 
     private JLabel getLbArticulo() {
@@ -154,7 +138,6 @@ public class RevisorView extends JDialog {
 			try {
 			    idArt = art.getIdArticulo();
 			    if (idArt != null) {
-				getTxId().setEnabled(false);
 				articuloRevisando = controller.getRevision(idArt, idRev);
 				getTxAutor().setText(articuloRevisando.getComentariosAutor());
 				getTxEditor().setText(articuloRevisando.getComentariosEditor());
@@ -295,12 +278,10 @@ public class RevisorView extends JDialog {
     }
 
     private void limpiar() {
-	getTxId().setEnabled(true);
 	articulosSinRevisar.clear();
 	rellenarComboBox();
 	getTxAutor().setText("");
 	getTxEditor().setText("");
-	getTxId().setText("");
     }
 
     private JButton getBtGuardarCambios() {

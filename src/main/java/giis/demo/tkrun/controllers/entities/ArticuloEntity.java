@@ -183,7 +183,7 @@ public class ArticuloEntity {
     }
 
     public String toStringForTable() {
-	String str = "" + idArticulo;
+	String str = "";
 	if (titulo != null) {
 	    str += " - " + titulo;
 	}

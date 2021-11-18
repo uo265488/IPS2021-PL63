@@ -65,6 +65,7 @@ public class AutorCreacionView extends JDialog {
     private RevisorController revisorController;
     private ArticuloController articuloController;
     private ArticuloEntity posibleBorrador;
+    private JLabel lblFormatoPalbraclave;
 
 //	/**
 //	 * Launch the application.
@@ -145,6 +146,7 @@ public class AutorCreacionView extends JDialog {
 	contentPane.add(getLbSugerirRevisores());
 	contentPane.add(getPanelSugeridos());
 	contentPane.add(getLbConstraintsSugeridos());
+	contentPane.add(getLblFormatoPalbraclave());
     }
 
     private JLabel getLbTitulo() {
@@ -256,7 +258,7 @@ public class AutorCreacionView extends JDialog {
 	    lbFicheroFuente.setLabelFor(getTxtFFicheroFuente());
 	    lbFicheroFuente.setDisplayedMnemonic('F');
 	    lbFicheroFuente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    lbFicheroFuente.setBounds(23, 199, 150, 20);
+	    lbFicheroFuente.setBounds(23, 214, 150, 20);
 	}
 	return lbFicheroFuente;
     }
@@ -265,7 +267,7 @@ public class AutorCreacionView extends JDialog {
 	if (txtFFicheroFuente == null) {
 	    txtFFicheroFuente = new JTextField();
 	    txtFFicheroFuente.setColumns(10);
-	    txtFFicheroFuente.setBounds(183, 200, 321, 20);
+	    txtFFicheroFuente.setBounds(183, 215, 321, 20);
 	}
 	return txtFFicheroFuente;
     }
@@ -276,7 +278,7 @@ public class AutorCreacionView extends JDialog {
 	    lbCartaPresentación.setLabelFor(getTxtFCartaPresentacion());
 	    lbCartaPresentación.setDisplayedMnemonic('C');
 	    lbCartaPresentación.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    lbCartaPresentación.setBounds(23, 231, 150, 20);
+	    lbCartaPresentación.setBounds(23, 246, 150, 20);
 	}
 	return lbCartaPresentación;
     }
@@ -285,7 +287,7 @@ public class AutorCreacionView extends JDialog {
 	if (txtFCartaPresentacion == null) {
 	    txtFCartaPresentacion = new JTextField();
 	    txtFCartaPresentacion.setColumns(10);
-	    txtFCartaPresentacion.setBounds(183, 231, 321, 20);
+	    txtFCartaPresentacion.setBounds(183, 246, 321, 20);
 	}
 	return txtFCartaPresentacion;
     }
@@ -296,7 +298,7 @@ public class AutorCreacionView extends JDialog {
 	    lbCVAutor.setDisplayedMnemonic('V');
 	    lbCVAutor.setLabelFor(getTxtFCVAutor());
 	    lbCVAutor.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    lbCVAutor.setBounds(23, 262, 150, 20);
+	    lbCVAutor.setBounds(23, 277, 150, 20);
 	}
 	return lbCVAutor;
     }
@@ -305,7 +307,7 @@ public class AutorCreacionView extends JDialog {
 	if (txtFCVAutor == null) {
 	    txtFCVAutor = new JTextField();
 	    txtFCVAutor.setColumns(10);
-	    txtFCVAutor.setBounds(183, 262, 321, 20);
+	    txtFCVAutor.setBounds(183, 277, 321, 20);
 	}
 	return txtFCVAutor;
     }
@@ -361,7 +363,7 @@ public class AutorCreacionView extends JDialog {
 
 	articuloDto.setTitulo(getTxtFTitulo().getText());
 	articuloDto.setPrimerAutor(getTxtFAutor().getText());
-	articuloDto.setOtrosAutores(getTxtFOtrosAutores().getText());
+	articuloDto.setOtrosAutores(getTxtFPalabrasClave().getText());
 	articuloDto.setResumen(getTxtFResumen().getText());
 	articuloDto.setPalabrasClave(getTxtFPalabrasClave().getText());
 	articuloDto.setFicheroFuente(getTxtFFicheroFuente().getText());
@@ -378,20 +380,32 @@ public class AutorCreacionView extends JDialog {
 
 	if (posibleBorrador.getIdArticulo() != null) {
 	    articuloDto.setIdArticulo(posibleBorrador.getIdArticulo());
-	    autorController.actualizarBorrador(articuloDto);
+	    if (!autorController.actualizarBorrador(articuloDto)) {
+		JOptionPane.showMessageDialog(this, "Mal formato de autores secundarios");
+	    } else {
+		if (!revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(),
+			getTextFSugerido2().getText(), getTextFSugerido3().getText())) {
+		    JOptionPane.showMessageDialog(this, "Mal formato de revisores");
+		} else {
+		    JOptionPane.showMessageDialog(this, "Borrador creado/actualizado");
+		    dispose();
+		}
+	    }
+
 	} else {
 	    articuloDto.setIdArticulo(UUID.randomUUID().toString());
-	    autorController.crearBorrador(articuloDto);
+	    if (!autorController.crearBorrador(articuloDto)) {
+		JOptionPane.showMessageDialog(this, "Mal formato de autores secundarios");
+	    } else {
+		if (!revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(),
+			getTextFSugerido2().getText(), getTextFSugerido3().getText())) {
+		    JOptionPane.showMessageDialog(this, "Mal formato de revisores");
+		} else {
+		    JOptionPane.showMessageDialog(this, "Borrador creado/actualizado");
+		    dispose();
+		}
+	    }
 	}
-
-	if (!revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(),
-		getTextFSugerido2().getText(), getTextFSugerido3().getText())) {
-	    JOptionPane.showMessageDialog(this, "Mal formato de revisores");
-	} else {
-	    JOptionPane.showMessageDialog(this, "Borrador creado/actualizado");
-	    dispose();
-	}
-
     }
 
     private boolean checkFields() {
@@ -451,7 +465,17 @@ public class AutorCreacionView extends JDialog {
 
 	if (articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor()) == null) {
 	    articuloDto.setIdArticulo(UUID.randomUUID().toString());
-	    autorController.crearArticulo(articuloDto);
+	    if (!autorController.crearArticulo(articuloDto)) {
+		JOptionPane.showMessageDialog(this, "Mal formato de los autores secundarios.");
+	    } else {
+		if (!revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(),
+			getTextFSugerido2().getText(), getTextFSugerido3().getText())) {
+		    JOptionPane.showMessageDialog(this, "Mal formato de revisores");
+		} else {
+		    JOptionPane.showMessageDialog(this, "Articulo enviado a la revista.");
+		}
+	    }
+
 	} else {
 	    String id = articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor())
 		    .getIdArticulo();
@@ -463,13 +487,6 @@ public class AutorCreacionView extends JDialog {
 	    }
 
 	}
-	if (!revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(),
-		getTextFSugerido2().getText(), getTextFSugerido3().getText())) {
-	    JOptionPane.showMessageDialog(this, "Mal formato de revisores");
-	} else {
-	    JOptionPane.showMessageDialog(this, "Articulo enviado a la revista.");
-	}
-
     }
 
     private JLabel getLbContstraints() {
@@ -540,8 +557,13 @@ public class AutorCreacionView extends JDialog {
     }
 
     private boolean revisoresSugeridos(String id_articulo, String revisor1, String revisor2, String revisor3) {
-	if (!revisor1.isEmpty()) {
-	    String[] rev1 = revisor1.split("-"); // *Formato: Nombre - Correo - Especialidad
+	return sugerirRev(id_articulo, revisor1) || sugerirRev(id_articulo, revisor2)
+		|| sugerirRev(id_articulo, revisor3);
+    }
+
+    private boolean sugerirRev(String idArticulo, String revisor) {
+	if (!revisor.isEmpty()) {
+	    String[] rev1 = revisor.split("-"); // *Formato: Nombre - Correo - Especialidad
 	    if (rev1.length != 3) {
 		return false;
 	    }
@@ -556,58 +578,10 @@ public class AutorCreacionView extends JDialog {
 		revisorDto1.setEspecialidad(rev1[2]);
 		revisorDto1.setEstado("SUGERIDO");
 
-		autorController.sugerirRevisores(id_articulo, revisorDto1);
+		autorController.sugerirRevisores(idArticulo, revisorDto1);
 		revisorController.addRevisor(revisorDto1);
 	    } else {
-		autorController.sugerirRevisores(id_articulo,
-			EntityAssembler.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
-	    }
-	}
-
-	if (!revisor2.isEmpty()) {
-	    String[] rev2 = revisor2.split("-"); // *Formato: Nombre - Correo - Especialidad
-	    if (rev2.length != 3) {
-		return false;
-	    }
-	    String nombre = rev2[0].toLowerCase();
-	    String correo = rev2[1].toLowerCase();
-	    String especialidad = rev2[2].toLowerCase();
-	    if (revisorController.findRevisor(nombre, correo, especialidad) == null) {
-		RevisorDto revisorDto2 = new RevisorDto();
-		revisorDto2.setIdRevisor(UUID.randomUUID().toString());
-		revisorDto2.setNombre(rev2[0]);
-		revisorDto2.setCorreo(rev2[1]);
-		revisorDto2.setEspecialidad(rev2[2]);
-		revisorDto2.setEstado("SUGERIDO");
-
-		autorController.sugerirRevisores(id_articulo, revisorDto2);
-		revisorController.addRevisor(revisorDto2);
-	    } else {
-		autorController.sugerirRevisores(id_articulo,
-			EntityAssembler.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
-	    }
-	}
-
-	if (!revisor3.isEmpty()) {
-	    String[] rev3 = revisor3.split("-"); // *Formato: Nombre - Correo - Especialidad
-	    if (rev3.length != 3) {
-		return false;
-	    }
-	    String nombre = rev3[0];
-	    String correo = rev3[1];
-	    String especialidad = rev3[2];
-	    if (revisorController.findRevisor(nombre, correo, especialidad) == null) {
-		RevisorDto revisorDto3 = new RevisorDto();
-		revisorDto3.setIdRevisor(UUID.randomUUID().toString());
-		revisorDto3.setNombre(rev3[0].toLowerCase());
-		revisorDto3.setCorreo(rev3[1].toLowerCase());
-		revisorDto3.setEspecialidad(rev3[2].toLowerCase());
-		revisorDto3.setEstado("SUGERIDO");
-
-		autorController.sugerirRevisores(id_articulo, revisorDto3);
-		revisorController.addRevisor(revisorDto3);
-	    } else {
-		autorController.sugerirRevisores(id_articulo,
+		autorController.sugerirRevisores(idArticulo,
 			EntityAssembler.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
 	    }
 	}
@@ -657,5 +631,14 @@ public class AutorCreacionView extends JDialog {
 	    getTextFSugerido3().setText(rev3.getNombre() + "-" + rev3.getCorreo() + "-" + rev3.getEspecialidad());
 	    break;
 	}
+    }
+
+    private JLabel getLblFormatoPalbraclave() {
+	if (lblFormatoPalbraclave == null) {
+	    lblFormatoPalbraclave = new JLabel("** Formato: PalbraClave1, PalabraClave2, etc.");
+	    lblFormatoPalbraclave.setFont(new Font("Tahoma", Font.PLAIN, 10));
+	    lblFormatoPalbraclave.setBounds(183, 191, 321, 14);
+	}
+	return lblFormatoPalbraclave;
     }
 }

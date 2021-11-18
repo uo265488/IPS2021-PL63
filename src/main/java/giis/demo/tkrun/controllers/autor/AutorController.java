@@ -82,39 +82,56 @@ public class AutorController {
 	return EntityAssembler.toAutorEntity(model.findById(id));
     }
 
-    public void crearBorrador(ArticuloDto articuloDto) {
-	articuloModel.crearBorrador(articuloDto);
-	articuloModel.asignarAutor(articuloDto, id_autor);
-	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
+    public boolean crearBorrador(ArticuloDto articuloDto) {
+	if (!parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores())) {
+	    return false;
+	} else {
+	    articuloModel.crearBorrador(articuloDto);
+	    articuloModel.asignarAutor(articuloDto, id_autor);
+	    return true;
+
+	}
+
     }
 
-    public void crearArticulo(ArticuloDto articuloDto) {
+    public boolean crearArticulo(ArticuloDto articuloDto) {
+	if (!parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores())) {
+	    return false;
+	}
 	articuloModel.crearArticulo(articuloDto);
 	articuloModel.asignarAutor(articuloDto, id_autor);
-	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
+	return true;
+
     }
 
-    public void parseOtrosAutores(String id_Articulo, String otrosAutores) {
+    public boolean parseOtrosAutores(String id_Articulo, String otrosAutores) {
 	if (!otrosAutores.replaceAll("//s", "").isBlank()) {
 	    String[] autores = otrosAutores.split(";");
 	    if (autores.length > 0) {
 		for (String line : autores) {
 		    String[] autorAParsear = line.split("-");
-		    AutorDto autor = new AutorDto();
-		    autor.setNombre(autorAParsear[0].toLowerCase());
-		    autor.setDni(autorAParsear[1].toLowerCase());
-		    if (model.findAutor(autor.getNombre(), autor.getDni()) == null) {
-			autor.setIdAutor(UUID.randomUUID().toString());
-			model.addAutor(autor);
-			createUser(autor);
-		    } else {
-			autor.setIdAutor(model.findAutor(autor.getNombre(), autor.getDni()).getIdAutor());
-		    }
+		    if (autorAParsear.length > 1) {
+			AutorDto autor = new AutorDto();
+			autor.setNombre(autorAParsear[0].toLowerCase());
+			autor.setDni(autorAParsear[1].toLowerCase());
+			if (model.findAutor(autor.getNombre(), autor.getDni()) == null) {
+			    autor.setIdAutor(UUID.randomUUID().toString());
+			    model.addAutor(autor);
+			    createUser(autor);
+			} else {
+			    autor.setIdAutor(model.findAutor(autor.getNombre(), autor.getDni()).getIdAutor());
+			}
 
-		    articuloModel.asignarOtroAutor(id_Articulo, autor.getIdAutor());
+			articuloModel.asignarOtroAutor(id_Articulo, autor.getIdAutor());
+
+			return true;
+		    }
+		    return false;
 		}
 	    }
+	    return false;
 	}
+	return true;
 
     }
 
@@ -131,16 +148,23 @@ public class AutorController {
 	userModel.addUser(user);
     }
 
-    public void actualizarBorrador(ArticuloDto articuloDto) {
+    public boolean actualizarBorrador(ArticuloDto articuloDto) {
+	if (!parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores())) {
+	    return false;
+	}
 	articuloModel.actualizarBorrador(articuloDto);
-	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
+	return true;
 
     }
 
-    public void enviarBorrador(ArticuloDto articuloDto) {
+    public boolean enviarBorrador(ArticuloDto articuloDto) {
+	if (!parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores())) {
+	    return false;
+	}
 	articuloModel.enviarBorrador(articuloDto);
 	articuloModel.asignarAutor(articuloDto, id_autor);
-	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
+	return true;
+
     }
 
     public List<AutorEntity> findOtrosAutorEntities(String idArticulo, String id_autor) {
