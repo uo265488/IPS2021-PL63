@@ -170,7 +170,7 @@ public class ArticuloModel {
 	    }
 	}
 
-	sql = "SELECT idArticulo, titulo, primerAutor, vecesRevisado from articulos where idArticulo = ?";
+	sql = "SELECT idArticulo, titulo, primerAutor, vecesRevisado, estado from articulos where idArticulo = ?";
 
 	idsArticulos.clear();
 	for (String id : idsArticulosRevisados) {
