@@ -16,8 +16,8 @@ insert into revisores(idRevisor,nombre,estado, correo, especialidad) values
 	('043367e8-9752-49d2-b2ca-a217023c363c','pablo','NO DISPONIBLE', 'peibol@uniovi.es', 'Futbol'),
 	('52934766-3f57-4a1c-a67e-d30d45c2975b','julio','NO DISPONIBLE', 'jfer@uniovi.es', 'Meses'),
 	('26e7b09f-96dc-402b-9315-1fc844d6da9b','ruben','DISPONIBLE', 'rub@uniovi.es','Comida'),
-	('bb6b1a56-70d2-4512-97fc-bcb5cb3fa468', 'Oscar', 'DISPONIBLE', 'oscar@uniovi.es', 'Lesiones'),
-	('7d5c8f94-9e98-4ee5-bb8b-1e86d3461505', 'Pepe', 'SUGERIDO', 'pepe@pravia.es', 'Quesos');
+	('bb6b1a56-70d2-4512-97fc-bcb5cb3fa468', 'oscar', 'DISPONIBLE', 'oscar@uniovi.es', 'Lesiones'),
+	('7d5c8f94-9e98-4ee5-bb8b-1e86d3461505', 'pepe', 'SUGERIDO', 'pepe@pravia.es', 'Quesos');
 	
 delete from autores;
 insert into autores(idAutor,nombre,dni) values 
@@ -99,8 +99,8 @@ insert into usuarios (idUsuario, nombre, tipoUsuario) values
 	('043367e8-9752-49d2-b2ca-a217023c363c','pablo', 'Revisor'),
 	('52934766-3f57-4a1c-a67e-d30d45c2975b','julio','Revisor'),
 	('26e7b09f-96dc-402b-9315-1fc844d6da9b','ruben', 'Revisor'),
-	('bb6b1a56-70d2-4512-97fc-bcb5cb3fa468', 'Oscar', 'Revisor'),
+	('bb6b1a56-70d2-4512-97fc-bcb5cb3fa468', 'oscar', 'Revisor'),
 	('8b021e87-4868-49e7-bea3-c5f85674fb59','antonio', 'Autor'),
 	('183add42-5d3e-40b1-9200-23bab1f65c02','lucia', 'Autor'),
 	('131c79b1-dc04-4a13-8325-5e480bcd3c86','ariadna', 'Autor'),
-	('1239272a-774c-4cad-a169-090df09f220f', 'Hugo', 'Autor');
+	('1239272a-774c-4cad-a169-090df09f220f', 'hugo', 'Autor');

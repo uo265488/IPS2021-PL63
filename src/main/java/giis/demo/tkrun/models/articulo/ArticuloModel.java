@@ -113,8 +113,7 @@ public class ArticuloModel {
      * @return
      */
     public List<ArticuloDto> getArticulos() {
-	String sql = "SELECT * from articulos where estado = 'con el editor'";
-
+	String sql = "SELECT * from articulos where estado <> 'borrador'";
 	return db.executeQueryPojo(ArticuloDto.class, sql);
     }
 
@@ -126,16 +125,16 @@ public class ArticuloModel {
 
     // TODO: Arreglar query usando autoressecundarios.
     public List<ArticuloDto> getArticulosFiltradoAutor(String autor) {
-	String sql = "SELECT * from articulos where estado <> 'borrador' and primerAutor = ?";
+	String sql = "SELECT * from articulos where estado <> 'borrador' and lower(primerAutor) = ?";
 
-	return db.executeQueryPojo(ArticuloDto.class, sql, autor);
+	return db.executeQueryPojo(ArticuloDto.class, sql, autor.toLowerCase());
     }
 
     // TODO: Arreglar query usando autoressecundarios.
     public List<ArticuloDto> getArticulosFiltradoTitulo(String titulo) {
-	String sql = "SELECT * from articulos where estado <> 'borrador' and titulo = ?";
+	String sql = "SELECT * from articulos where estado <> 'borrador' and lower(titulo) = ?";
 
-	return db.executeQueryPojo(ArticuloDto.class, sql, titulo);
+	return db.executeQueryPojo(ArticuloDto.class, sql, titulo.toLowerCase());
     }
 
     public List<ArticuloDto> getArticulosSinResponder(String id) {
