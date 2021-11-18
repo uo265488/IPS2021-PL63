@@ -43,6 +43,7 @@ public class RevisorController {
 	this.model = new RevisionModel();
 	this.articuloModel = new ArticuloModel();
 	this.idRevisor = idRevisor;
+	this.revisoresModel = new RevisorModel();
 	// no hay inicializacion especifica del modelo, solo de la vista
 	this.initView();
     }

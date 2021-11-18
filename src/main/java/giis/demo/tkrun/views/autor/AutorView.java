@@ -26,6 +26,7 @@ import javax.swing.border.EmptyBorder;
 import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.views.articulo.ArticuloCambiosView;
+import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
 
 public class AutorView extends JDialog {
 
@@ -51,6 +52,7 @@ public class AutorView extends JDialog {
     private JButton btnModificarBorrador;
     private JList<ArticuloEntity> listArticulos;
     private JButton btnCambiosSugeridos;
+    private JButton btnVisualizar;
 
     /// **
     // * Launch the application.
@@ -157,6 +159,7 @@ public class AutorView extends JDialog {
     private JButton getBtnCambiosSugeridos() {
 	if (btnCambiosSugeridos == null) {
 	    btnCambiosSugeridos = new JButton("Cambios sugeridos");
+	    btnCambiosSugeridos.setBackground(new Color(0, 206, 209));
 	    btnCambiosSugeridos.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -164,7 +167,7 @@ public class AutorView extends JDialog {
 		}
 	    });
 	    btnCambiosSugeridos.setEnabled(false);
-	    btnCambiosSugeridos.setBounds(223, 498, 178, 23);
+	    btnCambiosSugeridos.setBounds(223, 498, 178, 33);
 	}
 	return btnCambiosSugeridos;
     }
@@ -196,6 +199,7 @@ public class AutorView extends JDialog {
     private JButton getBtnModificarBorrador() {
 	if (btnModificarBorrador == null) {
 	    btnModificarBorrador = new JButton("Modificar borrador");
+	    btnModificarBorrador.setBackground(new Color(46, 139, 87));
 	    btnModificarBorrador.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -203,7 +207,7 @@ public class AutorView extends JDialog {
 		}
 	    });
 	    btnModificarBorrador.setEnabled(false);
-	    btnModificarBorrador.setBounds(10, 498, 178, 23);
+	    btnModificarBorrador.setBounds(10, 498, 178, 33);
 	}
 	return btnModificarBorrador;
     }
@@ -322,6 +326,7 @@ public class AutorView extends JDialog {
 	contentPane.add(getBtVisualizar());
 	contentPane.add(getBtnModificarBorrador());
 	contentPane.add(getBtnCambiosSugeridos());
+	contentPane.add(getBtnVisualizar());
 	setVisible(true);
 	setResizable(false);
     }
@@ -375,5 +380,26 @@ public class AutorView extends JDialog {
 	    }
 	}
 	cbArticulosSinPublicar.setModel(new DefaultComboBoxModel<ArticuloEntity>(vector));
+    }
+
+    private JButton getBtnVisualizar() {
+	if (btnVisualizar == null) {
+	    btnVisualizar = new JButton("Visualizar");
+	    btnVisualizar.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    ArticuloEntity articulo = getListArticulos().getSelectedValue();
+		    if (articulo == null) {
+			JOptionPane.showMessageDialog(getContentPane(), "Debes seleccionar un artículo.");
+		    } else {
+			VisualizarArticuloView vav = new VisualizarArticuloView(articulo);
+			vav.setVisible(true);
+		    }
+		}
+	    });
+	    btnVisualizar.setEnabled(true);
+	    btnVisualizar.setBackground(new Color(70, 130, 180));
+	    btnVisualizar.setBounds(426, 498, 178, 33);
+	}
+	return btnVisualizar;
     }
 }

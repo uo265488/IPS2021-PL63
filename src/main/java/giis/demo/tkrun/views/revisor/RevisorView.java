@@ -48,7 +48,7 @@ public class RevisorView extends JDialog {
     private JButton btGuardarCambios;
     private JButton btVerArticulos;
     private RevisorController controller;
-    private ArticuloController contArt;
+    private ArticuloController contArt = new ArticuloController();
     private List<ArticuloEntity> articulosSinRevisar = new ArrayList<ArticuloEntity>();
     private String idArt;
     private RevisionEntity articuloRevisando;
@@ -61,7 +61,6 @@ public class RevisorView extends JDialog {
      */
     public RevisorView(RevisorController controller, String idRevisor) {
 	this.controller = controller;
-	this.contArt = new ArticuloController();
 	this.idRev = idRevisor;
 	inicialice();
     }
@@ -104,7 +103,7 @@ public class RevisorView extends JDialog {
 
     private JLabel getLbId() {
 	if (lbId == null) {
-	    lbId = new JLabel("Revisor: " + controller.getRevisorById(idRev).toString());
+	    lbId = new JLabel("Revisor:         " + controller.getRevisorById(idRev).toString());
 	    lbId.setFont(new Font("Tahoma", Font.PLAIN, 15));
 	    lbId.setBounds(123, 56, 546, 24);
 	}

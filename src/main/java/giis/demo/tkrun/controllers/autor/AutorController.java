@@ -54,8 +54,6 @@ public class AutorController {
 	articuloModel = new ArticuloModel();
 	revisorModel = new RevisorModel();
 	userModel = new UserModel();
-
-	initView();
     }
 
     private void initView() {
