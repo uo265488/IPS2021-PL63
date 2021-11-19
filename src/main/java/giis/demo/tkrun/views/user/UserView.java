@@ -115,7 +115,7 @@ public class UserView extends JFrame {
     }
 
     private void launchAutor(String idAutor) {
-	MenuAutor ma = new MenuAutor(new AutorController(), idAutor);
+	MenuAutor ma = new MenuAutor(new AutorController(idAutor), idAutor);
 	ma.setVisible(true);
 	ma.setLocationRelativeTo(this);
     }

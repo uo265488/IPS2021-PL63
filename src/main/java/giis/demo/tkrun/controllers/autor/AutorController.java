@@ -80,29 +80,23 @@ public class AutorController {
 	return EntityAssembler.toAutorEntity(model.findById(id));
     }
 
-    public boolean crearBorrador(ArticuloDto articuloDto) {
-	if (!parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores())) {
-	    return false;
-	} else {
-	    articuloModel.crearBorrador(articuloDto);
-	    articuloModel.asignarAutor(articuloDto, id_autor);
-	    return true;
+    public void crearBorrador(ArticuloDto articuloDto) {
 
-	}
+	articuloModel.crearBorrador(articuloDto);
+	articuloModel.asignarAutor(articuloDto, id_autor);
+	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
 
     }
 
-    public boolean crearArticulo(ArticuloDto articuloDto) {
-	if (!parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores())) {
-	    return false;
-	}
+    public void crearArticulo(ArticuloDto articuloDto) {
+
 	articuloModel.crearArticulo(articuloDto);
 	articuloModel.asignarAutor(articuloDto, id_autor);
-	return true;
+	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
 
     }
 
-    public boolean parseOtrosAutores(String id_Articulo, String otrosAutores) {
+    public void parseOtrosAutores(String id_Articulo, String otrosAutores) {
 	if (!otrosAutores.replaceAll("//s", "").isBlank()) {
 	    String[] autores = otrosAutores.split(";");
 	    if (autores.length > 0) {
@@ -121,15 +115,10 @@ public class AutorController {
 			}
 
 			articuloModel.asignarOtroAutor(id_Articulo, autor.getIdAutor());
-
-			return true;
 		    }
-		    return false;
 		}
 	    }
-	    return false;
 	}
-	return true;
 
     }
 
@@ -146,22 +135,16 @@ public class AutorController {
 	userModel.addUser(user);
     }
 
-    public boolean actualizarBorrador(ArticuloDto articuloDto) {
-	if (!parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores())) {
-	    return false;
-	}
+    public void actualizarBorrador(ArticuloDto articuloDto) {
 	articuloModel.actualizarBorrador(articuloDto);
-	return true;
-
+	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
     }
 
-    public boolean enviarBorrador(ArticuloDto articuloDto) {
-	if (!parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores())) {
-	    return false;
-	}
+    public void enviarBorrador(ArticuloDto articuloDto) {
+
 	articuloModel.enviarBorrador(articuloDto);
 	articuloModel.asignarAutor(articuloDto, id_autor);
-	return true;
+	parseOtrosAutores(articuloDto.getIdArticulo(), articuloDto.getOtrosAutores());
 
     }
 
