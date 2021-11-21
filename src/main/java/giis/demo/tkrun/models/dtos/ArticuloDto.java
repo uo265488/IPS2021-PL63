@@ -19,6 +19,7 @@ public class ArticuloDto {
 	private String DOI;
 	private String fecha;
 	private int volumen;
+	private boolean pendienteDeCambios;
 	
 	public int getIdArticulo() {
 		return idArticulo;
@@ -121,6 +122,12 @@ public class ArticuloDto {
 	}
 	public void setVolumen(int volumen) {
 		this.volumen = volumen;
+	}
+	public boolean isPendienteDeCambios() {
+		return pendienteDeCambios;
+	}
+	public void setPendienteDeCambios(boolean pendienteDeCambios) {
+		this.pendienteDeCambios = pendienteDeCambios;
 	}
 	
 	

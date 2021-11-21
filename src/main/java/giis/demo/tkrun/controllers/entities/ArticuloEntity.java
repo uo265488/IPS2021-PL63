@@ -29,6 +29,7 @@ public class ArticuloEntity {
 	private String DOI;
 	private String fecha;
 	private int volumen;
+	private boolean pendienteDeCambios;
 
 	public String getCartaDecision() {
 		return cartaDecision;
@@ -192,6 +193,14 @@ public class ArticuloEntity {
 		}
 
 		return str;
+	}
+
+	public boolean isPendienteDeCambios() {
+		return pendienteDeCambios;
+	}
+
+	public void setPendienteDeCambios(boolean pendienteDeCambios) {
+		this.pendienteDeCambios = pendienteDeCambios;
 	}
 
 }

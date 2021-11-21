@@ -13,7 +13,7 @@ public class AutorModel {
 
     public List<ArticuloDto> articulosDeUnAutor(int id) {
 	// validaciones (en este caso nada)
-	String sql = "select a.idArticulo, a.titulo, a.primerAutor, a.estado, a.resumen, a.palabrasClave, a.ficheroFuente, a.cartaPresentacion, a.CV, a.firma, a.vecesRevisado"
+	String sql = "select a.idArticulo, a.titulo, a.primerAutor, a.estado, a.resumen, a.palabrasClave, a.ficheroFuente, a.cartaPresentacion, a.CV, a.firma, a.vecesRevisado, a.pendienteDeCambios"
 		+ " from autoressecundarios, articulos as a "
 		+ "where idAutor = ? and a.idArticulo = autoressecundarios.idArticulo";
 	return db.executeQueryPojo(ArticuloDto.class, sql, id);

@@ -38,6 +38,7 @@ public class EntityAssembler {
 		ent.setTitulo(dto.getTitulo());
 		ent.setVecesRevisado(dto.getVecesRevisado());
 		ent.setVersionDefinitiva(dto.isVersionDefinitiva());
+		ent.setPendienteDeCambios(dto.isPendienteDeCambios());
 		return ent;
 	}
 

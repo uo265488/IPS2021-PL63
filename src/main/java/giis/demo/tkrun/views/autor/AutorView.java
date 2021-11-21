@@ -354,7 +354,7 @@ public class AutorView extends JDialog {
 	ArticuloEntity articulo = getListArticulos().getSelectedValue();
 
 	if ((articulo.getVecesRevisado() == 1) && articulo.getEstado().equals("aceptado")
-		|| articulo.getEstado().equals("aceptado con cambios menores")
+		|| (articulo.getEstado().equals("aceptado con cambios menores") && articulo.isPendienteDeCambios())
 		|| articulo.getEstado().equals("aceptado con cambios mayores")) {
 	    return true;
 	}
