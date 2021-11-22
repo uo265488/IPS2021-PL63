@@ -2,6 +2,8 @@ package giis.demo.tkrun.views.editor;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
@@ -24,6 +26,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import giis.demo.tkrun.controllers.articulo.ArticuloController;
+import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 
 public class EditorAbrirDebateView extends JDialog {
@@ -37,6 +40,8 @@ public class EditorAbrirDebateView extends JDialog {
 	private JScrollPane scDebates;
 	private JList<ArticuloEntity> listArticulosDebatibles;
 	private ArticuloController articulosController = new ArticuloController();
+	private EditorController editorController = new EditorController();
+	private JComboBox<LocalDate> comboBox;
 
 	/**
 	 * Create the dialog.
@@ -60,8 +65,15 @@ public class EditorAbrirDebateView extends JDialog {
 		contentPanel.add(getScDebates());
 		{
 			JButton btnAbrirDebate = new JButton("Abrir debate");
+			btnAbrirDebate.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					abrirDebate();
+				}
+			});
 			btnAbrirDebate.setBounds(38, 278, 438, 33);
 			contentPanel.add(btnAbrirDebate);
+
 		}
 		{
 			JLabel lblFecha = new JLabel("Fecha cierre del debate:");
@@ -69,11 +81,21 @@ public class EditorAbrirDebateView extends JDialog {
 			contentPanel.add(lblFecha);
 		}
 		{
-			JComboBox<LocalDate> comboBox = new JComboBox<>();
+			comboBox = new JComboBox<>();
 			comboBox.setBounds(235, 229, 241, 20);
 			comboBox.setModel(generarComboBoxModel());
 			contentPanel.add(comboBox);
 		}
+	}
+
+	/**
+	 * Abre un debate
+	 */
+	protected void abrirDebate() {
+		if ((comboBox.getSelectedIndex() != -1) && (listArticulosDebatibles.getSelectedIndex() != -1)) {
+			editorController.abrirDebate(listArticulosDebatibles.getSelectedValue(), comboBox.getSelectedItem());
+		}
+
 	}
 
 	private JList<ArticuloEntity> getListArticulosDebatibles() {

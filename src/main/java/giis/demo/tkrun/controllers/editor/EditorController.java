@@ -19,233 +19,234 @@ import giis.demo.util.EntityAssembler;
 
 public class EditorController {
 
-    private RevisionModel revisionModel = new RevisionModel();
-    private ArticuloModel articuloModel = new ArticuloModel();
-    private RevisorModel revisoresModel = new RevisorModel();
-    private SugerenciaModel sugerenciaModel = new SugerenciaModel();
-    private UserModel userModel = new UserModel();
+	private RevisionModel revisionModel = new RevisionModel();
+	private ArticuloModel articuloModel = new ArticuloModel();
+	private RevisorModel revisoresModel = new RevisorModel();
+	private SugerenciaModel sugerenciaModel = new SugerenciaModel();
+	private UserModel userModel = new UserModel();
 
-    public EditorController() {
+	public EditorController() {
 
-    }
-
-    public EditorController(boolean mostrarVista) {
-	this.revisionModel = new RevisionModel();
-	this.articuloModel = new ArticuloModel();
-	this.revisoresModel = new RevisorModel();
-	this.sugerenciaModel = new SugerenciaModel();
-    }
-
-    public void aceptarArticulo(ArticuloEntity articulo) {
-	articuloModel.aceptar(DtoMapper.toArticuloDto(articulo));
-    }
-
-    /**
-     * Añade el revisor a la lista de revisores si es que no esta añadido
-     *
-     * @param selectedValue
-     * @return
-     */
-    public boolean añadirRevisorAListaDeRevisores(RevisorEntity selectedValue) {
-	if (revisoresModel.findById(selectedValue.getId()).getEstado().equals(RevisorEntity.SUGERIDO)) {
-	    RevisorDto dto = DtoMapper.toRevisorDto(selectedValue);
-	    dto.setEstado(RevisorEntity.DISPONIBLE);
-	    revisoresModel.update(dto);
-	    userModel.addUser(new UserDto(dto.getNombre(), "Revisor", dto.getIdRevisor()));
-	    return true;
-	}
-	return false;
-    }
-
-    /**
-     * Metodo para asignar el revisor (generar revision, marcar articulo como 'en
-     * revision' y el revisor como 'no disponible'
-     *
-     * @param revisor
-     * @param articulo
-     * @param fecha
-     */
-    public void asignarRevisor(RevisorEntity revisor, ArticuloEntity articulo, String fecha) {
-
-	cambiarEstadoRevisorNoDisponible(revisor);
-
-	generarRevision(revisor, articulo, fecha);
-
-	if (getNumeroDeRevisoresAsignados(articulo) == 3) {
-	    cambiarEstadoArticuloEnRevision(articulo);
 	}
 
-    }
+	public EditorController(boolean mostrarVista) {
+		this.revisionModel = new RevisionModel();
+		this.articuloModel = new ArticuloModel();
+		this.revisoresModel = new RevisorModel();
+		this.sugerenciaModel = new SugerenciaModel();
+	}
 
-    /**
-     * Cambia el estado del articulo a "En revision"
-     *
-     * @param articulo
-     */
-    private void cambiarEstadoArticuloEnRevision(ArticuloEntity articulo) {
+	public void aceptarArticulo(ArticuloEntity articulo) {
+		articuloModel.aceptar(DtoMapper.toArticuloDto(articulo));
+	}
 
-	articulo.setEstado(ArticuloEntity.EN_REVISION);
+	/**
+	 * Añade el revisor a la lista de revisores si es que no esta añadido
+	 *
+	 * @param selectedValue
+	 * @return
+	 */
+	public boolean añadirRevisorAListaDeRevisores(RevisorEntity selectedValue) {
+		if (revisoresModel.findById(selectedValue.getId()).getEstado().equals(RevisorEntity.SUGERIDO)) {
+			RevisorDto dto = DtoMapper.toRevisorDto(selectedValue);
+			dto.setEstado(RevisorEntity.DISPONIBLE);
+			revisoresModel.update(dto);
+			userModel.addUser(new UserDto(dto.getNombre(), "Revisor", dto.getIdRevisor()));
+			return true;
+		}
+		return false;
+	}
 
-	articuloModel.update(DtoMapper.toArticuloDto(articulo));
+	/**
+	 * Metodo para asignar el revisor (generar revision, marcar articulo como 'en
+	 * revision' y el revisor como 'no disponible'
+	 *
+	 * @param revisor
+	 * @param articulo
+	 * @param fecha
+	 */
+	public void asignarRevisor(RevisorEntity revisor, ArticuloEntity articulo, String fecha) {
 
-    }
+		cambiarEstadoRevisorNoDisponible(revisor);
 
-    /**
-     * Cambia el estado de los revisores a no disponibles
-     *
-     * @param revisores
-     */
-    private void cambiarEstadoRevisorNoDisponible(RevisorEntity revisor) {
+		generarRevision(revisor, articulo, fecha);
 
-	revisor.setEstado(RevisorEntity.NO_DISPONIBLE);
+		if (getNumeroDeRevisoresAsignados(articulo) == 3) {
+			cambiarEstadoArticuloEnRevision(articulo);
+		}
 
-	revisoresModel.update(DtoMapper.toRevisorDto(revisor));
+	}
 
-    }
+	/**
+	 * Cambia el estado del articulo a "En revision"
+	 *
+	 * @param articulo
+	 */
+	private void cambiarEstadoArticuloEnRevision(ArticuloEntity articulo) {
 
-    /**
-     * Devuelve true si el articulo se encuentra en estado 'con el editor'
-     *
-     * @param articulo
-     * @return
-     */
-    public boolean checkArticuloParaAsignar(ArticuloEntity articulo) {
+		articulo.setEstado(ArticuloEntity.EN_REVISION);
 
-	return EntityAssembler.toArticuloEntity(articuloModel.findById(articulo.getIdArticulo()).get(0)).getEstado()
-		.equals(ArticuloEntity.CON_EL_EDITOR);
-    }
+		articuloModel.update(DtoMapper.toArticuloDto(articulo));
 
-    /**
-     * Metodo que genera las revisiones a partir del articulo, los revisores y la
-     * fecha
-     *
-     * @return
-     */
-    private void generarRevision(RevisorEntity revisor, ArticuloEntity articulo, String fecha) {
+	}
 
-	revisionModel.add(DtoMapper.toRevisionDto(revisor, articulo, fecha, RevisionEntity.PENDIENTE));
-    }
+	/**
+	 * Cambia el estado de los revisores a no disponibles
+	 *
+	 * @param revisores
+	 */
+	private void cambiarEstadoRevisorNoDisponible(RevisorEntity revisor) {
 
-    public void generarSegundaRevision(int idArticulo, int idRevisor, String fecha) {
-	revisionModel.generarSegundaRevision(idArticulo, idRevisor, fecha);
-    }
+		revisor.setEstado(RevisorEntity.NO_DISPONIBLE);
 
-    public List<ArticuloEntity> getArticulos() {
-	return EntityAssembler.toArticuloEntityList(articuloModel.getArticulos());
-    }
+		revisoresModel.update(DtoMapper.toRevisorDto(revisor));
 
-    public List<ArticuloEntity> getArticulosFiltradoAutor(String autor) {
-	return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoAutor(autor));
-    }
+	}
 
-    public List<ArticuloEntity> getArticulosFiltradoTitulo(String titulo) {
-	return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoTitulo(titulo));
-    }
+	/**
+	 * Devuelve true si el articulo se encuentra en estado 'con el editor'
+	 *
+	 * @param articulo
+	 * @return
+	 */
+	public boolean checkArticuloParaAsignar(ArticuloEntity articulo) {
 
-    public List<ArticuloEntity> getArticulosTomarDecision() {
-	return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosTomarDecision());
-    }
+		return EntityAssembler.toArticuloEntity(articuloModel.findById(articulo.getIdArticulo()).get(0)).getEstado()
+				.equals(ArticuloEntity.CON_EL_EDITOR);
+	}
 
-    /**
-     * Devuelve el numero de revisores asignados a un articulo
-     *
-     * @param articulo
-     * @return
-     */
-    public int getNumeroDeRevisoresAsignados(ArticuloEntity articulo) {
-	return revisionModel.findByIdArticulo(articulo.getIdArticulo()).size();
-    }
+	/**
+	 * Metodo que genera las revisiones a partir del articulo, los revisores y la
+	 * fecha
+	 *
+	 * @return
+	 */
+	private void generarRevision(RevisorEntity revisor, ArticuloEntity articulo, String fecha) {
 
-    public List<RevisionEntity> getRevisionesArticulo(ArticuloEntity articulo) {
-	return EntityAssembler
-		.toRevisionEntityList(revisionModel.getRevisionesDeUnArticulo(DtoMapper.toArticuloDto(articulo)));
-    }
+		revisionModel.add(DtoMapper.toRevisionDto(revisor, articulo, fecha, RevisionEntity.PENDIENTE));
+	}
 
-    public List<RevisionEntity> getRevisionesArticuloDeUnRevisor(int idArticulo, int idRevisor) {
-	return EntityAssembler
-		.toRevisionEntityList(revisionModel.getRevisionesArticuloDeUnRevisor(idArticulo, idRevisor));
-    }
+	public void generarSegundaRevision(int idArticulo, int idRevisor, String fecha) {
+		revisionModel.generarSegundaRevision(idArticulo, idRevisor, fecha);
+	}
 
-    public List<RevisionEntity> getRevisionesFiltradas(int idArticulo, int numeroRevision) {
-	return EntityAssembler
-		.toRevisionEntityList(revisionModel.getRevisionesFiltradoNumeroRevision(idArticulo, numeroRevision));
-    }
+	public List<ArticuloEntity> getArticulos() {
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulos());
+	}
+
+	public List<ArticuloEntity> getArticulosFiltradoAutor(String autor) {
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoAutor(autor));
+	}
+
+	public List<ArticuloEntity> getArticulosFiltradoTitulo(String titulo) {
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosFiltradoTitulo(titulo));
+	}
+
+	public List<ArticuloEntity> getArticulosTomarDecision() {
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosTomarDecision());
+	}
+
+	/**
+	 * Devuelve el numero de revisores asignados a un articulo
+	 *
+	 * @param articulo
+	 * @return
+	 */
+	public int getNumeroDeRevisoresAsignados(ArticuloEntity articulo) {
+		return revisionModel.findByIdArticulo(articulo.getIdArticulo()).size();
+	}
+
+	public List<RevisionEntity> getRevisionesArticulo(ArticuloEntity articulo) {
+		return EntityAssembler
+				.toRevisionEntityList(revisionModel.getRevisionesDeUnArticulo(DtoMapper.toArticuloDto(articulo)));
+	}
+
+	public List<RevisionEntity> getRevisionesArticuloDeUnRevisor(int idArticulo, int idRevisor) {
+		return EntityAssembler
+				.toRevisionEntityList(revisionModel.getRevisionesArticuloDeUnRevisor(idArticulo, idRevisor));
+	}
+
+	public List<RevisionEntity> getRevisionesFiltradas(int idArticulo, int numeroRevision) {
+		return EntityAssembler
+				.toRevisionEntityList(revisionModel.getRevisionesFiltradoNumeroRevision(idArticulo, numeroRevision));
+	}
 
 //	-------------------------------------------
 
-    public List<RevisionEntity> getRevisionPorNumeroRevision(int numeroRevision, int idRevisor, int idArticulo) {
-	return EntityAssembler.toRevisionEntityList(
-		revisionModel.getRevisionPorNumeroRevision(idArticulo, idRevisor, numeroRevision));
-    }
+	public List<RevisionEntity> getRevisionPorNumeroRevision(int numeroRevision, int idRevisor, int idArticulo) {
+		return EntityAssembler.toRevisionEntityList(
+				revisionModel.getRevisionPorNumeroRevision(idArticulo, idRevisor, numeroRevision));
+	}
 
-    /**
-     * Devuelve una lista con los revisores de las sugerencias en funcion del
-     * articulo
-     *
-     * @param articulo
-     * @return
-     */
-    public List<RevisorEntity> getRevisoresAsignados(ArticuloEntity articulo) {
+	/**
+	 * Devuelve una lista con los revisores de las sugerencias en funcion del
+	 * articulo
+	 *
+	 * @param articulo
+	 * @return
+	 */
+	public List<RevisorEntity> getRevisoresAsignados(ArticuloEntity articulo) {
 
-	List<RevisionEntity> revisiones = EntityAssembler
-		.toRevisionEntityList(revisionModel.getRevisionesDeUnArticulo(DtoMapper.toArticuloDto(articulo)));
+		List<RevisionEntity> revisiones = EntityAssembler
+				.toRevisionEntityList(revisionModel.getRevisionesDeUnArticulo(DtoMapper.toArticuloDto(articulo)));
 
-	List<RevisorEntity> revisores = new ArrayList<>();
+		List<RevisorEntity> revisores = new ArrayList<>();
 
-	for (RevisionEntity r : revisiones) {
+		for (RevisionEntity r : revisiones) {
 
-	    if (!r.getEstadoDeLaPropuesta().equals(RevisionEntity.RECHAZADA)) {
-		revisores.add(EntityAssembler.toRevisorEntity(revisoresModel.findById(r.getIdRevisor())));
-	    }
+			if (!r.getEstadoDeLaPropuesta().equals(RevisionEntity.RECHAZADA)) {
+				revisores.add(EntityAssembler.toRevisorEntity(revisoresModel.findById(r.getIdRevisor())));
+			}
+
+		}
+
+		return revisores;
 
 	}
 
-	return revisores;
+	public List<RevisorEntity> getRevisoresDisponibles() {
 
-    }
-
-    public List<RevisorEntity> getRevisoresDisponibles() {
-
-	return EntityAssembler.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
-    }
-
-    /**
-     * Devuelve una lista con todos los revisores disponibles
-     *
-     * @return
-     */
-    public List<RevisorEntity> getRevisoresDisponibles(ArticuloEntity articulo) {
-
-	List<RevisorEntity> revisoresDisponibles = EntityAssembler
-		.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
-
-	return revisoresDisponibles.stream()
-		.filter(r -> revisionModel.findRevisionRechazada(articulo.getIdArticulo(), r.getId()).isEmpty())
-		.collect(Collectors.toList());
-
-    }
-
-    /**
-     * Devuelve una lista con los revisores de las sugerencias en funcion del
-     * articulo
-     *
-     * @param articulo
-     * @return
-     */
-    public List<RevisorEntity> getRevisoresSugeridos(ArticuloEntity articulo) {
-	List<RevisorEntity> list = new ArrayList<>();
-	for (RevisorDto dto : sugerenciaModel.getRevisoresSugeridos(articulo.getIdArticulo())) {
-	    list.add(EntityAssembler.toRevisorEntity(revisoresModel.findById(dto.getIdRevisor())));
+		return EntityAssembler.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
 	}
-	return list;
-    }
 
-    public void rechazarArticulo(ArticuloEntity articulo) {
-	articuloModel.rechazar(DtoMapper.toArticuloDto(articulo));
-    }
+	/**
+	 * Devuelve una lista con todos los revisores disponibles
+	 *
+	 * @return
+	 */
+	public List<RevisorEntity> getRevisoresDisponibles(ArticuloEntity articulo) {
 
-    public void rechazarDefinitivimenteArticulo(ArticuloEntity articulo) {
-	articuloModel.rechazarDefinitivamente(DtoMapper.toArticuloDto(articulo));
+		List<RevisorEntity> revisoresDisponibles = EntityAssembler
+				.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
 
-    }
+		return revisoresDisponibles.stream()
+				.filter(r -> revisionModel.findRevisionRechazada(articulo.getIdArticulo(), r.getId()).isEmpty())
+				.collect(Collectors.toList());
+
+	}
+
+	/**
+	 * Devuelve una lista con los revisores de las sugerencias en funcion del
+	 * articulo
+	 *
+	 * @param articulo
+	 * @return
+	 */
+	public List<RevisorEntity> getRevisoresSugeridos(ArticuloEntity articulo) {
+		List<RevisorEntity> list = new ArrayList<>();
+		for (RevisorDto dto : sugerenciaModel.getRevisoresSugeridos(articulo.getIdArticulo())) {
+			list.add(EntityAssembler.toRevisorEntity(revisoresModel.findById(dto.getIdRevisor())));
+		}
+		return list;
+	}
+
+	public void rechazarArticulo(ArticuloEntity articulo) {
+		articuloModel.rechazar(DtoMapper.toArticuloDto(articulo));
+	}
+
+	public void rechazarDefinitivimenteArticulo(ArticuloEntity articulo) {
+		articuloModel.rechazarDefinitivamente(DtoMapper.toArticuloDto(articulo));
+
+	}
+
 }
