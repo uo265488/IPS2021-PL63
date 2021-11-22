@@ -40,11 +40,13 @@ public class EditorAsignarFechasSegundaRevision extends JDialog {
 	private RevisorEntity revisor1;
 	private RevisorEntity revisor2;
 	private RevisorEntity revisor3;
+	private JLabel lblTitle;
 
 	/**
 	 * Create the dialog.
 	 */
 	public EditorAsignarFechasSegundaRevision(EditorController controller, ArticuloEntity articulo, RevisorEntity revisor1, RevisorEntity revisor2, RevisorEntity revisor3) {
+		setTitle("Asignar fechas a los revisores");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.controller =  controller;
 		this.articulo = articulo;
@@ -62,6 +64,7 @@ public class EditorAsignarFechasSegundaRevision extends JDialog {
 		contentPanel.add(getLblRevisor1());
 		contentPanel.add(getLblRevisor2());
 		contentPanel.add(getLblRevisor3());
+		contentPanel.add(getLblTitle());
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -109,7 +112,7 @@ public class EditorAsignarFechasSegundaRevision extends JDialog {
 		if (cbRevisor1 == null) {
 			cbRevisor1 = new JComboBox();
 			cbRevisor1.setModel(generarComboBoxModel());
-			cbRevisor1.setBounds(10, 29, 134, 26);
+			cbRevisor1.setBounds(10, 57, 134, 26);
 		}
 		return cbRevisor1;
 	}
@@ -117,7 +120,7 @@ public class EditorAsignarFechasSegundaRevision extends JDialog {
 		if (cbRevisor2 == null) {
 			cbRevisor2 = new JComboBox();
 			cbRevisor2.setModel(generarComboBoxModel());
-			cbRevisor2.setBounds(10, 78, 134, 26);
+			cbRevisor2.setBounds(10, 112, 134, 26);
 		}
 		return cbRevisor2;
 	}
@@ -125,28 +128,28 @@ public class EditorAsignarFechasSegundaRevision extends JDialog {
 		if (cbRevisor3 == null) {
 			cbRevisor3 = new JComboBox();
 			cbRevisor3.setModel(generarComboBoxModel());
-			cbRevisor3.setBounds(10, 127, 134, 26);
+			cbRevisor3.setBounds(10, 165, 134, 26);
 		}
 		return cbRevisor3;
 	}
 	private JLabel getLblRevisor1() {
 		if (lblRevisor1 == null) {
 			lblRevisor1 = new JLabel("Revisor 1");
-			lblRevisor1.setBounds(171, 29, 200, 26);
+			lblRevisor1.setBounds(171, 57, 200, 26);
 		}
 		return lblRevisor1;
 	}
 	private JLabel getLblRevisor2() {
 		if (lblRevisor2 == null) {
 			lblRevisor2 = new JLabel("Revisor 2");
-			lblRevisor2.setBounds(171, 78, 200, 26);
+			lblRevisor2.setBounds(171, 112, 200, 26);
 		}
 		return lblRevisor2;
 	}
 	private JLabel getLblRevisor3() {
 		if (lblRevisor3 == null) {
 			lblRevisor3 = new JLabel("Revisor 3");
-			lblRevisor3.setBounds(171, 127, 200, 26);
+			lblRevisor3.setBounds(171, 165, 200, 26);
 		}
 		return lblRevisor3;
 	}
@@ -167,4 +170,12 @@ public class EditorAsignarFechasSegundaRevision extends JDialog {
 				}
 
 	}
+	private JLabel getLblTitle() {
+		if (lblTitle == null) {
+			lblTitle = new JLabel("Seleccione las fechas para las nuevas revisiones:");
+			lblTitle.setBounds(10, 11, 342, 26);
+		}
+		return lblTitle;
+	}
 }
+

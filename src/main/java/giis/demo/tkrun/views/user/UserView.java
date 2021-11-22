@@ -14,15 +14,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.autor.AutorController;
-import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.UserEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.controllers.user.UserController;
+import giis.demo.tkrun.views.editor.MenuEditor;
 
 public class UserView extends JFrame {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -31,6 +31,8 @@ public class UserView extends JFrame {
     private JLabel lbLogin;
     private JComboBox<UserEntity> cbUsers;
     private JButton btnLogin;
+    private MenuEditor principalView;
+    private JButton btnActualizar;
 
 //	/**
 //	 * Launch the application.
@@ -57,47 +59,13 @@ public class UserView extends JFrame {
 	this.userController = controller;
 	this.users = userController.getUsers();
 	initialize();
-	System.out.println("kjsdngfñkajn");
-    }
-
-    /**
-     * Create the frame.
-     */
-    public void initialize() {
-	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	setBounds(100, 100, 537, 328);
-	contentPane = new JPanel();
-	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-	setContentPane(contentPane);
-	contentPane.setLayout(null);
-	contentPane.add(getLbLogin());
-	contentPane.add(getCbUsers());
-	contentPane.add(getBtnLogin());
-    }
-
-    private JLabel getLbLogin() {
-	if (lbLogin == null) {
-	    lbLogin = new JLabel("Usuarios disponibles para iniciar sesion:");
-	    lbLogin.setBounds(68, 32, 294, 14);
-	    lbLogin.setDisplayedMnemonic('U');
-	    lbLogin.setLabelFor(getCbUsers());
-	}
-	return lbLogin;
-    }
-
-    private JComboBox<UserEntity> getCbUsers() {
-	if (cbUsers == null) {
-	    cbUsers = new JComboBox<UserEntity>();
-	    cbUsers.setBounds(68, 57, 363, 161);
-	    setComboBoxModel();
-	}
-	return cbUsers;
     }
 
     private JButton getBtnLogin() {
 	if (btnLogin == null) {
 	    btnLogin = new JButton("Iniciar sesión");
 	    btnLogin.addActionListener(new ActionListener() {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 		    login();
 		}
@@ -110,13 +78,55 @@ public class UserView extends JFrame {
 	return btnLogin;
     }
 
-    private void setComboBoxModel() {
-	UserEntity[] usersModel = new UserEntity[this.users.size()];
-	for (int i = 0; i < usersModel.length; i++) {
-	    usersModel[i] = users.get(i);
+    private JComboBox<UserEntity> getCbUsers() {
+	if (cbUsers == null) {
+	    cbUsers = new JComboBox<UserEntity>();
+	    cbUsers.setBounds(68, 57, 363, 161);
+	    setComboBoxModel();
 	}
+	return cbUsers;
+    }
 
-	getCbUsers().setModel(new DefaultComboBoxModel<UserEntity>(usersModel));
+    private JLabel getLbLogin() {
+	if (lbLogin == null) {
+	    lbLogin = new JLabel("Usuarios disponibles para iniciar sesion:");
+	    lbLogin.setBounds(68, 32, 294, 14);
+	    lbLogin.setDisplayedMnemonic('U');
+	    lbLogin.setLabelFor(getCbUsers());
+	}
+	return lbLogin;
+    }
+
+    /**
+     * Create the frame.
+     */
+    public void initialize() {
+	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	setBounds(100, 100, 603, 328);
+	contentPane = new JPanel();
+	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+	setContentPane(contentPane);
+	contentPane.setLayout(null);
+	contentPane.add(getLbLogin());
+	contentPane.add(getCbUsers());
+	contentPane.add(getBtnLogin());
+	contentPane.add(getBtnActualizar());
+    }
+
+    private void launchAutor(String idAutor) {
+	new AutorController(idAutor);
+    }
+
+    private void launchEditor() {
+	this.principalView = new MenuEditor();
+	this.principalView.setVisible(true);
+	this.principalView.setLocationRelativeTo(this);
+	// this.principalView.setModal(true);
+
+    }
+
+    private void launchRevisor(String idRevisor) {
+	new RevisorController(idRevisor);
     }
 
     private void login() {
@@ -131,15 +141,26 @@ public class UserView extends JFrame {
 	}
     }
 
-    private void launchAutor(int idAutor) {
-	new AutorController(idAutor);
+    private void setComboBoxModel() {
+	UserEntity[] usersModel = new UserEntity[this.users.size()];
+	for (int i = 0; i < usersModel.length; i++) {
+	    usersModel[i] = users.get(i);
+	}
+
+	getCbUsers().setModel(new DefaultComboBoxModel<UserEntity>(usersModel));
     }
 
-    private void launchRevisor(int idRevisor) {
-	new RevisorController(idRevisor);
-    }
-
-    private void launchEditor() {
-	new EditorController();
+    private JButton getBtnActualizar() {
+	if (btnActualizar == null) {
+	    btnActualizar = new JButton("Actualizar");
+	    btnActualizar.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    users = userController.getUsers();
+		    setComboBoxModel();
+		}
+	    });
+	    btnActualizar.setBounds(462, 57, 99, 21);
+	}
+	return btnActualizar;
     }
 }

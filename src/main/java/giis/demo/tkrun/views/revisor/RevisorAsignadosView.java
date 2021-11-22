@@ -14,8 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
+import giis.demo.tkrun.views.editor.EditorViewComentariosArticulo;
 
 public class RevisorAsignadosView extends JDialog {
 
@@ -46,7 +48,7 @@ public class RevisorAsignadosView extends JDialog {
 //		});
 //	}
 
-    public RevisorAsignadosView(RevisorController revisorController, int idRevisor) {
+    public RevisorAsignadosView(RevisorController revisorController, String idRevisor) {
 	setResizable(false);
 	setTitle("Revisor. Articulos asignados");
 	this.revisorController = revisorController;
@@ -59,7 +61,7 @@ public class RevisorAsignadosView extends JDialog {
      */
     public void initialize() {
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	setBounds(100, 100, 413, 228);
+	setBounds(100, 100, 603, 335);
 	contentPane = new JPanel();
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 	setContentPane(contentPane);
@@ -82,34 +84,38 @@ public class RevisorAsignadosView extends JDialog {
 
     private JButton getBtnRevisar() {
 	if (btnRevisar == null) {
-	    btnRevisar = new JButton("Revisar");
+	    btnRevisar = new JButton("Visualizar");
 	    btnRevisar.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
+		    EditorViewComentariosArticulo evca = new EditorViewComentariosArticulo(
+			    (ArticuloEntity) getCmBoxArticulosAsigados().getSelectedItem(), new EditorController());
+
+		    evca.setVisible(true);
 		}
 	    });
 	    btnRevisar.setForeground(new Color(255, 255, 255));
 	    btnRevisar.setBackground(new Color(0, 100, 0));
 	    btnRevisar.setMnemonic('R');
-	    btnRevisar.setBounds(284, 86, 89, 23);
+	    btnRevisar.setBounds(432, 86, 89, 23);
 	}
 	return btnRevisar;
     }
 
-	private JComboBox<ArticuloEntity> getCmBoxArticulosAsigados() {
-		if (cmBoxArticulosAsigados == null) {
-			cmBoxArticulosAsigados = new JComboBox<ArticuloEntity>();
-			cmBoxArticulosAsigados.setBounds(38, 85, 205, 25);
-			setComboBoxModel();
-		}
-		return cmBoxArticulosAsigados;
+    private JComboBox<ArticuloEntity> getCmBoxArticulosAsigados() {
+	if (cmBoxArticulosAsigados == null) {
+	    cmBoxArticulosAsigados = new JComboBox<ArticuloEntity>();
+	    cmBoxArticulosAsigados.setBounds(38, 85, 359, 25);
+	    setComboBoxModel();
 	}
-	
-	private void setComboBoxModel() {
-		ArticuloEntity[] articulosEntity = new ArticuloEntity[articulosAsignados.size()]; 
-		for(int i = 0; i < articulosEntity.length; i++) {
-			articulosEntity[i] = articulosAsignados.get(i);
-		}
-		
-		getCmBoxArticulosAsigados().setModel(new DefaultComboBoxModel<ArticuloEntity>(articulosEntity));
+	return cmBoxArticulosAsigados;
+    }
+
+    private void setComboBoxModel() {
+	ArticuloEntity[] articulosEntity = new ArticuloEntity[articulosAsignados.size()];
+	for (int i = 0; i < articulosEntity.length; i++) {
+	    articulosEntity[i] = articulosAsignados.get(i);
 	}
+
+	getCmBoxArticulosAsigados().setModel(new DefaultComboBoxModel<ArticuloEntity>(articulosEntity));
+    }
 }
