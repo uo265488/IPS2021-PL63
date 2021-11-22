@@ -1,6 +1,7 @@
 package giis.demo.tkrun.controllers.editor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,6 +9,7 @@ import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
+import giis.demo.tkrun.models.debate.DebateModel;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.dtos.UserDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
@@ -24,6 +26,7 @@ public class EditorController {
 	private RevisorModel revisoresModel = new RevisorModel();
 	private SugerenciaModel sugerenciaModel = new SugerenciaModel();
 	private UserModel userModel = new UserModel();
+	private DebateModel debateModel = new DebateModel();
 
 	public EditorController() {
 
@@ -249,4 +252,14 @@ public class EditorController {
 
 	}
 
+	/**
+	 * Abre debate del articulo con la fecha asignada
+	 *
+	 * @param selectedValue
+	 * @param selectedItem
+	 */
+	public void abrirDebate(ArticuloEntity articulo, Date date) {
+		debateModel.abrirdebate(articulo.getIdArticulo(), date);
+
+	}
 }
