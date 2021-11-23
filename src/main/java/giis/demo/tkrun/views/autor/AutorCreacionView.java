@@ -10,6 +10,7 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,7 +28,7 @@ import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.util.EntityAssembler;
 
-public class AutorCreacionView extends JDialog {
+public class AutorCreacionView extends JFrame {
 
     /**
      * 
@@ -116,7 +117,7 @@ public class AutorCreacionView extends JDialog {
     public void initialize() {
 	setResizable(false);
 	setTitle("Autor. Crear un artículo");
-	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	setBounds(100, 100, 604, 638);
 	contentPane = new JPanel();
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -436,6 +437,7 @@ public class AutorCreacionView extends JDialog {
     private void enviarARevista() {
 
 	ArticuloDto articuloDto = new ArticuloDto();
+	articuloDto.setIdArticulo(posibleBorrador.getIdArticulo());
 	articuloDto.setTitulo(getTxtFTitulo().getText());
 	articuloDto.setPrimerAutor(getTxtFAutor().getText());
 	articuloDto.setEstado(posibleBorrador.getEstado());
@@ -452,13 +454,11 @@ public class AutorCreacionView extends JDialog {
 	articuloDto.setFecha("");
 	articuloDto.setVolumen(0);
 
-	if (articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor()) == null) {
+	if (articuloController.findArticulo(articuloDto.getIdArticulo()) == null) {
 	    articuloDto.setIdArticulo(new Random().nextInt());
 	    autorController.crearArticulo(articuloDto);
 	} else {
-	    int id = articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor())
-		    .getIdArticulo();
-	    articuloDto.setIdArticulo(id);
+	    articuloDto.setPendienteDeCambios(false);
 	    if (articuloDto.getVecesRevisado() > 0) {
 		autorController.modificarArticulo(articuloDto);
 	    } else {

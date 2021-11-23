@@ -51,7 +51,7 @@ public class ArticuloModel {
     }
 
     public void crearArticulo(ArticuloDto articulo) {
-	String sql_into_articulos = "insert into articulos values (?, ?, ?, 'con el editor', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	String sql_into_articulos = "insert into articulos values (?, ?, ?, 'con el editor', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, true)";
 
 	db.executeUpdate(sql_into_articulos, articulo.getIdArticulo(), articulo.getTitulo(), articulo.getPrimerAutor(),
 		articulo.getResumen(), articulo.getPalabrasClave(), articulo.getFicheroFuente(),
@@ -60,7 +60,7 @@ public class ArticuloModel {
     }
 
     public void crearBorrador(ArticuloDto articulo) {
-	String sql_into_articulos = "insert into articulos values (?, ?, ?,'borrador', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	String sql_into_articulos = "insert into articulos values (?, ?, ?,'borrador', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, false)";
 
 	db.executeUpdate(sql_into_articulos, articulo.getIdArticulo(), articulo.getTitulo(), articulo.getPrimerAutor(),
 		articulo.getResumen(), articulo.getPalabrasClave(), articulo.getFicheroFuente(),
@@ -195,11 +195,11 @@ public class ArticuloModel {
 
     public void modificarArticulo(ArticuloDto articuloDto) {
 	String sql = "update articulos set titulo = ?, resumen = ?, palabrasClave = ?, ficheroFuente = ? "
-		+ ", cartaPresentacion = ?, CV = ?, firma = ? where idArticulo = ?";
+		+ ", cartaPresentacion = ?, CV = ?, firma = ?, pendienteDeCambios = ? where idArticulo = ?";
 
 	db.executeUpdate(sql, articuloDto.getTitulo(), articuloDto.getResumen(), articuloDto.getPalabrasClave(),
 		articuloDto.getFicheroFuente(), articuloDto.getCartaPresentacion(), articuloDto.getCV(),
-		articuloDto.isFirma(), articuloDto.getIdArticulo());
+		articuloDto.isFirma(), articuloDto.isPendienteDeCambios(), articuloDto.getIdArticulo());
 
     }
 

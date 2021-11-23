@@ -173,7 +173,7 @@ public class ArticuloCambiosView extends JDialog {
     private void modificarArticulo() {
 	AutorCreacionView acv = new AutorCreacionView(autorController, id_autor, articulo);
 	acv.setVisible(true);
-	acv.setModal(true);
+	//acv.setModal(true);
 	this.dispose();
     }
 

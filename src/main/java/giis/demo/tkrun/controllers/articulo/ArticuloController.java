@@ -48,6 +48,13 @@ public class ArticuloController {
 	public ArticuloEntity findArticulo(String titulo, String autor) {
 		return EntityAssembler.toArticuloEntity(artModel.findArticulo(titulo, autor));
 	}
+	
+	public ArticuloEntity findArticulo(int idArt) {
+		List<ArticuloDto> lista = artModel.getArticulo(idArt);
+		if(lista.isEmpty())
+			return null;
+		return EntityAssembler.toArticuloEntity(lista.get(0));
+	}
 
 	public ArticuloEntity getArticulo(int idArt) {
 		List<ArticuloDto> articulos = artModel.getArticulo(idArt);

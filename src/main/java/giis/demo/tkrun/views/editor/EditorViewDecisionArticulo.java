@@ -42,8 +42,6 @@ public class EditorViewDecisionArticulo extends JDialog {
 	private JPanel contentPane;
 	private JLabel lbTitulo;
 	private JLabel lbArticulo;
-	private JButton btAceptar;
-	private JButton btRechazar;
 	private EditorController controller;
 	private ArticuloController articuloCont;
 	private List<ArticuloEntity> articulos = new ArrayList<ArticuloEntity>();
@@ -82,8 +80,6 @@ public class EditorViewDecisionArticulo extends JDialog {
 		contentPane.setLayout(null);
 		contentPane.add(getLbTitulo());
 		contentPane.add(getLbArticulo());
-		contentPane.add(getBtAceptar());
-		contentPane.add(getBtRechazar());
 		contentPane.add(getBtComentarios());
 		contentPane.add(getScrollPane());
 		contentPane.add(getBtArticulo());
@@ -118,60 +114,6 @@ public class EditorViewDecisionArticulo extends JDialog {
 			lbArticulo.setBounds(37, 90, 207, 24);
 		}
 		return lbArticulo;
-	}
-
-	private JButton getBtAceptar() {
-		if (btAceptar == null) {
-			btAceptar = new JButton("Aceptar");
-			btAceptar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if (listCambiosMenores.getSelectedValuesList().size() > 1)
-						JOptionPane.showMessageDialog(null, "Debe seleccionar solo un artículo",
-								"Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
-					else if (listCambiosMenores.getSelectedValuesList().size() == 0)
-						JOptionPane.showMessageDialog(null, "Seleccione un artículo para poder revisarlo",
-								"Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
-					else {
-						ArticuloEntity art = listCambiosMenores.getSelectedValue();
-						art.setEstado(ArticuloEntity.ACEPTADO);
-						controller.aceptarArticulo(art);
-						modeloLista.removeElement(art);
-					}
-				}
-			});
-			btAceptar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			btAceptar.setBackground(new Color(95, 158, 160));
-			btAceptar.setForeground(new Color(0, 0, 0));
-			btAceptar.setBounds(1122, 507, 106, 23);
-		}
-		return btAceptar;
-	}
-
-	private JButton getBtRechazar() {
-		if (btRechazar == null) {
-			btRechazar = new JButton("Rechazar");
-			btRechazar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if (listCambiosMenores.getSelectedValuesList().size() > 1)
-						JOptionPane.showMessageDialog(null, "Debe seleccionar solo un artículo",
-								"Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
-					else if (listCambiosMenores.getSelectedValuesList().size() == 0)
-						JOptionPane.showMessageDialog(null, "Seleccione un artículo para poder revisarlo",
-								"Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
-					else {
-						ArticuloEntity art = listCambiosMenores.getSelectedValue();
-						art.setEstado(ArticuloEntity.RECHAZADO);
-						controller.rechazarArticulo(art);
-						modeloLista.removeElement(art);
-					}
-				}
-			});
-			btRechazar.setForeground(new Color(255, 255, 255));
-			btRechazar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			btRechazar.setBackground(new Color(165, 42, 42));
-			btRechazar.setBounds(1122, 541, 106, 23);
-		}
-		return btRechazar;
 	}
 
 	private void rellenarLista() {
