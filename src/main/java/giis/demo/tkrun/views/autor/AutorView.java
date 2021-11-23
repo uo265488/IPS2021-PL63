@@ -27,6 +27,7 @@ import javax.swing.border.EmptyBorder;
 import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.views.articulo.ArticuloCambiosView;
+import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
 
 public class AutorView extends JDialog {
 
@@ -39,13 +40,9 @@ public class AutorView extends JDialog {
     private JLabel lbId;
     private JTextField txId;
     private JScrollPane scrollPane;
-    private List<ArticuloEntity> articulosDelEditor = new ArrayList<ArticuloEntity>();
-    private List<ArticuloEntity> articulosAceptadosSinVersionDefinitiva = new ArrayList<ArticuloEntity>();
+    private List<ArticuloEntity> articulosDelAutor = new ArrayList<ArticuloEntity>();
     private AutorController controller;
     private JButton btConfirmar;
-    private JButton btMirarArticulos;
-    private JLabel lbSinPublicar;
-    private JComboBox<ArticuloEntity> cbArticulosSinPublicar;
     private JCheckBox chCopy;
     private JButton btnEnviarArticulo;
     private JButton btVisualizar;
@@ -89,7 +86,7 @@ public class AutorView extends JDialog {
 
     private ListModel<ArticuloEntity> addModel() {
 	DefaultListModel<ArticuloEntity> model = new DefaultListModel<>();
-	for (ArticuloEntity articulo : articulosDelEditor) {
+	for (ArticuloEntity articulo : articulosDelAutor) {
 	    model.addElement(articulo);
 	}
 
@@ -98,17 +95,15 @@ public class AutorView extends JDialog {
 
     private JButton getBtConfirmar() {
 	if (btConfirmar == null) {
-	    btConfirmar = new JButton("Visualizar Artículos");
+	    btConfirmar = new JButton("Actualizar Artículos");
 	    btConfirmar.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 		    getBtnEnviarArticulo().setEnabled(false);
 		    if (!getTxId().getText().isEmpty()) {
-			articulosAceptadosSinVersionDefinitiva.clear();
-			rellenarComboBox();
 			try {
 			    id_autor = Integer.parseInt(getTxId().getText());
-			    articulosDelEditor = controller.getArticulosPropios(id_autor);
+			    articulosDelAutor = controller.getArticulosPropios(id_autor);
 			    getListArticulos().setModel(addModel());
 			} catch (Exception e1) {
 			    JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id",
@@ -123,39 +118,6 @@ public class AutorView extends JDialog {
 	    btConfirmar.setBounds(20, 110, 148, 23);
 	}
 	return btConfirmar;
-    }
-
-    private JButton getBtMirarArticulos() {
-	if (btMirarArticulos == null) {
-	    btMirarArticulos = new JButton("Articulos aceptados sin versión definitiva");
-	    btMirarArticulos.addActionListener(new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-		    articulosAceptadosSinVersionDefinitiva.clear();
-		    articulosDelEditor.clear();
-		    rellenarComboBox();
-		    if (!getTxId().getText().isEmpty()) {
-			try {
-			    int idAutor = Integer.parseInt(getTxId().getText());
-			    articulosAceptadosSinVersionDefinitiva = controller
-				    .getArticulosAceptadosSinVersionDefinitiva(idAutor);
-			    rellenarComboBox();
-			    if (articulosAceptadosSinVersionDefinitiva.size() == 0) {
-				getBtnEnviarArticulo().setEnabled(false);
-			    } else {
-				getBtnEnviarArticulo().setEnabled(true);
-			    }
-			} catch (Exception e1) {
-			    JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id",
-				    JOptionPane.ERROR_MESSAGE);
-			}
-		    }
-		}
-	    });
-	    btMirarArticulos.setBackground(new Color(224, 255, 255));
-	    btMirarArticulos.setBounds(413, 110, 272, 23);
-	}
-	return btMirarArticulos;
     }
 
     private JButton getBtnCambiosSugeridos() {
@@ -180,18 +142,26 @@ public class AutorView extends JDialog {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 		    if (getChCopy().isSelected()) {
-			ArticuloEntity articulo = (ArticuloEntity) getCbArticulosSinPublicar().getSelectedItem();
-			if (articulo != null) {
-			    controller.getEnviarVersionDefinitiva(articulo.getIdArticulo());
-			    articulosAceptadosSinVersionDefinitiva.remove(articulo);
-			    rellenarComboBox();
+			if (listArticulos.getSelectedValuesList().size() > 1)
+				JOptionPane.showMessageDialog(null, "Debe seleccionar solo un artículo",
+						"Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
+			else if (listArticulos.getSelectedValuesList().size() == 0)
+				JOptionPane.showMessageDialog(null, "Seleccione un artículo para poder revisarlo",
+						"Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
+			else {
+				ArticuloEntity art = listArticulos.getSelectedValue();
+				controller.getEnviarVersionDefinitiva(art.getIdArticulo());
 			}
 		    }
+		    else {
+			    JOptionPane.showMessageDialog(null, "Debe confirmar la firma de copyright",
+					"Error al enviar versión definitiva", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	    });
 	    btnEnviarArticulo.setForeground(new Color(255, 255, 255));
 	    btnEnviarArticulo.setBackground(new Color(0, 0, 128));
-	    btnEnviarArticulo.setBounds(915, 396, 225, 23);
+	    btnEnviarArticulo.setBounds(824, 444, 225, 23);
 	    btnEnviarArticulo.setEnabled(false);
 	}
 	return btnEnviarArticulo;
@@ -214,7 +184,7 @@ public class AutorView extends JDialog {
 
     private JButton getBtVisualizar() {
 	if (btVisualizar == null) {
-	    btVisualizar = new JButton("Editar Artículo");
+	    btVisualizar = new JButton("Enviar versión definitiva de un artículo");
 	    btVisualizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 	    btVisualizar.addActionListener(new ActionListener() {
 		@Override
@@ -224,23 +194,15 @@ public class AutorView extends JDialog {
 	    });
 	    btVisualizar.setForeground(Color.WHITE);
 	    btVisualizar.setBackground(new Color(173, 216, 230));
-	    btVisualizar.setBounds(784, 259, 225, 23);
+	    btVisualizar.setBounds(614, 399, 284, 23);
 	}
 	return btVisualizar;
-    }
-
-    private JComboBox<ArticuloEntity> getCbArticulosSinPublicar() {
-	if (cbArticulosSinPublicar == null) {
-	    cbArticulosSinPublicar = new JComboBox<ArticuloEntity>();
-	    cbArticulosSinPublicar.setBounds(605, 168, 508, 22);
-	}
-	return cbArticulosSinPublicar;
     }
 
     private JCheckBox getChCopy() {
 	if (chCopy == null) {
 	    chCopy = new JCheckBox("Confirme su firma de CopyRight");
-	    chCopy.setBounds(610, 396, 208, 23);
+	    chCopy.setBounds(610, 444, 208, 23);
 	}
 	return chCopy;
     }
@@ -261,15 +223,6 @@ public class AutorView extends JDialog {
 	    lbId.setBounds(10, 77, 298, 22);
 	}
 	return lbId;
-    }
-
-    private JLabel getLbSinPublicar() {
-	if (lbSinPublicar == null) {
-	    lbSinPublicar = new JLabel("Articulos Aceptados que aún no tienen su versión definitiva enviada:");
-	    lbSinPublicar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	    lbSinPublicar.setBounds(623, 141, 444, 16);
-	}
-	return lbSinPublicar;
     }
 
     private JList<ArticuloEntity> getListArticulos() {
@@ -330,9 +283,6 @@ public class AutorView extends JDialog {
 	contentPane.add(getTxId());
 	contentPane.add(getScrollPane());
 	contentPane.add(getBtConfirmar());
-	contentPane.add(getBtMirarArticulos());
-	contentPane.add(getLbSinPublicar());
-	contentPane.add(getCbArticulosSinPublicar());
 	contentPane.add(getChCopy());
 	contentPane.add(getBtnEnviarArticulo());
 	contentPane.add(getBtVisualizar());
@@ -340,6 +290,12 @@ public class AutorView extends JDialog {
 	contentPane.add(getBtnCambiosSugeridos());
 	setVisible(true);
 	setResizable(false);
+	actualizarArticulos();
+    }
+
+    private void actualizarArticulos() {
+	articulosDelAutor = controller.getArticulosPropios(id_autor);
+	getListArticulos().setModel(addModel());
     }
 
     private boolean isBorrador() {
@@ -366,30 +322,34 @@ public class AutorView extends JDialog {
 
 	ArticuloCambiosView acw = new ArticuloCambiosView(articulo, id_autor);
 	acw.setVisible(true);
+	actualizarArticulos();
     }
 
     private void modificarBorrador() {
 	AutorCreacionView ver = new AutorCreacionView(controller, id_autor, getListArticulos().getSelectedValue());
 	ver.setVisible(true);
+	actualizarArticulos();
     }
 
     private void mostrarVentanaVisualizacion() {
-	if (getCbArticulosSinPublicar().getSelectedItem() != null) {
-	    AutorEditarArticuloView vA = new AutorEditarArticuloView(
-		    (ArticuloEntity) getCbArticulosSinPublicar().getSelectedItem());
-	    vA.setVisible(true);
-	    vA.setModal(true);
+	if (listArticulos.getSelectedValuesList().size() > 1)
+		JOptionPane.showMessageDialog(null, "Debe seleccionar solo un artículo",
+				"Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
+	else if (listArticulos.getSelectedValuesList().size() == 0)
+		JOptionPane.showMessageDialog(null, "Seleccione un artículo para poder revisarlo",
+				"Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
+	else {
+		ArticuloEntity art = listArticulos.getSelectedValue();
+		if(art.getEstado().equals(ArticuloEntity.ACEPTADO) && !art.isVersionDefinitiva()) {
+		    AutorEditarArticuloView vA = new AutorEditarArticuloView(art);
+			vA.setVisible(true);
+			vA.setModal(true);
+		}
+		else {
+		    JOptionPane.showMessageDialog(null, "El artículo ya tiene versión definitiva o no ha sido aceptado todavía",
+				"Error al enviar versión definitiva", JOptionPane.ERROR_MESSAGE);
+		}
+		actualizarArticulos();
 	}
-    }
-
-    private void rellenarComboBox() {
-	ArticuloEntity[] vector = new ArticuloEntity[0];
-	if (this.articulosAceptadosSinVersionDefinitiva.size() > 0) {
-	    vector = new ArticuloEntity[this.articulosAceptadosSinVersionDefinitiva.size()];
-	    for (int i = 0; i < vector.length; i++) {
-		vector[i] = this.articulosAceptadosSinVersionDefinitiva.get(i);
-	    }
-	}
-	cbArticulosSinPublicar.setModel(new DefaultComboBoxModel<ArticuloEntity>(vector));
     }
 }

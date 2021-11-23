@@ -147,7 +147,7 @@ public class ArticuloModel {
      * Obtiene la lista de articulos que deben ser evaluados por el editor
      */
     public List<ArticuloDto> getArticulosTomarDecision() {
-	String sql = "SELECT * from articulos where vecesRevisado <= 1 and (estado = 'con el editor' or (estado = 'aceptado con cambios menores' and pendienteDeCambios = false)";
+	String sql = "SELECT * from articulos where vecesRevisado <= 1 and (estado = 'con el editor' or (estado = 'aceptado con cambios menores' and pendienteDeCambios = false))";
 	List<ArticuloDto> idsArticulos = db.executeQueryPojo(ArticuloDto.class, sql);
 
 	List<RevisionDto> infoArtRevisados = new ArrayList<RevisionDto>();
@@ -170,8 +170,7 @@ public class ArticuloModel {
 	    }
 	}
 
-	sql = "SELECT idArticulo, titulo, primerAutor, vecesRevisado, estado from articulos where idArticulo = ?";
-
+	sql = "SELECT * from articulos where idArticulo = ?";
 	idsArticulos.clear();
 	for (String id : idsArticulosRevisados) {
 	    ArticuloDto art = db.executeQueryPojo(ArticuloDto.class, sql, id).get(0);
