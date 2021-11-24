@@ -105,7 +105,7 @@ public class AutorController {
     }
 
     public boolean parseOtrosAutores(String id_Articulo, String otrosAutores) {
-	if (!otrosAutores.replaceAll("//s", "").isBlank()) {
+	if (!(otrosAutores.replaceAll("//s", "").trim().length()==0)) {
 	    String[] autores = otrosAutores.split(";");
 	    if (autores.length > 0) {
 		for (String line : autores) {

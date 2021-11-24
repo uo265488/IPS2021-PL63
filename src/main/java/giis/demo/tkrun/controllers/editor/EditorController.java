@@ -218,7 +218,7 @@ public class EditorController {
 		.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
 
 	return revisoresDisponibles.stream()
-		.filter(r -> revisionModel.findRevisionRechazada(articulo.getIdArticulo(), r.getId()).isEmpty())
+		.filter(r -> !revisionModel.findRevisionRechazada(articulo.getIdArticulo(), r.getId()).isPresent())
 		.collect(Collectors.toList());
 
     }
