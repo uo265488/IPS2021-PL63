@@ -3,6 +3,7 @@ package giis.demo.tkrun.models.articulo;
 import java.util.ArrayList;
 import java.util.List;
 
+import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.util.Database;
@@ -51,21 +52,21 @@ public class ArticuloModel {
     }
 
     public void crearArticulo(ArticuloDto articulo) {
-	String sql_into_articulos = "insert into articulos values (?, ?, ?, 'con el editor', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	String sql_into_articulos = "insert into articulos values (?, ?, ?, 'con el editor', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	db.executeUpdate(sql_into_articulos, articulo.getIdArticulo(), articulo.getTitulo(), articulo.getPrimerAutor(),
 		articulo.getResumen(), articulo.getPalabrasClave(), articulo.getFicheroFuente(),
 		articulo.getCartaPresentacion(), articulo.getCV(), articulo.isFirma(), articulo.getVecesRevisado(),
-		articulo.isVersionDefinitiva(), articulo.getDOI(), articulo.getFecha(), articulo.getVolumen());
+		articulo.isVersionDefinitiva(), articulo.getDOI(), articulo.getFecha(), articulo.getVolumen(), false);
     }
 
     public void crearBorrador(ArticuloDto articulo) {
-	String sql_into_articulos = "insert into articulos values (?, ?, ?,'borrador', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	String sql_into_articulos = "insert into articulos values (?, ?, ?,'borrador', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	db.executeUpdate(sql_into_articulos, articulo.getIdArticulo(), articulo.getTitulo(), articulo.getPrimerAutor(),
 		articulo.getResumen(), articulo.getPalabrasClave(), articulo.getFicheroFuente(),
 		articulo.getCartaPresentacion(), articulo.getCV(), articulo.isFirma(), articulo.getVecesRevisado(),
-		articulo.isVersionDefinitiva(), articulo.getDOI(), articulo.getFecha(), articulo.getVolumen());
+		articulo.isVersionDefinitiva(), articulo.getDOI(), articulo.getFecha(), articulo.getVolumen(), false);
     }
 
     public void enviarBorrador(ArticuloDto articuloDto) {
@@ -123,14 +124,12 @@ public class ArticuloModel {
 	return db.executeQueryPojo(ArticuloDto.class, sql, id);
     }
 
-    // TODO: Arreglar query usando autoressecundarios.
     public List<ArticuloDto> getArticulosFiltradoAutor(String autor) {
 	String sql = "SELECT * from articulos where estado <> 'borrador' and lower(primerAutor) = ?";
 
 	return db.executeQueryPojo(ArticuloDto.class, sql, autor.toLowerCase());
     }
 
-    // TODO: Arreglar query usando autoressecundarios.
     public List<ArticuloDto> getArticulosFiltradoTitulo(String titulo) {
 	String sql = "SELECT * from articulos where estado <> 'borrador' and lower(titulo) = ?";
 
@@ -177,7 +176,7 @@ public class ArticuloModel {
 	    }
 	}
 
-	sql = "SELECT idArticulo, titulo, primerAutor, vecesRevisado from articulos where idArticulo = ?";
+	sql = "SELECT * from articulos where idArticulo = ?";
 
 	idsArticulos.clear();
 	for (String id : idsArticulosRevisados) {
@@ -201,13 +200,24 @@ public class ArticuloModel {
     }
 
     public void modificarArticulo(ArticuloDto articuloDto) {
-	String sql = "update articulos set titulo = ?, resumen = ?, palabrasClave = ?, ficheroFuente = ? "
-		+ ", cartaPresentacion = ?, CV = ?, firma = ? where idArticulo = ?";
+	String sql = "";
 
-	db.executeUpdate(sql, articuloDto.getTitulo(), articuloDto.getResumen(), articuloDto.getPalabrasClave(),
-		articuloDto.getFicheroFuente(), articuloDto.getCartaPresentacion(), articuloDto.getCV(),
-		articuloDto.isFirma(), articuloDto.getIdArticulo());
+	if (articuloDto.getEstado().equals(ArticuloEntity.ACEPTADO_CAMBIOS_MAYORES)) {
+	    sql = "update articulos set titulo = ?, resumen = ?, palabrasClave = ?, ficheroFuente = ? "
+		    + ", cartaPresentacion = ?, CV = ?, firma = ?, estado = ? where idArticulo = ?";
 
+	    db.executeUpdate(sql, articuloDto.getTitulo(), articuloDto.getResumen(), articuloDto.getPalabrasClave(),
+		    articuloDto.getFicheroFuente(), articuloDto.getCartaPresentacion(), articuloDto.getCV(),
+		    articuloDto.isFirma(), ArticuloEntity.CON_EL_EDITOR, articuloDto.getIdArticulo());
+	} else {
+	    sql = "update articulos set titulo = ?, resumen = ?, palabrasClave = ?, ficheroFuente = ? "
+		    + ", cartaPresentacion = ?, CV = ?, firma = ? where idArticulo = ?";
+
+	    db.executeUpdate(sql, articuloDto.getTitulo(), articuloDto.getResumen(), articuloDto.getPalabrasClave(),
+		    articuloDto.getFicheroFuente(), articuloDto.getCartaPresentacion(), articuloDto.getCV(),
+		    articuloDto.isFirma(), articuloDto.getIdArticulo());
+
+	}
     }
 
     public void publicar(ArticuloDto articulo) {

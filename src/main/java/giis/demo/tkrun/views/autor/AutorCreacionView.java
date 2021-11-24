@@ -95,6 +95,7 @@ public class AutorCreacionView extends JDialog {
 	if (borrador.getVecesRevisado() > 0) {
 	    getBtnBorrador().setEnabled(false);
 	    getTxtFOtrosAutores().setEnabled(false);
+	    getTxtFTitulo().setEnabled(false);
 	}
 
     }
