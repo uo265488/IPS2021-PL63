@@ -42,6 +42,7 @@ public class ArticuloController {
 	public void enviarDecision(ArticuloEntity articulo, String nuevoEstado) {
 		asignarCartaDecision(articulo);
 		articulo.setEstado(nuevoEstado);
+		articulo.setVecesRevisado(articulo.getVecesRevisado() + 1);
 		artModel.update(DtoMapper.toArticuloDto(articulo));
 	}
 

@@ -9,11 +9,9 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -27,7 +25,7 @@ import javax.swing.border.EmptyBorder;
 import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.views.articulo.ArticuloCambiosView;
-import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
+import giis.demo.util.DtoMapper;
 
 public class AutorView extends JDialog {
 
@@ -99,7 +97,6 @@ public class AutorView extends JDialog {
 	    btConfirmar.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		    getBtnEnviarArticulo().setEnabled(false);
 		    if (!getTxId().getText().isEmpty()) {
 			try {
 			    id_autor = Integer.parseInt(getTxId().getText());
@@ -149,8 +146,17 @@ public class AutorView extends JDialog {
 				JOptionPane.showMessageDialog(null, "Seleccione un artículo para poder revisarlo",
 						"Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
 			else {
-				ArticuloEntity art = listArticulos.getSelectedValue();
-				controller.getEnviarVersionDefinitiva(art.getIdArticulo());
+			    ArticuloEntity art = listArticulos.getSelectedValue();
+				if(art.getEstado().equals(ArticuloEntity.ACEPTADO) && !art.isVersionDefinitiva()) {
+				    art.setFirma(true);
+				    art.setVersionDefinitiva(true);
+				    controller.editarArticulo(DtoMapper.toArticuloDto(art));
+				    //controller.getEnviarVersionDefinitiva(art.getIdArticulo());
+				}
+				else {
+				    JOptionPane.showMessageDialog(null, "El artículo ya tiene versión definitiva o no ha sido aceptado todavía",
+						"Error al enviar versión definitiva", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		    }
 		    else {
@@ -162,7 +168,6 @@ public class AutorView extends JDialog {
 	    btnEnviarArticulo.setForeground(new Color(255, 255, 255));
 	    btnEnviarArticulo.setBackground(new Color(0, 0, 128));
 	    btnEnviarArticulo.setBounds(824, 444, 225, 23);
-	    btnEnviarArticulo.setEnabled(false);
 	}
 	return btnEnviarArticulo;
     }
@@ -184,7 +189,7 @@ public class AutorView extends JDialog {
 
     private JButton getBtVisualizar() {
 	if (btVisualizar == null) {
-	    btVisualizar = new JButton("Enviar versión definitiva de un artículo");
+	    btVisualizar = new JButton("Editar para versión definitiva de un artículo");
 	    btVisualizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 	    btVisualizar.addActionListener(new ActionListener() {
 		@Override
@@ -194,7 +199,7 @@ public class AutorView extends JDialog {
 	    });
 	    btVisualizar.setForeground(Color.WHITE);
 	    btVisualizar.setBackground(new Color(173, 216, 230));
-	    btVisualizar.setBounds(614, 399, 284, 23);
+	    btVisualizar.setBounds(614, 399, 309, 23);
 	}
 	return btVisualizar;
     }
@@ -311,7 +316,7 @@ public class AutorView extends JDialog {
 
 	if ((articulo.getVecesRevisado() == 1) && articulo.getEstado().equals("aceptado")
 		|| (articulo.getEstado().equals("aceptado con cambios menores") && articulo.isPendienteDeCambios())
-		|| articulo.getEstado().equals("aceptado con cambios mayores")) {
+		|| articulo.getEstado().equals("aceptado con cambios mayores") && articulo.isPendienteDeCambios()) {
 	    return true;
 	}
 	return false;
