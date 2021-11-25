@@ -1,14 +1,14 @@
 package giis.demo.tkrun.views.revisor;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,8 +16,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-public class RevisorViewDebate extends JFrame {
+import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.revisor.RevisorController;
+import giis.demo.tkrun.models.dtos.MensajeDto;
 
+public class RevisorViewDebate extends JDialog {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JLabel lbMensajes;
     private JScrollPane scrollPane;
@@ -27,28 +35,33 @@ public class RevisorViewDebate extends JFrame {
     private JButton btEnviar;
     private JLabel lbTitulo;
     private JTextArea txMensajeEnvio;
-
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-	EventQueue.invokeLater(new Runnable() {
-	    public void run() {
-		try {
-		    RevisorViewDebate frame = new RevisorViewDebate();
-		    frame.setVisible(true);
-		} catch (Exception e) {
-		    e.printStackTrace();
-		}
-	    }
-	});
-    }
+    private ArticuloEntity articulo;
+    private RevisorController controller;
+    private String idDebate;
+    private List<MensajeDto> mensajes;
 
     /**
      * Create the frame.
      */
-    public RevisorViewDebate() {
-	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public RevisorViewDebate(ArticuloEntity articulo) {
+	this.articulo = articulo;
+	this.controller = new RevisorController();
+	idDebate = controller.idDebate(articulo.getIdArticulo());
+	actualizarMensajes();
+	inicialice();
+    }
+    private void actualizarMensajes() {
+	mensajes = controller.mensajesDebate(idDebate);
+	getTxMensajes().setText("");
+	if(mensajes.size() == 0)
+	    getTxMensajes().setText("No hay ningún mensaje en el debate todavía");
+	else {
+	    for(MensajeDto mensaje : mensajes)
+		getTxMensajes().setText(getTxMensajes().getText() + mensaje.getMensaje() + "\n");
+	}
+    }
+    private void inicialice() {
+	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	setBounds(100, 100, 600, 483);
 	contentPane = new JPanel();
 	contentPane.setBackground(Color.WHITE);
@@ -109,14 +122,15 @@ public class RevisorViewDebate extends JFrame {
 			btEnviar = new JButton("Enviar Mensaje");
 			btEnviar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-				    getTxMensajeEnvio().setText("Revisor [" + LocalDateTime.now().toString() + "]" + getTxMensajeEnvio().getText());
-				    if(getTxMensajeEnvio().getText().length() > 140) {
+				    if(getTxMensajeEnvio().getText().length() > 120) {
 					JOptionPane.showMessageDialog(null, "Demasiado largo", "Error de tamaño", JOptionPane.ERROR_MESSAGE);
 				    }
 				    else {
-					//controller.enviarMensaje(getTxMensajeEnvio().getText());
+					getTxMensajeEnvio().setText("Revisor [" + LocalDateTime.now().toString() + "]: " + getTxMensajeEnvio().getText());
+					controller.envioMensaje(idDebate, getTxMensajeEnvio().getText());
 					getTxMensajeEnvio().setText("");
-					JOptionPane.showMessageDialog(null, "Mensaje enviado");
+					JOptionPane.showMessageDialog(null, "Mensaje enviado correctamente");
+					actualizarMensajes();
 				    }
 				}
 			});
@@ -127,9 +141,9 @@ public class RevisorViewDebate extends JFrame {
 	}
 	private JLabel getLbTitulo() {
 		if (lbTitulo == null) {
-			lbTitulo = new JLabel("Debate del Artículo: anticulo q sea");
+			lbTitulo = new JLabel("Debate del Artículo: " + articulo.getTitulo());
 			lbTitulo.setFont(new Font("Tahoma", Font.ITALIC, 17));
-			lbTitulo.setBounds(168, 11, 272, 32);
+			lbTitulo.setBounds(81, 11, 485, 32);
 		}
 		return lbTitulo;
 	}

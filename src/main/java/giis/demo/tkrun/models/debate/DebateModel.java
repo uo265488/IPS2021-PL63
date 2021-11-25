@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import giis.demo.tkrun.models.dtos.DebateDto;
 import giis.demo.tkrun.models.dtos.MensajeDto;
 import giis.demo.util.Database;
 
@@ -46,6 +47,12 @@ public class DebateModel {
 
 	    return db.executeQueryPojo(MensajeDto.class, sql, idDebate);
 
+	}
+
+	public List<DebateDto> getIdDebate(String idArticulo) {
+	    String sql = "select idDebate from Debates where idArticulo = ?";
+
+	    return db.executeQueryPojo(DebateDto.class, sql, idArticulo);
 	}
 
 }

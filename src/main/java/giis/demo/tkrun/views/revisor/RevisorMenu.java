@@ -19,6 +19,7 @@ public class RevisorMenu extends JDialog {
     private JButton btnNewButton_1;
     private JButton btnNewButton_1_1;
     private RevisorController revisorController;
+    private JButton btDebates;
 //    /**
 //     * Launch the application.
 //     */
@@ -40,11 +41,12 @@ public class RevisorMenu extends JDialog {
 	this.id_revisor = id_revisor;
 	this.revisorController = controller;
 	setResizable(false);
-	setBounds(100, 100, 401, 300);
+	setBounds(100, 100, 401, 360);
 	getContentPane().setLayout(null);
 	getContentPane().add(getBtnNewButton());
 	getContentPane().add(getBtnNewButton_1());
 	getContentPane().add(getBtnNewButton_1_1());
+	getContentPane().add(getBtDebates());
     }
 
     private JButton getBtnNewButton() {
@@ -89,4 +91,18 @@ public class RevisorMenu extends JDialog {
 	}
 	return btnNewButton_1_1;
     }
+	private JButton getBtDebates() {
+		if (btDebates == null) {
+			btDebates = new JButton("Debates Actuales");
+			btDebates.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				    RevisorViewArticulosEnDebate rvd = new RevisorViewArticulosEnDebate(revisorController, id_revisor);
+				    rvd.setModal(true);
+				    rvd.setVisible(true);
+				}
+			});
+			btDebates.setBounds(79, 250, 206, 30);
+		}
+		return btDebates;
+	}
 }

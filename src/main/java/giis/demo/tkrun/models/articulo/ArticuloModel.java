@@ -122,6 +122,12 @@ public class ArticuloModel {
 
 	return db.executeQueryPojo(ArticuloDto.class, sql, id);
     }
+    
+    public List<ArticuloDto> getArticulosEnDebate(String id) {
+	String sql = "select * from articulos a, revisiones r where r.idRevisor = ? and a.idArticulo = r.idArticulo and a.estado = 'en debate'";
+
+	return db.executeQueryPojo(ArticuloDto.class, sql, id);
+    }
 
     // TODO: Arreglar query usando autoressecundarios.
     public List<ArticuloDto> getArticulosFiltradoAutor(String autor) {

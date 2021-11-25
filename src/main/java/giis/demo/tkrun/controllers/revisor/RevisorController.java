@@ -8,7 +8,10 @@ import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.controllers.entities.SugerenciaEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
+import giis.demo.tkrun.models.debate.DebateModel;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
+import giis.demo.tkrun.models.dtos.DebateDto;
+import giis.demo.tkrun.models.dtos.MensajeDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
@@ -24,6 +27,7 @@ public class RevisorController {
     private ArticuloModel articuloModel;
     private RevisorModel revisoresModel;
     private RevisorMenu rm;
+    private DebateModel debateModel;
     private String idRevisor;
 
     // public AutorController(AutorModel m, EditorView v) {
@@ -37,11 +41,14 @@ public class RevisorController {
 	this.model = new RevisionModel();
 	this.articuloModel = new ArticuloModel();
 	this.revisoresModel = new RevisorModel();
+	this.debateModel = new DebateModel();
     }
 
     public RevisorController(String idRevisor) {
 	this.model = new RevisionModel();
 	this.articuloModel = new ArticuloModel();
+	this.revisoresModel = new RevisorModel();
+	this.debateModel = new DebateModel();
 	this.idRevisor = idRevisor;
 	// no hay inicializacion especifica del modelo, solo de la vista
 	this.initView();
@@ -159,4 +166,24 @@ public class RevisorController {
     public void updateArticulo(ArticuloDto articulo) {
 	articuloModel.update(articulo);
     }
+    
+    public List<MensajeDto> mensajesDebate(String idDebate){
+	return debateModel.devolverMensajes(idDebate);
+    }
+    
+    public String idDebate(String idArticulo) {
+	List<DebateDto> lista = debateModel.getIdDebate(idArticulo);
+	if(lista.size() > 0)
+	    return lista.get(0).getIdDebate();
+	return "";
+    }
+    
+    public List<ArticuloEntity> getArticulosEnDebate(String id) {
+	return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosEnDebate(id));
+    }
+    
+    public void envioMensaje(String idDebate, String mensaje) {
+	debateModel.escribirMensaje(idDebate, mensaje);
+    }
+    
 }

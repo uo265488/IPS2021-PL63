@@ -26,16 +26,6 @@ insert into autores(idAutor,nombre,dni) values
 	('131c79b1-dc04-4a13-8325-5e480bcd3c86','ariadna','810582'),
 	('1239272a-774c-4cad-a169-090df09f220f', 'hugo', '364786');
 	
-delete from articulos;
-<<<<<<< HEAD
-insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV,firma, vecesRevisado, versionDefinitiva) values 
-	(7,'Economia Española','antonio','en revision', 'La economia española esta en decadencia', 'economia, euro', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
-	(8,'Gasol se retira','lucia','en debate', 'Gasol anuncia su retirada del baloncesto', 'gasol, leyenda, Barca', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
-	(9,'La caida de Facebook','ariadna','aceptado', 'Se caen los servidores de Facebook durante 6 horas con perdidas multimillonarias', 'facebook, red, caida', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
-	(10,'Poesia clasica','ariadna','publicado', 'explicacion sobre la poesia clasica', 'poesia, españa', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, 1, true),
-	(11,'El Quijote, la obra maestra','ariadna','aceptado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
-	(12,'El Quijote, la obra maestra','antonio','en revision', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false);
-	
 delete from articulosDeAutores;
 insert into articulosDeAutores(idArticulo, idAutor) values
 	(7,4),
@@ -45,10 +35,9 @@ insert into articulosDeAutores(idArticulo, idAutor) values
 	(10,6),
 	(11,6),
 	(12,4);
-=======
 insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV, firma, vecesRevisado, versionDefinitiva) values 
 	('7','Economia Española','antonio','pendiente', 'La economia española esta en decadencia', 'economia, euro', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
-	('8','Gasol se retira','lucia','con el editor', 'Gasol anuncia su retirada del baloncesto', 'gasol, leyenda, Barca', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
+	('8','Gasol se retira','lucia','en debate', 'Gasol anuncia su retirada del baloncesto', 'gasol, leyenda, Barca', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false),
 	('9','La caida de Facebook','ariadna','aceptado', 'Se caen los servidores de Facebook durante 6 horas con perdidas multimillonarias', 'facebook, red, caida', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
 	('10','Poesia clasica','ariadna','publicado', 'explicacion sobre la poesia clasica', 'poesia, españa', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, 1, true),
 	('11','El Quijote, la obra maestra','ariadna','aceptado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false),
@@ -76,14 +65,13 @@ insert into autoresSecundarios(idArticulo, idAutor, tipoAutor) values
 	('101','1239272a-774c-4cad-a169-090df09f220f', 'PRINCIPAL'),
 	('14','1239272a-774c-4cad-a169-090df09f220f', 'PRINCIPAL'),
 	('15','131c79b1-dc04-4a13-8325-5e480bcd3c86', 'PRINCIPAL');
->>>>>>> refs/remotes/IPS2021-PL63/master
 	
 delete from revisiones;
 insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, comentariosAutor, comentariosEditor, decision, enviarAlEditor, estadoDeLaPropuesta) values
 	('10', 'de844393-18b4-47e9-8f4b-810e6d7223de', 1,'31/12/2021', 'Muy buen artículo', 'Debe ser publicado', 'aceptar', true, 'ACEPTADA'),
 	('10', 'fa46f0fc-ef50-4a9e-9e35-6659dd39e6a4', 1,'31/12/2021', 'Mejorable', 'Tengo mis dudas de aceptarlo', 'rechazar', true, 'ACEPTADA'),
 	('10', '86671e22-02f6-4fb2-ba2d-e5c5e0155227', 1,'31/12/2021', 'Buen artículo', 'Aceptable', 'aceptar con cambios mayores', true, 'ACEPTADA'),
-	('8', 'de844393-18b4-47e9-8f4b-810e6d7223de', 1,'31/12/2021', 'No me esta gustando','No aceptaria','rechazar',true, 'ACEPTADO'),
+	('8', 'de844393-18b4-47e9-8f4b-810e6d7223de', 1,'31/12/2021', 'No me esta gustando','No aceptaria','rechazar',true, 'ACEPTADA'),
 	('8', 'fa46f0fc-ef50-4a9e-9e35-6659dd39e6a4', 1,'31/12/2021', 'Me esta gustando','Aceptaria','aceptar con cambios menores',true, 'ACEPTADA'),
 	('8', '86671e22-02f6-4fb2-ba2d-e5c5e0155227', 1,'31/12/2021', 'Articulo normal','Se puede aceptar','aceptar',true, 'ACEPTADA'),
 	('7', 'de844393-18b4-47e9-8f4b-810e6d7223de', 1,'31/12/2021', '','','',false, 'ACEPTADA'),
@@ -124,3 +112,7 @@ insert into usuarios (idUsuario, nombre, tipoUsuario) values
 	('183add42-5d3e-40b1-9200-23bab1f65c02','lucia', 'Autor'),
 	('131c79b1-dc04-4a13-8325-5e480bcd3c86','ariadna', 'Autor'),
 	('1239272a-774c-4cad-a169-090df09f220f', 'hugo', 'Autor');
+	
+delete from Debates;
+insert into Debates (idDebate, idArticulo, fecha, abierto) values
+	('1', '8', '15/02/2022', true);
