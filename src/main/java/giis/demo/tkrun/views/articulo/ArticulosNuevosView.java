@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,7 +16,7 @@ import javax.swing.border.EmptyBorder;
 import giis.demo.tkrun.controllers.articulo.ArticuloController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 
-public class ArticulosNuevosView extends JFrame {
+public class ArticulosNuevosView extends JDialog {
 
 	/**
 	 * 
@@ -57,7 +57,7 @@ public class ArticulosNuevosView extends JFrame {
 		setResizable(false);
 		setTitle("Articulos nuevos view");
 		setBackground(Color.WHITE);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 590, 331);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);

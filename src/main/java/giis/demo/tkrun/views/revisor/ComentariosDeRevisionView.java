@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.List;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -17,7 +16,7 @@ import giis.demo.tkrun.controllers.revision.RevisionController;
 
 public class ComentariosDeRevisionView extends JDialog {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private JLabel lblRevisor1;
@@ -47,28 +46,9 @@ public class ComentariosDeRevisionView extends JDialog {
 		setTitle("Comentarios de revision del artículo:");
 		setResizable(false);
 		setBounds(100, 100, 635, 357);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
 		setComentarios();
-
-	}
-
-	/**
-	 * Displays los comentarios de revision
-	 */
-	private void setComentarios() {
-
-		if (controller.checkComentariosDeRevisionEnviados(articulo, revisor)) {
-			List<RevisionEntity> revisiones = controller.getComentariosDeRevisionDelArticulo(articulo, revisor);
-
-			txtRevisor1.setText(revisiones.get(0).getComentariosEditor());
-			txtRevisor2.setText(revisiones.get(1).getComentariosEditor());
-
-		} else {
-			JOptionPane.showMessageDialog(this,
-					"No has enviado tus comentarios de revisión, por tanto, no puedes ver los de los demás de forma ançonima. ");
-			this.dispose();
-		}
 
 	}
 
@@ -79,6 +59,14 @@ public class ComentariosDeRevisionView extends JDialog {
 			lblRevisor1.setBounds(43, 36, 200, 14);
 		}
 		return lblRevisor1;
+	}
+
+	private JLabel getLblRevisor2() {
+		if (lblRevisor2 == null) {
+			lblRevisor2 = new JLabel("Revisor 2:");
+			lblRevisor2.setBounds(43, 169, 200, 14);
+		}
+		return lblRevisor2;
 	}
 
 	private JTextField getTxtRevisor1() {
@@ -105,11 +93,22 @@ public class ComentariosDeRevisionView extends JDialog {
 		return txtRevisor2;
 	}
 
-	private JLabel getLblRevisor2() {
-		if (lblRevisor2 == null) {
-			lblRevisor2 = new JLabel("Revisor 2:");
-			lblRevisor2.setBounds(43, 169, 200, 14);
+	/**
+	 * Displays los comentarios de revision
+	 */
+	private void setComentarios() {
+
+		if (controller.checkComentariosDeRevisionEnviados(articulo, revisor)) {
+			List<RevisionEntity> revisiones = controller.getComentariosDeRevisionDelArticulo(articulo, revisor);
+
+			txtRevisor1.setText(revisiones.get(0).getComentariosEditor());
+			txtRevisor2.setText(revisiones.get(1).getComentariosEditor());
+
+		} else {
+			JOptionPane.showMessageDialog(this,
+					"No has enviado tus comentarios de revisión, por tanto, no puedes ver los de los demás de forma ançonima. ");
+			this.dispose();
 		}
-		return lblRevisor2;
+
 	}
 }
