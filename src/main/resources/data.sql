@@ -104,3 +104,12 @@ insert into usuarios (idUsuario, nombre, tipoUsuario) values
 	('183add42-5d3e-40b1-9200-23bab1f65c02','lucia', 'Autor'),
 	('131c79b1-dc04-4a13-8325-5e480bcd3c86','ariadna', 'Autor'),
 	('1239272a-774c-4cad-a169-090df09f220f', 'hugo', 'Autor');
+	
+delete from Debates;
+insert into Debates(idDebate, idArticulo, fecha, abierto) values 
+	('12345', '8', '31/12/2021', true);
+	
+delete from Mensajes;
+insert into Mensajes(idMensaje, idDebate, mensaje) values 
+	('0', '12345', 'Hola a todos, soy el revisor 1'),
+	('1', '12345', 'Hola a todos, soy el revisor 2');

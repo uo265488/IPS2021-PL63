@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.MensajeEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
+import giis.demo.tkrun.models.debate.DebateModel;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.dtos.UserDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
@@ -24,6 +26,7 @@ public class EditorController {
     private RevisorModel revisoresModel = new RevisorModel();
     private SugerenciaModel sugerenciaModel = new SugerenciaModel();
     private UserModel userModel = new UserModel();
+    private DebateModel debateModel = new DebateModel();
 
     public EditorController() {
 
@@ -244,6 +247,14 @@ public class EditorController {
 
     public void rechazarDefinitivimenteArticulo(ArticuloEntity articulo) {
 	articuloModel.rechazarDefinitivamente(DtoMapper.toArticuloDto(articulo));
-
     }
+    
+    public List<MensajeEntity> getMensajesDebate(String idArticulo) {
+    	return EntityAssembler.toMensajeEntityList(debateModel.getMensajesDebate(idArticulo));
+    }
+    
+    public boolean getEstadoDelDebate(String idArticulo) {
+    	return debateModel.getEstadoDelDebate(idArticulo);
+    }
+
 }

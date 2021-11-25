@@ -5,12 +5,14 @@ import java.util.List;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.AutorEntity;
+import giis.demo.tkrun.controllers.entities.MensajeEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.controllers.entities.SugerenciaEntity;
 import giis.demo.tkrun.controllers.entities.UserEntity;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.AutorDto;
+import giis.demo.tkrun.models.dtos.MensajeDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.dtos.SugerenciaDto;
@@ -173,6 +175,27 @@ public class EntityAssembler {
 		}
 
 		return usersEntity;
+	}
+	
+	private static MensajeEntity toMensajeEntity(MensajeDto mensajeDto) {
+		if (mensajeDto == null) {
+			return null;
+		}
+		MensajeEntity mensajeEntity = new MensajeEntity();
+		
+		mensajeEntity.setIdDebate(mensajeDto.getIdDebate());
+		mensajeEntity.setIdMensaje(mensajeDto.getIdMensaje());
+		mensajeEntity.setMensaje(mensajeDto.getMensaje());
+		
+		return mensajeEntity;
+	}
+	
+	public static List<MensajeEntity> toMensajeEntityList(List<MensajeDto> mensajesDto){
+		List<MensajeEntity> mensajesEntity = new ArrayList<>();
+		for (MensajeDto mensaje : mensajesDto) {
+			mensajesEntity.add(toMensajeEntity(mensaje));
+		}
+		return mensajesEntity;
 	}
 
 }
