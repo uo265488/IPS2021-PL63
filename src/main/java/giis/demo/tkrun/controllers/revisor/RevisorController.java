@@ -5,6 +5,8 @@ import java.util.List;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
+import giis.demo.tkrun.models.debate.DebateModel;
+import giis.demo.tkrun.models.dtos.MensajeDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.tkrun.views.revisor.RevisorAsignadosView;
 import giis.demo.util.EntityAssembler;
@@ -17,6 +19,7 @@ public class RevisorController {
 		private ArticuloModel articuloModel;
 		//private RevisorModel revisoresModel;
 		private RevisorAsignadosView rav;
+		private DebateModel debateModel;
 		private int idRevisor;
 		
 		//public AutorController(AutorModel m, EditorView v) {
@@ -28,7 +31,8 @@ public class RevisorController {
 		
 		public RevisorController(int idRevisor) {
 			this.model = new RevisionModel();
-			this.articuloModel = new ArticuloModel();;
+			this.articuloModel = new ArticuloModel();
+			this.debateModel = new DebateModel();
 			this.idRevisor = idRevisor;
 			//no hay inicializacion especifica del modelo, solo de la vista
 			this.initView();
@@ -59,5 +63,9 @@ public class RevisorController {
 		
 		public List<ArticuloEntity> getArticulosAsignados(int id){
 			return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosAsignados(id));
+		}
+		
+		public List<MensajeDto> getMensajesDebate(String idDebate){
+    		    return debateModel.devolverMensajes(idDebate);
 		}
 }

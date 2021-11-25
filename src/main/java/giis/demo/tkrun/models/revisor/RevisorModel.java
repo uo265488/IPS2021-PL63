@@ -2,9 +2,6 @@ package giis.demo.tkrun.models.revisor;
 
 import java.util.List;
 
-import giis.demo.tkrun.controllers.entities.ArticuloEntity;
-import giis.demo.tkrun.models.dtos.ArticuloDto;
-import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.util.Database;
 
