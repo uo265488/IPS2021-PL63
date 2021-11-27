@@ -260,4 +260,15 @@ public class ArticuloModel {
 
     }
 
+    public List<ArticuloEntity> getArticulosConDebate() {
+	String sql = "select * from articulos where estado = ?";
+	return db.executeQueryPojo(ArticuloEntity.class, sql, ArticuloEntity.EN_DEBATE);
+    }
+
+    public void cerrarDebate(String idArticulo) {
+	String sql = "update articulos set estado  = ? where idArticulo = ?";
+	db.executeUpdate(sql, ArticuloEntity.EN_REVISION, idArticulo);
+
+    }
+
 }

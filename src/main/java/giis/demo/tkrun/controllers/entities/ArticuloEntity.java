@@ -10,6 +10,7 @@ public class ArticuloEntity {
     public static final String PUBLICADO = "publicado";
     public static final String ACEPTADO_CAMBIOS_MENORES = "aceptado con cambios menores";
     public static final String ACEPTADO_CAMBIOS_MAYORES = "aceptado con cambios mayores";
+    public static final Object EN_DEBATE = "en debate";
 
     private String idArticulo;
     private String titulo;

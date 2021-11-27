@@ -8,6 +8,7 @@ import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.autor.AutorModel;
 import giis.demo.tkrun.models.autoresSecundarios.AutoresSecundariosModel;
+import giis.demo.tkrun.models.debate.DebateModel;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.util.DtoMapper;
@@ -19,6 +20,7 @@ public class ArticuloController {
     private AutoresSecundariosModel secundariosModel = new AutoresSecundariosModel();
     private AutorModel autorModel = new AutorModel();
     private RevisionModel revisionesModel = new RevisionModel();
+    private DebateModel debateModel = new DebateModel();
 
     public ArticuloController() {
 	this.artModel = new ArticuloModel();
@@ -143,5 +145,15 @@ public class ArticuloController {
     public void visualizarArticulo(ArticuloEntity articulo) {
 	articulo.setEstado(ArticuloEntity.CON_EL_EDITOR);
 	artModel.update(DtoMapper.toArticuloDto(articulo));
+    }
+
+    public List<ArticuloEntity> getArticulosConDebate() {
+	return artModel.getArticulosConDebate();
+    }
+
+    public void cerrarDebate(String idArticulo) {
+	artModel.cerrarDebate(idArticulo);
+	debateModel.cerrarDebate(idArticulo);
+
     }
 }

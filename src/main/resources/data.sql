@@ -35,7 +35,7 @@ insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave
 	('11','El Quijote, la obra maestra','ariadna','aceptado', 'análisis profundo sobre El Quijote', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false, false),
 	('12','Xavi será nuevo técnico del Barcelona','antonio','pendiente', 'Xavi será nuevo DT', 'fútbol, leyenda, Xavi, Barcelona', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false, false),
 	('13','Nuevo Articulo','lucia','con el editor', 'algo', 'literatura, historia', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false, false),
-	('14','Volcan de la Palma','hugo','en revision', 'el volcan no cesa', 'geología, volcan', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false, false),
+	('14','Volcan de la Palma','hugo','en debate', 'el volcan no cesa', 'geología, volcan', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false, false),
 	('15','La luz no para de subir','ariadna','en revision', 'otro máximo histórico de la luz en España', 'luz, máximo, economía', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 1, false, false),
 	('16','Violencia en los colegios', 'lucia','con el editor','la violecia es cada vez más preocupente en los colegios','violencia, colegios','FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false, false),
 	('17','Hola','hugo','borrador','','','','','',false, 0, false, false),
@@ -104,3 +104,7 @@ insert into usuarios (idUsuario, nombre, tipoUsuario) values
 	('183add42-5d3e-40b1-9200-23bab1f65c02','lucia', 'Autor'),
 	('131c79b1-dc04-4a13-8325-5e480bcd3c86','ariadna', 'Autor'),
 	('1239272a-774c-4cad-a169-090df09f220f', 'hugo', 'Autor');
+	
+delete from debates;
+insert into debates(idDebate, idArticulo, fecha, abierto) values
+	('34', '14', '31/12/2021', true);
