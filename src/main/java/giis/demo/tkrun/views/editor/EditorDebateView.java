@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.MensajeEntity;
+import javax.swing.ScrollPaneConstants;
 
 public class EditorDebateView extends JDialog {
 
@@ -46,7 +47,7 @@ public class EditorDebateView extends JDialog {
     this.articulo = articulo;
     this.controller = controller;
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	setBounds(100, 100, 600, 483);
+	setBounds(100, 100, 701, 483);
 	contentPane = new JPanel();
 	contentPane.setBackground(Color.WHITE);
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -79,7 +80,7 @@ public class EditorDebateView extends JDialog {
 	private JScrollPane getSpMensajes() {
 		if (spMensajes == null) {
 			spMensajes = new JScrollPane();
-			spMensajes.setBounds(10, 66, 564, 269);
+			spMensajes.setBounds(10, 66, 665, 269);
 			spMensajes.setViewportView(getTxtMensajes());
 		}
 		return spMensajes;
@@ -97,7 +98,7 @@ public class EditorDebateView extends JDialog {
 	private JScrollPane getSpEnviarMensajes() {
 		if (spEnviarMensajes == null) {
 			spEnviarMensajes = new JScrollPane();
-			spEnviarMensajes.setBounds(10, 365, 384, 68);
+			spEnviarMensajes.setBounds(10, 365, 434, 68);
 			spEnviarMensajes.setViewportView(getTxtMensajeEnvio());
 		}
 		return spEnviarMensajes;
@@ -134,7 +135,7 @@ public class EditorDebateView extends JDialog {
 				}
 			});
 			btnEnviar.setBackground(new Color(143, 188, 143));
-			btnEnviar.setBounds(404, 386, 162, 23);
+			btnEnviar.setBounds(479, 389, 162, 23);
 		}
 		return btnEnviar;
 	}
@@ -142,7 +143,7 @@ public class EditorDebateView extends JDialog {
 		if (lblTitulo == null) {
 			lblTitulo = new JLabel("Debate del Artículo: " + articulo.getTitulo());
 			lblTitulo.setFont(new Font("Tahoma", Font.ITALIC, 17));
-			lblTitulo.setBounds(168, 11, 272, 32);
+			lblTitulo.setBounds(123, 11, 333, 32);
 		}
 		return lblTitulo;
 	}
