@@ -12,7 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -35,7 +34,6 @@ public class EditorViewDecisionArticulo extends JDialog {
     private EditorController controller;
     private List<ArticuloEntity> articulos = new ArrayList<ArticuloEntity>();
     private JButton btComentarios;
-    private JButton btDebate;
 
     /**
      * Create the frame.
@@ -59,7 +57,6 @@ public class EditorViewDecisionArticulo extends JDialog {
 	contentPane.add(getBtRechazar());
 	contentPane.add(getBtCargar());
 	contentPane.add(getBtComentarios());
-	contentPane.add(getBtDebate());
 	setVisible(true);
 	setResizable(false);
     }
@@ -183,32 +180,4 @@ public class EditorViewDecisionArticulo extends JDialog {
 	    ven.setVisible(true);
 	}
     }
-	private JButton getBtDebate() {
-		if (btDebate == null) {
-			btDebate = new JButton("Debate");
-			btDebate.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					mostrarDebate();
-				}
-			});
-			btDebate.setForeground(Color.BLACK);
-			btDebate.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			btDebate.setBackground(new Color(100, 149, 237));
-			btDebate.setBounds(705, 211, 148, 23);
-		}
-		return btDebate;
-	}
-	
-	private void mostrarDebate() {
-		if (getChArticulos().getItemCount() > 0) {
-		    ArticuloEntity art = (ArticuloEntity) getChArticulos().getSelectedItem();
-		    if (controller.getEstadoDelDebate(art.getIdArticulo())) {
-		    EditorDebateView ven = new EditorDebateView(art, controller);
-		    ven.setVisible(true);
-		    }
-		    else {
-		    	JOptionPane.showMessageDialog(this, "No hay un debate abierto de este articulo");
-		    }
-		}
-	}
 }

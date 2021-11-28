@@ -20,6 +20,8 @@ public class MenuEditor extends JDialog {
 	private JButton btDisponibles;
 	private JButton btAsignados;
 	private EditorController controller = new EditorController();
+	private JButton btEnDebate;
+	private JButton btPublicar;
 
 	/**
 	 * Create the frame.
@@ -33,6 +35,8 @@ public class MenuEditor extends JDialog {
 		contentPane.setLayout(null);
 		contentPane.add(getBtDisponibles());
 		contentPane.add(getBtAsignados());
+		contentPane.add(getBtEnDebate());
+		contentPane.add(getBtPublicar());
 	}
 
 	private JButton getBtAsignados() {
@@ -44,7 +48,7 @@ public class MenuEditor extends JDialog {
 					mostrarAsignados();
 				}
 			});
-			btAsignados.setBounds(115, 119, 182, 34);
+			btAsignados.setBounds(115, 83, 182, 34);
 		}
 		return btAsignados;
 	}
@@ -58,7 +62,7 @@ public class MenuEditor extends JDialog {
 					mostrarDisponibles();
 				}
 			});
-			btDisponibles.setBounds(115, 61, 182, 34);
+			btDisponibles.setBounds(115, 27, 182, 34);
 		}
 		return btDisponibles;
 	}
@@ -73,5 +77,40 @@ public class MenuEditor extends JDialog {
 		EditorPrincipalView ven = new EditorPrincipalView(controller);
 		ven.setVisible(true);
 		// ven.setModal(true);
+	}
+	private JButton getBtEnDebate() {
+		if (btEnDebate == null) {
+			btEnDebate = new JButton("Articulos en Debate");
+			btEnDebate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					mostrarEnDebate();
+				}
+			});
+			btEnDebate.setBounds(115, 138, 182, 34);
+		}
+		return btEnDebate;
+	}
+	
+	private void mostrarEnDebate() {
+		EditorViewArticulosEnDebate ven = new EditorViewArticulosEnDebate(controller);
+		ven.setVisible(true);
+		// ven.setModal(true);
+	}
+	private JButton getBtPublicar() {
+		if (btPublicar == null) {
+			btPublicar = new JButton("Articulos para publicar");
+			btPublicar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					mostrarParaPublicar();
+				}
+			});
+			btPublicar.setBounds(115, 194, 182, 34);
+		}
+		return btPublicar;
+	}
+	
+	private void mostrarParaPublicar() {
+		EditorViewArticulosParaPublicar ven = new EditorViewArticulosParaPublicar(controller);
+		ven.setVisible(true);
 	}
 }

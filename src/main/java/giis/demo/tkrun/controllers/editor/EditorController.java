@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.DebateEntity;
 import giis.demo.tkrun.controllers.entities.MensajeEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
@@ -256,5 +257,19 @@ public class EditorController {
     public boolean getEstadoDelDebate(String idArticulo) {
     	return debateModel.getEstadoDelDebate(idArticulo);
     }
+
+	public void enviarMensaje(String idArticulo, String mensaje) {
+		DebateEntity debate = EntityAssembler.toDebateEntity(debateModel.getDebate(idArticulo));
+		debateModel.escribirMensaje(debate.getIdDebate(), mensaje);
+		
+	}
+
+	public List<ArticuloEntity> getArticulosEnDebate() {
+		return 	EntityAssembler.toArticuloEntityList(articuloModel.getArticulosEnDebate());	 
+	}
+	
+	public List<ArticuloEntity> getArticulosParaPublicar(){
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosParaPublicar());
+	}
 
 }

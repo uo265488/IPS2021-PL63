@@ -39,7 +39,7 @@ public class DebateModel {
 	}
 
 	public List<MensajeDto> getMensajesDebate(String idArticulo) {
-		String sql = "select * from debates where idArticulo=?";
+		String sql = "select * from Debates where idArticulo=?";
 		List<DebateDto> list = db.executeQueryPojo(DebateDto.class, sql, idArticulo);
 		DebateDto debate = list.get(0);
 		sql = "select * from mensajes where idDebate=?";
@@ -47,12 +47,18 @@ public class DebateModel {
 	}
 
 	public boolean getEstadoDelDebate(String idArticulo) {
-		String sql = "select abierto from debates where idArticulo=?";
+		String sql = "select abierto from Debates where idArticulo=?";
 		List<DebateDto> debate = db.executeQueryPojo(DebateDto.class, sql, idArticulo);
 		if (debate.size() > 0) {
 			return debate.get(0).isAbierto();
 		}
 		else return false;
+	}
+	
+	public DebateDto getDebate(String idArticulo) {
+		String sql = "select * from Debates where idArticulo=?";
+		List<DebateDto> list = db.executeQueryPojo(DebateDto.class, sql, idArticulo);
+		return list.get(0);
 	}
 
 }

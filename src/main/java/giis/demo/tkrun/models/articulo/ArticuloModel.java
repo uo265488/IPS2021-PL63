@@ -3,6 +3,7 @@ package giis.demo.tkrun.models.articulo;
 import java.util.ArrayList;
 import java.util.List;
 
+import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.util.Database;
@@ -249,5 +250,15 @@ public class ArticuloModel {
 		articuloDto.getVolumen(), articuloDto.getIdArticulo());
 
     }
+
+	public List<ArticuloDto> getArticulosEnDebate() {
+		String sql = "select * from Articulos where estado=?";
+		return db.executeQueryPojo(ArticuloDto.class, sql, ArticuloEntity.EN_DEBATE);
+	}
+
+	public List<ArticuloDto> getArticulosParaPublicar() {
+		String sql = "select * from Articulos where estado=? and versionDefinitiva = true";
+		return db.executeQueryPojo(ArticuloDto.class, sql, ArticuloEntity.ACEPTADO);
+	}
 
 }

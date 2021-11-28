@@ -5,10 +5,11 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,9 +21,13 @@ import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.MensajeEntity;
 
-public class EditorDebateView extends JFrame {
+public class EditorDebateView extends JDialog {
 
-    private JPanel contentPane;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
     private JLabel lblMensajes;
     private JScrollPane spMensajes;
     private JTextArea txtMensajes;
@@ -40,7 +45,7 @@ public class EditorDebateView extends JFrame {
     public EditorDebateView(ArticuloEntity articulo, EditorController controller) {
     this.articulo = articulo;
     this.controller = controller;
-	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	setBounds(100, 100, 600, 483);
 	contentPane = new JPanel();
 	contentPane.setBackground(Color.WHITE);
@@ -110,14 +115,21 @@ public class EditorDebateView extends JFrame {
 			btnEnviar = new JButton("Enviar Mensaje");
 			btnEnviar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String mensaje = "Editor ["  + LocalDateTime.now().toString() + "]" + getTxtMensajeEnvio().getText();
+					LocalDateTime fecha = LocalDateTime.now();
+					DateTimeFormatter isoFecha = DateTimeFormatter.ISO_LOCAL_DATE;
+					DateTimeFormatter isoHora = DateTimeFormatter.ISO_LOCAL_TIME;
+					String mensaje = "Editor ["  + fecha.format(isoFecha) + " - " + fecha.format(isoHora) + "] - " + getTxtMensajeEnvio().getText();
 				    if(mensaje.length() > 140) {
 					JOptionPane.showMessageDialog(null, "Demasiado largo", "Error de tamaño", JOptionPane.ERROR_MESSAGE);
 				    }
+				    else if (getTxtMensajeEnvio().getText().trim().equals("")) {
+				    	JOptionPane.showMessageDialog(null, "Por favor introduce un mensaje", "Error de tamaño", JOptionPane.ERROR_MESSAGE);
+				    }
 				    else {
-					//controller.enviarMensaje(getTxMensajeEnvio().getText());
+					controller.enviarMensaje(articulo.getIdArticulo(), mensaje);
 					getTxtMensajeEnvio().setText("");
 					JOptionPane.showMessageDialog(null, "Mensaje enviado");
+					setTxtMensajes();
 				    }
 				}
 			});

@@ -5,6 +5,7 @@ import java.util.List;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.AutorEntity;
+import giis.demo.tkrun.controllers.entities.DebateEntity;
 import giis.demo.tkrun.controllers.entities.MensajeEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
@@ -12,6 +13,7 @@ import giis.demo.tkrun.controllers.entities.SugerenciaEntity;
 import giis.demo.tkrun.controllers.entities.UserEntity;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.AutorDto;
+import giis.demo.tkrun.models.dtos.DebateDto;
 import giis.demo.tkrun.models.dtos.MensajeDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
@@ -196,6 +198,20 @@ public class EntityAssembler {
 			mensajesEntity.add(toMensajeEntity(mensaje));
 		}
 		return mensajesEntity;
+	}
+
+	public static DebateEntity toDebateEntity(DebateDto debateDto) {
+		if (debateDto == null) {
+			return null;
+		}
+		else {
+			DebateEntity debateEntity = new DebateEntity();
+			debateEntity.setIdArticulo(debateDto.getIdArticulo());
+			debateEntity.setIdDebate(debateDto.getIdDebate());
+			debateEntity.setFecha(debateDto.getFecha());
+			debateEntity.setAbierto(debateDto.isAbierto());
+			return debateEntity;
+		}
 	}
 
 }
