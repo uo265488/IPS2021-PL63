@@ -1,12 +1,10 @@
 package giis.demo.tkrun.models.dtos;
 
-import java.time.LocalDate;
-
 public class DebateDto {
 
     private String idDebate;
     private String idArticulo;
-    private LocalDate fecha;
+    private String fecha;
     private boolean abierto;
 
     public String getIdDebate() {
@@ -25,11 +23,11 @@ public class DebateDto {
 	this.idArticulo = idArticulo;
     }
 
-    public LocalDate getFecha() {
+    public String getFecha() {
 	return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(String fecha) {
 	this.fecha = fecha;
     }
 
