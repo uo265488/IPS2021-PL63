@@ -9,7 +9,7 @@ public class SugerenciaModel {
 
     private Database db = new Database();
 
-    public List<RevisorDto> getRevisoresSugeridos(int idArticulo) {
+    public List<RevisorDto> getRevisoresSugeridos(String idArticulo) {
 
 	String sql = "select * from Sugerencias where idArticulo=?";
 

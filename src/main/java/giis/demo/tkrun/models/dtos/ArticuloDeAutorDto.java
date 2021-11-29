@@ -2,32 +2,34 @@ package giis.demo.tkrun.models.dtos;
 
 public class ArticuloDeAutorDto {
 
-	private int idArticulo;
-	private int idAutor;
-	
-	public ArticuloDeAutorDto() {}
+    private String idArticulo;
+    private String idAutor;
 
-	public ArticuloDeAutorDto(int idArticulo, int idAutor) {
-		//no se pueden hacer validaciones todavia porque se puede rellenar la informacion en cualquier momento
-		
-		this.idArticulo = idArticulo;
-		this.idAutor = idAutor;
-	}
+    public ArticuloDeAutorDto() {
+    }
 
-	public int getIdArticulo() {
-		return idArticulo;
-	}
+    public ArticuloDeAutorDto(String idArticulo, String idAutor) {
+	// no se pueden hacer validaciones todavia porque se puede rellenar la
+	// informacion en cualquier momento
 
-	public void setIdArticulo(int idArticulo) {
-		this.idArticulo = idArticulo;
-	}
+	this.idArticulo = idArticulo;
+	this.idAutor = idAutor;
+    }
 
-	public int getIdAutor() {
-		return idAutor;
-	}
+    public String getIdArticulo() {
+	return idArticulo;
+    }
 
-	public void setIdAutor(int idAutor) {
-		this.idAutor = idAutor;
-	}
+    public void setIdArticulo(String idArticulo) {
+	this.idArticulo = idArticulo;
+    }
+
+    public String getIdAutor() {
+	return idAutor;
+    }
+
+    public void setIdAutor(String idAutor) {
+	this.idAutor = idAutor;
+    }
 
 }

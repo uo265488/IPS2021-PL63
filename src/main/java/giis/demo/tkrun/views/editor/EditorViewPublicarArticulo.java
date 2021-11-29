@@ -4,7 +4,15 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -14,8 +22,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.articulo.ArticuloController;
-import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import javax.swing.JComboBox;
 
 public class EditorViewPublicarArticulo extends JDialog {
 
@@ -38,13 +46,10 @@ public class EditorViewPublicarArticulo extends JDialog {
 	private JTextField txtDOI;
 	private JLabel lblFecha;
 	private JLabel lblVolumen;
-	private JTextField txtFecha;
 	private JTextField txtVolumen;
 	private ArticuloController artController;
 	private ArticuloEntity articulo;
-
-	private EditorViewComentariosAutor ventanaAnterior;
-	private EditorController controller;
+	private JComboBox<LocalDate> cbFechas;
 
 	/**
 	 * Launch the application.
@@ -57,12 +62,9 @@ public class EditorViewPublicarArticulo extends JDialog {
 	 *
 	 * /** Create the dialog.
 	 */
-	public EditorViewPublicarArticulo(EditorViewComentariosAutor ventanaAnterior, ArticuloEntity articulo,
-			EditorController controller) {
+	public EditorViewPublicarArticulo(ArticuloEntity articulo) {
 		this.artController = new ArticuloController();
-		this.ventanaAnterior = ventanaAnterior;
 		this.articulo = articulo;
-		this.controller = controller;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		getContentPane().setBackground(Color.WHITE);
 		setBackground(Color.WHITE);
@@ -78,8 +80,8 @@ public class EditorViewPublicarArticulo extends JDialog {
 		contentPanel.add(getTxtDOI());
 		contentPanel.add(getLblFecha());
 		contentPanel.add(getLblVolumen());
-		contentPanel.add(getTxtFecha());
 		contentPanel.add(getTxtVolumen());
+		contentPanel.add(getCbFechas());
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBounds(0, 282, 509, 43);
@@ -115,8 +117,8 @@ public class EditorViewPublicarArticulo extends JDialog {
 			JOptionPane.showMessageDialog(this, "DOI invalido");
 			return false;
 		}
-		if (getTxtFecha().getText().trim().equals("")) {
-			JOptionPane.showMessageDialog(this, "Fecha invalida");
+		if (cbFechas.getSelectedIndex() == -1) {
+			JOptionPane.showMessageDialog(this, "Debes seleccionar una fecha. ");
 			return false;
 		}
 		if (!isValid(getTxtVolumen().getText().trim())) {
@@ -136,8 +138,8 @@ public class EditorViewPublicarArticulo extends JDialog {
 
 	private JLabel getLblFecha() {
 		if (lblFecha == null) {
-			lblFecha = new JLabel("Fecha:");
-			lblFecha.setBounds(20, 80, 80, 23);
+			lblFecha = new JLabel("Fecha(DD/MM/AAAA):");
+			lblFecha.setBounds(20, 80, 134, 23);
 		}
 		return lblFecha;
 	}
@@ -153,25 +155,16 @@ public class EditorViewPublicarArticulo extends JDialog {
 	private JTextField getTxtDOI() {
 		if (txtDOI == null) {
 			txtDOI = new JTextField();
-			txtDOI.setBounds(120, 46, 221, 23);
+			txtDOI.setBounds(177, 46, 221, 23);
 			txtDOI.setColumns(10);
 		}
 		return txtDOI;
 	}
 
-	private JTextField getTxtFecha() {
-		if (txtFecha == null) {
-			txtFecha = new JTextField();
-			txtFecha.setBounds(120, 80, 221, 23);
-			txtFecha.setColumns(10);
-		}
-		return txtFecha;
-	}
-
 	private JTextField getTxtVolumen() {
 		if (txtVolumen == null) {
 			txtVolumen = new JTextField();
-			txtVolumen.setBounds(120, 115, 221, 23);
+			txtVolumen.setBounds(177, 114, 221, 23);
 			txtVolumen.setColumns(10);
 		}
 		return txtVolumen;
@@ -189,7 +182,7 @@ public class EditorViewPublicarArticulo extends JDialog {
 
 	private void publicarArticulo() {
 		if (checkTextFields()) {
-			artController.publicarArticulo(articulo, getTxtDOI().getText(), getTxtFecha().getText(),
+			artController.publicarArticulo(articulo, getTxtDOI().getText(), getCbFechas().getSelectedItem().toString(),
 					Integer.parseInt(getTxtVolumen().getText()));
 			JOptionPane.showMessageDialog(this,
 					"articulo " + articulo.getTitulo() + "-" + articulo.getPrimerAutor() + " publicado correctamente");
@@ -198,4 +191,35 @@ public class EditorViewPublicarArticulo extends JDialog {
 		}
 	}
 
+	private JComboBox<LocalDate> getCbFechas() {
+		if (cbFechas == null) {
+			cbFechas = new JComboBox<LocalDate>();
+			cbFechas.setBounds(177, 80, 221, 23);
+			cbFechas.setModel(generarComboBoxModel());
+		}
+		return cbFechas;
+	}
+	
+    private ComboBoxModel<LocalDate> generarComboBoxModel() {
+		DefaultComboBoxModel<LocalDate> model = new DefaultComboBoxModel<>();
+	
+		//model.addAll(generarFechas());
+		List<LocalDate> fechas = generarFechas();
+		for (LocalDate fecha : fechas) {
+			model.addElement(fecha);
+		}
+		return model;
+    }
+    
+    /**
+     * Genera una lista de fechas
+     *
+     * @return
+     */
+    private List<LocalDate> generarFechas() {
+	LocalDate start = LocalDate.now();
+	LocalDate end = LocalDate.now().plusMonths(1).with(TemporalAdjusters.lastDayOfMonth());
+	return Stream.iterate(start, date -> date.plusDays(1)).limit(ChronoUnit.DAYS.between(start, end))
+		.collect(Collectors.toList());
+    }
 }

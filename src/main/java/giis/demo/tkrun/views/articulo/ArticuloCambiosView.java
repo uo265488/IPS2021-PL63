@@ -26,7 +26,7 @@ public class ArticuloCambiosView extends JDialog {
      */
     private static final long serialVersionUID = 1L;
     private ArticuloEntity articulo;
-    private int id_autor;
+    private String id_autor;
     private JLabel lbTituloArticulo;
     private JTextField txtFArticulo;
     private JLabel lbCambios;
@@ -59,7 +59,7 @@ public class ArticuloCambiosView extends JDialog {
     /**
      * Create the frame.
      */
-    public ArticuloCambiosView(ArticuloEntity articulo, int id_autor) {
+    public ArticuloCambiosView(ArticuloEntity articulo, String id_autor) {
 	this.articulo = articulo;
 	revisionController = new RevisionController();
 	autorController = new AutorController(id_autor);

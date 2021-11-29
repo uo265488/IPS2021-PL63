@@ -2,23 +2,23 @@ package giis.demo.tkrun.models.dtos;
 
 public class AutoresSecundariosDto {
 
-	private int idArticulo;
-	private int idAutor;
+    private String idArticulo;
+    private String idAutor;
 
-	public int getIdArticulo() {
-		return idArticulo;
-	}
+    public String getIdArticulo() {
+	return idArticulo;
+    }
 
-	public int getIdAutor() {
-		return idAutor;
-	}
+    public String getIdAutor() {
+	return idAutor;
+    }
 
-	public void setIdArticulo(int idArticulo) {
-		this.idArticulo = idArticulo;
-	}
+    public void setIdArticulo(String idArticulo) {
+	this.idArticulo = idArticulo;
+    }
 
-	public void setIdAutor(int idAutor) {
-		this.idAutor = idAutor;
-	}
+    public void setIdAutor(String idAutor) {
+	this.idAutor = idAutor;
+    }
 
 }

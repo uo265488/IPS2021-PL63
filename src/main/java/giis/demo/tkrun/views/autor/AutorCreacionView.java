@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.Random;
+import java.util.UUID;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -55,7 +55,7 @@ public class AutorCreacionView extends JFrame {
     private JButton btnBorrador;
     private JButton btnEnviar;
     private AutorController autorController;
-    private int id_autor;
+    private String id_autor;
     private JLabel lbContstraints;
     private JLabel lbSugerirRevisores;
     private JPanel panelSugeridos;
@@ -66,6 +66,7 @@ public class AutorCreacionView extends JFrame {
     private RevisorController revisorController;
     private ArticuloController articuloController;
     private ArticuloEntity posibleBorrador;
+    private JLabel lblFormatoPalbraclave;
 
 //	/**
 //	 * Launch the application.
@@ -83,7 +84,7 @@ public class AutorCreacionView extends JFrame {
 //		});
 //	}
 
-    public AutorCreacionView(AutorController autorController, int id_autor, ArticuloEntity borrador) {
+    public AutorCreacionView(AutorController autorController, String id_autor, ArticuloEntity borrador) {
 	this.autorController = autorController;
 	this.id_autor = id_autor;
 	this.posibleBorrador = borrador;
@@ -95,6 +96,7 @@ public class AutorCreacionView extends JFrame {
 	if (borrador.getVecesRevisado() > 0) {
 	    getBtnBorrador().setEnabled(false);
 	    getTxtFOtrosAutores().setEnabled(false);
+	    getTxtFTitulo().setEnabled(false);
 	}
 
     }
@@ -102,7 +104,7 @@ public class AutorCreacionView extends JFrame {
     /**
      * @wbp.parser.constructor
      */
-    public AutorCreacionView(AutorController autorController, int id_autor) {
+    public AutorCreacionView(AutorController autorController, String id_autor) {
 	this.autorController = autorController;
 	this.id_autor = id_autor;
 	revisorController = new RevisorController();
@@ -146,6 +148,7 @@ public class AutorCreacionView extends JFrame {
 	contentPane.add(getLbSugerirRevisores());
 	contentPane.add(getPanelSugeridos());
 	contentPane.add(getLbConstraintsSugeridos());
+	contentPane.add(getLblFormatoPalbraclave());
     }
 
     private JLabel getLbTitulo() {
@@ -257,7 +260,7 @@ public class AutorCreacionView extends JFrame {
 	    lbFicheroFuente.setLabelFor(getTxtFFicheroFuente());
 	    lbFicheroFuente.setDisplayedMnemonic('F');
 	    lbFicheroFuente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    lbFicheroFuente.setBounds(23, 199, 150, 20);
+	    lbFicheroFuente.setBounds(23, 214, 150, 20);
 	}
 	return lbFicheroFuente;
     }
@@ -266,7 +269,7 @@ public class AutorCreacionView extends JFrame {
 	if (txtFFicheroFuente == null) {
 	    txtFFicheroFuente = new JTextField();
 	    txtFFicheroFuente.setColumns(10);
-	    txtFFicheroFuente.setBounds(183, 200, 321, 20);
+	    txtFFicheroFuente.setBounds(183, 215, 321, 20);
 	}
 	return txtFFicheroFuente;
     }
@@ -277,7 +280,7 @@ public class AutorCreacionView extends JFrame {
 	    lbCartaPresentación.setLabelFor(getTxtFCartaPresentacion());
 	    lbCartaPresentación.setDisplayedMnemonic('C');
 	    lbCartaPresentación.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    lbCartaPresentación.setBounds(23, 231, 150, 20);
+	    lbCartaPresentación.setBounds(23, 246, 150, 20);
 	}
 	return lbCartaPresentación;
     }
@@ -286,7 +289,7 @@ public class AutorCreacionView extends JFrame {
 	if (txtFCartaPresentacion == null) {
 	    txtFCartaPresentacion = new JTextField();
 	    txtFCartaPresentacion.setColumns(10);
-	    txtFCartaPresentacion.setBounds(183, 231, 321, 20);
+	    txtFCartaPresentacion.setBounds(183, 246, 321, 20);
 	}
 	return txtFCartaPresentacion;
     }
@@ -297,7 +300,7 @@ public class AutorCreacionView extends JFrame {
 	    lbCVAutor.setDisplayedMnemonic('V');
 	    lbCVAutor.setLabelFor(getTxtFCVAutor());
 	    lbCVAutor.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    lbCVAutor.setBounds(23, 262, 150, 20);
+	    lbCVAutor.setBounds(23, 277, 150, 20);
 	}
 	return lbCVAutor;
     }
@@ -306,7 +309,7 @@ public class AutorCreacionView extends JFrame {
 	if (txtFCVAutor == null) {
 	    txtFCVAutor = new JTextField();
 	    txtFCVAutor.setColumns(10);
-	    txtFCVAutor.setBounds(183, 262, 321, 20);
+	    txtFCVAutor.setBounds(183, 277, 321, 20);
 	}
 	return txtFCVAutor;
     }
@@ -325,7 +328,9 @@ public class AutorCreacionView extends JFrame {
 	if (btnBorrador == null) {
 	    btnBorrador = new JButton("Guardar BORRADOR");
 	    btnBorrador.addActionListener(new ActionListener() {
+		@Override
 		public void actionPerformed(ActionEvent e) {
+		    // TODO Auto-generated method stub
 		    crearBorrador();
 		}
 	    });
@@ -373,24 +378,21 @@ public class AutorCreacionView extends JFrame {
 	articuloDto.setFecha("");
 	articuloDto.setVolumen(0);
 
-	System.out.println(posibleBorrador.getIdArticulo());
-
-	if (posibleBorrador.getIdArticulo() != 0) {
+	if (posibleBorrador.getIdArticulo() != null) {
 	    articuloDto.setIdArticulo(posibleBorrador.getIdArticulo());
 	    autorController.actualizarBorrador(articuloDto);
 	} else {
-	    articuloDto.setIdArticulo(new Random().nextInt());
+	    articuloDto.setIdArticulo(UUID.randomUUID().toString());
 	    autorController.crearBorrador(articuloDto);
 	}
 
 	if (!revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(),
 		getTextFSugerido2().getText(), getTextFSugerido3().getText())) {
-	    JOptionPane.showMessageDialog(this, "Mal formato de revisores");
+	    JOptionPane.showMessageDialog(this, "Mal formato revisores sugeridos.");
 	} else {
-	    JOptionPane.showMessageDialog(this, "Borrador creado/actualizado");
+	    JOptionPane.showMessageDialog(this, "Borrador creado/actualizado con exito.");
 	    dispose();
 	}
-
     }
 
     private boolean checkFields() {
@@ -408,7 +410,10 @@ public class AutorCreacionView extends JFrame {
 	if (autor.replaceAll("\\s", "").length() == 0) {
 	    return false;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/heads/master
 	if (resumen.replaceAll("\\s", "").length() == 0) {
 	    return false;
 	}
@@ -450,25 +455,36 @@ public class AutorCreacionView extends JFrame {
 	articuloDto.setFecha("");
 	articuloDto.setVolumen(0);
 
+<<<<<<< HEAD
 	if (articuloController.findArticulo(articuloDto.getIdArticulo()) == null) {
 	    articuloDto.setIdArticulo(new Random().nextInt());
+=======
+	if (articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor()) == null) {
+	    articuloDto.setIdArticulo(UUID.randomUUID().toString());
+>>>>>>> refs/heads/master
 	    autorController.crearArticulo(articuloDto);
 	} else {
+<<<<<<< HEAD
 	    articuloDto.setPendienteDeCambios(false);
+=======
+	    String id = articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor())
+		    .getIdArticulo();
+	    articuloDto.setIdArticulo(id);
+>>>>>>> refs/heads/master
 	    if (articuloDto.getVecesRevisado() > 0) {
 		autorController.modificarArticulo(articuloDto);
 	    } else {
 		autorController.enviarBorrador(articuloDto);
 	    }
-
 	}
+
 	if (!revisoresSugeridos(articuloDto.getIdArticulo(), getTextFSugerido1().getText(),
 		getTextFSugerido2().getText(), getTextFSugerido3().getText())) {
-	    JOptionPane.showMessageDialog(this, "Mal formato de revisores");
+	    JOptionPane.showMessageDialog(this, "Mal formato revisores sugeridos.");
 	} else {
-	    JOptionPane.showMessageDialog(this, "Articulo enviado a la revista.");
+	    JOptionPane.showMessageDialog(this, "Articulo enviado/modificado con éxito.");
+	    dispose();
 	}
-
     }
 
     private JLabel getLbContstraints() {
@@ -538,9 +554,14 @@ public class AutorCreacionView extends JFrame {
 	return lbConstraintsSugeridos;
     }
 
-    private boolean revisoresSugeridos(int id_articulo, String revisor1, String revisor2, String revisor3) {
-	if (!revisor1.isEmpty()) {
-	    String[] rev1 = revisor1.split("-"); // *Formato: Nombre - Correo - Especialidad
+    private boolean revisoresSugeridos(String id_articulo, String revisor1, String revisor2, String revisor3) {
+	return sugerirRev(id_articulo, revisor1) || sugerirRev(id_articulo, revisor2)
+		|| sugerirRev(id_articulo, revisor3);
+    }
+
+    private boolean sugerirRev(String idArticulo, String revisor) {
+	if (!revisor.isEmpty()) {
+	    String[] rev1 = revisor.split("-"); // *Formato: Nombre - Correo - Especialidad
 	    if (rev1.length != 3) {
 		return false;
 	    }
@@ -549,64 +570,16 @@ public class AutorCreacionView extends JFrame {
 	    String especialidad = rev1[2].toLowerCase();
 	    if (revisorController.findRevisor(nombre, correo, especialidad) == null) {
 		RevisorDto revisorDto1 = new RevisorDto();
-		revisorDto1.setIdRevisor(new Random().nextInt());
+		revisorDto1.setIdRevisor(UUID.randomUUID().toString());
 		revisorDto1.setNombre(rev1[0]);
 		revisorDto1.setCorreo(rev1[1]);
 		revisorDto1.setEspecialidad(rev1[2]);
 		revisorDto1.setEstado("SUGERIDO");
 
-		autorController.sugerirRevisores(id_articulo, revisorDto1);
+		autorController.sugerirRevisores(idArticulo, revisorDto1);
 		revisorController.addRevisor(revisorDto1);
 	    } else {
-		autorController.sugerirRevisores(id_articulo,
-			EntityAssembler.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
-	    }
-	}
-
-	if (!revisor2.isEmpty()) {
-	    String[] rev2 = revisor2.split("-"); // *Formato: Nombre - Correo - Especialidad
-	    if (rev2.length != 3) {
-		return false;
-	    }
-	    String nombre = rev2[0].toLowerCase();
-	    String correo = rev2[1].toLowerCase();
-	    String especialidad = rev2[2].toLowerCase();
-	    if (revisorController.findRevisor(nombre, correo, especialidad) == null) {
-		RevisorDto revisorDto2 = new RevisorDto();
-		revisorDto2.setIdRevisor(new Random().nextInt());
-		revisorDto2.setNombre(rev2[0]);
-		revisorDto2.setCorreo(rev2[1]);
-		revisorDto2.setEspecialidad(rev2[2]);
-		revisorDto2.setEstado("SUGERIDO");
-
-		autorController.sugerirRevisores(id_articulo, revisorDto2);
-		revisorController.addRevisor(revisorDto2);
-	    } else {
-		autorController.sugerirRevisores(id_articulo,
-			EntityAssembler.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
-	    }
-	}
-
-	if (!revisor3.isEmpty()) {
-	    String[] rev3 = revisor3.split("-"); // *Formato: Nombre - Correo - Especialidad
-	    if (rev3.length != 3) {
-		return false;
-	    }
-	    String nombre = rev3[0];
-	    String correo = rev3[1];
-	    String especialidad = rev3[2];
-	    if (revisorController.findRevisor(nombre, correo, especialidad) == null) {
-		RevisorDto revisorDto3 = new RevisorDto();
-		revisorDto3.setIdRevisor(new Random().nextInt());
-		revisorDto3.setNombre(rev3[0].toLowerCase());
-		revisorDto3.setCorreo(rev3[1].toLowerCase());
-		revisorDto3.setEspecialidad(rev3[2].toLowerCase());
-		revisorDto3.setEstado("SUGERIDO");
-
-		autorController.sugerirRevisores(id_articulo, revisorDto3);
-		revisorController.addRevisor(revisorDto3);
-	    } else {
-		autorController.sugerirRevisores(id_articulo,
+		autorController.sugerirRevisores(idArticulo,
 			EntityAssembler.toRevisorDto(revisorController.findRevisor(nombre, correo, especialidad)));
 	    }
 	}
@@ -656,5 +629,14 @@ public class AutorCreacionView extends JFrame {
 	    getTextFSugerido3().setText(rev3.getNombre() + "-" + rev3.getCorreo() + "-" + rev3.getEspecialidad());
 	    break;
 	}
+    }
+
+    private JLabel getLblFormatoPalbraclave() {
+	if (lblFormatoPalbraclave == null) {
+	    lblFormatoPalbraclave = new JLabel("** Formato: PalbraClave1, PalabraClave2, etc.");
+	    lblFormatoPalbraclave.setFont(new Font("Tahoma", Font.PLAIN, 10));
+	    lblFormatoPalbraclave.setBounds(183, 191, 321, 14);
+	}
+	return lblFormatoPalbraclave;
     }
 }

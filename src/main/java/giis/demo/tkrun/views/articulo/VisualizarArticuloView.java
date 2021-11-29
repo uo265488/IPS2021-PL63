@@ -89,6 +89,7 @@ public class VisualizarArticuloView extends JDialog {
 	if (checkFirma == null) {
 	    checkFirma = new Checkbox(
 		    "El autor ha confirmado que es el autor del artículo y no ha incurrido en plagio.");
+	    checkFirma.setForeground(new Color(0, 0, 0));
 	    checkFirma.setBounds(34, 560, 431, 37);
 
 	    checkFirma.setState(articulo.isFirma());
@@ -191,7 +192,7 @@ public class VisualizarArticuloView extends JDialog {
 	    txtAutoresSecundarios.setBackground(Color.WHITE);
 	    txtAutoresSecundarios.setBounds(34, 158, 501, 20);
 
-	    txtAutoresSecundarios.setText(articuloController.getOtrosAutores("" + articulo.getIdArticulo()));
+	    txtAutoresSecundarios.setText(articuloController.getOtrosAutores(articulo.getIdArticulo()));
 	}
 	return txtAutoresSecundarios;
     }

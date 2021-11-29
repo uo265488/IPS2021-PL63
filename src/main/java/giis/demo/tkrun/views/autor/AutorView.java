@@ -18,14 +18,17 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.views.articulo.ArticuloCambiosView;
+<<<<<<< HEAD
 import giis.demo.util.DtoMapper;
+=======
+import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
+>>>>>>> refs/heads/master
 
 public class AutorView extends JDialog {
 
@@ -36,7 +39,6 @@ public class AutorView extends JDialog {
     private JPanel contentPane;
     private JLabel lbAutor;
     private JLabel lbId;
-    private JTextField txId;
     private JScrollPane scrollPane;
     private List<ArticuloEntity> articulosDelAutor = new ArrayList<ArticuloEntity>();
     private AutorController controller;
@@ -44,10 +46,11 @@ public class AutorView extends JDialog {
     private JCheckBox chCopy;
     private JButton btnEnviarArticulo;
     private JButton btVisualizar;
-    private int id_autor;
+    private String id_autor;
     private JButton btnModificarBorrador;
     private JList<ArticuloEntity> listArticulos;
     private JButton btnCambiosSugeridos;
+    private JButton btnVisualizar;
 
     /// **
     // * Launch the application.
@@ -70,13 +73,13 @@ public class AutorView extends JDialog {
      * 
      * @wbp.parser.constructor
      */
-    public AutorView(AutorController controller, int id_autor) {
+    public AutorView(AutorController controller, String id_autor) {
 	this.controller = controller;
 	this.id_autor = id_autor;
 	inicialize();
     }
 
-    public AutorView(int id_autor) {
+    public AutorView(String id_autor) {
 	this.controller = new AutorController(false);
 	this.id_autor = id_autor;
 	inicialize();
@@ -97,10 +100,21 @@ public class AutorView extends JDialog {
 	    btConfirmar.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 		    if (!getTxId().getText().isEmpty()) {
+=======
+		    getBtnEnviarArticulo().setEnabled(false);
+		    if (!id_autor.isEmpty()) {
+			articulosAceptadosSinVersionDefinitiva.clear();
+			rellenarComboBox();
+>>>>>>> refs/heads/master
 			try {
+<<<<<<< HEAD
 			    id_autor = Integer.parseInt(getTxId().getText());
 			    articulosDelAutor = controller.getArticulosPropios(id_autor);
+=======
+			    articulosDelEditor = controller.getArticulosPropios(id_autor);
+>>>>>>> refs/heads/master
 			    getListArticulos().setModel(addModel());
 			} catch (Exception e1) {
 			    JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id",
@@ -117,9 +131,45 @@ public class AutorView extends JDialog {
 	return btConfirmar;
     }
 
+<<<<<<< HEAD
+=======
+    private JButton getBtMirarArticulos() {
+	if (btMirarArticulos == null) {
+	    btMirarArticulos = new JButton("Articulos aceptados sin versión definitiva");
+	    btMirarArticulos.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		    articulosAceptadosSinVersionDefinitiva.clear();
+		    articulosDelEditor.clear();
+		    rellenarComboBox();
+		    if (!id_autor.isEmpty()) {
+			try {
+			    articulosAceptadosSinVersionDefinitiva = controller
+				    .getArticulosAceptadosSinVersionDefinitiva(id_autor);
+			    rellenarComboBox();
+			    if (articulosAceptadosSinVersionDefinitiva.size() == 0) {
+				getBtnEnviarArticulo().setEnabled(false);
+			    } else {
+				getBtnEnviarArticulo().setEnabled(true);
+			    }
+			} catch (Exception e1) {
+			    JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id",
+				    JOptionPane.ERROR_MESSAGE);
+			}
+		    }
+		}
+	    });
+	    btMirarArticulos.setBackground(new Color(224, 255, 255));
+	    btMirarArticulos.setBounds(413, 110, 272, 23);
+	}
+	return btMirarArticulos;
+    }
+
+>>>>>>> refs/heads/master
     private JButton getBtnCambiosSugeridos() {
 	if (btnCambiosSugeridos == null) {
 	    btnCambiosSugeridos = new JButton("Cambios sugeridos");
+	    btnCambiosSugeridos.setBackground(new Color(0, 206, 209));
 	    btnCambiosSugeridos.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -127,7 +177,7 @@ public class AutorView extends JDialog {
 		}
 	    });
 	    btnCambiosSugeridos.setEnabled(false);
-	    btnCambiosSugeridos.setBounds(223, 498, 178, 23);
+	    btnCambiosSugeridos.setBounds(223, 498, 178, 33);
 	}
 	return btnCambiosSugeridos;
     }
@@ -175,6 +225,7 @@ public class AutorView extends JDialog {
     private JButton getBtnModificarBorrador() {
 	if (btnModificarBorrador == null) {
 	    btnModificarBorrador = new JButton("Modificar borrador");
+	    btnModificarBorrador.setBackground(new Color(46, 139, 87));
 	    btnModificarBorrador.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -182,7 +233,7 @@ public class AutorView extends JDialog {
 		}
 	    });
 	    btnModificarBorrador.setEnabled(false);
-	    btnModificarBorrador.setBounds(10, 498, 178, 23);
+	    btnModificarBorrador.setBounds(10, 498, 178, 33);
 	}
 	return btnModificarBorrador;
     }
@@ -223,9 +274,10 @@ public class AutorView extends JDialog {
 
     private JLabel getLbId() {
 	if (lbId == null) {
-	    lbId = new JLabel("Meta su identificador para ver sus artículos:");
+	    lbId = new JLabel(
+		    "Identificador del autor:                " + controller.getAutorById(id_autor).toString());
 	    lbId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	    lbId.setBounds(10, 77, 298, 22);
+	    lbId.setBounds(10, 77, 675, 22);
 	}
 	return lbId;
     }
@@ -263,18 +315,6 @@ public class AutorView extends JDialog {
 	return scrollPane;
     }
 
-    private JTextField getTxId() {
-	if (txId == null) {
-	    txId = new JTextField();
-	    txId.setText("" + id_autor);
-	    txId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	    txId.setBounds(318, 78, 191, 20);
-	    txId.setColumns(10);
-
-	}
-	return txId;
-    }
-
     private void inicialize() {
 	setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 	setBounds(100, 100, 1174, 586);
@@ -285,7 +325,6 @@ public class AutorView extends JDialog {
 	contentPane.setLayout(null);
 	contentPane.add(getLbAutor());
 	contentPane.add(getLbId());
-	contentPane.add(getTxId());
 	contentPane.add(getScrollPane());
 	contentPane.add(getBtConfirmar());
 	contentPane.add(getChCopy());
@@ -293,6 +332,7 @@ public class AutorView extends JDialog {
 	contentPane.add(getBtVisualizar());
 	contentPane.add(getBtnModificarBorrador());
 	contentPane.add(getBtnCambiosSugeridos());
+	contentPane.add(getBtnVisualizar());
 	setVisible(true);
 	setResizable(false);
 	actualizarArticulos();
@@ -357,4 +397,39 @@ public class AutorView extends JDialog {
 		actualizarArticulos();
 	}
     }
+<<<<<<< HEAD
+=======
+
+    private void rellenarComboBox() {
+	ArticuloEntity[] vector = new ArticuloEntity[0];
+	if (this.articulosAceptadosSinVersionDefinitiva.size() > 0) {
+	    vector = new ArticuloEntity[this.articulosAceptadosSinVersionDefinitiva.size()];
+	    for (int i = 0; i < vector.length; i++) {
+		vector[i] = this.articulosAceptadosSinVersionDefinitiva.get(i);
+	    }
+	}
+	cbArticulosSinPublicar.setModel(new DefaultComboBoxModel<ArticuloEntity>(vector));
+    }
+
+    private JButton getBtnVisualizar() {
+	if (btnVisualizar == null) {
+	    btnVisualizar = new JButton("Visualizar");
+	    btnVisualizar.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    ArticuloEntity articulo = getListArticulos().getSelectedValue();
+		    if (articulo == null) {
+			JOptionPane.showMessageDialog(getContentPane(), "Debes seleccionar un artículo.");
+		    } else {
+			VisualizarArticuloView vav = new VisualizarArticuloView(articulo);
+			vav.setVisible(true);
+		    }
+		}
+	    });
+	    btnVisualizar.setEnabled(true);
+	    btnVisualizar.setBackground(new Color(70, 130, 180));
+	    btnVisualizar.setBounds(426, 498, 178, 33);
+	}
+	return btnVisualizar;
+    }
+>>>>>>> refs/heads/master
 }
