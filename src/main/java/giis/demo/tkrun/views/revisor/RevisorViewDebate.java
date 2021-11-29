@@ -62,7 +62,7 @@ public class RevisorViewDebate extends JDialog {
     }
     private void inicialice() {
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	setBounds(100, 100, 600, 483);
+	setBounds(100, 100, 806, 483);
 	contentPane = new JPanel();
 	contentPane.setBackground(Color.WHITE);
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -86,7 +86,7 @@ public class RevisorViewDebate extends JDialog {
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(10, 66, 564, 269);
+			scrollPane.setBounds(10, 66, 770, 269);
 			scrollPane.setViewportView(getTxMensajes());
 		}
 		return scrollPane;
@@ -104,7 +104,7 @@ public class RevisorViewDebate extends JDialog {
 	private JScrollPane getScrollPane_1() {
 		if (scrollPane_1 == null) {
 			scrollPane_1 = new JScrollPane();
-			scrollPane_1.setBounds(10, 365, 384, 68);
+			scrollPane_1.setBounds(10, 365, 598, 68);
 			scrollPane_1.setViewportView(getTxMensajeEnvio());
 		}
 		return scrollPane_1;
@@ -126,7 +126,11 @@ public class RevisorViewDebate extends JDialog {
 					JOptionPane.showMessageDialog(null, "Demasiado largo", "Error de tamaño", JOptionPane.ERROR_MESSAGE);
 				    }
 				    else {
-					getTxMensajeEnvio().setText("Revisor [" + LocalDateTime.now().toString() + "]: " + getTxMensajeEnvio().getText());
+					LocalDateTime fecha = LocalDateTime.now();
+					fecha.toLocalDate();
+					fecha.getMinute();
+					fecha.getHour();
+					getTxMensajeEnvio().setText("Revisor [" + fecha.toLocalDate() + " " + fecha.getHour() + ":" +fecha.getMinute() + "]: " + getTxMensajeEnvio().getText());
 					controller.envioMensaje(idDebate, getTxMensajeEnvio().getText());
 					getTxMensajeEnvio().setText("");
 					JOptionPane.showMessageDialog(null, "Mensaje enviado correctamente");
@@ -135,7 +139,7 @@ public class RevisorViewDebate extends JDialog {
 				}
 			});
 			btEnviar.setBackground(new Color(143, 188, 143));
-			btEnviar.setBounds(404, 386, 162, 23);
+			btEnviar.setBounds(618, 387, 162, 23);
 		}
 		return btEnviar;
 	}
@@ -143,7 +147,7 @@ public class RevisorViewDebate extends JDialog {
 		if (lbTitulo == null) {
 			lbTitulo = new JLabel("Debate del Artículo: " + articulo.getTitulo());
 			lbTitulo.setFont(new Font("Tahoma", Font.ITALIC, 17));
-			lbTitulo.setBounds(81, 11, 485, 32);
+			lbTitulo.setBounds(10, 11, 556, 32);
 		}
 		return lbTitulo;
 	}

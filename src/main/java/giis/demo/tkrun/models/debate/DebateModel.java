@@ -39,7 +39,7 @@ public class DebateModel {
 	
 	/**
 	 * Saca una lista con todos los mensajes del debate
-	 * @param idDebate 	Id del debate 
+	 * @param idDebate 	Id del debate  
 	 * @return	Lista de mensajes
 	 */
 	public List<MensajeDto> devolverMensajes(String idDebate) {

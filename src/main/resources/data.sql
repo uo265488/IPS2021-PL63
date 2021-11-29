@@ -95,7 +95,7 @@ insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, comentarios
 	('15', '86671e22-02f6-4fb2-ba2d-e5c5e0155227', 2,'31/12/2021', 'Es increíble lo que ha mejorado', 'publicar sin lugar a dudas', 'aceptar', false, 'ACEPTADA'),
 	('16', 'fa46f0fc-ef50-4a9e-9e35-6659dd39e6a4', 1,'31/12/2021', '', '', '', false, 'RECHAZADA'),
 	('16', 'de844393-18b4-47e9-8f4b-810e6d7223de', 2,'31/12/2021', '', '', '', false, 'ACEPTADA'),
-	('16', '86671e22-02f6-4fb2-ba2d-e5c5e0155227', 2,'31/12/2021', '', '', '', false, 'PENDIENTE');
+	('16', '86671e22-02f6-4fb2-ba2d-e5c5e0155227', 2,'31/12/2021', '', '', '', false, 'PENDIENTE'); 
 	
 delete from usuarios;
 insert into usuarios (idUsuario, nombre, tipoUsuario) values
