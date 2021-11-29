@@ -1,7 +1,7 @@
 package giis.demo.tkrun.controllers.editor;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -258,8 +258,12 @@ public class EditorController {
 	 * @param selectedValue
 	 * @param selectedItem
 	 */
-	public void abrirDebate(ArticuloEntity articulo, Date date) {
-		debateModel.abrirdebate(articulo.getIdArticulo(), date);
+	public void abrirDebate(ArticuloEntity articulo, LocalDate date) {
 
+		String idDebate = debateModel.abrirDebate(articulo.getIdArticulo(), date);
+
+		articuloModel.cambiarEstadoEnDebate(articulo);
+
+		debateModel.escribirMensaje(idDebate, "El debate ha sido abierto con fecha límite: " + date.toString());
 	}
 }

@@ -2,15 +2,16 @@ package giis.demo.tkrun.controllers.entities;
 
 public class ArticuloEntity {
 
-	public static String CON_EL_EDITOR = "con el editor";
-	public static String BORRADOR = "borrador";
-	public static String RECHAZADO = "rechazado";
-	public static String ACEPTADO = "aceptado";
+	public static final String CON_EL_EDITOR = "con el editor";
+	public static final String BORRADOR = "borrador";
+	public static final String RECHAZADO = "rechazado";
+	public static final String ACEPTADO = "aceptado";
 	public static final String EN_REVISION = "en revision";
 	public static final String PUBLICADO = "publicado";
 	public static final String ACEPTADO_CAMBIOS_MENORES = "aceptado con cambios menores";
 	public static final String ACEPTADO_CAMBIOS_MAYORES = "aceptado con cambios mayores";
-	
+	public static final String EN_DEBATE = "en debate";
+
 	private int idArticulo;
 	private String titulo;
 	private String primerAutor;

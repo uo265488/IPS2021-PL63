@@ -29,6 +29,8 @@ insert into autores(idAutor,nombre,dni) values
 	(10,'ariadna','810582'),
 	(11, 'hugo', '364786');
 	
+
+	
 delete from articulos;
 insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV, firma, vecesRevisado, versionDefinitiva, debatible) values 
 	(7,'Economia Española','antonio','pendiente', 'La economia española esta en decadencia', 'Economía, euro', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false, false),

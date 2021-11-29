@@ -18,6 +18,12 @@ create table Articulos (idArticulo int primary key, titulo varchar(32), primerAu
 drop table Autores;
 create table Autores (idAutor int primary key, nombre varchar(32), dni varchar(32));
 
+drop table Debates;
+create table Debates (idDebate int varchar(32), idArticulo varchar(32), fecha varchar(32), abierto bool);
+
+drop table Mensajes;
+create table Mensajes (idMensaje varchar(32), idDebate int varchar(32), mensaje varchar(140));
+
 drop table AutoresSecundarios;
 create table AutoresSecundarios (idArticulo int foreing key, idAutor int foreing key);
 

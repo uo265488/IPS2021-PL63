@@ -153,6 +153,6 @@ public class ArticuloController {
 	public List<ArticuloEntity> getArticulosDebatibles() {
 		return EntityAssembler.toArticuloEntityList(artModel.getArticulosDebatibles()).stream()
 				.filter(a -> revisionesModel.checkArticuloRevisado(DtoMapper.toArticuloDto(a)))
-				.collect(Collectors.toList());
+				.filter(ar -> !ar.getEstado().equals(ArticuloEntity.EN_DEBATE)).collect(Collectors.toList());
 	}
 }

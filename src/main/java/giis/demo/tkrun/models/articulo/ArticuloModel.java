@@ -3,6 +3,7 @@ package giis.demo.tkrun.models.articulo;
 import java.util.ArrayList;
 import java.util.List;
 
+import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.util.Database;
@@ -257,6 +258,14 @@ public class ArticuloModel {
 		String sql = "SELECT * from articulos where debatible=false";
 
 		return db.executeQueryPojo(ArticuloDto.class, sql);
+	}
+
+	public void cambiarEstadoEnDebate(ArticuloEntity articulo) {
+
+		String sql = "update articulos set estado=? where idArticulo = ?";
+
+		db.executeUpdate(sql, ArticuloEntity.EN_DEBATE, articulo.getIdArticulo());
+
 	}
 
 }

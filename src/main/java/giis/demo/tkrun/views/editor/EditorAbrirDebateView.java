@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -93,7 +94,15 @@ public class EditorAbrirDebateView extends JDialog {
 	 */
 	protected void abrirDebate() {
 		if ((comboBox.getSelectedIndex() != -1) && (listArticulosDebatibles.getSelectedIndex() != -1)) {
-			editorController.abrirDebate(listArticulosDebatibles.getSelectedValue(), comboBox.getSelectedItem());
+			editorController.abrirDebate(listArticulosDebatibles.getSelectedValue(),
+					(LocalDate) comboBox.getSelectedItem());
+
+			scDebates.setViewportView(getListArticulosDebatibles());
+			scDebates.updateUI();
+			JOptionPane.showMessageDialog(this, "Se ha abierto el debate. ");
+
+		} else {
+			JOptionPane.showMessageDialog(this, "Debes seleccionar un articulo y una fecha. ");
 		}
 
 	}
