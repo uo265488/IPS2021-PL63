@@ -9,7 +9,6 @@ import java.util.UUID;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -410,10 +409,6 @@ public class AutorCreacionView extends JFrame {
 	if (autor.replaceAll("\\s", "").length() == 0) {
 	    return false;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/heads/master
 	if (resumen.replaceAll("\\s", "").length() == 0) {
 	    return false;
 	}
@@ -455,22 +450,16 @@ public class AutorCreacionView extends JFrame {
 	articuloDto.setFecha("");
 	articuloDto.setVolumen(0);
 
-<<<<<<< HEAD
 	if (articuloController.findArticulo(articuloDto.getIdArticulo()) == null) {
-	    articuloDto.setIdArticulo(new Random().nextInt());
-=======
+	    articuloDto.setIdArticulo(UUID.randomUUID().toString());
 	if (articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor()) == null) {
 	    articuloDto.setIdArticulo(UUID.randomUUID().toString());
->>>>>>> refs/heads/master
 	    autorController.crearArticulo(articuloDto);
 	} else {
-<<<<<<< HEAD
 	    articuloDto.setPendienteDeCambios(false);
-=======
 	    String id = articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor())
 		    .getIdArticulo();
 	    articuloDto.setIdArticulo(id);
->>>>>>> refs/heads/master
 	    if (articuloDto.getVecesRevisado() > 0) {
 		autorController.modificarArticulo(articuloDto);
 	    } else {
@@ -484,6 +473,7 @@ public class AutorCreacionView extends JFrame {
 	} else {
 	    JOptionPane.showMessageDialog(this, "Articulo enviado/modificado con éxito.");
 	    dispose();
+	   }
 	}
     }
 

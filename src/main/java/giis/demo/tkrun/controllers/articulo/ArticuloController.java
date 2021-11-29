@@ -45,6 +45,8 @@ public class ArticuloController {
 	asignarCartaDecision(articulo);
 	articulo.setEstado(nuevoEstado);
 	articulo.setVecesRevisado(articulo.getVecesRevisado() + 1);
+	if(!articulo.getEstado().equals(ArticuloEntity.RECHAZADO))
+	    articulo.setPendienteDeCambios(true);
 	artModel.update(DtoMapper.toArticuloDto(articulo));
     }
 
@@ -113,19 +115,8 @@ public class ArticuloController {
 
  	return EntityAssembler.toRevisionEntityList(revisionesModel.findRevisionesRechazadas());
      }
-
-	public void enviarDecision(ArticuloEntity articulo, String nuevoEstado) {
-		asignarCartaDecision(articulo);
-		articulo.setEstado(nuevoEstado);
-		articulo.setVecesRevisado(articulo.getVecesRevisado() + 1);
-		artModel.update(DtoMapper.toArticuloDto(articulo));
-	}
-
-	public ArticuloEntity findArticulo(String titulo, String autor) {
-		return EntityAssembler.toArticuloEntity(artModel.findArticulo(titulo, autor));
-	}
 	
-	public ArticuloEntity findArticulo(int idArt) {
+	public ArticuloEntity findArticulo(String idArt) {
 		List<ArticuloDto> lista = artModel.getArticulo(idArt);
 		if(lista.isEmpty())
 			return null;

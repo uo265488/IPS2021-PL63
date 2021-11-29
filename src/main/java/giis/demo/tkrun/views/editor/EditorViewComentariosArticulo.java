@@ -181,7 +181,7 @@ public class EditorViewComentariosArticulo extends JDialog {
 	}
 	if (revisiones.size() != 0) {
 	    if (getCbSeleccionarRevisiones().getSelectedItem().equals(INDIVIDUALES))
-		text = setTextoRevisionesIndividuales();
+		text = setTextoRevisionesColectivas();
 	    else
 		text = setTextoRevisionesColectivas();
 	} else

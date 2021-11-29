@@ -24,11 +24,8 @@ import javax.swing.border.EmptyBorder;
 import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.views.articulo.ArticuloCambiosView;
-<<<<<<< HEAD
 import giis.demo.util.DtoMapper;
-=======
 import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
->>>>>>> refs/heads/master
 
 public class AutorView extends JDialog {
 
@@ -100,28 +97,8 @@ public class AutorView extends JDialog {
 	    btConfirmar.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
-		    if (!getTxId().getText().isEmpty()) {
-=======
-		    getBtnEnviarArticulo().setEnabled(false);
-		    if (!id_autor.isEmpty()) {
-			articulosAceptadosSinVersionDefinitiva.clear();
-			rellenarComboBox();
->>>>>>> refs/heads/master
-			try {
-<<<<<<< HEAD
-			    id_autor = Integer.parseInt(getTxId().getText());
-			    articulosDelAutor = controller.getArticulosPropios(id_autor);
-=======
-			    articulosDelEditor = controller.getArticulosPropios(id_autor);
->>>>>>> refs/heads/master
-			    getListArticulos().setModel(addModel());
-			} catch (Exception e1) {
-			    JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id",
-				    JOptionPane.ERROR_MESSAGE);
-			    System.err.print(e1.getMessage());
-			}
-		    }
+		    articulosDelAutor = controller.getArticulosPropios(id_autor);
+		    getListArticulos().setModel(addModel());
 		}
 	    });
 	    btConfirmar.setForeground(new Color(255, 255, 255));
@@ -130,42 +107,7 @@ public class AutorView extends JDialog {
 	}
 	return btConfirmar;
     }
-
-<<<<<<< HEAD
-=======
-    private JButton getBtMirarArticulos() {
-	if (btMirarArticulos == null) {
-	    btMirarArticulos = new JButton("Articulos aceptados sin versión definitiva");
-	    btMirarArticulos.addActionListener(new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-		    articulosAceptadosSinVersionDefinitiva.clear();
-		    articulosDelEditor.clear();
-		    rellenarComboBox();
-		    if (!id_autor.isEmpty()) {
-			try {
-			    articulosAceptadosSinVersionDefinitiva = controller
-				    .getArticulosAceptadosSinVersionDefinitiva(id_autor);
-			    rellenarComboBox();
-			    if (articulosAceptadosSinVersionDefinitiva.size() == 0) {
-				getBtnEnviarArticulo().setEnabled(false);
-			    } else {
-				getBtnEnviarArticulo().setEnabled(true);
-			    }
-			} catch (Exception e1) {
-			    JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id",
-				    JOptionPane.ERROR_MESSAGE);
-			}
-		    }
-		}
-	    });
-	    btMirarArticulos.setBackground(new Color(224, 255, 255));
-	    btMirarArticulos.setBounds(413, 110, 272, 23);
-	}
-	return btMirarArticulos;
-    }
-
->>>>>>> refs/heads/master
+    
     private JButton getBtnCambiosSugeridos() {
 	if (btnCambiosSugeridos == null) {
 	    btnCambiosSugeridos = new JButton("Cambios sugeridos");
@@ -355,8 +297,8 @@ public class AutorView extends JDialog {
 	ArticuloEntity articulo = getListArticulos().getSelectedValue();
 
 	if ((articulo.getVecesRevisado() == 1) && articulo.getEstado().equals("aceptado")
-		|| (articulo.getEstado().equals("aceptado con cambios menores") && articulo.isPendienteDeCambios())
-		|| articulo.getEstado().equals("aceptado con cambios mayores") && articulo.isPendienteDeCambios()) {
+		|| (articulo.getEstado().equals("aceptado con cambios menores") && (articulo.getVecesRevisado() == 1))
+		|| articulo.getEstado().equals("aceptado con cambios mayores") && (articulo.getVecesRevisado() == 1)) {
 	    return true;
 	}
 	return false;
@@ -397,19 +339,6 @@ public class AutorView extends JDialog {
 		actualizarArticulos();
 	}
     }
-<<<<<<< HEAD
-=======
-
-    private void rellenarComboBox() {
-	ArticuloEntity[] vector = new ArticuloEntity[0];
-	if (this.articulosAceptadosSinVersionDefinitiva.size() > 0) {
-	    vector = new ArticuloEntity[this.articulosAceptadosSinVersionDefinitiva.size()];
-	    for (int i = 0; i < vector.length; i++) {
-		vector[i] = this.articulosAceptadosSinVersionDefinitiva.get(i);
-	    }
-	}
-	cbArticulosSinPublicar.setModel(new DefaultComboBoxModel<ArticuloEntity>(vector));
-    }
 
     private JButton getBtnVisualizar() {
 	if (btnVisualizar == null) {
@@ -431,5 +360,4 @@ public class AutorView extends JDialog {
 	}
 	return btnVisualizar;
     }
->>>>>>> refs/heads/master
 }
