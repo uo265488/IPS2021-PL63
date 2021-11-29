@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 import giis.demo.tkrun.controllers.articulo.ArticuloController;
 import giis.demo.tkrun.controllers.editor.EditorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTextPane;
@@ -162,7 +163,7 @@ public class EditorViewDecisionArticulo extends JDialog {
 		return scrollPane;
 	}
 
-	private JList getListCambiosMenores() {
+	private JList<ArticuloEntity> getListCambiosMenores() {
 		if (listCambiosMenores == null) {
 			modeloLista = new DefaultListModel<>();
 			listCambiosMenores = new JList<ArticuloEntity>(modeloLista);
@@ -316,7 +317,7 @@ public class EditorViewDecisionArticulo extends JDialog {
 				break;
 			}
 			case ACEPTAR_CAMBIOS_MAYORES: {
-				// crearVentanaAsignarFechas();
+				crearVentanaAsignarFechas(articulo);
 				if(articulo.getEstado().equals(ArticuloEntity.ACEPTADO_CAMBIOS_MENORES))
 					JOptionPane.showMessageDialog(null, "Para un artículo con cambios menores solo se puede aceptar o rechazar",
 							"Error al tomar decisión", JOptionPane.ERROR_MESSAGE);
@@ -334,7 +335,7 @@ public class EditorViewDecisionArticulo extends JDialog {
 				break;
 			}
 			case RECHAZAR: {
-				// crearVentanaAsignarFechas();
+				crearVentanaAsignarFechas(articulo);
 				enviarCartaDecision(articulo, ArticuloEntity.RECHAZADO);
 				JOptionPane.showMessageDialog(this, "El estado del artículo ahora es: " + ArticuloEntity.RECHAZADO);
 				modeloLista.removeElement(articulo);
@@ -343,6 +344,22 @@ public class EditorViewDecisionArticulo extends JDialog {
 			}
 		}
 	}
+	
+	 private void crearVentanaAsignarFechas(ArticuloEntity articulo) {
+		if (articulo.getVecesRevisado() < 1) {
+		    this.setVisible(false);
+		    this.dispose();
+		    List<RevisorEntity> revisores = controller.getRevisoresAsignados(articulo);
+		    RevisorEntity revisor1 = revisores.get(0);
+		    RevisorEntity revisor2 = revisores.get(1);
+		    RevisorEntity revisor3 = revisores.get(2);
+		    EditorAsignarFechasSegundaRevision ventana = new EditorAsignarFechasSegundaRevision(controller, articulo,
+			    revisor1, revisor2, revisor3);
+		    ventana.setVisible(true);
+		    ventana.setLocationRelativeTo(this);
+		}
+
+	    }
 
 	private void enviarCartaDecision(ArticuloEntity art, String nuevoEstado) {
 			articuloCont.enviarDecision(art, nuevoEstado);
