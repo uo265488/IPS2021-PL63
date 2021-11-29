@@ -120,5 +120,5 @@ insert into Debates(idDebate, idArticulo, fecha, abierto) values
 	
 delete from Mensajes;
 insert into Mensajes(idMensaje, idDebate, mensaje) values 
-	('0', '12345', 'Revisor [2021-11-28 - 22:34:40.504] - Hola a todos, soy el revisor 1'),
-	('1', '12345', 'Revisor [2021-11-28 - 22:45:26.006] - Hola a todos, soy el revisor 2');
+	('0', '12345', 'Revisor [2021-11-28 - 22:34] - Hola a todos, soy el revisor 1'),
+	('1', '12345', 'Revisor [2021-11-28 - 22:45] - Hola a todos, soy el revisor 2');

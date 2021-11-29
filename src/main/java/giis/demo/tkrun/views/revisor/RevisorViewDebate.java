@@ -127,10 +127,17 @@ public class RevisorViewDebate extends JDialog {
 				    }
 				    else {
 					LocalDateTime fecha = LocalDateTime.now();
-					fecha.toLocalDate();
-					fecha.getMinute();
-					fecha.getHour();
-					getTxMensajeEnvio().setText("Revisor [" + fecha.toLocalDate() + " " + fecha.getHour() + ":" +fecha.getMinute() + "]: " + getTxMensajeEnvio().getText());
+					String minutos = "";
+					String hora = "";
+					if(fecha.getMinute() < 10)
+					    minutos = "0" + fecha.getMinute();
+					else
+					    minutos = "" + fecha.getMinute();
+					if(fecha.getHour() < 10)
+					    hora = "0" + fecha.getHour();
+					else
+					    hora = "" + fecha.getHour();
+					getTxMensajeEnvio().setText("Revisor [" + fecha.toLocalDate() + " - " + hora + ":" + minutos + "] - " + getTxMensajeEnvio().getText());
 					controller.envioMensaje(idDebate, getTxMensajeEnvio().getText());
 					getTxMensajeEnvio().setText("");
 					JOptionPane.showMessageDialog(null, "Mensaje enviado correctamente");

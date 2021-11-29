@@ -11,10 +11,6 @@ public class ArticuloEntity {
     public static final String ACEPTADO_CAMBIOS_MENORES = "aceptado con cambios menores";
     public static final String ACEPTADO_CAMBIOS_MAYORES = "aceptado con cambios mayores";
     public static final String EN_DEBATE = "en debate";
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/heads/master
     private String idArticulo;
     private String titulo;
     private String primerAutor;
