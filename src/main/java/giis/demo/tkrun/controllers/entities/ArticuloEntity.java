@@ -11,7 +11,10 @@ public class ArticuloEntity {
     public static final String ACEPTADO_CAMBIOS_MENORES = "aceptado con cambios menores";
     public static final String ACEPTADO_CAMBIOS_MAYORES = "aceptado con cambios mayores";
     public static final String EN_DEBATE = "en debate";
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/heads/master
     private String idArticulo;
     private String titulo;
     private String primerAutor;
@@ -23,13 +26,13 @@ public class ArticuloEntity {
     private String CV;
     private boolean firma; // para asegurarse d q no hay plagios (string, boolean... da lo mismo)
     private String estado;
-
     private int vecesRevisado;
     private boolean versionDefinitiva;
     private String cartaDecision;
     private String DOI;
     private String fecha;
     private int volumen;
+    private boolean pendienteDeCambios;
 
     public String getCartaDecision() {
 	return cartaDecision;
@@ -194,5 +197,13 @@ public class ArticuloEntity {
 
 	return str;
     }
+
+	public boolean isPendienteDeCambios() {
+		return pendienteDeCambios;
+	}
+
+	public void setPendienteDeCambios(boolean pendienteDeCambios) {
+		this.pendienteDeCambios = pendienteDeCambios;
+	}
 
 }

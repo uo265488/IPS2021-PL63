@@ -48,8 +48,12 @@ public class RevisorController {
 	this.model = new RevisionModel();
 	this.articuloModel = new ArticuloModel();
 	this.revisoresModel = new RevisorModel();
+<<<<<<< HEAD
 	this.debateModel = new DebateModel();
+=======
+>>>>>>> refs/heads/master
 	this.idRevisor = idRevisor;
+	this.revisoresModel = new RevisorModel();
 	// no hay inicializacion especifica del modelo, solo de la vista
 	this.initView();
     }

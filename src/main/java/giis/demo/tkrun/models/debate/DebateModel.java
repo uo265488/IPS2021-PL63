@@ -54,5 +54,34 @@ public class DebateModel {
 
 	    return db.executeQueryPojo(DebateDto.class, sql, idArticulo);
 	}
+	
+	  public void cerrarDebate(String idArticulo) {
+		String sql = "update debates set abierto = ? where idArticulo = ?";
 
+		db.executeUpdate(sql, false, idArticulo);
+
+	    }
+
+	public DebateDto getDebate(String idArticulo) {
+		String sql = "select * from Debates where idArticulo=?";
+		List<DebateDto> list = db.executeQueryPojo(DebateDto.class, sql, idArticulo);
+		return list.get(0);
+	    }
+	
+	 public boolean getEstadoDelDebate(String idArticulo) {
+		String sql = "select abierto from Debates where idArticulo=?";
+		List<DebateDto> debate = db.executeQueryPojo(DebateDto.class, sql, idArticulo);
+		if (debate.size() > 0) {
+		    return debate.get(0).isAbierto();
+		} else
+		    return false;
+	    }
+	 
+	 public List<MensajeDto> getMensajesDebate(String idArticulo) {
+		String sql = "select * from Debates where idArticulo=?";
+		List<DebateDto> list = db.executeQueryPojo(DebateDto.class, sql, idArticulo);
+		DebateDto debate = list.get(0);
+		sql = "select * from mensajes where idDebate=?";
+		return db.executeQueryPojo(MensajeDto.class, sql, debate.getIdDebate());
+	    }
 }

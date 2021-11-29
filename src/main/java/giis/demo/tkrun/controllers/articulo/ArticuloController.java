@@ -8,6 +8,7 @@ import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.autor.AutorModel;
 import giis.demo.tkrun.models.autoresSecundarios.AutoresSecundariosModel;
+import giis.demo.tkrun.models.debate.DebateModel;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.util.DtoMapper;
@@ -19,6 +20,7 @@ public class ArticuloController {
     private AutoresSecundariosModel secundariosModel = new AutoresSecundariosModel();
     private AutorModel autorModel = new AutorModel();
     private RevisionModel revisionesModel = new RevisionModel();
+    private DebateModel debateModel = new DebateModel();
 
     public ArticuloController() {
 	this.artModel = new ArticuloModel();
@@ -42,6 +44,9 @@ public class ArticuloController {
     public void enviarDecision(ArticuloEntity articulo, String nuevoEstado) {
 	asignarCartaDecision(articulo);
 	articulo.setEstado(nuevoEstado);
+	articulo.setVecesRevisado(articulo.getVecesRevisado() + 1);
+	if(!articulo.getEstado().equals(ArticuloEntity.RECHAZADO))
+	    articulo.setPendienteDeCambios(true);
 	artModel.update(DtoMapper.toArticuloDto(articulo));
     }
 
@@ -108,26 +113,33 @@ public class ArticuloController {
 
     public List<RevisionEntity> getRevisionesRechazadas() {
 
-	return EntityAssembler.toRevisionEntityList(revisionesModel.findRevisionesRechazadas());
-    }
-
-    /**
-     * Se cambia el estado de articulo a publicado, y se añade la carta de decision
-     * comunicando al autor que el articulo ha sido publicado
-     *
-     * @param articulo a publicar
-     * @param DOI
-     * @param fecha
-     * @param volumen
-     */
-    public void publicarArticulo(ArticuloEntity articulo, String DOI, String fecha, int volumen) {
-	articulo.setEstado(ArticuloEntity.PUBLICADO);
-	articulo.setCartaDecision("'" + articulo.getTitulo() + "-" + articulo.getPrimerAutor() + "-PUBLICADO.pdf'");
-	articulo.setDOI(DOI);
-	articulo.setFecha(fecha);
-	articulo.setVolumen(volumen);
-	artModel.publicar(DtoMapper.toArticuloDto(articulo));
-    }
+ 	return EntityAssembler.toRevisionEntityList(revisionesModel.findRevisionesRechazadas());
+     }
+	
+	public ArticuloEntity findArticulo(String idArt) {
+		List<ArticuloDto> lista = artModel.getArticulo(idArt);
+		if(lista.isEmpty())
+			return null;
+		return EntityAssembler.toArticuloEntity(lista.get(0));
+	}
+	
+	/**
+	     * Se cambia el estado de articulo a publicado, y se añade la carta de decision
+	     * comunicando al autor que el articulo ha sido publicado
+	     *
+	     * @param articulo a publicar
+	     * @param DOI
+	     * @param fecha
+	     * @param volumen
+	     */
+	    public void publicarArticulo(ArticuloEntity articulo, String DOI, String fecha, int volumen) {
+		articulo.setEstado(ArticuloEntity.PUBLICADO);
+		articulo.setCartaDecision("'" + articulo.getTitulo() + "-" + articulo.getPrimerAutor() + "-PUBLICADO.pdf'");
+		articulo.setDOI(DOI);
+		articulo.setFecha(fecha);
+		articulo.setVolumen(volumen);
+		artModel.publicar(DtoMapper.toArticuloDto(articulo));
+	    }
 
     /**
      * Rechaza el articulo que recibe por parametro
@@ -142,5 +154,15 @@ public class ArticuloController {
     public void visualizarArticulo(ArticuloEntity articulo) {
 	articulo.setEstado(ArticuloEntity.CON_EL_EDITOR);
 	artModel.update(DtoMapper.toArticuloDto(articulo));
+    }
+
+    public List<ArticuloEntity> getArticulosConDebate() {
+	return EntityAssembler.toArticuloEntityList(artModel.getArticulosEnDebate());
+    }
+
+    public void cerrarDebate(String idArticulo) {
+	artModel.cerrarDebate(idArticulo);
+	debateModel.cerrarDebate(idArticulo);
+
     }
 }

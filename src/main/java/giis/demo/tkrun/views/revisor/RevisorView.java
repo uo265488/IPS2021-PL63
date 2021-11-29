@@ -48,7 +48,7 @@ public class RevisorView extends JDialog {
     private JButton btGuardarCambios;
     private JButton btVerArticulos;
     private RevisorController controller;
-    private ArticuloController contArt;
+    private ArticuloController contArt = new ArticuloController();
     private List<ArticuloEntity> articulosSinRevisar = new ArrayList<ArticuloEntity>();
     private String idArt;
     private RevisionEntity articuloRevisando;
@@ -61,7 +61,6 @@ public class RevisorView extends JDialog {
      */
     public RevisorView(RevisorController controller, String idRevisor) {
 	this.controller = controller;
-	this.contArt = new ArticuloController();
 	this.idRev = idRevisor;
 	inicialice();
     }
@@ -104,7 +103,7 @@ public class RevisorView extends JDialog {
 
     private JLabel getLbId() {
 	if (lbId == null) {
-	    lbId = new JLabel("Revisor: " + controller.getRevisorById(idRev).toString());
+	    lbId = new JLabel("Revisor:         " + controller.getRevisorById(idRev).toString());
 	    lbId.setFont(new Font("Tahoma", Font.PLAIN, 15));
 	    lbId.setBounds(123, 56, 546, 24);
 	}
@@ -233,8 +232,8 @@ public class RevisorView extends JDialog {
 	    btEnviar.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    if (idArt != null && pasaCondiciones()) {
-			if (getTxAutor().getText().strip().length() == 0
-				|| getTxEditor().getText().strip().length() == 0)
+			if (getTxAutor().getText().trim().length() == 0
+				|| getTxEditor().getText().trim().length() == 0)
 			    JOptionPane.showMessageDialog(null,
 				    "Debe rellenar tanto los comentarios del autor como los del editor para poder enviar la revisión",
 				    "Error de campos", JOptionPane.ERROR_MESSAGE);
@@ -315,7 +314,7 @@ public class RevisorView extends JDialog {
 		    try {
 			articulosSinRevisar.clear();
 			idArt = null;
-			if (idRev.strip().length() > 0)
+			if (idRev.trim().length() > 0)
 			    articulosSinRevisar = controller.getArticulosSinRevisar(idRev);
 			rellenarComboBox();
 		    } catch (Exception e1) {

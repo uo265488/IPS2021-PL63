@@ -1,7 +1,6 @@
 package giis.demo.tkrun.models.dtos;
 
 public class ArticuloDto {
-
     private String idArticulo;
     private String titulo;
     private String primerAutor;
@@ -19,6 +18,7 @@ public class ArticuloDto {
     private String DOI;
     private String fecha;
     private int volumen;
+    private boolean pendienteDeCambios;
 
     public String getIdArticulo() {
 	return idArticulo;
@@ -156,4 +156,11 @@ public class ArticuloDto {
 	this.volumen = volumen;
     }
 
+    public boolean isPendienteDeCambios() {
+	return pendienteDeCambios;
+    }
+
+    public void setPendienteDeCambios(boolean pendienteDeCambios) {
+	this.pendienteDeCambios = pendienteDeCambios;
+    }
 }

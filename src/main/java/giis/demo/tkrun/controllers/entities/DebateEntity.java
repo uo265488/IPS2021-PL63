@@ -1,9 +1,6 @@
-package giis.demo.tkrun.models.dtos;
+package giis.demo.tkrun.controllers.entities;
 
-import java.time.LocalDate;
-
-public class DebateDto {
-
+public class DebateEntity {
 	private String idDebate;
 	private String idArticulo;
 	private String fecha;
@@ -40,5 +37,4 @@ public class DebateDto {
 	public void setAbierto(boolean abierto) {
 		this.abierto = abierto;
 	}
-
 }
