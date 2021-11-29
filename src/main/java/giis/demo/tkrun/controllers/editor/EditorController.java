@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.DebateEntity;
+import giis.demo.tkrun.controllers.entities.MensajeEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
+import giis.demo.tkrun.models.debate.DebateModel;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.dtos.UserDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
@@ -24,6 +27,7 @@ public class EditorController {
     private RevisorModel revisoresModel = new RevisorModel();
     private SugerenciaModel sugerenciaModel = new SugerenciaModel();
     private UserModel userModel = new UserModel();
+    private DebateModel debateModel = new DebateModel();
 
     public EditorController() {
 
@@ -218,7 +222,7 @@ public class EditorController {
 		.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
 
 	return revisoresDisponibles.stream()
-		.filter(r -> revisionModel.findRevisionRechazada(articulo.getIdArticulo(), r.getId()).isEmpty())
+		.filter(r -> !revisionModel.findRevisionRechazada(articulo.getIdArticulo(), r.getId()).isPresent())
 		.collect(Collectors.toList());
 
     }
@@ -244,6 +248,28 @@ public class EditorController {
 
     public void rechazarDefinitivimenteArticulo(ArticuloEntity articulo) {
 	articuloModel.rechazarDefinitivamente(DtoMapper.toArticuloDto(articulo));
-
     }
+    
+    public List<MensajeEntity> getMensajesDebate(String idArticulo) {
+    	return EntityAssembler.toMensajeEntityList(debateModel.getMensajesDebate(idArticulo));
+    }
+    
+    public boolean getEstadoDelDebate(String idArticulo) {
+    	return debateModel.getEstadoDelDebate(idArticulo);
+    }
+
+	public void enviarMensaje(String idArticulo, String mensaje) {
+		DebateEntity debate = EntityAssembler.toDebateEntity(debateModel.getDebate(idArticulo));
+		debateModel.escribirMensaje(debate.getIdDebate(), mensaje);
+		
+	}
+
+	public List<ArticuloEntity> getArticulosEnDebate() {
+		return 	EntityAssembler.toArticuloEntityList(articuloModel.getArticulosEnDebate());	 
+	}
+	
+	public List<ArticuloEntity> getArticulosParaPublicar(){
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosParaPublicar());
+	}
+
 }

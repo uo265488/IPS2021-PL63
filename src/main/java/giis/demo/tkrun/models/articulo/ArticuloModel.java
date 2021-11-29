@@ -32,7 +32,7 @@ public class ArticuloModel {
     }
 
 //	/**
-//	 * Borrar articulo en funcion del id
+//	 * Borrar articulo en funcion del id 
 //	 * @param articuloDto
 //	 */
 //	public void delete(ArticuloDto articuloDto) {
@@ -260,15 +260,20 @@ public class ArticuloModel {
 
     }
 
-    public List<ArticuloEntity> getArticulosConDebate() {
-	String sql = "select * from articulos where estado = ?";
-	return db.executeQueryPojo(ArticuloEntity.class, sql, ArticuloEntity.EN_DEBATE);
-    }
+	public List<ArticuloDto> getArticulosEnDebate() {
+		String sql = "select * from Articulos where estado=?";
+		return db.executeQueryPojo(ArticuloDto.class, sql, ArticuloEntity.EN_DEBATE);
+	}
 
     public void cerrarDebate(String idArticulo) {
 	String sql = "update articulos set estado  = ? where idArticulo = ?";
 	db.executeUpdate(sql, ArticuloEntity.EN_REVISION, idArticulo);
 
     }
+    
+	public List<ArticuloDto> getArticulosParaPublicar() {
+		String sql = "select * from Articulos where estado=? and versionDefinitiva = true";
+		return db.executeQueryPojo(ArticuloDto.class, sql, ArticuloEntity.ACEPTADO);
+	}
 
 }

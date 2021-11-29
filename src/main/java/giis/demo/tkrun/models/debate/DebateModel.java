@@ -1,8 +1,11 @@
 package giis.demo.tkrun.models.debate;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
+import giis.demo.tkrun.models.dtos.DebateDto;
+import giis.demo.tkrun.models.dtos.MensajeDto;
 import giis.demo.util.Database;
 
 public class DebateModel {
@@ -34,9 +37,33 @@ public class DebateModel {
 
     }
 
-    public void cerrarDebate(String idArticulo) {
-	String sql = "update debates set abierto = ? where idArticulo = ?";
-	db.executeUpdate(sql, false, idArticulo);
+    public List<MensajeDto> getMensajesDebate(String idArticulo) {
+	String sql = "select * from Debates where idArticulo=?";
+	List<DebateDto> list = db.executeQueryPojo(DebateDto.class, sql, idArticulo);
+	DebateDto debate = list.get(0);
+	sql = "select * from mensajes where idDebate=?";
+	return db.executeQueryPojo(MensajeDto.class, sql, debate.getIdDebate());
     }
 
+    public boolean getEstadoDelDebate(String idArticulo) {
+	String sql = "select abierto from Debates where idArticulo=?";
+	List<DebateDto> debate = db.executeQueryPojo(DebateDto.class, sql, idArticulo);
+	if (debate.size() > 0) {
+	    return debate.get(0).isAbierto();
+	} else
+	    return false;
+    }
+
+    public DebateDto getDebate(String idArticulo) {
+	String sql = "select * from Debates where idArticulo=?";
+	List<DebateDto> list = db.executeQueryPojo(DebateDto.class, sql, idArticulo);
+	return list.get(0);
+    }
+
+    public void cerrarDebate(String idArticulo) {
+	String sql = "update debates set abierto = ? where idArticulo = ?";
+
+	db.executeUpdate(sql, false, idArticulo);
+
+    }
 }

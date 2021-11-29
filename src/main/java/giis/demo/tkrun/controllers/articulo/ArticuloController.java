@@ -148,7 +148,7 @@ public class ArticuloController {
     }
 
     public List<ArticuloEntity> getArticulosConDebate() {
-	return artModel.getArticulosConDebate();
+	return EntityAssembler.toArticuloEntityList(artModel.getArticulosEnDebate());
     }
 
     public void cerrarDebate(String idArticulo) {

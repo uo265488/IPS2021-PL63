@@ -24,9 +24,18 @@ create table AutoresSecundarios (idArticulo varchar(32), idAutor varchar(32), ti
 drop table Revisiones;
 create table Revisiones (idArticulo varchar(32), idRevisor varchar(32), numeroRevision int, fecha varchar(32), comentariosAutor varchar(100), comentariosEditor varchar(100), decision varchar(50), enviarAlEditor bool, estadoDeLaPropuesta varchar(32),
 	constraint pk_revisiones primary key (idArticulo, idRevisor, numeroRevision));
+<<<<<<< HEAD
 	
 drop table Debates;
 create table Debates (idDebate varchar(32), idArticulo varchar(32), fecha varchar(32), abierto bool);
 
 drop table Mensajes;
 create table Mensajes (idMensaje varchar(32), idDebate varchar(32), mensaje varchar(140));
+=======
+
+drop table Debates;
+create table Debates (idDebate int varchar(32), idArticulo varchar(32), fecha varchar(32), abierto bool);
+
+drop table Mensajes;
+create table Mensajes (idMensaje varchar(32), idDebate int varchar(32), mensaje varchar(140));
+>>>>>>> refs/heads/master

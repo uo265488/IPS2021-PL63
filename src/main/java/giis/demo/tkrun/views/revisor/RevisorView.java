@@ -232,8 +232,8 @@ public class RevisorView extends JDialog {
 	    btEnviar.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    if (idArt != null && pasaCondiciones()) {
-			if (getTxAutor().getText().strip().length() == 0
-				|| getTxEditor().getText().strip().length() == 0)
+			if (getTxAutor().getText().trim().length() == 0
+				|| getTxEditor().getText().trim().length() == 0)
 			    JOptionPane.showMessageDialog(null,
 				    "Debe rellenar tanto los comentarios del autor como los del editor para poder enviar la revisión",
 				    "Error de campos", JOptionPane.ERROR_MESSAGE);
@@ -314,7 +314,7 @@ public class RevisorView extends JDialog {
 		    try {
 			articulosSinRevisar.clear();
 			idArt = null;
-			if (idRev.strip().length() > 0)
+			if (idRev.trim().length() > 0)
 			    articulosSinRevisar = controller.getArticulosSinRevisar(idRev);
 			rellenarComboBox();
 		    } catch (Exception e1) {

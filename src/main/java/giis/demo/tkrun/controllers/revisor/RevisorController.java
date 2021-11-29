@@ -42,6 +42,7 @@ public class RevisorController {
     public RevisorController(String idRevisor) {
 	this.model = new RevisionModel();
 	this.articuloModel = new ArticuloModel();
+	this.revisoresModel = new RevisorModel();
 	this.idRevisor = idRevisor;
 	this.revisoresModel = new RevisorModel();
 	// no hay inicializacion especifica del modelo, solo de la vista
