@@ -18,6 +18,12 @@ create table Articulos (idArticulo String primary key, titulo varchar(32), prime
 drop table Autores;
 create table Autores (idAutor varchar(32) primary key, nombre varchar(32), dni varchar(32));
 
+drop table Debates;
+create table Debates (idDebate int varchar(32), idArticulo varchar(32), fecha varchar(32), abierto bool);
+
+drop table Mensajes;
+create table Mensajes (idMensaje varchar(32), idDebate int varchar(32), mensaje varchar(140));
+
 drop table AutoresSecundarios;
 create table AutoresSecundarios (idArticulo varchar(32), idAutor varchar(32), tipoAutor varchar(32));
 
@@ -25,8 +31,3 @@ drop table Revisiones;
 create table Revisiones (idArticulo varchar(32), idRevisor varchar(32), numeroRevision int, fecha varchar(32), comentariosAutor varchar(100), comentariosEditor varchar(100), decision varchar(50), enviarAlEditor bool, estadoDeLaPropuesta varchar(32),
 	constraint pk_revisiones primary key (idArticulo, idRevisor, numeroRevision));
 
-drop table Debates;
-create table Debates (idDebate varchar(32), idArticulo varchar(32), fecha varchar(32), abierto bool);
-
-drop table Mensajes;
-create table Mensajes (idMensaje varchar(32), idDebate int varchar(32), mensaje varchar(140));

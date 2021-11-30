@@ -30,6 +30,7 @@ public class MenuAutor extends JDialog {
 	this.id_autor = id_autor;
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	setBounds(100, 100, 450, 300);
+	setTitle("Autor: " + controller.getAutorById(id_autor).getNombre() + ". Menu");
 	contentPane = new JPanel();
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 	setContentPane(contentPane);

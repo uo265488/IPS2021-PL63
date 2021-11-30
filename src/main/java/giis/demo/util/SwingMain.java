@@ -63,6 +63,7 @@ public class SwingMain {
 		// new RevisorDecisionRevisionesEncomendadas(new RevisorController());
 		// new EditorViewDecisionArticulo(new EditorController());
 		new UserController();
+
 	    }
 	});
 	frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));

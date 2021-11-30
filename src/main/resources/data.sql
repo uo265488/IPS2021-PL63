@@ -26,7 +26,10 @@ insert into autores(idAutor,nombre,dni) values
 	('131c79b1-dc04-4a13-8325-5e480bcd3c86','ariadna','810582'),
 	('1239272a-774c-4cad-a169-090df09f220f', 'hugo', '364786');
 	
+
+	
 delete from articulos;
+
 insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave,ficheroFuente,cartaPresentacion,CV, firma, vecesRevisado, versionDefinitiva, pendienteDeCambios) values 
 	('7','Economia Española','antonio','pendiente', 'La economia española esta en decadencia', 'economia, euro', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false, false),
 	('8','Gasol se retira','lucia','con el editor', 'Gasol anuncia su retirada del baloncesto', 'gasol, leyenda, Barca', 'FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false, false),
@@ -42,6 +45,7 @@ insert into articulos(idArticulo,titulo,primerAutor,estado,resumen,palabrasClave
 	('18','Las nuevas medidas del COVID','antonio','en debate','explicacion de las nuevas medidas del covid','covid','FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', false, 0, false, false), 
 	('19','OOP en Java','antonio','aceptado','Guia basica de OOP en Java','Java','FicheroFuente.pdf', 'Presentacion.pdf', 'cv.pdf', true, 1, true, false), 	
 	('101', 'Articulo sin asginar para rechazar', 'Hugo', 'con el editor', 'si', 'no', 'fichero', 'presentacion', 'cv', false, 0, false, false);
+
 
 delete from autoresSecundarios;
 insert into autoresSecundarios(idArticulo, idAutor, tipoAutor) values

@@ -1,7 +1,5 @@
 package giis.demo.tkrun.models.dtos;
 
-import java.time.LocalDate;
-
 public class DebateDto {
 
 	private String idDebate;

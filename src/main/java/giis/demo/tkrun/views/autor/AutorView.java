@@ -24,8 +24,8 @@ import javax.swing.border.EmptyBorder;
 import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.views.articulo.ArticuloCambiosView;
-import giis.demo.util.DtoMapper;
 import giis.demo.tkrun.views.articulo.VisualizarArticuloView;
+import giis.demo.util.DtoMapper;
 
 public class AutorView extends JDialog {
 
@@ -107,7 +107,7 @@ public class AutorView extends JDialog {
 	}
 	return btConfirmar;
     }
-    
+
     private JButton getBtnCambiosSugeridos() {
 	if (btnCambiosSugeridos == null) {
 	    btnCambiosSugeridos = new JButton("Cambios sugeridos");
@@ -132,29 +132,28 @@ public class AutorView extends JDialog {
 		public void actionPerformed(ActionEvent e) {
 		    if (getChCopy().isSelected()) {
 			if (listArticulos.getSelectedValuesList().size() > 1)
-				JOptionPane.showMessageDialog(null, "Debe seleccionar solo un artículo",
-						"Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
+			    JOptionPane.showMessageDialog(null, "Debe seleccionar solo un artículo",
+				    "Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
 			else if (listArticulos.getSelectedValuesList().size() == 0)
-				JOptionPane.showMessageDialog(null, "Seleccione un artículo para poder revisarlo",
-						"Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
+			    JOptionPane.showMessageDialog(null, "Seleccione un artículo para poder revisarlo",
+				    "Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
 			else {
 			    ArticuloEntity art = listArticulos.getSelectedValue();
-				if(art.getEstado().equals(ArticuloEntity.ACEPTADO) && !art.isVersionDefinitiva()) {
-				    art.setFirma(true);
-				    art.setVersionDefinitiva(true);
-				    controller.editarArticulo(DtoMapper.toArticuloDto(art));
-				    //controller.getEnviarVersionDefinitiva(art.getIdArticulo());
-				}
-				else {
-				    JOptionPane.showMessageDialog(null, "El artículo ya tiene versión definitiva o no ha sido aceptado todavía",
-						"Error al enviar versión definitiva", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		    }
-		    else {
-			    JOptionPane.showMessageDialog(null, "Debe confirmar la firma de copyright",
+			    if (art.getEstado().equals(ArticuloEntity.ACEPTADO) && !art.isVersionDefinitiva()) {
+				art.setFirma(true);
+				art.setVersionDefinitiva(true);
+				controller.editarArticulo(DtoMapper.toArticuloDto(art));
+				// controller.getEnviarVersionDefinitiva(art.getIdArticulo());
+			    } else {
+				JOptionPane.showMessageDialog(null,
+					"El artículo ya tiene versión definitiva o no ha sido aceptado todavía",
 					"Error al enviar versión definitiva", JOptionPane.ERROR_MESSAGE);
+			    }
 			}
+		    } else {
+			JOptionPane.showMessageDialog(null, "Debe confirmar la firma de copyright",
+				"Error al enviar versión definitiva", JOptionPane.ERROR_MESSAGE);
+		    }
 		}
 	    });
 	    btnEnviarArticulo.setForeground(new Color(255, 255, 255));
@@ -260,7 +259,7 @@ public class AutorView extends JDialog {
     private void inicialize() {
 	setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 	setBounds(100, 100, 1174, 586);
-	setTitle("Vista de Autor");
+	setTitle("Autor: " + controller.getAutorById(id_autor).getNombre() + ". Vista general.");
 	contentPane = new JPanel();
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 	setContentPane(contentPane);
@@ -296,8 +295,8 @@ public class AutorView extends JDialog {
     private boolean isRevisado() {
 	ArticuloEntity articulo = getListArticulos().getSelectedValue();
 
-	if ((articulo.getVecesRevisado() == 1) && articulo.getEstado().equals("aceptado")
-		|| (articulo.getEstado().equals("aceptado con cambios menores") && (articulo.getVecesRevisado() == 1))
+	if ((articulo.getVecesRevisado() == 1)
+		&& (articulo.getEstado().equals("aceptado con cambios menores") && (articulo.getVecesRevisado() == 1))
 		|| articulo.getEstado().equals("aceptado con cambios mayores") && (articulo.getVecesRevisado() == 1)) {
 	    return true;
 	}
@@ -320,23 +319,23 @@ public class AutorView extends JDialog {
 
     private void mostrarVentanaVisualizacion() {
 	if (listArticulos.getSelectedValuesList().size() > 1)
-		JOptionPane.showMessageDialog(null, "Debe seleccionar solo un artículo",
-				"Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
+	    JOptionPane.showMessageDialog(null, "Debe seleccionar solo un artículo", "Error al seleccionar artículos",
+		    JOptionPane.ERROR_MESSAGE);
 	else if (listArticulos.getSelectedValuesList().size() == 0)
-		JOptionPane.showMessageDialog(null, "Seleccione un artículo para poder revisarlo",
-				"Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
+	    JOptionPane.showMessageDialog(null, "Seleccione un artículo para poder revisarlo",
+		    "Error al seleccionar artículos", JOptionPane.ERROR_MESSAGE);
 	else {
-		ArticuloEntity art = listArticulos.getSelectedValue();
-		if(art.getEstado().equals(ArticuloEntity.ACEPTADO) && !art.isVersionDefinitiva()) {
-		    AutorEditarArticuloView vA = new AutorEditarArticuloView(art);
-			vA.setVisible(true);
-			vA.setModal(true);
-		}
-		else {
-		    JOptionPane.showMessageDialog(null, "El artículo ya tiene versión definitiva o no ha sido aceptado todavía",
-				"Error al enviar versión definitiva", JOptionPane.ERROR_MESSAGE);
-		}
-		actualizarArticulos();
+	    ArticuloEntity art = listArticulos.getSelectedValue();
+	    if (art.getEstado().equals(ArticuloEntity.ACEPTADO) && !art.isVersionDefinitiva()) {
+		AutorEditarArticuloView vA = new AutorEditarArticuloView(art);
+		vA.setVisible(true);
+		vA.setModal(true);
+	    } else {
+		JOptionPane.showMessageDialog(null,
+			"El artículo ya tiene versión definitiva o no ha sido aceptado todavía",
+			"Error al enviar versión definitiva", JOptionPane.ERROR_MESSAGE);
+	    }
+	    actualizarArticulos();
 	}
     }
 

@@ -72,7 +72,8 @@ public class AutorEditarArticuloView extends JDialog {
      */
     public void initialize() {
 	setResizable(false);
-	setTitle("Autor. Editar un artículo");
+	setTitle("Autor: " + autorController.findAutorByArticulo(articulo.getIdArticulo()).getNombre()
+		+ ". Editar un artículo");
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	setBounds(100, 100, 696, 451);
 	contentPane = new JPanel();

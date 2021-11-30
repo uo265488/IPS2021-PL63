@@ -9,7 +9,7 @@ import java.util.UUID;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,7 +27,7 @@ import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.util.EntityAssembler;
 
-public class AutorCreacionView extends JFrame {
+public class AutorCreacionView extends JDialog {
 
     /**
      * 
@@ -104,6 +104,7 @@ public class AutorCreacionView extends JFrame {
      * @wbp.parser.constructor
      */
     public AutorCreacionView(AutorController autorController, String id_autor) {
+	setResizable(false);
 	this.autorController = autorController;
 	this.id_autor = id_autor;
 	revisorController = new RevisorController();
@@ -116,9 +117,8 @@ public class AutorCreacionView extends JFrame {
      * Create the frame.
      */
     public void initialize() {
-	setResizable(false);
-	setTitle("Autor. Crear un artículo");
-	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	setTitle("Autor: " + autorController.findById(id_autor).getNombre() + ". Crear un artículo");
+	setDefaultCloseOperation(HIDE_ON_CLOSE);
 	setBounds(100, 100, 604, 638);
 	contentPane = new JPanel();
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -329,7 +329,6 @@ public class AutorCreacionView extends JFrame {
 	    btnBorrador.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		    // TODO Auto-generated method stub
 		    crearBorrador();
 		}
 	    });
@@ -450,8 +449,6 @@ public class AutorCreacionView extends JFrame {
 	articuloDto.setFecha("");
 	articuloDto.setVolumen(0);
 
-	if (articuloController.findArticulo(articuloDto.getIdArticulo()) == null) {
-	    articuloDto.setIdArticulo(UUID.randomUUID().toString());
 	if (articuloController.findArticulo(articuloDto.getTitulo(), articuloDto.getPrimerAutor()) == null) {
 	    articuloDto.setIdArticulo(UUID.randomUUID().toString());
 	    autorController.crearArticulo(articuloDto);
@@ -473,7 +470,6 @@ public class AutorCreacionView extends JFrame {
 	} else {
 	    JOptionPane.showMessageDialog(this, "Articulo enviado/modificado con éxito.");
 	    dispose();
-	   }
 	}
     }
 
@@ -545,8 +541,15 @@ public class AutorCreacionView extends JFrame {
     }
 
     private boolean revisoresSugeridos(String id_articulo, String revisor1, String revisor2, String revisor3) {
-	return sugerirRev(id_articulo, revisor1) || sugerirRev(id_articulo, revisor2)
-		|| sugerirRev(id_articulo, revisor3);
+	if (sugerirRev(id_articulo, revisor1)) {
+	    if (sugerirRev(id_articulo, revisor2)) {
+		if (sugerirRev(id_articulo, revisor3)) {
+		    return true;
+		}
+	    }
+	}
+
+	return false;
     }
 
     private boolean sugerirRev(String idArticulo, String revisor) {
@@ -555,9 +558,9 @@ public class AutorCreacionView extends JFrame {
 	    if (rev1.length != 3) {
 		return false;
 	    }
-	    String nombre = rev1[0].toLowerCase();
-	    String correo = rev1[1].toLowerCase();
-	    String especialidad = rev1[2].toLowerCase();
+	    String nombre = rev1[0].trim();
+	    String correo = rev1[1].trim();
+	    String especialidad = rev1[2].trim();
 	    if (revisorController.findRevisor(nombre, correo, especialidad) == null) {
 		RevisorDto revisorDto1 = new RevisorDto();
 		revisorDto1.setIdRevisor(UUID.randomUUID().toString());

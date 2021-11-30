@@ -1,3 +1,4 @@
+
 package giis.demo.tkrun.models.debate;
 
 import java.time.LocalDate;
@@ -18,8 +19,7 @@ public class DebateModel {
 	 * @param idArticulo
 	 * @param date
 	 */
-	public String abrirDebate(int idArticulo, LocalDate date) {
-
+	public String abrirDebate(String idArticulo, LocalDate date) {
 		String idDebate = UUID.randomUUID().toString();
 
 		String sql = "insert into Debates values (?,?,?,?)";
@@ -36,52 +36,55 @@ public class DebateModel {
 		db.executeUpdate(sql, UUID.randomUUID(), idDebate, mensaje);
 
 	}
-	
+
 	/**
 	 * Saca una lista con todos los mensajes del debate
-	 * @param idDebate 	Id del debate  
-	 * @return	Lista de mensajes
+	 *
+	 * @param idDebate Id del debate
+	 * @return Lista de mensajes
 	 */
 	public List<MensajeDto> devolverMensajes(String idDebate) {
-	    String sql = "select * from Mensajes where idDebate = ?";
+		String sql = "select * from Mensajes where idDebate = ?";
 
-	    return db.executeQueryPojo(MensajeDto.class, sql, idDebate);
+		return db.executeQueryPojo(MensajeDto.class, sql, idDebate);
 
 	}
 
 	public List<DebateDto> getIdDebate(String idArticulo) {
-	    String sql = "select idDebate from Debates where idArticulo = ?";
+		String sql = "select idDebate from Debates where idArticulo = ?";
 
-	    return db.executeQueryPojo(DebateDto.class, sql, idArticulo);
+		return db.executeQueryPojo(DebateDto.class, sql, idArticulo);
 	}
-	
-	  public void cerrarDebate(String idArticulo) {
+
+	public void cerrarDebate(String idArticulo) {
 		String sql = "update debates set abierto = ? where idArticulo = ?";
 
 		db.executeUpdate(sql, false, idArticulo);
 
-	    }
+	}
 
 	public DebateDto getDebate(String idArticulo) {
 		String sql = "select * from Debates where idArticulo=?";
 		List<DebateDto> list = db.executeQueryPojo(DebateDto.class, sql, idArticulo);
 		return list.get(0);
-	    }
-	
-	 public boolean getEstadoDelDebate(String idArticulo) {
+	}
+
+	public boolean getEstadoDelDebate(String idArticulo) {
 		String sql = "select abierto from Debates where idArticulo=?";
 		List<DebateDto> debate = db.executeQueryPojo(DebateDto.class, sql, idArticulo);
 		if (debate.size() > 0) {
-		    return debate.get(0).isAbierto();
-		} else
-		    return false;
-	    }
-	 
-	 public List<MensajeDto> getMensajesDebate(String idArticulo) {
+			return debate.get(0).isAbierto();
+		} else {
+			return false;
+		}
+	}
+
+	public List<MensajeDto> getMensajesDebate(String idArticulo) {
 		String sql = "select * from Debates where idArticulo=?";
 		List<DebateDto> list = db.executeQueryPojo(DebateDto.class, sql, idArticulo);
 		DebateDto debate = list.get(0);
 		sql = "select * from mensajes where idDebate=?";
 		return db.executeQueryPojo(MensajeDto.class, sql, debate.getIdDebate());
-	    }
+	}
+
 }
