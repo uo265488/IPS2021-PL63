@@ -2,14 +2,14 @@ package giis.demo.tkrun.models.dtos;
 
 public class AutorDto {
 
-	private int idAutor;
+	private String idAutor;
 	private String nombre;
 	private String dni;
 
 	public AutorDto() {
 	}
 
-	public AutorDto(int id, String nombre, String dni) {
+	public AutorDto(String id, String nombre, String dni) {
 		super();
 		this.idAutor = id;
 		this.nombre = nombre;
@@ -20,20 +20,20 @@ public class AutorDto {
 		return dni;
 	}
 
-	public int getIdAutor() {
-		return idAutor;
-	}
-
 	public String getNombre() {
 		return nombre;
 	}
 
-	public void setDni(String dni) {
-		this.dni = dni;
+	public String getIdAutor() {
+		return idAutor;
 	}
 
-	public void setIdAutor(int id) {
+	public void setIdAutor(String id) {
 		this.idAutor = id;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 
 	public void setNombre(String nombre) {

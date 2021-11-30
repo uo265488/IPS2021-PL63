@@ -2,7 +2,7 @@ package giis.demo.tkrun.models.dtos;
 
 public class RevisorDto {
 
-    private int idRevisor;
+    private String idRevisor;
     private String nombre;
     private String estado;
     private String correo;
@@ -45,11 +45,11 @@ public class RevisorDto {
 	return nombre + " - " + idRevisor;
     }
 
-    public int getIdRevisor() {
+    public String getIdRevisor() {
 	return idRevisor;
     }
 
-    public void setIdRevisor(int idRevisor) {
+    public void setIdRevisor(String idRevisor) {
 	this.idRevisor = idRevisor;
     }
 

@@ -2,17 +2,16 @@ package giis.demo.tkrun.controllers.entities;
 
 public class ArticuloEntity {
 
-	public static final String CON_EL_EDITOR = "con el editor";
-	public static final String BORRADOR = "borrador";
-	public static final String RECHAZADO = "rechazado";
-	public static final String ACEPTADO = "aceptado";
+	public static String CON_EL_EDITOR = "con el editor";
+	public static String BORRADOR = "borrador";
+	public static String RECHAZADO = "rechazado";
+	public static String ACEPTADO = "aceptado";
 	public static final String EN_REVISION = "en revision";
 	public static final String PUBLICADO = "publicado";
 	public static final String ACEPTADO_CAMBIOS_MENORES = "aceptado con cambios menores";
 	public static final String ACEPTADO_CAMBIOS_MAYORES = "aceptado con cambios mayores";
 	public static final String EN_DEBATE = "en debate";
-
-	private int idArticulo;
+	private String idArticulo;
 	private String titulo;
 	private String primerAutor;
 	private String otrosAutores; // como almacenar varios autores?????
@@ -23,13 +22,13 @@ public class ArticuloEntity {
 	private String CV;
 	private boolean firma; // para asegurarse d q no hay plagios (string, boolean... da lo mismo)
 	private String estado;
-
 	private int vecesRevisado;
 	private boolean versionDefinitiva;
 	private String cartaDecision;
 	private String DOI;
 	private String fecha;
 	private int volumen;
+	private boolean pendienteDeCambios;
 
 	public String getCartaDecision() {
 		return cartaDecision;
@@ -59,7 +58,7 @@ public class ArticuloEntity {
 		return ficheroFuente;
 	}
 
-	public int getIdArticulo() {
+	public String getIdArticulo() {
 		return idArticulo;
 	}
 
@@ -131,7 +130,7 @@ public class ArticuloEntity {
 		this.firma = firma;
 	}
 
-	public void setIdArticulo(int idArticulo) {
+	public void setIdArticulo(String idArticulo) {
 		this.idArticulo = idArticulo;
 	}
 
@@ -184,7 +183,7 @@ public class ArticuloEntity {
 	}
 
 	public String toStringForTable() {
-		String str = "" + idArticulo;
+		String str = "";
 		if (titulo != null) {
 			str += " - " + titulo;
 		}
@@ -193,6 +192,14 @@ public class ArticuloEntity {
 		}
 
 		return str;
+	}
+
+	public boolean isPendienteDeCambios() {
+		return pendienteDeCambios;
+	}
+
+	public void setPendienteDeCambios(boolean pendienteDeCambios) {
+		this.pendienteDeCambios = pendienteDeCambios;
 	}
 
 }

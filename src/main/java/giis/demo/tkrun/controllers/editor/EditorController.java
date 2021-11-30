@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
+import giis.demo.tkrun.controllers.entities.DebateEntity;
+import giis.demo.tkrun.controllers.entities.MensajeEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
@@ -88,9 +90,7 @@ public class EditorController {
 	private void cambiarEstadoArticuloEnRevision(ArticuloEntity articulo) {
 
 		articulo.setEstado(ArticuloEntity.EN_REVISION);
-
 		articuloModel.update(DtoMapper.toArticuloDto(articulo));
-
 	}
 
 	/**
@@ -103,7 +103,10 @@ public class EditorController {
 		revisor.setEstado(RevisorEntity.NO_DISPONIBLE);
 
 		revisoresModel.update(DtoMapper.toRevisorDto(revisor));
+	}
 
+	public void generarSegundaRevision(String idArticulo, String idRevisor, String fecha) {
+		revisionModel.generarSegundaRevision(idArticulo, idRevisor, fecha);
 	}
 
 	/**
@@ -114,7 +117,7 @@ public class EditorController {
 	 */
 	public boolean checkArticuloParaAsignar(ArticuloEntity articulo) {
 
-		return EntityAssembler.toArticuloEntity(articuloModel.findById(articulo.getIdArticulo()).get(0)).getEstado()
+		return EntityAssembler.toArticuloEntity(articuloModel.findById(articulo.getIdArticulo())).getEstado()
 				.equals(ArticuloEntity.CON_EL_EDITOR);
 	}
 
@@ -129,8 +132,9 @@ public class EditorController {
 		revisionModel.add(DtoMapper.toRevisionDto(revisor, articulo, fecha, RevisionEntity.PENDIENTE));
 	}
 
-	public void generarSegundaRevision(int idArticulo, int idRevisor, String fecha) {
-		revisionModel.generarSegundaRevision(idArticulo, idRevisor, fecha);
+	public List<RevisionEntity> getRevisionesArticuloDeUnRevisor(String idArticulo, String idRevisor) {
+		return EntityAssembler
+				.toRevisionEntityList(revisionModel.getRevisionesArticuloDeUnRevisor(idArticulo, idRevisor));
 	}
 
 	public List<ArticuloEntity> getArticulos() {
@@ -164,19 +168,23 @@ public class EditorController {
 				.toRevisionEntityList(revisionModel.getRevisionesDeUnArticulo(DtoMapper.toArticuloDto(articulo)));
 	}
 
-	public List<RevisionEntity> getRevisionesArticuloDeUnRevisor(int idArticulo, int idRevisor) {
-		return EntityAssembler
-				.toRevisionEntityList(revisionModel.getRevisionesArticuloDeUnRevisor(idArticulo, idRevisor));
-	}
+//	public List<RevisionEntity> getRevisionesArticuloDeUnRevisor(int idArticulo, int idRevisor) {
+//		return EntityAssembler
+//				.toRevisionEntityList(revisionModel.getRevisionesArticuloDeUnRevisor(idArticulo, idRevisor));
+//	}
 
-	public List<RevisionEntity> getRevisionesFiltradas(int idArticulo, int numeroRevision) {
+//	public List<RevisionEntity> getRevisionesFiltradas(int idArticulo, int numeroRevision) {
+//		return EntityAssembler
+//				.toRevisionEntityList(revisionModel.getRevisionesFiltradoNumeroRevision(idArticulo, numeroRevision));
+//	}
+
+	public List<RevisionEntity> getRevisionesFiltradas(String idArticulo, int numeroRevision) {
 		return EntityAssembler
 				.toRevisionEntityList(revisionModel.getRevisionesFiltradoNumeroRevision(idArticulo, numeroRevision));
 	}
-
 //	-------------------------------------------
 
-	public List<RevisionEntity> getRevisionPorNumeroRevision(int numeroRevision, int idRevisor, int idArticulo) {
+	public List<RevisionEntity> getRevisionPorNumeroRevision(int numeroRevision, String idRevisor, String idArticulo) {
 		return EntityAssembler.toRevisionEntityList(
 				revisionModel.getRevisionPorNumeroRevision(idArticulo, idRevisor, numeroRevision));
 	}
@@ -207,11 +215,6 @@ public class EditorController {
 
 	}
 
-	public List<RevisorEntity> getRevisoresDisponibles() {
-
-		return EntityAssembler.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
-	}
-
 	/**
 	 * Devuelve una lista con todos los revisores disponibles
 	 *
@@ -223,7 +226,7 @@ public class EditorController {
 				.toRevisorEntityList(revisoresModel.getRevisoresDisponibles());
 
 		return revisoresDisponibles.stream()
-				.filter(r -> revisionModel.findRevisionRechazada(articulo.getIdArticulo(), r.getId()).isEmpty())
+				.filter(r -> !revisionModel.findRevisionRechazada(articulo.getIdArticulo(), r.getId()).isPresent())
 				.collect(Collectors.toList());
 
 	}
@@ -266,4 +269,27 @@ public class EditorController {
 
 		debateModel.escribirMensaje(idDebate, "El debate ha sido abierto con fecha límite: " + date.toString());
 	}
+
+	public List<MensajeEntity> getMensajesDebate(String idArticulo) {
+		return EntityAssembler.toMensajeEntityList(debateModel.getMensajesDebate(idArticulo));
+	}
+
+	public boolean getEstadoDelDebate(String idArticulo) {
+		return debateModel.getEstadoDelDebate(idArticulo);
+	}
+
+	public void enviarMensaje(String idArticulo, String mensaje) {
+		DebateEntity debate = EntityAssembler.toDebateEntity(debateModel.getDebate(idArticulo));
+		debateModel.escribirMensaje(debate.getIdDebate(), mensaje);
+
+	}
+
+	public List<ArticuloEntity> getArticulosEnDebate() {
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosEnDebate());
+	}
+
+	public List<ArticuloEntity> getArticulosParaPublicar() {
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosParaPublicar());
+	}
+
 }

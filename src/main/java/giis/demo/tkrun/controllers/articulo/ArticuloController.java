@@ -9,6 +9,7 @@ import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.autor.AutorModel;
 import giis.demo.tkrun.models.autoresSecundarios.AutoresSecundariosModel;
+import giis.demo.tkrun.models.debate.DebateModel;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
 import giis.demo.util.DtoMapper;
@@ -20,6 +21,7 @@ public class ArticuloController {
 	private AutoresSecundariosModel secundariosModel = new AutoresSecundariosModel();
 	private AutorModel autorModel = new AutorModel();
 	private RevisionModel revisionesModel = new RevisionModel();
+	private DebateModel debateModel = new DebateModel();
 
 	public ArticuloController() {
 		this.artModel = new ArticuloModel();
@@ -43,6 +45,10 @@ public class ArticuloController {
 	public void enviarDecision(ArticuloEntity articulo, String nuevoEstado) {
 		asignarCartaDecision(articulo);
 		articulo.setEstado(nuevoEstado);
+		articulo.setVecesRevisado(articulo.getVecesRevisado() + 1);
+		if (!articulo.getEstado().equals(ArticuloEntity.RECHAZADO)) {
+			articulo.setPendienteDeCambios(true);
+		}
 		artModel.update(DtoMapper.toArticuloDto(articulo));
 	}
 
@@ -50,7 +56,7 @@ public class ArticuloController {
 		return EntityAssembler.toArticuloEntity(artModel.findArticulo(titulo, autor));
 	}
 
-	public ArticuloEntity getArticulo(int idArt) {
+	public ArticuloEntity getArticulo(String idArt) {
 		List<ArticuloDto> articulos = artModel.getArticulo(idArt);
 		if (articulos.isEmpty()) {
 			return null;
@@ -59,8 +65,8 @@ public class ArticuloController {
 		}
 	}
 
-	public ArticuloEntity getArticuloById(int idArticulo) {
-		return EntityAssembler.toArticuloEntity(artModel.findById(idArticulo).get(0));
+	public ArticuloEntity getArticuloById(String idArticulo) {
+		return EntityAssembler.toArticuloEntity(artModel.findById(idArticulo));
 	}
 
 	/**
@@ -81,7 +87,7 @@ public class ArticuloController {
 					+ revisionesModel.getRevisionesAsignadasDeUnArticulo(r.getIdArticulo()).size());
 			if ((revisionesModel.getRevisionesPendientesDeUnArticulo(r.getIdArticulo()).size()
 					+ revisionesModel.getRevisionesAsignadasDeUnArticulo(r.getIdArticulo()).size()) < 3) {
-				articulos.add(EntityAssembler.toArticuloEntity(artModel.findById(r.getIdArticulo()).get(0)));
+				articulos.add(EntityAssembler.toArticuloEntity(artModel.findById(r.getIdArticulo())));
 			}
 		}
 
@@ -112,6 +118,14 @@ public class ArticuloController {
 		return EntityAssembler.toRevisionEntityList(revisionesModel.findRevisionesRechazadas());
 	}
 
+	public ArticuloEntity findArticulo(String idArt) {
+		List<ArticuloDto> lista = artModel.getArticulo(idArt);
+		if (lista.isEmpty()) {
+			return null;
+		}
+		return EntityAssembler.toArticuloEntity(lista.get(0));
+	}
+
 	/**
 	 * Se cambia el estado de articulo a publicado, y se añade la carta de decision
 	 * comunicando al autor que el articulo ha sido publicado
@@ -140,19 +154,30 @@ public class ArticuloController {
 		artModel.update(DtoMapper.toArticuloDto(articulo));
 	}
 
-	public void visualizarArticulo(ArticuloEntity articulo) {
-		articulo.setEstado(ArticuloEntity.CON_EL_EDITOR);
-		artModel.update(DtoMapper.toArticuloDto(articulo));
-	}
-
 	/**
 	 * Devuelve una list articulos debatibles
 	 *
 	 * @return
 	 */
 	public List<ArticuloEntity> getArticulosDebatibles() {
-		return EntityAssembler.toArticuloEntityList(artModel.getArticulosDebatibles()).stream()
+		return EntityAssembler.toArticuloEntityList(artModel.getArticulos()).stream()
 				.filter(a -> revisionesModel.checkArticuloRevisado(DtoMapper.toArticuloDto(a)))
 				.filter(ar -> !ar.getEstado().equals(ArticuloEntity.EN_DEBATE)).collect(Collectors.toList());
 	}
+
+	public void visualizarArticulo(ArticuloEntity articulo) {
+		articulo.setEstado(ArticuloEntity.CON_EL_EDITOR);
+		artModel.update(DtoMapper.toArticuloDto(articulo));
+	}
+
+	public List<ArticuloEntity> getArticulosConDebate() {
+		return EntityAssembler.toArticuloEntityList(artModel.getArticulosEnDebate());
+	}
+
+	public void cerrarDebate(String idArticulo) {
+		artModel.cerrarDebate(idArticulo);
+		debateModel.cerrarDebate(idArticulo);
+
+	}
+
 }

@@ -24,13 +24,15 @@ public class MenuEditor extends JDialog {
 	private JButton btnAbrirDebates;
 	private JLabel lblDebates;
 	private JButton btnCerrarDebates;
+	private JButton btEnDebate;
+	private JButton btPublicar;
 
 	/**
 	 * Create the frame.
 	 */
 	public MenuEditor() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 452, 301);
+		setBounds(100, 100, 467, 361);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -40,6 +42,8 @@ public class MenuEditor extends JDialog {
 		contentPane.add(getBtnAbrirDebates());
 		contentPane.add(getLblDebates());
 		contentPane.add(getBtnCerrarDebates());
+		contentPane.add(getBtEnDebate());
+		contentPane.add(getBtPublicar());
 	}
 
 	private JButton getBtAsignados() {
@@ -52,6 +56,7 @@ public class MenuEditor extends JDialog {
 				}
 			});
 			btAsignados.setBounds(49, 119, 345, 34);
+
 		}
 		return btAsignados;
 	}
@@ -66,6 +71,7 @@ public class MenuEditor extends JDialog {
 				}
 			});
 			btDisponibles.setBounds(49, 61, 345, 34);
+
 		}
 		return btDisponibles;
 	}
@@ -79,7 +85,7 @@ public class MenuEditor extends JDialog {
 					displayVentanaAbrirDebate();
 				}
 			});
-			btnAbrirDebates.setBounds(49, 187, 154, 34);
+			btnAbrirDebates.setBounds(49, 189, 164, 34);
 
 		}
 		return btnAbrirDebates;
@@ -99,7 +105,7 @@ public class MenuEditor extends JDialog {
 	private JButton getBtnCerrarDebates() {
 		if (btnCerrarDebates == null) {
 			btnCerrarDebates = new JButton("Cerrar debates");
-			btnCerrarDebates.setBounds(230, 187, 164, 34);
+			btnCerrarDebates.setBounds(229, 189, 164, 34);
 		}
 		return btnCerrarDebates;
 	}
@@ -122,5 +128,44 @@ public class MenuEditor extends JDialog {
 		EditorPrincipalView ven = new EditorPrincipalView(controller);
 		ven.setVisible(true);
 		// ven.setModal(true);
+	}
+
+	private JButton getBtEnDebate() {
+		if (btEnDebate == null) {
+			btEnDebate = new JButton("Articulos en Debate");
+			btEnDebate.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					mostrarEnDebate();
+				}
+			});
+			btEnDebate.setBounds(49, 241, 164, 34);
+		}
+		return btEnDebate;
+	}
+
+	private void mostrarEnDebate() {
+		EditorViewArticulosEnDebate ven = new EditorViewArticulosEnDebate(controller);
+		ven.setVisible(true);
+		// ven.setModal(true);
+	}
+
+	private JButton getBtPublicar() {
+		if (btPublicar == null) {
+			btPublicar = new JButton("Articulos para publicar");
+			btPublicar.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					mostrarParaPublicar();
+				}
+			});
+			btPublicar.setBounds(229, 241, 165, 34);
+		}
+		return btPublicar;
+	}
+
+	private void mostrarParaPublicar() {
+		EditorViewArticulosParaPublicar ven = new EditorViewArticulosParaPublicar(controller);
+		ven.setVisible(true);
 	}
 }

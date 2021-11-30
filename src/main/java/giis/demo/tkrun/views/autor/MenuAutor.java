@@ -20,12 +20,12 @@ public class MenuAutor extends JDialog {
     private JButton btCrearArticulo;
     private JButton btEstado;
     private AutorController controller;
-    private int id_autor;
+    private String id_autor;
 
     /**
      * Create the frame.
      */
-    public MenuAutor(AutorController controller, int id_autor) {
+    public MenuAutor(AutorController controller, String id_autor) {
 	this.controller = controller;
 	this.id_autor = id_autor;
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -55,14 +55,14 @@ public class MenuAutor extends JDialog {
 	AutorCreacionView ver = new AutorCreacionView(controller, id_autor);
 	ver.setVisible(true);
 
-	//ver.setModal(true);
+	// ver.setModal(true);
     }
 
     private void mostrarEstado() {
 	AutorView ver = new AutorView(controller, id_autor);
 	ver.setVisible(true);
 
-	//ver.setModal(true);
+	// ver.setModal(true);
     }
 
     private JButton getBtEstado() {

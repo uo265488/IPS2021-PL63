@@ -30,7 +30,6 @@ public class EditorViewComentariosAutor extends JDialog {
      * 
      */
     private static final long serialVersionUID = 1L;
-    private static final String PUBLICAR = "Publicar";
     private static final String ACEPTAR = "Aceptar";
     private static final String ACEPTAR_CAMBIOS_MENORES = "Aceptar con cambios menores";
     private static final String ACEPTAR_CAMBIOS_MAYORES = "Aceptar con cambios mayores";
@@ -113,10 +112,6 @@ public class EditorViewComentariosAutor extends JDialog {
      */
     private void enviarDecision() {
 	switch (decisiones.getSelection().getActionCommand()) {
-	case PUBLICAR: {
-	    publicarArticulo();
-	    break;
-	}
 	case ACEPTAR_CAMBIOS_MENORES: {
 	    enviarCartaDecision(ArticuloEntity.ACEPTADO_CAMBIOS_MENORES);
 	    JOptionPane.showMessageDialog(this, articulo.getCartaDecision() + " enviada correctamente");
@@ -154,14 +149,6 @@ public class EditorViewComentariosAutor extends JDialog {
 	    ventana.setLocationRelativeTo(this);
 	}
 
-    }
-
-    private void publicarArticulo() {
-	EditorViewPublicarArticulo ventanaPublicarArticulo = new EditorViewPublicarArticulo(this, this.articulo,
-		controller);
-	ventanaPublicarArticulo.setModal(true);
-	ventanaPublicarArticulo.setLocationRelativeTo(this);
-	ventanaPublicarArticulo.setVisible(true);
     }
 
     private void enviarCartaDecision(String nuevoEstado) {
@@ -246,6 +233,7 @@ public class EditorViewComentariosAutor extends JDialog {
 	decisiones.add(getRdBtnAceptarCambiosMayores());
 	decisiones.add(getRdBtnAceptar());
 	decisiones.add(getRdBtnRechazar());
+	decisiones.add(getRdBtnAceptarCambiosMenores());
     }
 
     private JTextArea getTxtComentarios() {

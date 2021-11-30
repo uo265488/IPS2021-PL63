@@ -50,7 +50,7 @@ public class EditorViewComentariosArticulo extends JDialog {
     private JLabel lblRevisor;
     private JLabel lblFormato;
     private JTextArea txtRevisiones;
-    private JButton btnEnviarComentariosAutor;
+    //private JButton btnEnviarComentariosAutor;
     private EditorController controller;
     private JComboBox cbSeleccionarRevision;
     private JLabel lblRevision;
@@ -80,7 +80,7 @@ public class EditorViewComentariosArticulo extends JDialog {
 	contentPane.add(getLblRevisor());
 	contentPane.add(getLblFormato());
 	contentPane.add(getTxtRevisiones());
-	contentPane.add(getBtnEnviarComentariosAutor());
+	//contentPane.add(getBtnEnviarComentariosAutor());
 	contentPane.add(getCbSeleccionarRevision());
 	contentPane.add(getLblRevision());
     }
@@ -181,7 +181,7 @@ public class EditorViewComentariosArticulo extends JDialog {
 	}
 	if (revisiones.size() != 0) {
 	    if (getCbSeleccionarRevisiones().getSelectedItem().equals(INDIVIDUALES))
-		text = setTextoRevisionesIndividuales();
+		text = setTextoRevisionesColectivas();
 	    else
 		text = setTextoRevisionesColectivas();
 	} else
@@ -191,7 +191,7 @@ public class EditorViewComentariosArticulo extends JDialog {
 
     private String setTextoRevisionesIndividuales() {
 	String text = "";
-	int idRevisor = Integer.parseInt(getCbSeleccionarRevisor().getSelectedItem().toString());
+	String idRevisor = getCbSeleccionarRevisor().getSelectedItem().toString();
 	String selectedRevision = getCbSeleccionarRevision().getSelectedItem().toString();
 
 	if (selectedRevision.equals("Todas")) {
@@ -273,29 +273,26 @@ public class EditorViewComentariosArticulo extends JDialog {
 	return txtRevisiones;
     }
 
-    private JButton getBtnEnviarComentariosAutor() {
-	if (btnEnviarComentariosAutor == null) {
-	    btnEnviarComentariosAutor = new JButton("Enviar comentarios al autor");
-	    btnEnviarComentariosAutor.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-		    visualizarComentariosAutor();
-		}
-	    });
-	    btnEnviarComentariosAutor.setBackground(new Color(50, 205, 50));
-	    btnEnviarComentariosAutor.setForeground(new Color(255, 255, 255));
-	    btnEnviarComentariosAutor.setBounds(321, 407, 212, 37);
-	}
-	return btnEnviarComentariosAutor;
-    }
+    /*
+     * private JButton getBtnEnviarComentariosAutor() { if
+     * (btnEnviarComentariosAutor == null) { btnEnviarComentariosAutor = new
+     * JButton("Enviar comentarios al autor");
+     * btnEnviarComentariosAutor.addActionListener(new ActionListener() { public
+     * void actionPerformed(ActionEvent arg0) { visualizarComentariosAutor(); } });
+     * btnEnviarComentariosAutor.setBackground(new Color(50, 205, 50));
+     * btnEnviarComentariosAutor.setForeground(new Color(255, 255, 255));
+     * btnEnviarComentariosAutor.setBounds(321, 407, 212, 37); } return
+     * btnEnviarComentariosAutor; }
+     */
 
-    private void visualizarComentariosAutor() {
-	EditorViewComentariosAutor comentariosAutor = new EditorViewComentariosAutor(articulo, controller);
-	comentariosAutor.setLocationRelativeTo(this);
-	comentariosAutor.setVisible(true);
-	this.setVisible(false);
-	this.dispose();
+    //private void visualizarComentariosAutor() {
+	//EditorViewComentariosAutor comentariosAutor = new EditorViewComentariosAutor(articulo, controller);
+	//comentariosAutor.setLocationRelativeTo(this);
+	//comentariosAutor.setVisible(true);
+	//this.setVisible(false);
+	//this.dispose();
 
-    }
+    //}
 
     private JComboBox getCbSeleccionarRevision() {
 	if (cbSeleccionarRevision == null) {

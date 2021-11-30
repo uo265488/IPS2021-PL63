@@ -8,7 +8,10 @@ import giis.demo.tkrun.controllers.entities.RevisionEntity;
 import giis.demo.tkrun.controllers.entities.RevisorEntity;
 import giis.demo.tkrun.controllers.entities.SugerenciaEntity;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
+import giis.demo.tkrun.models.debate.DebateModel;
 import giis.demo.tkrun.models.dtos.ArticuloDto;
+import giis.demo.tkrun.models.dtos.DebateDto;
+import giis.demo.tkrun.models.dtos.MensajeDto;
 import giis.demo.tkrun.models.dtos.RevisionDto;
 import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.revision.RevisionModel;
@@ -24,7 +27,8 @@ public class RevisorController {
 	private ArticuloModel articuloModel;
 	private RevisorModel revisoresModel;
 	private RevisorMenu rm;
-	private int idRevisor;
+	private DebateModel debateModel;
+	private String idRevisor;
 
 	// public AutorController(AutorModel m, EditorView v) {
 	// this.model = m;
@@ -37,12 +41,16 @@ public class RevisorController {
 		this.model = new RevisionModel();
 		this.articuloModel = new ArticuloModel();
 		this.revisoresModel = new RevisorModel();
+		this.debateModel = new DebateModel();
 	}
 
-	public RevisorController(int idRevisor) {
+	public RevisorController(String idRevisor) {
 		this.model = new RevisionModel();
 		this.articuloModel = new ArticuloModel();
+		this.revisoresModel = new RevisorModel();
+		this.debateModel = new DebateModel();
 		this.idRevisor = idRevisor;
+		this.revisoresModel = new RevisorModel();
 		// no hay inicializacion especifica del modelo, solo de la vista
 		this.initView();
 	}
@@ -54,8 +62,8 @@ public class RevisorController {
 	// this.initView();
 	// }
 
-	public void actualizarRevision(String comAutor, String comEditor, String decision, boolean enviarAlEditor, int id,
-			int idArt, int numeroRevision) {
+	public void actualizarRevision(String comAutor, String comEditor, String decision, boolean enviarAlEditor,
+			String id, String idArt, int numeroRevision) {
 
 		model.revisarArticulo(comAutor, comEditor, decision, enviarAlEditor, idArt, id, numeroRevision);
 	}
@@ -64,7 +72,7 @@ public class RevisorController {
 		revisoresModel.addRevisor(revisorDto);
 	}
 
-	public void decisionArticulo(int idRev, int idArt, boolean decision) {
+	public void decisionArticulo(String idRev, String idArt, boolean decision) {
 		model.decisionArticulo(idRev, idArt, decision);
 	}
 
@@ -72,11 +80,11 @@ public class RevisorController {
 		return EntityAssembler.toRevisorEntity(model.findRevisor(nombre, correo, especialidad));
 	}
 
-	public List<RevisorEntity> findSugeridos(int idArticulo) {
+	public List<RevisorEntity> findSugeridos(String idArticulo) {
 		List<SugerenciaEntity> ids = EntityAssembler.toSugerenciaEntityList(model.findSugeridos(idArticulo));
 		List<RevisorEntity> revisores = new ArrayList<RevisorEntity>();
 		for (SugerenciaEntity id : ids) {
-			revisores.add(EntityAssembler.toRevisorEntity(model.findById(id.getIdRevisor())));
+			revisores.add(EntityAssembler.toRevisorEntity(model.findByIdRevisor(id.getIdRevisor())));
 		}
 
 		return revisores;
@@ -94,36 +102,47 @@ public class RevisorController {
 		return EntityAssembler.toRevisionEntityList(model.findAll());
 	}
 
-	public List<RevisionEntity> getArticulosAceptados(int idArticulo) {
+	public List<RevisionEntity> getArticulosAceptados(String idArticulo) {
 		return EntityAssembler.toRevisionEntityList(model.articulosAceptados(idArticulo));
 	}
 
-	public List<ArticuloEntity> getArticulosAsignados(int id) {
+	public List<ArticuloEntity> getArticulosAsignados(String id) {
 		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosAsignados(id));
 	}
 
-	public List<ArticuloEntity> getArticulosSinResponder(int id) {
+	public List<ArticuloEntity> getArticulosSinResponder(String id) {
 		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosSinResponder(id));
 	}
 
-	public RevisionEntity getArticulosSinRevisar(int id, int idArt) {
+	public List<ArticuloEntity> getArticulosSinRevisar(String idArt) {
 
-		return EntityAssembler.toRevisionEntity(model.visualizarSinRevisar(id, idArt));
+		List<RevisionDto> list = model.visualizarSinRevisar(idArt);
+		List<ArticuloDto> listArt = new ArrayList<>();
+
+		for (RevisionDto rev : list) {
+			listArt.add(articuloModel.findById(rev.getIdArticulo()));
+		}
+
+		return EntityAssembler.toArticuloEntityList(listArt);
 	}
 
-	public RevisionDto getFecha(int idRev, int idArticulo) {
+	public RevisionEntity getRevision(String idArticulo, String idRevisor) {
+		return EntityAssembler.toRevisionEntity(model.getRevisionByIds(idArticulo, idRevisor));
+	}
+
+	public RevisionDto getFecha(String idRev, String idArticulo) {
 		return model.getFecha(idRev, idArticulo);
 	}
 
-	public RevisionEntity getRevisionAnterior(int idArt, int idRev) {
+	public RevisionEntity getRevisionAnterior(String idArt, String idRev) {
 		return EntityAssembler.toRevisionEntity(model.primeraRevision(idRev, idArt));
 	}
 
-	public RevisorEntity getRevisorById(int id) {
+	public RevisorEntity getRevisorById(String id) {
 		return EntityAssembler.toRevisorEntity(revisoresModel.findById(id));
 	}
 
-	public List<ArticuloEntity> getTituloArticulosSinRevisar(int id) {
+	public List<ArticuloEntity> getTituloArticulosSinRevisar(String id) {
 
 		return EntityAssembler.toArticuloEntityList(model.articulosSinRevisar(id));
 	}
@@ -134,12 +153,12 @@ public class RevisorController {
 
 	}
 
-	public int numeroRevisiones(int idArt, int idRev) {
+	public int numeroRevisiones(String idArt, String idRev) {
 		List<RevisionEntity> revisiones = EntityAssembler.toRevisionEntityList(model.numeroRevisiones(idRev, idArt));
 		return revisiones.size();
 	}
 
-	public boolean todasLasRevisionesEnviadas(int idArt, int numeroRevision) {
+	public boolean todasLasRevisionesEnviadas(String idArt, int numeroRevision) {
 		List<RevisionEntity> revisiones = EntityAssembler
 				.toRevisionEntityList(model.revisionesEnviadas(idArt, numeroRevision));
 		return revisiones.size() == 3;
@@ -148,4 +167,25 @@ public class RevisorController {
 	public void updateArticulo(ArticuloDto articulo) {
 		articuloModel.update(articulo);
 	}
+
+	public List<MensajeDto> mensajesDebate(String idDebate) {
+		return debateModel.devolverMensajes(idDebate);
+	}
+
+	public String idDebate(String idArticulo) {
+		List<DebateDto> lista = debateModel.getIdDebate(idArticulo);
+		if (lista.size() > 0) {
+			return lista.get(0).getIdDebate();
+		}
+		return "";
+	}
+
+	public List<ArticuloEntity> getArticulosEnDebate(String id) {
+		return EntityAssembler.toArticuloEntityList(articuloModel.getArticulosEnDebate(id));
+	}
+
+	public void envioMensaje(String idDebate, String mensaje) {
+		debateModel.escribirMensaje(idDebate, mensaje);
+	}
+
 }

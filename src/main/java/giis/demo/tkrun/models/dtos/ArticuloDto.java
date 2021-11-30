@@ -1,8 +1,7 @@
 package giis.demo.tkrun.models.dtos;
 
 public class ArticuloDto {
-
-	private int idArticulo;
+	private String idArticulo;
 	private String titulo;
 	private String primerAutor;
 	private String otrosAutores; // como almacenar varios autores?????
@@ -19,6 +18,7 @@ public class ArticuloDto {
 	private String DOI;
 	private String fecha;
 	private int volumen;
+	private boolean pendienteDeCambios;
 
 	public boolean isDebatido() {
 		return debatido;
@@ -26,11 +26,11 @@ public class ArticuloDto {
 
 	private boolean debatido;
 
-	public int getIdArticulo() {
+	public String getIdArticulo() {
 		return idArticulo;
 	}
 
-	public void setIdArticulo(int idArticulo) {
+	public void setIdArticulo(String idArticulo) {
 		this.idArticulo = idArticulo;
 	}
 
@@ -162,4 +162,11 @@ public class ArticuloDto {
 		this.volumen = volumen;
 	}
 
+	public boolean isPendienteDeCambios() {
+		return pendienteDeCambios;
+	}
+
+	public void setPendienteDeCambios(boolean pendienteDeCambios) {
+		this.pendienteDeCambios = pendienteDeCambios;
+	}
 }

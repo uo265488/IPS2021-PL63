@@ -17,6 +17,7 @@ import giis.demo.tkrun.controllers.autor.AutorController;
 import giis.demo.tkrun.controllers.entities.UserEntity;
 import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.controllers.user.UserController;
+import giis.demo.tkrun.views.autor.MenuAutor;
 import giis.demo.tkrun.views.editor.MenuEditor;
 
 public class UserView extends JFrame {
@@ -113,8 +114,10 @@ public class UserView extends JFrame {
 	contentPane.add(getBtnActualizar());
     }
 
-    private void launchAutor(int idAutor) {
-	new AutorController(idAutor);
+    private void launchAutor(String idAutor) {
+	MenuAutor ma = new MenuAutor(new AutorController(idAutor), idAutor);
+	ma.setVisible(true);
+	ma.setLocationRelativeTo(this);
     }
 
     private void launchEditor() {
@@ -125,7 +128,7 @@ public class UserView extends JFrame {
 
     }
 
-    private void launchRevisor(int idRevisor) {
+    private void launchRevisor(String idRevisor) {
 	new RevisorController(idRevisor);
     }
 
