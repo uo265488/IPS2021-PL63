@@ -39,13 +39,15 @@ public class DtoMapper {
 	return dto;
     }
 
-    public static RevisionDto toRevisionDto(RevisorEntity rev, ArticuloEntity articulo, String fecha, String estado) {
+    public static RevisionDto toRevisionDto(RevisorEntity rev, ArticuloEntity articulo, String fecha, String estado,
+	    int numeroRevision) {
 	RevisionDto dto = new RevisionDto();
 
 	dto.setIdArticulo(articulo.getIdArticulo());
 	dto.setIdRevisor(rev.getId());
 	dto.setFecha(fecha);
 	dto.setEstadoDeLaPropuesta(estado);
+	dto.setNumeroRevision(numeroRevision);
 
 	return dto;
 

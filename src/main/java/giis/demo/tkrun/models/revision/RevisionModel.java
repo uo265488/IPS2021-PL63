@@ -20,10 +20,10 @@ public class RevisionModel {
      * @param revisionDto
      */
     public void add(RevisionDto revisionDto) {
-	String sql = "insert into revisiones(idArticulo, idRevisor, fecha, estadoDeLaPropuesta) values (?,?,?,?)";
+	String sql = "insert into revisiones(idArticulo, idRevisor, fecha, estadoDeLaPropuesta, numeroRevision) values (?,?,?,?, ?)";
 
 	db.executeUpdate(sql, revisionDto.getIdArticulo(), revisionDto.getIdRevisor(), revisionDto.getFecha(),
-		revisionDto.getEstadoDeLaPropuesta());
+		revisionDto.getEstadoDeLaPropuesta(), revisionDto.getNumeroRevision());
 
     }
 
@@ -169,10 +169,10 @@ public class RevisionModel {
 
     }
 
-    public RevisionDto getRevisionByIds(String idArticulo, String idRevisor) {
-	String sql = "select * from revisiones where idArticulo = ? and idRevisor = ?";
+    public RevisionDto getRevisionByIds(String idArticulo, String idRevisor, int numeroRevision) {
+	String sql = "select * from revisiones where idArticulo = ? and idRevisor = ? and numeroRevision = ?";
 
-	return db.executeQueryPojo(RevisionDto.class, sql, idArticulo, idRevisor).get(0);
+	return db.executeQueryPojo(RevisionDto.class, sql, idArticulo, idRevisor, numeroRevision).get(0);
 
     }
 
@@ -255,11 +255,11 @@ public class RevisionModel {
 	return db.executeQueryPojo(RevisionDto.class, sql, idRevisor);
     }
 
-	public boolean checkArticuloRevisado(ArticuloDto a) {
+    public boolean checkArticuloRevisado(ArticuloDto a) {
 
-		String sql = "select * from revisiones where idArticulo = ? and enviarAlEditor=true";
+	String sql = "select * from revisiones where idArticulo = ? and enviarAlEditor=true";
 
-		return db.executeQueryPojo(RevisionDto.class, sql, a.getIdArticulo()).size() == 3;
-	}
+	return db.executeQueryPojo(RevisionDto.class, sql, a.getIdArticulo()).size() == 3;
+    }
 
 }

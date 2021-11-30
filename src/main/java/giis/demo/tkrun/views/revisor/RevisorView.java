@@ -138,7 +138,8 @@ public class RevisorView extends JDialog {
 			try {
 			    idArt = art.getIdArticulo();
 			    if (idArt != null) {
-				articuloRevisando = controller.getRevision(idArt, idRev);
+				articuloRevisando = controller.getRevision(idArt, idRev,
+					controller.numeroRevisiones(idArt, idRev));
 				getTxAutor().setText(articuloRevisando.getComentariosAutor());
 				getTxEditor().setText(articuloRevisando.getComentariosEditor());
 				getBtEnviar().setEnabled(true);
