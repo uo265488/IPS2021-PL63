@@ -129,9 +129,10 @@ public class RevisionModel {
     }
 
     public void generarSegundaRevision(String idArticulo, String idRevisor, String fecha) {
-	String sql = "insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, estadoDeLaPropuesta) values (?,?,?,?,?)";
+	String sql = "insert into revisiones(idArticulo, idRevisor, numeroRevision, fecha, comentariosAutor, "
+		+ "comentariosEditor, decision, enviarAlEditor, estadoDeLaPropuesta) values (?,?,?,?,?,?,?,?,?)";
 
-	db.executeUpdate(sql, idArticulo, idRevisor, 2, fecha, "ACEPTADO");
+	db.executeUpdate(sql, idArticulo, idRevisor, 2, fecha, "", "", "", false, "ACEPTADA");
 
     }
 
