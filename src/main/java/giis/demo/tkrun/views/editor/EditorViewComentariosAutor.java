@@ -63,7 +63,7 @@ public class EditorViewComentariosAutor extends JDialog {
 	this.articulo = articulo;
 	this.controller = controller;
 	this.artController = new ArticuloController();
-	setTitle("Enviar comentarios al autor");
+	setTitle("Editor. Enviar comentarios al autor");
 	setBounds(100, 100, 680, 509);
 	getContentPane().setLayout(null);
 	contentPanel.setBounds(0, 0, 664, 400);

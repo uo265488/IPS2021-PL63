@@ -37,6 +37,7 @@ public class RevisorMenu extends JDialog {
      * Create the dialog.
      */
     public RevisorMenu(String id_revisor, RevisorController controller) {
+	setTitle("Revisor: " + controller.getRevisorById(id_revisor).getNombre() + ". Menu");
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	this.id_revisor = id_revisor;
 	this.revisorController = controller;
@@ -91,18 +92,19 @@ public class RevisorMenu extends JDialog {
 	}
 	return btnNewButton_1_1;
     }
-	private JButton getBtDebates() {
-		if (btDebates == null) {
-			btDebates = new JButton("Debates Actuales");
-			btDebates.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				    RevisorViewArticulosEnDebate rvd = new RevisorViewArticulosEnDebate(revisorController, id_revisor);
-				    rvd.setModal(true);
-				    rvd.setVisible(true);
-				}
-			});
-			btDebates.setBounds(79, 250, 206, 30);
+
+    private JButton getBtDebates() {
+	if (btDebates == null) {
+	    btDebates = new JButton("Debates Actuales");
+	    btDebates.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    RevisorViewArticulosEnDebate rvd = new RevisorViewArticulosEnDebate(revisorController, id_revisor);
+		    rvd.setModal(true);
+		    rvd.setVisible(true);
 		}
-		return btDebates;
+	    });
+	    btDebates.setBounds(79, 250, 206, 30);
 	}
+	return btDebates;
+    }
 }

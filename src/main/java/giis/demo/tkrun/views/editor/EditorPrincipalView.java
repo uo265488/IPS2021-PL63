@@ -172,7 +172,7 @@ public class EditorPrincipalView extends JDialog {
      * Create the frame.
      */
     public void initialize() {
-	setTitle("Editor: Articulos disponibles");
+	setTitle("Editor. Pantalla principal de asignación");
 	setResizable(false);
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	setBounds(100, 100, 1015, 439);

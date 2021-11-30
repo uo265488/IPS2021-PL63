@@ -15,7 +15,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
@@ -34,7 +33,6 @@ public class RevisorDecisionRevisionesEncomendadas extends JDialog {
     private JPanel contentPane;
     private JLabel lbTitulo;
     private JLabel lbId;
-    private JTextField txId;
     private JButton btVisuzlizar;
     private JScrollPane scrollPane;
     private JList<ArticuloEntity> lista;
@@ -52,6 +50,7 @@ public class RevisorDecisionRevisionesEncomendadas extends JDialog {
     public RevisorDecisionRevisionesEncomendadas(RevisorController controller, String idRev) {
 	this.controller = controller;
 	this.idRev = idRev;
+	setTitle("Revisor: " + controller.getRevisorById(idRev).getNombre() + ". Revisiones encomendadas");
 	inicialice();
     }
 
@@ -68,7 +67,6 @@ public class RevisorDecisionRevisionesEncomendadas extends JDialog {
 	contentPane.setLayout(null);
 	contentPane.add(getLbTitulo());
 	contentPane.add(getLbId());
-	contentPane.add(getTxId());
 	contentPane.add(getBtVisuzlizar());
 	contentPane.add(getScrollPane());
 	contentPane.add(getBtDetalles());
@@ -88,23 +86,11 @@ public class RevisorDecisionRevisionesEncomendadas extends JDialog {
 
     private JLabel getLbId() {
 	if (lbId == null) {
-	    lbId = new JLabel("Introduzca su identificación:");
+	    lbId = new JLabel("Revisor:         " + controller.getRevisorById(idRev).toString());
 	    lbId.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	    lbId.setBounds(111, 84, 190, 26);
+	    lbId.setBounds(76, 83, 461, 26);
 	}
 	return lbId;
-    }
-
-    private JTextField getTxId() {
-	if (txId == null) {
-	    txId = new JTextField();
-	    txId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	    txId.setBounds(311, 84, 259, 25);
-	    txId.setColumns(10);
-	    txId.setText(idRev);
-	    txId.setEditable(false);
-	}
-	return txId;
     }
 
     private JButton getBtVisuzlizar() {
@@ -114,9 +100,7 @@ public class RevisorDecisionRevisionesEncomendadas extends JDialog {
 		public void actionPerformed(ActionEvent e) {
 		    try {
 			articulos.clear();
-			if (getTxId().getText().trim().length() > 0) {
-			    articulos = controller.getArticulosSinResponder(idRev);
-			}
+			articulos = controller.getArticulosSinResponder(idRev);
 			rellenarLista();
 		    } catch (Exception e1) {
 			JOptionPane.showMessageDialog(null, "Debe introducir un id con solo números", "Error de Id",

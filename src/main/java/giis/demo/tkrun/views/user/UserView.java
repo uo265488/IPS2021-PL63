@@ -112,6 +112,7 @@ public class UserView extends JFrame {
 	contentPane.add(getCbUsers());
 	contentPane.add(getBtnLogin());
 	contentPane.add(getBtnActualizar());
+	setTitle("Revista cientítica. Logging");
     }
 
     private void launchAutor(String idAutor) {

@@ -42,8 +42,10 @@ public class RevisorViewArticulosEnDebate extends JDialog {
     public RevisorViewArticulosEnDebate(RevisorController controller, String idrevisor) {
 	this.controller = controller;
 	this.idRevisor = idrevisor;
+	setTitle("Revisor: " + controller.getRevisorById(idrevisor).getNombre() + ". Articulos en debate");
 	inicialice();
     }
+
     private void inicialice() {
 	articulosEnDebate = controller.getArticulosEnDebate(idRevisor);
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -56,61 +58,65 @@ public class RevisorViewArticulosEnDebate extends JDialog {
 	contentPane.add(getScrollPane());
 	contentPane.add(getBtAbrirDebate());
     }
-	private JLabel getLbArticulos() {
-		if (lbArticulos == null) {
-			lbArticulos = new JLabel("Articulos en debate:");
-			lbArticulos.setFont(new Font("Tahoma", Font.PLAIN, 17));
-			lbArticulos.setBounds(20, 55, 169, 19);
-		}
-		return lbArticulos;
-	}
-	private JScrollPane getScrollPane() {
-		if (scrollPane == null) {
-			scrollPane = new JScrollPane();
-			scrollPane.setBounds(20, 80, 438, 368);
-			scrollPane.setViewportView(getListArticulos());
-		}
-		return scrollPane;
-	}
-	private JList<ArticuloEntity> getListArticulos() {
-		if (listArticulos == null) {
-			listArticulos = new JList<ArticuloEntity>();
-			listArticulos.setModel(addModel());
-		}
-		return listArticulos;
-	}
-	private JButton getBtAbrirDebate() {
-		if (btAbrirDebate == null) {
-			btAbrirDebate = new JButton("Abrir Debate");
-			btAbrirDebate.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				    if(getListArticulos().getSelectedIndex() == -1)
-					JOptionPane.showMessageDialog(null, "Debe seleccionar un artículo para ver el debate", 
-						"Error con la selección del artículo", JOptionPane.ERROR_MESSAGE);
-				    else if(getListArticulos().getSelectedIndex() > 1)
-					JOptionPane.showMessageDialog(null, "Solo puede seleccionar un artículo para ver el debate", 
-						"Error con la selección del artículo", JOptionPane.ERROR_MESSAGE);
-				    else {
-					ArticuloEntity art = getListArticulos().getSelectedValue();
-					RevisorViewDebate vista = new RevisorViewDebate(art);
-					vista.setModal(true);
-					vista.setVisible(true);
-				    }
-				}
-			});
-			btAbrirDebate.setBackground(new Color(255, 218, 185));
-			btAbrirDebate.setFont(new Font("Tahoma", Font.PLAIN, 21));
-			btAbrirDebate.setBounds(507, 234, 192, 35);
-		}
-		return btAbrirDebate;
-	}
-	
-	private ListModel<ArticuloEntity> addModel() {
-		DefaultListModel<ArticuloEntity> model = new DefaultListModel<>();
-		for (ArticuloEntity articulo : articulosEnDebate) {
-		    model.addElement(articulo);
-		}
 
-		return model;
-	    }
+    private JLabel getLbArticulos() {
+	if (lbArticulos == null) {
+	    lbArticulos = new JLabel("Articulos en debate:");
+	    lbArticulos.setFont(new Font("Tahoma", Font.PLAIN, 17));
+	    lbArticulos.setBounds(20, 55, 169, 19);
+	}
+	return lbArticulos;
+    }
+
+    private JScrollPane getScrollPane() {
+	if (scrollPane == null) {
+	    scrollPane = new JScrollPane();
+	    scrollPane.setBounds(20, 80, 438, 368);
+	    scrollPane.setViewportView(getListArticulos());
+	}
+	return scrollPane;
+    }
+
+    private JList<ArticuloEntity> getListArticulos() {
+	if (listArticulos == null) {
+	    listArticulos = new JList<ArticuloEntity>();
+	    listArticulos.setModel(addModel());
+	}
+	return listArticulos;
+    }
+
+    private JButton getBtAbrirDebate() {
+	if (btAbrirDebate == null) {
+	    btAbrirDebate = new JButton("Abrir Debate");
+	    btAbrirDebate.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    if (getListArticulos().getSelectedIndex() == -1)
+			JOptionPane.showMessageDialog(null, "Debe seleccionar un artículo para ver el debate",
+				"Error con la selección del artículo", JOptionPane.ERROR_MESSAGE);
+		    else if (getListArticulos().getSelectedIndex() > 1)
+			JOptionPane.showMessageDialog(null, "Solo puede seleccionar un artículo para ver el debate",
+				"Error con la selección del artículo", JOptionPane.ERROR_MESSAGE);
+		    else {
+			ArticuloEntity art = getListArticulos().getSelectedValue();
+			RevisorViewDebate vista = new RevisorViewDebate(art);
+			vista.setModal(true);
+			vista.setVisible(true);
+		    }
+		}
+	    });
+	    btAbrirDebate.setBackground(new Color(255, 218, 185));
+	    btAbrirDebate.setFont(new Font("Tahoma", Font.PLAIN, 21));
+	    btAbrirDebate.setBounds(507, 234, 192, 35);
+	}
+	return btAbrirDebate;
+    }
+
+    private ListModel<ArticuloEntity> addModel() {
+	DefaultListModel<ArticuloEntity> model = new DefaultListModel<>();
+	for (ArticuloEntity articulo : articulosEnDebate) {
+	    model.addElement(articulo);
+	}
+
+	return model;
+    }
 }

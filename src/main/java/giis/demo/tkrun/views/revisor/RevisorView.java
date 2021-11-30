@@ -62,6 +62,7 @@ public class RevisorView extends JDialog {
     public RevisorView(RevisorController controller, String idRevisor) {
 	this.controller = controller;
 	this.idRev = idRevisor;
+	setTitle("Revisor: " + controller.getRevisorById(idRevisor).getNombre() + ". Articulos a revisar");
 	inicialice();
     }
 
@@ -232,8 +233,7 @@ public class RevisorView extends JDialog {
 	    btEnviar.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    if (idArt != null && pasaCondiciones()) {
-			if (getTxAutor().getText().trim().length() == 0
-				|| getTxEditor().getText().trim().length() == 0)
+			if (getTxAutor().getText().trim().length() == 0 || getTxEditor().getText().trim().length() == 0)
 			    JOptionPane.showMessageDialog(null,
 				    "Debe rellenar tanto los comentarios del autor como los del editor para poder enviar la revisión",
 				    "Error de campos", JOptionPane.ERROR_MESSAGE);

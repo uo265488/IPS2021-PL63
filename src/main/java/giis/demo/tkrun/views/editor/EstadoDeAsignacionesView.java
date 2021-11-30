@@ -52,7 +52,7 @@ public class EstadoDeAsignacionesView extends JDialog {
      * Create the dialog.
      */
     public EstadoDeAsignacionesView() {
-	setTitle("Estado de las propuestas de revisión:");
+	setTitle("Editor. Estado de las propuestas de revisión");
 	setModal(true);
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	setBackground(Color.WHITE);

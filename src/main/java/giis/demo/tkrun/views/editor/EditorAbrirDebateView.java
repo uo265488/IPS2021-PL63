@@ -32,126 +32,126 @@ import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 
 public class EditorAbrirDebateView extends JDialog {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	private final JPanel contentPanel = new JPanel();
-	private JScrollPane scDebates;
-	private JList<ArticuloEntity> listArticulosDebatibles;
-	private ArticuloController articulosController = new ArticuloController();
-	private EditorController editorController = new EditorController();
-	private JComboBox<LocalDate> comboBox;
+    private final JPanel contentPanel = new JPanel();
+    private JScrollPane scDebates;
+    private JList<ArticuloEntity> listArticulosDebatibles;
+    private ArticuloController articulosController = new ArticuloController();
+    private EditorController editorController = new EditorController();
+    private JComboBox<LocalDate> comboBox;
 
-	/**
-	 * Create the dialog.
-	 */
-	public EditorAbrirDebateView() {
-		setTitle("Editor - Abrir debates");
-		setResizable(false);
-		setBackground(Color.WHITE);
-		setBounds(100, 100, 522, 366);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
-		{
-			JLabel lblArticulosDebatibles = new JLabel(
-					"Artículos que cumplen los requisitos para entrar en periodo de debate:");
-			lblArticulosDebatibles.setBounds(38, 35, 438, 14);
-			contentPanel.add(lblArticulosDebatibles);
-		}
-		contentPanel.add(getScDebates());
-		{
-			JButton btnAbrirDebate = new JButton("Abrir debate");
-			btnAbrirDebate.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					abrirDebate();
-				}
-			});
-			btnAbrirDebate.setBounds(38, 278, 438, 33);
-			contentPanel.add(btnAbrirDebate);
-
-		}
-		{
-			JLabel lblFecha = new JLabel("Fecha cierre del debate:");
-			lblFecha.setBounds(38, 232, 168, 14);
-			contentPanel.add(lblFecha);
-		}
-		{
-			comboBox = new JComboBox<>();
-			comboBox.setBounds(235, 229, 241, 20);
-			comboBox.setModel(generarComboBoxModel());
-			contentPanel.add(comboBox);
-		}
+    /**
+     * Create the dialog.
+     */
+    public EditorAbrirDebateView() {
+	setTitle("Editor. Abrir debates");
+	setResizable(false);
+	setBackground(Color.WHITE);
+	setBounds(100, 100, 522, 366);
+	getContentPane().setLayout(new BorderLayout());
+	contentPanel.setBackground(Color.WHITE);
+	contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+	getContentPane().add(contentPanel, BorderLayout.CENTER);
+	contentPanel.setLayout(null);
+	{
+	    JLabel lblArticulosDebatibles = new JLabel(
+		    "Artículos que cumplen los requisitos para entrar en periodo de debate:");
+	    lblArticulosDebatibles.setBounds(38, 35, 438, 14);
+	    contentPanel.add(lblArticulosDebatibles);
 	}
-
-	/**
-	 * Abre un debate
-	 */
-	protected void abrirDebate() {
-		if ((comboBox.getSelectedIndex() != -1) && (listArticulosDebatibles.getSelectedIndex() != -1)) {
-			editorController.abrirDebate(listArticulosDebatibles.getSelectedValue(),
-					(LocalDate) comboBox.getSelectedItem());
-
-			scDebates.setViewportView(getListArticulosDebatibles());
-			scDebates.updateUI();
-			JOptionPane.showMessageDialog(this, "Se ha abierto el debate. ");
-
-		} else {
-			JOptionPane.showMessageDialog(this, "Debes seleccionar un articulo y una fecha. ");
+	contentPanel.add(getScDebates());
+	{
+	    JButton btnAbrirDebate = new JButton("Abrir debate");
+	    btnAbrirDebate.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		    abrirDebate();
 		}
+	    });
+	    btnAbrirDebate.setBounds(38, 278, 438, 33);
+	    contentPanel.add(btnAbrirDebate);
 
 	}
+	{
+	    JLabel lblFecha = new JLabel("Fecha cierre del debate:");
+	    lblFecha.setBounds(38, 232, 168, 14);
+	    contentPanel.add(lblFecha);
+	}
+	{
+	    comboBox = new JComboBox<>();
+	    comboBox.setBounds(235, 229, 241, 20);
+	    comboBox.setModel(generarComboBoxModel());
+	    contentPanel.add(comboBox);
+	}
+    }
 
-	private JList<ArticuloEntity> getListArticulosDebatibles() {
-		listArticulosDebatibles = new JList<ArticuloEntity>();
-		listArticulosDebatibles.setBorder(new LineBorder(new Color(0, 0, 0)));
-		listArticulosDebatibles.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listArticulosDebatibles.setBackground(Color.WHITE);
+    /**
+     * Abre un debate
+     */
+    protected void abrirDebate() {
+	if ((comboBox.getSelectedIndex() != -1) && (listArticulosDebatibles.getSelectedIndex() != -1)) {
+	    editorController.abrirDebate(listArticulosDebatibles.getSelectedValue(),
+		    (LocalDate) comboBox.getSelectedItem());
 
-		DefaultListModel<ArticuloEntity> model = new DefaultListModel<ArticuloEntity>();
+	    scDebates.setViewportView(getListArticulosDebatibles());
+	    scDebates.updateUI();
+	    JOptionPane.showMessageDialog(this, "Se ha abierto el debate. ");
 
-		for (ArticuloEntity ent : articulosController.getArticulosDebatibles()) {
-			model.addElement(ent);
-		}
-
-		listArticulosDebatibles.setModel(model);
-		listArticulosDebatibles.setSelectedIndex(0);
-
-		return listArticulosDebatibles;
+	} else {
+	    JOptionPane.showMessageDialog(this, "Debes seleccionar un articulo y una fecha. ");
 	}
 
-	private JScrollPane getScDebates() {
-		if (scDebates == null) {
-			scDebates = new JScrollPane();
-			scDebates.setBounds(38, 60, 438, 150);
-			scDebates.setViewportView(getListArticulosDebatibles());
-		}
-		return scDebates;
+    }
+
+    private JList<ArticuloEntity> getListArticulosDebatibles() {
+	listArticulosDebatibles = new JList<ArticuloEntity>();
+	listArticulosDebatibles.setBorder(new LineBorder(new Color(0, 0, 0)));
+	listArticulosDebatibles.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	listArticulosDebatibles.setBackground(Color.WHITE);
+
+	DefaultListModel<ArticuloEntity> model = new DefaultListModel<ArticuloEntity>();
+
+	for (ArticuloEntity ent : articulosController.getArticulosDebatibles()) {
+	    model.addElement(ent);
 	}
 
-	private ComboBoxModel<LocalDate> generarComboBoxModel() {
-		DefaultComboBoxModel<LocalDate> model = new DefaultComboBoxModel<>();
+	listArticulosDebatibles.setModel(model);
+	listArticulosDebatibles.setSelectedIndex(0);
 
-		model.addAll(generarFechas());
+	return listArticulosDebatibles;
+    }
 
-		return model;
+    private JScrollPane getScDebates() {
+	if (scDebates == null) {
+	    scDebates = new JScrollPane();
+	    scDebates.setBounds(38, 60, 438, 150);
+	    scDebates.setViewportView(getListArticulosDebatibles());
 	}
+	return scDebates;
+    }
 
-	/**
-	 * Genera una lista de fechas
-	 *
-	 * @return
-	 */
-	private List<LocalDate> generarFechas() {
-		LocalDate start = LocalDate.now();
-		LocalDate end = LocalDate.now().plusMonths(1).with(TemporalAdjusters.lastDayOfMonth());
-		return Stream.iterate(start, date -> date.plusDays(1)).limit(ChronoUnit.DAYS.between(start, end))
-				.collect(Collectors.toList());
-	}
+    private ComboBoxModel<LocalDate> generarComboBoxModel() {
+	DefaultComboBoxModel<LocalDate> model = new DefaultComboBoxModel<>();
+
+	model.addAll(generarFechas());
+
+	return model;
+    }
+
+    /**
+     * Genera una lista de fechas
+     *
+     * @return
+     */
+    private List<LocalDate> generarFechas() {
+	LocalDate start = LocalDate.now();
+	LocalDate end = LocalDate.now().plusMonths(1).with(TemporalAdjusters.lastDayOfMonth());
+	return Stream.iterate(start, date -> date.plusDays(1)).limit(ChronoUnit.DAYS.between(start, end))
+		.collect(Collectors.toList());
+    }
 
 }

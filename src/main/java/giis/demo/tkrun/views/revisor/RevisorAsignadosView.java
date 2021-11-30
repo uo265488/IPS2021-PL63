@@ -6,12 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
 
 import giis.demo.tkrun.controllers.editor.EditorController;
@@ -29,8 +31,9 @@ public class RevisorAsignadosView extends JDialog {
     private RevisorController revisorController;
     private List<ArticuloEntity> articulosAsignados;
     private JLabel lbArticulosAsignados;
-    private JComboBox<ArticuloEntity> cmBoxArticulosAsigados;
     private JButton btnRevisar;
+    private JScrollPane scPaneArticulosAsignados;
+    private JList<ArticuloEntity> listArticulosAsignados;
 
 //	/**
 //	 * Launch the application.
@@ -50,9 +53,9 @@ public class RevisorAsignadosView extends JDialog {
 
     public RevisorAsignadosView(RevisorController revisorController, String idRevisor) {
 	setResizable(false);
-	setTitle("Revisor. Articulos asignados");
 	this.revisorController = revisorController;
 	articulosAsignados = this.revisorController.getArticulosAsignados(idRevisor);
+	setTitle("Revisor: " + revisorController.getRevisorById(idRevisor).getNombre() + ". Articulos asignados");
 	initialize();
     }
 
@@ -67,14 +70,13 @@ public class RevisorAsignadosView extends JDialog {
 	setContentPane(contentPane);
 	contentPane.setLayout(null);
 	contentPane.add(getLbArticulosAsignados());
-	contentPane.add(getCmBoxArticulosAsigados());
 	contentPane.add(getBtnRevisar());
+	contentPane.add(getScPaneArticulosAsignados());
     }
 
     private JLabel getLbArticulosAsignados() {
 	if (lbArticulosAsignados == null) {
 	    lbArticulosAsignados = new JLabel("Articulos asignados para revisar:");
-	    lbArticulosAsignados.setLabelFor(getCmBoxArticulosAsigados());
 	    lbArticulosAsignados.setDisplayedMnemonic('A');
 	    lbArticulosAsignados.setFont(new Font("Tahoma", Font.PLAIN, 12));
 	    lbArticulosAsignados.setBounds(38, 49, 205, 25);
@@ -88,7 +90,7 @@ public class RevisorAsignadosView extends JDialog {
 	    btnRevisar.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    EditorViewComentariosArticulo evca = new EditorViewComentariosArticulo(
-			    (ArticuloEntity) getCmBoxArticulosAsigados().getSelectedItem(), new EditorController());
+			    getListArticulosAsignados().getSelectedValue(), new EditorController());
 
 		    evca.setVisible(true);
 		}
@@ -101,21 +103,31 @@ public class RevisorAsignadosView extends JDialog {
 	return btnRevisar;
     }
 
-    private JComboBox<ArticuloEntity> getCmBoxArticulosAsigados() {
-	if (cmBoxArticulosAsigados == null) {
-	    cmBoxArticulosAsigados = new JComboBox<ArticuloEntity>();
-	    cmBoxArticulosAsigados.setBounds(38, 85, 359, 25);
-	    setComboBoxModel();
+    private JScrollPane getScPaneArticulosAsignados() {
+	if (scPaneArticulosAsignados == null) {
+	    scPaneArticulosAsignados = new JScrollPane();
+	    scPaneArticulosAsignados.setBounds(48, 86, 374, 191);
+	    scPaneArticulosAsignados.setViewportView(getListArticulosAsignados());
 	}
-	return cmBoxArticulosAsigados;
+	return scPaneArticulosAsignados;
     }
 
-    private void setComboBoxModel() {
-	ArticuloEntity[] articulosEntity = new ArticuloEntity[articulosAsignados.size()];
-	for (int i = 0; i < articulosEntity.length; i++) {
-	    articulosEntity[i] = articulosAsignados.get(i);
+    private JList<ArticuloEntity> getListArticulosAsignados() {
+	if (listArticulosAsignados == null) {
+	    listArticulosAsignados = new JList<ArticuloEntity>();
+	    listArticulosAsignados.setModel(addModel());
+	}
+	return listArticulosAsignados;
+    }
+
+    private ListModel<ArticuloEntity> addModel() {
+	DefaultListModel<ArticuloEntity> articulos = new DefaultListModel<>();
+
+	for (ArticuloEntity art : articulosAsignados) {
+	    articulos.addElement(art);
 	}
 
-	getCmBoxArticulosAsigados().setModel(new DefaultComboBoxModel<ArticuloEntity>(articulosEntity));
+	return articulos;
+
     }
 }

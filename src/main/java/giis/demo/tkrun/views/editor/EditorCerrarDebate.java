@@ -35,7 +35,7 @@ public class EditorCerrarDebate extends JDialog {
      * Create the dialog.
      */
     public EditorCerrarDebate() {
-	setTitle("Editor. Cerrar debate");
+	setTitle("Editor. Cerrar debates");
 	setResizable(false);
 	setBounds(100, 100, 400, 300);
 	getContentPane().setLayout(null);
