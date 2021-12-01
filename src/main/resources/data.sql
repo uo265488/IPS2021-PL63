@@ -12,8 +12,8 @@ insert into revisores(idRevisor,nombre,estado, correo, especialidad) values
 	('fa46f0fc-ef50-4a9e-9e35-6659dd39e6a4','Ernesto','NO DISPONIBLE', 'ernesto@uniovi.es', 'Bases de datos'),
 	('86671e22-02f6-4fb2-ba2d-e5c5e0155227','Maria','NO DISPONIBLE', 'mperez@uniovi.es', 'Biologia'),
 	('c795be4d-448e-4faa-b788-39d96b4577a9','Carmen', 'NO DISPONIBLE', 'carmen@uniovi.es', 'Economia'),
-	('043367e8-9752-49d2-b2ca-a217023c363c','Pablo','NO DISPONIBLE', 'peibol@uniovi.es', 'Futbol'),
-	('52934766-3f57-4a1c-a67e-d30d45c2975b','Julio','NO DISPONIBLE', 'jfer@uniovi.es', 'Meses'),
+	('043367e8-9752-49d2-b2ca-a217023c363c','Pablo','DISPONIBLE', 'peibol@uniovi.es', 'Futbol'),
+	('52934766-3f57-4a1c-a67e-d30d45c2975b','Julio','DISPONIBLE', 'jfer@uniovi.es', 'Meses'),
 	('26e7b09f-96dc-402b-9315-1fc844d6da9b','Ruben','DISPONIBLE', 'rub@uniovi.es','Comida'),
 	('bb6b1a56-70d2-4512-97fc-bcb5cb3fa468', 'Oscar', 'DISPONIBLE', 'oscar@uniovi.es', 'Lesiones');
 	
