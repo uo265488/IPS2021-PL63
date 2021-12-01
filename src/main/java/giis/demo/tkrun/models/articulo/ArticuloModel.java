@@ -168,13 +168,28 @@ public class ArticuloModel {
 	for (ArticuloDto str : idsArticulos) {
 	    sql = "SELECT * from revisiones where idArticulo = ?";
 	    infoArtRevisados = db.executeQueryPojo(RevisionDto.class, sql, str.getIdArticulo());
-	    if (infoArtRevisados.size() == 3 || infoArtRevisados.size() == 6) {
+	    if (infoArtRevisados.size() == 3) {
 		boolean estaRevisado = true;
 		for (RevisionDto revision : infoArtRevisados) {
 		    if (!revision.isEnviarAlEditor()) {
 			estaRevisado = false;
 			break;
 		    }
+		}
+		if (estaRevisado) {
+		    idsArticulosRevisados.add("" + infoArtRevisados.get(0).getIdArticulo());
+		}
+	    } else if (infoArtRevisados.size() == 6) {
+		boolean estaRevisado = true;
+		int count = 0;
+		for (RevisionDto revision : infoArtRevisados) {
+		    if (count >= 3) {
+			if (!revision.isEnviarAlEditor()) {
+			    estaRevisado = false;
+			    break;
+			}
+		    }
+		    count++;
 		}
 		if (estaRevisado) {
 		    idsArticulosRevisados.add("" + infoArtRevisados.get(0).getIdArticulo());

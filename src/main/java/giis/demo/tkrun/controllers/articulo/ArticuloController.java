@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import giis.demo.tkrun.controllers.entities.ArticuloEntity;
 import giis.demo.tkrun.controllers.entities.RevisionEntity;
-import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.models.articulo.ArticuloModel;
 import giis.demo.tkrun.models.autor.AutorModel;
 import giis.demo.tkrun.models.autoresSecundarios.AutoresSecundariosModel;
@@ -23,7 +22,6 @@ public class ArticuloController {
     private AutorModel autorModel = new AutorModel();
     private RevisionModel revisionesModel = new RevisionModel();
     private DebateModel debateModel = new DebateModel();
-    private RevisorController revisorController = new RevisorController();
 
     public ArticuloController() {
 	this.artModel = new ArticuloModel();
