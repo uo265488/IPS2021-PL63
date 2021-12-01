@@ -262,4 +262,11 @@ public class RevisionModel {
 	return db.executeQueryPojo(RevisionDto.class, sql, a.getIdArticulo()).size() == 3;
     }
 
+    public void updateRevisiones(String idArticulo) {
+	String sql = "update revisiones set enviarAlEditor = false where idArticulo = ?";
+
+	db.executeUpdate(sql, idArticulo);
+
+    }
+
 }

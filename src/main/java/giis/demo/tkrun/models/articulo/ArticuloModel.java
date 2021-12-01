@@ -322,7 +322,7 @@ public class ArticuloModel {
 
 	String sql = "update articulos set estado  = ? where idArticulo = ?";
 
-	db.executeUpdate(sql, ArticuloEntity.CON_EL_EDITOR, idArticulo);
+	db.executeUpdate(sql, ArticuloEntity.EN_REVISION, idArticulo);
 
     }
 

@@ -178,6 +178,7 @@ public class ArticuloController {
 
 	artModel.cerrarDebate(idArticulo);
 	debateModel.cerrarDebate(idArticulo);
+	revisionesModel.updateRevisiones(idArticulo);
 
     }
 
