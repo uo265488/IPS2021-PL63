@@ -63,6 +63,7 @@ public class EditorAsignarView extends JDialog {
     private JLabel lblFecha;
     private JComboBox<LocalDate> cbFechas;
     private JButton btnFiltrar;
+    private JButton btnQuitar;
 
     public EditorAsignarView(ArticuloEntity articulo) {
 	addWindowListener(new WindowAdapter() {
@@ -150,7 +151,7 @@ public class EditorAsignarView extends JDialog {
 	for (RevisorEntity r : editorController.getRevisoresDisponibles(articulo)) {
 
 	    for (String pc : palabrasClave) {
-		if (pc.toLowerCase().equals(r.getEspecialidad().toLowerCase())) {
+		if (pc.toLowerCase().equals(r.getEspecialidad().toLowerCase().trim())) {
 		    model.addElement(r);
 		}
 	    }
@@ -225,7 +226,7 @@ public class EditorAsignarView extends JDialog {
 		}
 	    });
 	    btnFiltrar.setMnemonic('F');
-	    btnFiltrar.setBounds(471, 146, 186, 23);
+	    btnFiltrar.setBounds(387, 146, 163, 23);
 	}
 	return btnFiltrar;
     }
@@ -449,6 +450,7 @@ public class EditorAsignarView extends JDialog {
 	contentPane.add(getLblFecha());
 	contentPane.add(getCbFechas());
 	contentPane.add(getBtnFiltrar());
+	contentPane.add(getBtnQuitar());
 
     }
 
@@ -473,6 +475,35 @@ public class EditorAsignarView extends JDialog {
 	vistaArticulo.setModal(true);
 	vistaArticulo.setLocationRelativeTo(this);
 	vistaArticulo.setVisible(true);
+
+    }
+
+    private JButton getBtnQuitar() {
+	if (btnQuitar == null) {
+	    btnQuitar = new JButton("Quitar");
+	    btnQuitar.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    quitarFiltros();
+
+		}
+	    });
+	    btnQuitar.setBounds(560, 147, 85, 21);
+	}
+	return btnQuitar;
+    }
+
+    protected void quitarFiltros() {
+	DefaultListModel<RevisorEntity> model = new DefaultListModel<RevisorEntity>();
+
+	for (RevisorEntity r : editorController.getRevisoresDisponibles(articulo)) {
+
+	    model.addElement(r);
+
+	}
+
+	listDisponibles.setModel(model);
+	scDisponibles.setViewportView(listDisponibles);
+	scDisponibles.updateUI();
 
     }
 }

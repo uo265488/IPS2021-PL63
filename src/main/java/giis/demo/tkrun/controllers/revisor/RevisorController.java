@@ -52,7 +52,7 @@ public class RevisorController {
 	this.idRevisor = idRevisor;
 	this.revisoresModel = new RevisorModel();
 	// no hay inicializacion especifica del modelo, solo de la vista
-	this.initView();
+	// this.initView();
     }
 
     // public AutorController(AutorModel m, EditorView v) {

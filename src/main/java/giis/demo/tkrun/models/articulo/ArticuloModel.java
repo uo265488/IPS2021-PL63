@@ -159,7 +159,7 @@ public class ArticuloModel {
      * Obtiene la lista de articulos que deben ser evaluados por el editor
      */
     public List<ArticuloDto> getArticulosTomarDecision() {
-	String sql = "SELECT * from articulos where vecesRevisado <= 1 and (estado = 'con el editor' or (estado = 'aceptado con cambios menores' and pendienteDeCambios = false))";
+	String sql = "SELECT * from articulos where vecesRevisado <= 2 and (estado = 'con el editor' or (estado = 'aceptado con cambios menores' and pendienteDeCambios = false))";
 	List<ArticuloDto> idsArticulos = db.executeQueryPojo(ArticuloDto.class, sql);
 
 	List<RevisionDto> infoArtRevisados = new ArrayList<RevisionDto>();
@@ -168,7 +168,7 @@ public class ArticuloModel {
 	for (ArticuloDto str : idsArticulos) {
 	    sql = "SELECT * from revisiones where idArticulo = ?";
 	    infoArtRevisados = db.executeQueryPojo(RevisionDto.class, sql, str.getIdArticulo());
-	    if (infoArtRevisados.size() == 3) {
+	    if (infoArtRevisados.size() == 3 || infoArtRevisados.size() == 6) {
 		boolean estaRevisado = true;
 		for (RevisionDto revision : infoArtRevisados) {
 		    if (!revision.isEnviarAlEditor()) {
@@ -304,8 +304,10 @@ public class ArticuloModel {
     }
 
     public void cerrarDebate(String idArticulo) {
+
 	String sql = "update articulos set estado  = ? where idArticulo = ?";
-	db.executeUpdate(sql, ArticuloEntity.EN_REVISION, idArticulo);
+
+	db.executeUpdate(sql, ArticuloEntity.CON_EL_EDITOR, idArticulo);
 
     }
 

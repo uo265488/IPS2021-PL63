@@ -19,6 +19,7 @@ import giis.demo.tkrun.controllers.revisor.RevisorController;
 import giis.demo.tkrun.controllers.user.UserController;
 import giis.demo.tkrun.views.autor.MenuAutor;
 import giis.demo.tkrun.views.editor.MenuEditor;
+import giis.demo.tkrun.views.revisor.RevisorMenu;
 
 public class UserView extends JFrame {
 
@@ -132,7 +133,9 @@ public class UserView extends JFrame {
     }
 
     private void launchRevisor(String idRevisor) {
-	new RevisorController(idRevisor);
+	RevisorMenu rm = new RevisorMenu(idRevisor, new RevisorController());
+	rm.setVisible(true);
+	rm.setLocationRelativeTo(this);
     }
 
     private void login() {
