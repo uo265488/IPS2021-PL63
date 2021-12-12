@@ -10,6 +10,14 @@ import giis.demo.tkrun.models.dtos.RevisorDto;
 import giis.demo.tkrun.models.dtos.SugerenciaDto;
 import giis.demo.util.Database;
 
+/**
+ * Clase de modelo que representa las revisiones. Se encarga de la getiónde los
+ * accesos a la información, tanto consultas como actualizaciones.
+ * 
+ * @author IPS-PL63
+ * @version 3.4.3
+ *
+ */
 public class RevisionModel {
 
     private Database db = new Database();
@@ -20,18 +28,35 @@ public class RevisionModel {
      * @param revisionDto
      */
     public void add(RevisionDto revisionDto) {
-	String sql = "insert into revisiones(idArticulo, idRevisor, fecha, estadoDeLaPropuesta, numeroRevision) values (?,?,?,?, ?)";
+	String sql = "insert into revisiones(idArticulo, idRevisor, fecha, estadoDeLaPropuesta, numeroRevision) values (?,?,?,?,?)";
 
 	db.executeUpdate(sql, revisionDto.getIdArticulo(), revisionDto.getIdRevisor(), revisionDto.getFecha(),
 		revisionDto.getEstadoDeLaPropuesta(), revisionDto.getNumeroRevision());
 
     }
 
+    /**
+     * Obtiene las revisiones que han sido ACEPTADAS de un artículo en concreto.
+     * 
+     * @param idArticulo. El id del artículo del que se quieren extraer las
+     *                    revisiones.
+     * @return revisiones aceptadas
+     */
     public List<RevisionDto> articulosAceptados(String idArticulo) {
 	String sql = "select * " + "from revisiones " + "where idArticulo = ? and estadoDeLaPropuesta = 'ACEPTADA'";
 	return db.executeQueryPojo(RevisionDto.class, sql, idArticulo);
     }
 
+    /**
+     * Obtiene los artículos pendientes de revisar de un revisor en concreto. Un
+     * artículo está pendiente de revisar cuando su revisión ha sido aceptada pero
+     * no se ha enviado al editor.
+     * 
+     * @param idRevisor. El id del revisor del que se quieren extraer los artículos
+     *                   sin revisar.
+     * 
+     * @return artículos sin revisar
+     */
     public List<ArticuloDto> articulosSinRevisar(String idRevisor) {
 	String sql = "select articulos.idArticulo, titulo, vecesRevisado " + "from revisiones, articulos "
 		+ "where idRevisor = ? and enviarAlEditor = false and articulos.idArticulo = revisiones.idArticulo and estado = 'en revision'"
@@ -53,12 +78,19 @@ public class RevisionModel {
 	db.executeUpdate(sql, decision, idArt, idRev);
     }
 
+    /**
+     * Obtiene las revisiones de todos los articulos del sistema.
+     * 
+     * @return todas las revisiones.
+     * 
+     */
     public List<RevisionDto> findAll() {
 	String sql = "select * from revisiones";
 
 	return db.executeQueryPojo(RevisionDto.class, sql);
     }
 
+    // TODO: Ver si hay otro método igual en revisorModel.
     public RevisorDto findByIdRevisor(String id) {
 	String sql = "select * from revisores where idRevisor = ?";
 	List<RevisorDto> revisores = db.executeQueryPojo(RevisorDto.class, sql, id);
@@ -81,10 +113,11 @@ public class RevisionModel {
      */
 
     /**
-     * Encuentra revisiones en funcion del idArticulo
+     * Obtiene las revisiones de un artículo en concreto.
      *
-     * @param idArticulo
-     * @return
+     * @param idArticulo. El id del artículo del que se quieren sus revisiones.
+     * 
+     * @return las revisiones de dicho artiículo.
      */
     public List<RevisionDto> findByIdArticulo(String idArticulo) {
 	String sql = "select * " + "from revisiones " + "where idArticulo = ?";
@@ -92,12 +125,26 @@ public class RevisionModel {
 	return db.executeQueryPojo(RevisionDto.class, sql, idArticulo);
     }
 
+    /**
+     * Obtiene las revisiones que han sido rechazadas por el revisor.
+     * 
+     * @return revisiones rechazadas.
+     */
     public List<RevisionDto> findRevisionesRechazadas() {
 	String sql = "select * from revisiones where estadoDeLaPropuesta='" + RevisionDto.RECHAZADA + "'";
 
 	return db.executeQueryPojo(RevisionDto.class, sql);
     }
 
+    /**
+     * Obtiene la revisión de un artículo y revisor en concreto.
+     * 
+     * @param idArticulo. El id del artículo del que se quiere obtener la revisión.
+     * @param idRevisor.  El id del revisior del que se quiere obtener la revisión.
+     * 
+     * @return optional de null si no hay revision rechazada para la dupla. Optional
+     *         del una revisión si la hay.
+     */
     public Optional<RevisionDto> findRevisionRechazada(String idArticulo, String idRevisor) {
 
 	String sql = "select * from revisiones where idArticulo=? and idRevisor=? and estadoDeLaPropuesta='"
@@ -110,6 +157,16 @@ public class RevisionModel {
 	return Optional.ofNullable(db.executeQueryPojo(RevisionDto.class, sql, idArticulo, idRevisor).get(0));
     }
 
+    /**
+     * Obtiene un revisor dados su nombre, correo y especialidad.
+     * 
+     * @param nombre.       El nombre del revisor a obtener.
+     * @param correo.       El correo del revisor a obtener.
+     * @param especialidad. La especialidad del revisor a obtener.
+     * 
+     * @return El revisor que tiene nombre, correo y especialidad determinados. Null
+     *         si el revisor no existe.
+     */
     public RevisorDto findRevisor(String nombre, String correo, String especialidad) {
 	String sql = "select * from revisores where nombre = ? and correo = ? and especialidad = ?";
 
